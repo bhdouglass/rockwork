@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=upebble
+Exec=upebble
+Icon=upebble/upebble.png
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
+

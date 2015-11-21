@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Main.qml</file>
+        <file>NotificationsPage.qml</file>
+        <file>PebblesPage.qml</file>
+    </qresource>
+</RCC>

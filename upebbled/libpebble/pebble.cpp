@@ -1,0 +1,227 @@
+#include "pebble.h"
+#include "watchconnection.h"
+#include "notificationendpoint.h"
+#include "watchdatareader.h"
+#include "musicendpoint.h"
+#include "phonecallendpoint.h"
+
+#include <QDateTime>
+
+Pebble::Pebble(QObject *parent) : QObject(parent)
+{
+    m_connection = new WatchConnection(this);
+    QObject::connect(m_connection, &WatchConnection::watchConnected, this, &Pebble::onPebbleConnected);
+    QObject::connect(m_connection, &WatchConnection::watchDisconnected, this, &Pebble::onPebbleDisconnected);
+
+    m_connection->registerEndpointHandler(WatchConnection::EndpointVersion, this, "pebbleVersionReceived");
+    m_connection->registerEndpointHandler(WatchConnection::EndpointPhoneVersion, this, "phoneVersionAsked");
+    m_connection->registerEndpointHandler(WatchConnection::EndpointDataLogging, this, "logData");
+    m_notificationEndpoint = new NotificationEndpoint(this, m_connection);
+    m_musicEndpoint = new MusicEndpoint(this, m_connection);
+    m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
+    QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
+}
+
+QBluetoothAddress Pebble::address() const
+{
+    return m_address;
+}
+
+void Pebble::setAddress(const QBluetoothAddress &address)
+{
+    m_address = address;
+}
+
+QString Pebble::name() const
+{
+    return m_name;
+}
+
+void Pebble::setName(const QString &name)
+{
+    m_name = name;
+}
+
+QBluetoothLocalDevice::Pairing Pebble::pairingStatus() const
+{
+    QBluetoothLocalDevice dev;
+    return dev.pairingStatus(m_address);
+}
+
+bool Pebble::connected() const
+{
+    return m_connection->isConnected();
+}
+
+void Pebble::connect()
+{
+    qDebug() << "Connecting to Pebble:" << m_name << m_address;
+    m_connection->connectPebble(m_address);
+}
+
+Pebble::HardwareRevision Pebble::hardwareRevision() const
+{
+    return m_hardwareRevision;
+}
+
+void Pebble::setHardwareRevision(Pebble::HardwareRevision hardwareRevision)
+{
+    m_hardwareRevision = hardwareRevision;
+    switch (m_hardwareRevision) {
+    case HardwareRevisionUNKNOWN:
+        m_hardwarePlatform = HardwarePlatformUnknown;
+        break;
+    case HardwareRevisionTINTIN_EV1:
+    case HardwareRevisionTINTIN_EV2:
+    case HardwareRevisionTINTIN_EV2_3:
+    case HardwareRevisionTINTIN_EV2_4:
+    case HardwareRevisionTINTIN_V1_5:
+    case HardwareRevisionBIANCA:
+    case HardwareRevisionTINTIN_BB:
+    case HardwareRevisionTINTIN_BB2:
+        m_hardwarePlatform = HardwarePlatformAplite;
+        break;
+    case HardwareRevisionSNOWY_EVT2:
+    case HardwareRevisionSNOWY_DVT:
+    case HardwareRevisionBOBBY_SMILES:
+    case HardwareRevisionSNOWY_BB:
+    case HardwareRevisionSNOWY_BB2:
+        m_hardwarePlatform = HardwarePlatformBasalt;
+        break;
+    case HardwareRevisionSPALDING_EVT:
+    case HardwareRevisionSPALDING:
+    case HardwareRevisionSPALDING_BB2:
+        m_hardwarePlatform = HardwarePlatformChalk;
+        break;
+    }
+}
+
+Pebble::HardwarePlatform Pebble::hardwarePlatform() const
+{
+    return m_hardwarePlatform;
+}
+
+void Pebble::sendNotification(Pebble::NotificationType type, const QString &sender, const QString &subject, const QString &data)
+{
+    qDebug() << "should send notification from:" << sender << "subject" << subject << "data" << data;
+    m_notificationEndpoint->sendNotification(type, sender, subject, data);
+}
+
+void Pebble::setMusicMetadata(const MusicMetaData &metaData)
+{
+    m_musicEndpoint->setMusicMetadata(metaData);
+}
+
+void Pebble::incomingCall(uint cookie, const QString &number, const QString &name)
+{
+    m_phoneCallEndpoint->incomingCall(cookie, number, name);
+}
+
+void Pebble::callStarted(uint cookie)
+{
+    m_phoneCallEndpoint->callStarted(cookie);
+}
+
+void Pebble::callEnded(uint cookie, bool missed)
+{
+    m_phoneCallEndpoint->callEnded(cookie, missed);
+}
+
+void Pebble::onPebbleConnected()
+{
+    qDebug() << "Pebble connected:" << m_name;
+    m_connection->writeToPebble(WatchConnection::EndpointVersion, QByteArray(1, 0));
+    emit pebbleConnected();
+}
+
+void Pebble::onPebbleDisconnected()
+{
+    qDebug() << "Pebble disconnected:" << m_name;
+    emit pebbleDisconnected();
+}
+
+void Pebble::pebbleVersionReceived(const QByteArray &data)
+{
+    WatchDataReader wd(data);
+
+    wd.skip(1);
+    qDebug() << "Software Version build:" << QDateTime::fromTime_t(wd.read<quint32>());
+    qDebug() << "Software Version string:" << wd.readFixedString(32);
+    qDebug() << "Software Version commit:" << wd.readFixedString(8);
+
+    qDebug() << "Recovery:" << wd.read<quint8>();
+    Pebble::HardwareRevision rev = (Pebble::HardwareRevision)wd.read<quint8>();
+    setHardwareRevision(rev);
+    qDebug() << "HW Revision:" << rev;
+    qDebug() << "Metadata Version:" << wd.read<quint8>();
+
+    qDebug() << "Safe build:" << QDateTime::fromTime_t(wd.read<quint32>());
+    qDebug() << "Safe version:" << wd.readFixedString(32);
+    qDebug() << "safe commit:" << wd.readFixedString(8);
+    qDebug() << "Safe recovery:" << wd.read<quint8>();
+    qDebug() << "HW Revision:" << wd.read<quint8>();
+    qDebug() << "Metadata Version:" << wd.read<quint8>();
+
+//    _versions.bootLoaderBuild = QDateTime::fromTime_t(u.read<quint32>());
+//    _versions.hardwareRevision = u.readFixedString(9);
+//    _versions.serialNumber = u.readFixedString(12);
+//    _versions.address = u.readBytes(6);
+
+//    platform = hardwareMapping.value(_versions.safe.hw_revision).first;
+
+//    switch (this->platform) {
+//    case APLITE:
+//        _versions.hardwarePlatform = "aplite";
+//        break;
+//    case BASALT:
+//        _versions.hardwarePlatform = "basalt";
+//        break;
+//    case CHALK:
+//        _versions.hardwarePlatform = "chalk";
+//        break;
+//    }
+
+}
+
+void Pebble::phoneVersionAsked(const QByteArray &data)
+{
+    qDebug() << "sending phone version" << data.toHex();
+    unsigned int sessionCap = 0x80000000;
+    unsigned int remoteCap = 16 | 32 | WatchConnection::OSAndroid;
+
+    QByteArray res;
+
+    //Prefix
+    res.append(0x01);
+    res.append(0xff);
+    res.append(0xff);
+    res.append(0xff);
+    res.append(0xff);
+
+    //Session Capabilities
+    res.append((char)((sessionCap >> 24) & 0xff));
+    res.append((char)((sessionCap >> 16) & 0xff));
+    res.append((char)((sessionCap >> 8) & 0xff));
+    res.append((char)(sessionCap & 0xff));
+
+    //Remote Capabilities
+    res.append((char)((remoteCap >> 24) & 0xff));
+    res.append((char)((remoteCap >> 16) & 0xff));
+    res.append((char)((remoteCap >> 8) & 0xff));
+    res.append((char)(remoteCap & 0xff));
+
+    //Version Magic
+    res.append((char)0x02);
+
+    //Append Version
+    res.append((char)0x02); //Major
+    res.append((char)0x00); //Minor
+    res.append((char)0x00); //Bugfix
+
+    m_connection->writeToPebble(WatchConnection::EndpointPhoneVersion, res);
+}
+
+void Pebble::logData(const QByteArray &data)
+{
+//    qDebug() << "Data logged:" << data.toHex();
+}
