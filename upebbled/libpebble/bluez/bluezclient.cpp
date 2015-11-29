@@ -97,6 +97,7 @@ void BluezClient::addDevice(const QDBusObjectPath &path, const QVariantMap &prop
 {
     QString address = properties.value("Address").toString();
     QString name = properties.value("Name").toString();
+    qDebug() << "Adding device" << address << name;
     if (name.startsWith("Pebble") && !name.startsWith("Pebble Time LE") && !m_devices.contains(address)) {
         qDebug() << "Found new Pebble:" << address << name;
         m_devices.insert(address, name);

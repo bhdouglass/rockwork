@@ -6,8 +6,12 @@
 #include <QDBusConnectionInterface>
 #include <QDebug>
 
+// qmenumodel
+#include "dbus-enums.h"
+
 UbuntuPlatform::UbuntuPlatform(QObject *parent):
-    PlatformInterface(parent)
+    PlatformInterface(parent),
+    m_volumeActionGroup()
 {
     // Notifications
     QDBusConnection::sessionBus().registerObject("/org/freedesktop/Notifications", this, QDBusConnection::ExportAllSlots);
@@ -23,15 +27,25 @@ UbuntuPlatform::UbuntuPlatform(QObject *parent):
             qDebug() << "have mpris service" << service;
             m_mprisService = service;
             fetchMusicMetadata();
+            QDBusConnection::sessionBus().connect(m_mprisService, "/org/mpris/MediaPlayer2", "", "PropertiesChanged", this, SLOT(mediaPropertiesChanged(QString,QVariantMap,QStringList)));
             break;
         }
     }
+    m_volumeActionGroup.setBusType(DBusEnums::SessionBus);
+    m_volumeActionGroup.setBusName("com.canonical.indicator.sound");
+    m_volumeActionGroup.setObjectPath("/com/canonical/indicator/sound");
+    m_volumeActionGroup.QDBusObject::connect();
+    connect(&m_volumeActionGroup, &QDBusActionGroup::statusChanged, [this] {
+        if (m_volumeActionGroup.status() == DBusEnums::Connected) {
+            m_volumeAction = m_volumeActionGroup.action("volume");
+        }
+    });
 
     // Calls
     m_telepathyMonitor = new TelepathyMonitor(this);
-    connect(m_telepathyMonitor, &TelepathyMonitor::incomingCall, this, &UbuntuPlatform::onIncomingCall);
-    connect(m_telepathyMonitor, &TelepathyMonitor::callStarted, this, &UbuntuPlatform::onCallStarted);
-    connect(m_telepathyMonitor, &TelepathyMonitor::callEnded, this, &UbuntuPlatform::onCallEnded);
+    connect(m_telepathyMonitor, &TelepathyMonitor::incomingCall, this, &UbuntuPlatform::incomingCall);
+    connect(m_telepathyMonitor, &TelepathyMonitor::callStarted, this, &UbuntuPlatform::callStarted);
+    connect(m_telepathyMonitor, &TelepathyMonitor::callEnded, this, &UbuntuPlatform::callEnded);
 }
 
 QDBusInterface *UbuntuPlatform::interface() const
@@ -39,31 +53,21 @@ QDBusInterface *UbuntuPlatform::interface() const
     return m_iface;
 }
 
-QDBusPendingReply<uint> UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QString &app_icon, const QString &summary, const QString &body, const QStringList &actions, const QVariantHash &hints, int expire_timeout)
+uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QString &app_icon, const QString &summary, const QString &body, const QStringList &actions, const QVariantHash &hints, int expire_timeout)
 {
+    // Lets directly suppress volume change notifications, network password intries and phone call snap decisions here
     QStringList hiddenNotifications = {"indicator-sound", "indicator-network"};
     if (!hiddenNotifications.contains(app_name)) {
         if (hints.contains("x-canonical-secondary-icon") && hints.value("x-canonical-secondary-icon").toString() == "incoming-call") {
             qDebug() << "have phone call notification";
-//            emit incomingCall(m_callCookie++, body, summary);
         } else {
             qDebug() << "Notification received" << app_name << replaces_id << app_icon << summary << body << actions << hints << expire_timeout;
             emit notificationReceived(app_name, Pebble::NotificationTypeSMS, summary, QString(), body);
         }
     }
-    // Make sure the real notification server returns something before we do or we mess up the system
-    QDateTime end = QDateTime::currentDateTime().addMSecs(500);
-    while (QDateTime::currentDateTime() < end) {
-        qApp->processEvents();
-    }
-    return QDBusPendingReply<uint>();
-}
-
-void UbuntuPlatform::CloseNotification(uint id)
-{
-    qDebug() << "should close notification" << id;
-//    emit callEnded(m_callCookie, false);
-//    emit callEnded(m_callCookie, true);
+    // We never return something. We're just snooping in...
+    setDelayedReply(true);
+    return 0;
 }
 
 void UbuntuPlatform::sendMusicControlComand(Pebble::MusicControl controlButton)
@@ -79,6 +83,8 @@ void UbuntuPlatform::sendMusicControlComand(Pebble::MusicControl controlButton)
     case Pebble::MusicControlSkipNext:
         method = "Next";
         break;
+    default:
+        ;
     }
 
     if (!method.isEmpty()) {
@@ -86,8 +92,25 @@ void UbuntuPlatform::sendMusicControlComand(Pebble::MusicControl controlButton)
         QDBusError err = QDBusConnection::sessionBus().call(call);
 
         if (err.isValid()) {
-            qWarning() << "while calling mpris method on" << m_mprisService << ":" << err.message();
+            qWarning() << "Error calling mpris method on" << m_mprisService << ":" << err.message();
         }
+        return;
+    }
+
+    int volumeDiff = 0;
+    switch (controlButton) {
+    case Pebble::MusicControlVolumeUp:
+        volumeDiff = 1;
+        break;
+    case Pebble::MusicControlVolumeDown:
+        volumeDiff = -1;
+        break;
+    default:
+        ;
+    }
+
+    if (m_volumeAction && volumeDiff != 0) {
+        m_volumeAction->activate(volumeDiff);
         return;
     }
 }
@@ -128,18 +151,10 @@ void UbuntuPlatform::fetchMusicMetadataFinished(QDBusPendingCallWatcher *watcher
     }
 }
 
-void UbuntuPlatform::onIncomingCall(uint cookie, const QString &number, const QString &name)
+void UbuntuPlatform::mediaPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps)
 {
-    emit incomingCall(cookie, number, name);
+    Q_UNUSED(interface)
+    Q_UNUSED(changedProps)
+    Q_UNUSED(invalidatedProps)
+    fetchMusicMetadata();
 }
-
-void UbuntuPlatform::onCallStarted(uint cookie)
-{
-    emit callStarted(cookie);
-}
-
-void UbuntuPlatform::onCallEnded(uint cookie, bool missed)
-{
-    emit callEnded(cookie, missed);
-}
-

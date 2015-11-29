@@ -12,6 +12,7 @@ class WatchConnection;
 class NotificationEndpoint;
 class MusicEndpoint;
 class PhoneCallEndpoint;
+class AppsEndpoint;
 
 class Pebble : public QObject
 {
@@ -116,6 +117,7 @@ private:
     NotificationEndpoint *m_notificationEndpoint;
     MusicEndpoint *m_musicEndpoint;
     PhoneCallEndpoint *m_phoneCallEndpoint;
+    AppsEndpoint *m_appsEndpoint;
 };
 
 #endif // PEBBLE_H

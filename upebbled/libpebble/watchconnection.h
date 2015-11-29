@@ -32,7 +32,7 @@ public:
 //        watchSYSTEM_MESSAGE = 18,
         EndpointMusicControl = 32,
         EndpointPhoneControl = 33,
-//        watchAPPLICATION_MESSAGE = 48,
+        EndpointApplicationMessage = 48,
         EndpointLauncher = 49,
 //        watchLOGS = 2000,
 //        watchPING = 2001,
@@ -45,7 +45,7 @@ public:
 //        watchRESOURCE = 4000,
 //        watchFACTORY_SETTINGS = 5001,
         EndpointAppManager = 6000, // Deprecated in 3.x
-//        watchAPP_FETCH = 6001, // New in 3.x
+        EndpointAppFetch = 6001, // New in 3.x
         EndpointDataLogging = 6778,
 //        watchSCREENSHOT = 8000,
 //        watchFILE_MANAGER = 8181,
@@ -62,6 +62,14 @@ public:
          OSOSX = 3,
          OSLinux = 4,
          OSWindows = 5
+    };
+
+    typedef QMap<int, QVariant> Dict;
+    enum DictItemType {
+        typeBYTES,
+        typeSTRING,
+        typeUINT,
+        typeINT
     };
 
     explicit WatchConnection(QObject *parent = 0);

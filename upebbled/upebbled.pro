@@ -9,8 +9,8 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += /usr/include/telepathy-qt5/
-LIBS += -lquazip-qt5 -ltelepathy-qt5
+INCLUDEPATH += /usr/include/telepathy-qt5/ /usr/include/qmenumodel/
+LIBS += -lquazip-qt5 -ltelepathy-qt5 -lqmenumodel
 
 SOURCES += main.cpp \
     libpebble/watchconnection.cpp \
@@ -36,7 +36,8 @@ SOURCES += main.cpp \
     platformintegration/ubuntu/ubuntuplatform.cpp \
     platformintegration/ubuntu/callchannelobserver.cpp \
     pebblemanager.cpp \
-    dbusinterface.cpp
+    dbusinterface.cpp \
+    libpebble/appsendpoint.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -63,7 +64,8 @@ HEADERS += \
     platformintegration/ubuntu/ubuntuplatform.h \
     platformintegration/ubuntu/callchannelobserver.h \
     pebblemanager.h \
-    dbusinterface.h
+    dbusinterface.h \
+    libpebble/appsendpoint.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

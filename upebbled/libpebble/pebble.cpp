@@ -4,6 +4,7 @@
 #include "watchdatareader.h"
 #include "musicendpoint.h"
 #include "phonecallendpoint.h"
+#include "appsendpoint.h"
 
 #include <QDateTime>
 
@@ -20,6 +21,7 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_musicEndpoint = new MusicEndpoint(this, m_connection);
     m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
+    m_appsEndpoint = new AppsEndpoint(this, m_connection);
 }
 
 QBluetoothAddress Pebble::address() const

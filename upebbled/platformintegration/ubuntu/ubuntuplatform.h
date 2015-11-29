@@ -6,10 +6,13 @@
 #include <QDBusInterface>
 #include <TelepathyQt/AbstractClientObserver>
 
+#include <qdbusactiongroup.h>
+#include <qstateaction.h>
+
 class QDBusPendingCallWatcher;
 class TelepathyMonitor;
 
-class UbuntuPlatform : public PlatformInterface
+class UbuntuPlatform : public PlatformInterface, public QDBusContext
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.freedesktop.Notifications")
@@ -26,23 +29,21 @@ public:
     void hangupCall(uint cookie) override;
 
 public slots:
-    QDBusPendingReply<uint> Notify(const QString &app_name, uint replaces_id, const QString &app_icon, const QString &summary, const QString &body, const QStringList &actions, const QVariantHash &hints, int expire_timeout);
-    void CloseNotification(uint id);
+    uint Notify(const QString &app_name, uint replaces_id, const QString &app_icon, const QString &summary, const QString &body, const QStringList &actions, const QVariantHash &hints, int expire_timeout);
 
 
 private slots:
     void fetchMusicMetadata();
     void fetchMusicMetadataFinished(QDBusPendingCallWatcher *watcher);
-
-    void onIncomingCall(uint cookie, const QString &number, const QString &name);
-    void onCallStarted(uint cookie);
-    void onCallEnded(uint cookie, bool missed);
+    void mediaPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps);
 
 private:
     QDBusInterface *m_iface;
 
     QString m_mprisService;
     MusicMetaData m_musicMetaData;
+    QDBusActionGroup m_volumeActionGroup;
+    QStateAction *m_volumeAction = nullptr;
 
     TelepathyMonitor *m_telepathyMonitor;
 };
