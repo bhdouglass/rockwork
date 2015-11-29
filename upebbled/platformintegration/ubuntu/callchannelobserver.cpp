@@ -82,7 +82,7 @@ void TelepathyMonitor::onCallStarted(Tp::CallChannelPtr callChannel)
 {
     // Haven't figured how to send outgoing calls to pebble yet... discard it
     if (callChannel->initiatorContact()->id().isEmpty()) {
-        qWarning() << "discarding phone call. looks like it's an outgoign one";
+        qWarning() << "ignoring phone call. looks like it's an outgoing one";
         return;
     }
 

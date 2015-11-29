@@ -6,28 +6,48 @@ import upebble 1.0
 Page {
     title: "Notifications"
 
-    ListView {
+    ColumnLayout {
         anchors.fill: parent
-        model: NotificationSourceModel {
-            id: notificationSourceModel
+        anchors.topMargin: units.gu(1)
+        Item {
+            Layout.fillWidth: true
+            implicitHeight: infoLabel.height
+
+            Label {
+                id: infoLabel
+                anchors { left: parent.left; right: parent.right; margins: units.gu(1) }
+                wrapMode: Text.WordWrap
+                text: "Entries here will appear as notifications keep coming. Selected notifications will be shown on your Pebble."
+            }
         }
-        delegate: ListItem {
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: units.gu(1)
-                Label {
-                    text: model.name
-                    Layout.fillWidth: true
-                }
-                Switch {
-                    checked: model.enabled
-                    onCheckedChanged: {
-                        print("new checked", checked)
-                        notificationSourceModel.setEnabled(index, checked)
+
+
+        ListView {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            clip: true
+            model: NotificationSourceModel {
+                id: notificationSourceModel
+            }
+            delegate: ListItem {
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.margins: units.gu(1)
+                    Label {
+                        text: model.name
+                        Layout.fillWidth: true
+                    }
+                    Switch {
+                        checked: model.enabled
+                        onCheckedChanged: {
+                            print("new checked", checked)
+                            notificationSourceModel.setEnabled(index, checked)
+                        }
                     }
                 }
             }
         }
     }
+
 }
 
