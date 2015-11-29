@@ -1,4 +1,4 @@
-QT += core bluetooth dbus network contacts
+QT += core bluetooth dbus network contacts qml location
 QT -= gui
 
 load(ubuntu-click)
@@ -18,11 +18,18 @@ SOURCES += main.cpp \
     libpebble/appinstaller.cpp \
     libpebble/watchdatareader.cpp \
     libpebble/watchdatawriter.cpp \
-    libpebble/fileuploader.cpp \
     libpebble/notificationendpoint.cpp \
     libpebble/musicendpoint.cpp \
     libpebble/phonecallendpoint.cpp \
     libpebble/musicmetadata.cpp \
+    libpebble/jskitmanager.cpp \
+    libpebble/jskitobjects.cpp \
+    libpebble/appinfo.cpp \
+    libpebble/appmanager.cpp \
+    libpebble/appmsgmanager.cpp \
+    libpebble/uploadmanager.cpp \
+    libpebble/bundle.cpp \
+    libpebble/bankmanager.cpp \
     libpebble/bluez/bluezclient.cpp \
     libpebble/bluez/bluez_agentmanager1.cpp \
     libpebble/bluez/bluez_adapter1.cpp \
@@ -36,8 +43,7 @@ SOURCES += main.cpp \
     platformintegration/ubuntu/ubuntuplatform.cpp \
     platformintegration/ubuntu/callchannelobserver.cpp \
     pebblemanager.cpp \
-    dbusinterface.cpp \
-    libpebble/appsendpoint.cpp
+    dbusinterface.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -45,12 +51,19 @@ HEADERS += \
     libpebble/appinstaller.h \
     libpebble/watchdatareader.h \
     libpebble/watchdatawriter.h \
-    libpebble/fileuploader.h \
     libpebble/notificationendpoint.h \
     libpebble/musicendpoint.h \
     libpebble/musicmetadata.h \
     libpebble/phonecallendpoint.h \
     libpebble/platforminterface.h \
+    libpebble/jskitmanager.h \
+    libpebble/jskitobjects.h \
+    libpebble/appinfo.h \
+    libpebble/appmanager.h \
+    libpebble/appmsgmanager.h \
+    libpebble/uploadmanager.h \
+    libpebble/bundle.h \
+    libpebble/bankmanager.h \
     libpebble/bluez/bluezclient.h \
     libpebble/bluez/bluez_agentmanager1.h \
     libpebble/bluez/bluez_adapter1.h \
@@ -64,8 +77,7 @@ HEADERS += \
     platformintegration/ubuntu/ubuntuplatform.h \
     platformintegration/ubuntu/callchannelobserver.h \
     pebblemanager.h \
-    dbusinterface.h \
-    libpebble/appsendpoint.h
+    dbusinterface.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

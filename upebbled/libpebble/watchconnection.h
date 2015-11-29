@@ -11,7 +11,7 @@
 #include <QFile>
 
 class EndpointHandlerInterface;
-class Upload;
+class UploadManager;
 
 class Callback
 {
@@ -26,6 +26,7 @@ class WatchConnection : public QObject
 public:
 
     enum Endpoint {
+        EndpointZero = 0, // We get that sometimes... nut sure yet what it is...
         EndpointTime = 11,
         EndpointVersion = 16,
         EndpointPhoneVersion = 17,
@@ -66,13 +67,29 @@ public:
 
     typedef QMap<int, QVariant> Dict;
     enum DictItemType {
-        typeBYTES,
-        typeSTRING,
-        typeUINT,
-        typeINT
+        DictItemTypeBytes,
+        DictItemTypeString,
+        DictItemTypeUInt,
+        DictItemTypeInt
+    };
+
+    enum UploadType {
+        UploadTypeFirmware = 1,
+        UploadTypeRecovery = 2,
+        UploadTypeSystemResources = 3,
+        UploadTypeResources = 4,
+        UploadTypeBinary = 5,
+        UploadTypeFile = 6,
+        UploadTypeWorker = 7
+    };
+    enum UploadStatus {
+        UploadStatusProgress,
+        UploadStatusFailed,
+        UploadStatusSuccess
     };
 
     explicit WatchConnection(QObject *parent = 0);
+    UploadManager *uploadManager() const;
 
     void connectPebble(const QBluetoothAddress &pebble);
     bool isConnected();
@@ -88,9 +105,6 @@ signals:
     void watchConnected();
     void watchDisconnected();
     void watchConnectionFailed();
-
-public slots:
-    void writeData(Endpoint endpoint, const QByteArray &data);
 
 private:
     void scheduleReconnect();
@@ -115,6 +129,7 @@ private:
     int m_connectionAttempts = 0;
     QTimer m_reconnectTimer;
 
+    UploadManager *m_uploadManager;
     QHash<Endpoint, Callback> m_endpointHandlers;
 };
 

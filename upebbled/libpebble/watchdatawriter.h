@@ -10,8 +10,6 @@
 
 class WatchDataWriter
 {
-    static QLoggingCategory l;
-
 public:
     WatchDataWriter(QByteArray *buf);
 

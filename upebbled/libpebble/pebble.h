@@ -12,7 +12,10 @@ class WatchConnection;
 class NotificationEndpoint;
 class MusicEndpoint;
 class PhoneCallEndpoint;
-class AppsEndpoint;
+class AppManager;
+class AppMsgManager;
+class BankManager;
+class JSKitManager;
 
 class Pebble : public QObject
 {
@@ -21,6 +24,7 @@ class Pebble : public QObject
     Q_PROPERTY(QBluetoothAddress address MEMBER m_address)
     Q_PROPERTY(HardwareRevision HardwareRevision READ hardwareRevision)
     Q_PROPERTY(HardwarePlatform hardwarePlatform MEMBER m_hardwarePlatform)
+    Q_PROPERTY(QString serialNumber MEMBER m_serialNumber)
 
 public:
     enum HardwareRevision {
@@ -82,6 +86,7 @@ public:
 
     HardwareRevision hardwareRevision() const;
     HardwarePlatform hardwarePlatform() const;
+    QString serialNumber() const;
 
 public slots:
     void sendNotification(NotificationType type, const QString &sender, const QString &subject, const QString &data);
@@ -112,12 +117,16 @@ private:
     QString m_name;
     HardwareRevision m_hardwareRevision;
     HardwarePlatform m_hardwarePlatform;
+    QString m_serialNumber;
 
     WatchConnection *m_connection;
     NotificationEndpoint *m_notificationEndpoint;
     MusicEndpoint *m_musicEndpoint;
     PhoneCallEndpoint *m_phoneCallEndpoint;
-    AppsEndpoint *m_appsEndpoint;
+    AppManager *m_appManager;
+    AppMsgManager *m_appMsgManager;
+    JSKitManager *m_jskitManager;
+    BankManager *m_bankManager;
 };
 
 #endif // PEBBLE_H

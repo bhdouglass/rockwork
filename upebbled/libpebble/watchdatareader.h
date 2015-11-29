@@ -86,13 +86,13 @@ public:
             const int width = readLE<quint16>();
 
             switch (type) {
-            case WatchConnection::typeBYTES:
+            case WatchConnection::DictItemTypeBytes:
                 d.insert(key, QVariant::fromValue(readBytes(width)));
                 break;
-            case WatchConnection::typeSTRING:
+            case WatchConnection::DictItemTypeString:
                 d.insert(key, QVariant::fromValue(readFixedString(width)));
                 break;
-            case WatchConnection::typeUINT:
+            case WatchConnection::DictItemTypeUInt:
                 switch (width) {
                 case sizeof(quint8):
                     d.insert(key, QVariant::fromValue(readLE<quint8>()));
@@ -109,7 +109,7 @@ public:
                 }
 
                 break;
-            case WatchConnection::typeINT:
+            case WatchConnection::DictItemTypeInt:
                 switch (width) {
                 case sizeof(qint8):
                     d.insert(key, QVariant::fromValue(readLE<qint8>()));

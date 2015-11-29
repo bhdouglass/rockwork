@@ -4,7 +4,10 @@
 #include "watchdatareader.h"
 #include "musicendpoint.h"
 #include "phonecallendpoint.h"
-#include "appsendpoint.h"
+#include "appmanager.h"
+#include "appmsgmanager.h"
+#include "jskitmanager.h"
+#include "bankmanager.h"
 
 #include <QDateTime>
 
@@ -21,7 +24,10 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_musicEndpoint = new MusicEndpoint(this, m_connection);
     m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
-    m_appsEndpoint = new AppsEndpoint(this, m_connection);
+    m_appManager = new AppManager(this);
+    m_bankManager = new BankManager(m_connection, m_appManager, this);
+    m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
+    m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
 }
 
 QBluetoothAddress Pebble::address() const
@@ -103,6 +109,11 @@ Pebble::HardwarePlatform Pebble::hardwarePlatform() const
     return m_hardwarePlatform;
 }
 
+QString Pebble::serialNumber() const
+{
+    return m_serialNumber;
+}
+
 void Pebble::sendNotification(Pebble::NotificationType type, const QString &sender, const QString &subject, const QString &data)
 {
     qDebug() << "should send notification from:" << sender << "subject" << subject << "data" << data;
@@ -164,9 +175,10 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "HW Revision:" << wd.read<quint8>();
     qDebug() << "Metadata Version:" << wd.read<quint8>();
 
-//    _versions.bootLoaderBuild = QDateTime::fromTime_t(u.read<quint32>());
-//    _versions.hardwareRevision = u.readFixedString(9);
-//    _versions.serialNumber = u.readFixedString(12);
+    qDebug() << "BootloaderBuild" << QDateTime::fromTime_t(wd.read<quint32>());
+    qDebug() << "hardwareRevision" << wd.readFixedString(9);
+    m_serialNumber = wd.readFixedString(12);
+    qDebug() << "serialnumber" << m_serialNumber;
 //    _versions.address = u.readBytes(6);
 
 //    platform = hardwareMapping.value(_versions.safe.hw_revision).first;

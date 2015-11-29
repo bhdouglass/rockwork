@@ -1,6 +1,7 @@
 #include "watchconnection.h"
 #include "watchdatareader.h"
 #include "watchdatawriter.h"
+#include "uploadmanager.h"
 
 #include <QDBusConnection>
 #include <QDBusReply>
@@ -20,19 +21,14 @@ WatchConnection::WatchConnection(QObject *parent) :
 
     m_localDevice = new QBluetoothLocalDevice(this);
     connect(m_localDevice, &QBluetoothLocalDevice::hostModeStateChanged, this, &WatchConnection::hostModeStateChanged);
+
+    m_uploadManager = new UploadManager(this, this);
 }
 
-
-void WatchConnection::writeData(WatchConnection::Endpoint endpoint, const QByteArray &data)
+UploadManager *WatchConnection::uploadManager() const
 {
-    qDebug() << "writing data" << endpoint;
-    writeToPebble(endpoint, data);
-//    Callback cb;
-//    cb.obj = callbackObj;
-//    cb.method = callbackMethod;
-//    m_callbacks[endpoint].append(cb);
+    return m_uploadManager;
 }
-
 
 void WatchConnection::scheduleReconnect()
 {
@@ -95,7 +91,7 @@ bool WatchConnection::isConnected()
 
 void WatchConnection::writeToPebble(Endpoint endpoint, const QByteArray &data)
 {
-    if (!m_socket || !m_socket->state() == QBluetoothSocket::ConnectedState) {
+    if (!m_socket || m_socket->state() != QBluetoothSocket::ConnectedState) {
         qWarning() << "Socket not open. Cannot send data to Pebble. (Endpoint:" << endpoint << ")";
         return;
     }
@@ -187,7 +183,7 @@ void WatchConnection::readyRead()
             QMetaObject::invokeMethod(cb.obj.data(), cb.method.toLatin1(), Q_ARG(QByteArray, data));
         }
     } else {
-        qWarning() << "Have message for unhandled endpoint" << endpoint;
+        qWarning() << "Have message for unhandled endpoint" << endpoint << data.toHex();
     }
 
     if (m_socket->bytesAvailable() > 0) {
