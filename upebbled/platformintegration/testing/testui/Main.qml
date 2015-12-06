@@ -13,7 +13,19 @@ Column {
     Button {
         text: "Fake Sms Notification"
         onClicked: {
-           handler.sendNotification(1, "TestFrom", "TestSubject", "TestText")
+           handler.sendNotification(1, "aaaa", "bbbb", "cccc")
+        }
+    }
+    Button {
+        text: "Fake Facebook Notification"
+        onClicked: {
+           handler.sendNotification(2, "TestFrom", "TestSubject", "TestText")
+        }
+    }
+    Button {
+        text: "Fake Twitter Notification"
+        onClicked: {
+           handler.sendNotification(3, "TestFrom", "TestSubject", "TestText")
         }
     }
     Button {

@@ -55,14 +55,22 @@ QDBusInterface *UbuntuPlatform::interface() const
 
 uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QString &app_icon, const QString &summary, const QString &body, const QStringList &actions, const QVariantHash &hints, int expire_timeout)
 {
-    // Lets directly suppress volume change notifications, network password intries and phone call snap decisions here
+    // Lets directly suppress volume change notifications, network password entries and phone call snap decisions here
     QStringList hiddenNotifications = {"indicator-sound", "indicator-network"};
     if (!hiddenNotifications.contains(app_name)) {
         if (hints.contains("x-canonical-secondary-icon") && hints.value("x-canonical-secondary-icon").toString() == "incoming-call") {
-            qDebug() << "have phone call notification";
+            qDebug() << "Have a phone call notification. Ignoring it...";
         } else {
             qDebug() << "Notification received" << app_name << replaces_id << app_icon << summary << body << actions << hints << expire_timeout;
-            emit notificationReceived(app_name, Pebble::NotificationTypeSMS, summary, QString(), body);
+            if (app_name.contains("twitter")) {
+                emit notificationReceived(app_name, Pebble::NotificationTypeTwitter, summary, QString(), body);
+            } else if (app_name.contains("dekko")) {
+                emit notificationReceived(app_name, Pebble::NotificationTypeEmail, summary, QString(), body);
+            } else if (app_name.contains("facebook")) {
+                emit notificationReceived(app_name, Pebble::NotificationTypeFacebook, summary, QString(), body);
+            } else {
+                emit notificationReceived(app_name, Pebble::NotificationTypeSMS, summary, QString(), body);
+            }
         }
     }
     // We never return something. We're just snooping in...

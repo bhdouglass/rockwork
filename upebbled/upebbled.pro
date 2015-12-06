@@ -5,7 +5,7 @@ load(ubuntu-click)
 
 TARGET = upebbled
 CONFIG += c++11
-CONFIG -= app_bundle
+#CONFIG -= app_bundle
 
 TEMPLATE = app
 
@@ -39,11 +39,12 @@ SOURCES += main.cpp \
     libpebble/bluez/device.cpp \
     core.cpp \
     notificationmanager.cpp \
+    pebblemanager.cpp \
+    dbusinterface.cpp \
 # Platform integration part
     platformintegration/ubuntu/ubuntuplatform.cpp \
     platformintegration/ubuntu/callchannelobserver.cpp \
-    pebblemanager.cpp \
-    dbusinterface.cpp
+    libpebble/blobdb.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -73,11 +74,12 @@ HEADERS += \
     libpebble/bluez/device.h \
     core.h \
     notificationmanager.h \
+    pebblemanager.h \
+    dbusinterface.h \
 # Platform integration part
     platformintegration/ubuntu/ubuntuplatform.h \
     platformintegration/ubuntu/callchannelobserver.h \
-    pebblemanager.h \
-    dbusinterface.h
+    libpebble/blobdb.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

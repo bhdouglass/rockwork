@@ -7,6 +7,12 @@
 
 #include <QHash>
 
+#ifdef ENABLE_TESTING
+#include <QQuickView>
+#include <QQmlEngine>
+#include <QQmlContext>
+#endif
+
 PebbleManager::PebbleManager(QObject *parent) : QObject(parent)
 {
     m_bluezClient = new BluezClient(this);
@@ -45,6 +51,14 @@ void PebbleManager::setupPebble(Pebble *pebble)
     connect(Core::instance()->platform(), &PlatformInterface::callStarted, pebble, &Pebble::callStarted);
     connect(Core::instance()->platform(), &PlatformInterface::callEnded, pebble, &Pebble::callEnded);
     connect(pebble, &Pebble::hangupCall, Core::instance()->platform(), &PlatformInterface::hangupCall);
+
+#ifdef ENABLE_TESTING
+    qmlRegisterUncreatableType<Pebble>("PebbleTest", 1, 0, "Pebble", "Dont");
+    QQuickView *view = new QQuickView();
+    view->engine()->rootContext()->setContextProperty("pebble", pebble);
+    view->setSource(QUrl("qrc:///testui/PebbleController.qml"));
+    view->show();
+#endif
 }
 
 Pebble* PebbleManager::get(const QBluetoothAddress &address)

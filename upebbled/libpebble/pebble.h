@@ -16,12 +16,14 @@ class AppManager;
 class AppMsgManager;
 class BankManager;
 class JSKitManager;
+class BlobDB;
 
 class Pebble : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Pebble::NotificationType)
     Q_PROPERTY(QBluetoothAddress address MEMBER m_address)
+    Q_PROPERTY(QString name MEMBER m_name)
     Q_PROPERTY(HardwareRevision HardwareRevision READ hardwareRevision)
     Q_PROPERTY(HardwarePlatform hardwarePlatform MEMBER m_hardwarePlatform)
     Q_PROPERTY(QString serialNumber MEMBER m_serialNumber)
@@ -57,7 +59,9 @@ public:
 
     enum NotificationType {
         NotificationTypeEmail,
-        NotificationTypeSMS
+        NotificationTypeSMS,
+        NotificationTypeFacebook,
+        NotificationTypeTwitter
     };
     enum MusicControl {
         MusicControlPlayPause,
@@ -91,6 +95,9 @@ public:
 public slots:
     void sendNotification(NotificationType type, const QString &sender, const QString &subject, const QString &data);
     void setMusicMetadata(const MusicMetaData &metaData);
+    void insertTimelinePin();
+    void insertReminder();
+    void clearTimeline();
 
     void incomingCall(uint cookie, const QString &number, const QString &name);
     void callStarted(uint cookie);
@@ -127,6 +134,7 @@ private:
     AppMsgManager *m_appMsgManager;
     JSKitManager *m_jskitManager;
     BankManager *m_bankManager;
+    BlobDB *m_blobDB;
 };
 
 #endif // PEBBLE_H

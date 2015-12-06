@@ -13,6 +13,21 @@
 class EndpointHandlerInterface;
 class UploadManager;
 
+class PebblePacket {
+public:
+    PebblePacket() {}
+    virtual ~PebblePacket() = default;
+    virtual QByteArray serialize() const = 0;
+    QByteArray packString(const QString &string) const {
+        QByteArray tmp = string.left(0xEF).toUtf8();
+        QByteArray ret;
+        ret.append((tmp.length() + 1) & 0xFF);
+        ret.append(tmp);
+        ret.append('\0');
+        return ret;
+    }
+};
+
 class Callback
 {
 public:

@@ -8,6 +8,7 @@
 #include "appmsgmanager.h"
 #include "jskitmanager.h"
 #include "bankmanager.h"
+#include "blobdb.h"
 
 #include <QDateTime>
 
@@ -28,6 +29,7 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_bankManager = new BankManager(m_connection, m_appManager, this);
     m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
+    m_blobDB = new BlobDB(this, m_connection);
 }
 
 QBluetoothAddress Pebble::address() const
@@ -117,12 +119,37 @@ QString Pebble::serialNumber() const
 void Pebble::sendNotification(Pebble::NotificationType type, const QString &sender, const QString &subject, const QString &data)
 {
     qDebug() << "should send notification from:" << sender << "subject" << subject << "data" << data;
-    m_notificationEndpoint->sendNotification(type, sender, subject, data);
+    switch (m_hardwarePlatform) {
+    case Pebble::HardwarePlatformAplite:
+        m_notificationEndpoint->sendLegacyNotification(type, sender, subject, data);
+        break;
+    case Pebble::HardwarePlatformBasalt:
+    case Pebble::HardwarePlatformChalk:
+        m_blobDB->insertNotification(sender, subject, data);
+        break;
+    default:
+        qDebug() << "Unknown Hardware platform. Cannot send notification.";
+    }
 }
 
 void Pebble::setMusicMetadata(const MusicMetaData &metaData)
 {
     m_musicEndpoint->setMusicMetadata(metaData);
+}
+
+void Pebble::insertTimelinePin()
+{
+    m_blobDB->insertTimelinePin(TimelineItem::LayoutGenericPin);
+}
+
+void Pebble::insertReminder()
+{
+    m_blobDB->insertReminder();
+}
+
+void Pebble::clearTimeline()
+{
+    m_blobDB->clear(BlobDB::BlobDBIdPin);
 }
 
 void Pebble::incomingCall(uint cookie, const QString &number, const QString &name)

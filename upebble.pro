@@ -6,8 +6,7 @@ TEMPLATE = subdirs
 #load Ubuntu specific features
 load(ubuntu-click)
 
-SUBDIRS += upebble \
-    upebbled
+SUBDIRS += upebble upebbled
 
 # specify the manifest file, this file is required for click
 # packaging and for the IDE to create runconfigurations

@@ -19,6 +19,7 @@ void PhoneCallEndpoint::incomingCall(uint cookie, const QString &number, const Q
     tmp.append(name);
 
     char act = CallActionIncoming;
+    // FIXME: Outgoing calls don't seem to work... Maybe something wrong in the enum?
 //    if (!incoming) {
 //        act = CallActionOutgoing;
 //    }
