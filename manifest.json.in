@@ -12,7 +12,7 @@
             "desktop": "upebbled/upebbled.desktop"
         }
     },
-    "version": "0.2",
-    "maintainer": "Michael Zanetti <michael.zanetti@canonical.com>",
+    "version": "0.3",
+    "maintainer": "Michael Zanetti <michael_zanetti@gmx.net",
     "framework": "ubuntu-sdk-15.04"
 }
