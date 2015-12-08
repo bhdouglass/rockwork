@@ -15,11 +15,11 @@ public:
 
 // Notifications
 signals:
-    void notificationReceived(const QString &source, Pebble::NotificationType type, const QString &from, const QString &text, const QString &subject);
+    void notificationReceived(const QString &source, Pebble::NotificationType type, const QString &from, const QString &subject, const QString &text);
 
 // Music
 public:
-    virtual void sendMusicControlComand(Pebble::MusicControl controlButton) = 0;
+    virtual void sendMusicControlCommand(Pebble::MusicControl controlButton) = 0;
     virtual MusicMetaData musicMetaData() const = 0;
 signals:
     void musicMetadataChanged(MusicMetaData metaData);

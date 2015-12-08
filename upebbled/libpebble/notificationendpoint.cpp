@@ -34,7 +34,8 @@ void NotificationEndpoint::sendLegacyNotification(Pebble::NotificationType type,
     }
 
     qDebug() << "Sending legacy notification. Sender:" << sender << "Subject:" << subject << "Data:" << data;
-    LegacyNotification notification(source, sender, data, QDateTime::currentDateTime(), subject);
+    QString body = subject.isEmpty() ? data : subject;
+    LegacyNotification notification(source, sender, body, QDateTime::currentDateTime(), subject);
     m_watchConnection->writeToPebble(WatchConnection::EndpointNotification, notification.serialize());
 }
 

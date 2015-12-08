@@ -15,7 +15,7 @@ TestingPlatform::TestingPlatform(QObject *parent):
     m_view->show();
 }
 
-void TestingPlatform::sendMusicControlComand(Pebble::MusicControl command)
+void TestingPlatform::sendMusicControlCommand(Pebble::MusicControl command)
 {
     qDebug() << "Testing platform received music command from pebble" << command;
 }
@@ -28,7 +28,7 @@ MusicMetaData TestingPlatform::musicMetaData() const
 void TestingPlatform::sendNotification(int type, const QString &from, const QString &subject, const QString &text)
 {
     qDebug() << "Injecting mock notification" << type;
-    emit notificationReceived("test_app", (Pebble::NotificationType)type, from, text, subject);
+    emit notificationReceived("test_app", (Pebble::NotificationType)type, from, subject, text);
 }
 
 void TestingPlatform::fakeIncomingCall(uint cookie, const QString &number, const QString &name)

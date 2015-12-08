@@ -7,9 +7,6 @@
         "upebble": {
             "apparmor": "upebble/upebble.apparmor",
             "desktop": "upebble/upebble.desktop"
-        },
-        "service": {
-            "desktop": "upebbled/upebbled.desktop"
         }
     },
     "version": "0.3",

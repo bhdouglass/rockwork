@@ -23,7 +23,7 @@ public:
     UbuntuPlatform(QObject *parent = 0);
     QDBusInterface* interface() const;
 
-    void sendMusicControlComand(Pebble::MusicControl controlButton) override;
+    void sendMusicControlCommand(Pebble::MusicControl controlButton) override;
     MusicMetaData musicMetaData() const override;
 
     void hangupCall(uint cookie) override;
