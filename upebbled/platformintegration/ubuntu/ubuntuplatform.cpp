@@ -63,13 +63,13 @@ uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QSt
         } else {
             qDebug() << "Notification received" << app_name << replaces_id << app_icon << summary << body << actions << hints << expire_timeout;
             if (app_name.contains("twitter")) {
-                emit notificationReceived(app_name, Pebble::NotificationTypeTwitter, summary, QString(), body);
+                emit notificationReceived(app_name, Pebble::NotificationTypeTwitter, summary, body, QString());
             } else if (app_name.contains("dekko")) {
-                emit notificationReceived(app_name, Pebble::NotificationTypeEmail, summary, QString(), body);
+                emit notificationReceived(app_name, Pebble::NotificationTypeEmail, summary, body, QString());
             } else if (app_name.contains("facebook")) {
-                emit notificationReceived(app_name, Pebble::NotificationTypeFacebook, summary, QString(), body);
+                emit notificationReceived(app_name, Pebble::NotificationTypeFacebook, summary, body, QString());
             } else {
-                emit notificationReceived(app_name, Pebble::NotificationTypeSMS, summary, QString(), body);
+                emit notificationReceived(app_name, Pebble::NotificationTypeSMS, summary, body, QString());
             }
         }
     }

@@ -28,7 +28,7 @@ MusicMetaData TestingPlatform::musicMetaData() const
 void TestingPlatform::sendNotification(int type, const QString &from, const QString &subject, const QString &text)
 {
     qDebug() << "Injecting mock notification" << type;
-    emit notificationReceived("test_app", (Pebble::NotificationType)type, from, subject, text);
+    emit notificationReceived("test_app", (Pebble::NotificationType)type, from, text, subject);
 }
 
 void TestingPlatform::fakeIncomingCall(uint cookie, const QString &number, const QString &name)
