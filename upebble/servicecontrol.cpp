@@ -52,11 +52,15 @@ bool ServiceControl::installServiceFile()
         return false;
     }
 
+    QString appDir = qApp->applicationDirPath();
+    // Try to replace version with "current" to be more robust against updates
+    appDir.replace(QRegExp("upebble.mzanetti\/[0-9.]*\/"), "upebble.mzanetti/current/");
+
     f.write("start on started unity8\n");
     f.write("pre-start script\n");
-    f.write("   initctl set-env LD_LIBRARY_PATH=" + qApp->applicationDirPath().toUtf8() + "/../:$LD_LIBRARY_PATH\n");
+    f.write("   initctl set-env LD_LIBRARY_PATH=" + appDir.toUtf8() + "/../:$LD_LIBRARY_PATH\n");
     f.write("end script\n");
-    f.write("exec " + qApp->applicationDirPath().toUtf8() + "/upebbled\n");
+    f.write("exec " + appDir.toUtf8() + "/upebbled\n");
     f.close();
     return true;
 }
