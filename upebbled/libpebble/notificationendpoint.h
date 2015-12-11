@@ -53,7 +53,7 @@ class NotificationEndpoint: public QObject
 public:
     NotificationEndpoint(Pebble *pebble, WatchConnection *watchConnection);
 
-    void sendLegacyNotification(Pebble::NotificationType type, const QString &sender, const QString &data, const QString &subject);
+    void sendLegacyNotification(const Notification &notification);
 
 private slots:
     void notificationReply(const QByteArray &data);

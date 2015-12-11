@@ -62,15 +62,42 @@ uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QSt
             qDebug() << "Have a phone call notification. Ignoring it...";
         } else {
             qDebug() << "Notification received" << app_name << replaces_id << app_icon << summary << body << actions << hints << expire_timeout;
+            Notification n(app_name);
             if (app_name.contains("twitter")) {
-                emit notificationReceived(app_name, Pebble::NotificationTypeTwitter, summary, QString(), body);
+                n.setType(Notification::NotificationTypeTwitter);
+                n.setSourceName("Twitter");
             } else if (app_name.contains("dekko")) {
-                emit notificationReceived(app_name, Pebble::NotificationTypeEmail, summary, QString(), body);
+                n.setType(Notification::NotificationTypeEmail);
+                n.setSourceName("EMail");
+            } else if (app_name.toLower().contains("gmail")) {
+                n.setType(Notification::NotificationTypeGMail);
+                n.setSourceName("GMail");
             } else if (app_name.contains("facebook")) {
-                emit notificationReceived(app_name, Pebble::NotificationTypeFacebook, summary, QString(), body);
+                n.setType(Notification::NotificationTypeFacebook);
+                n.setSourceName("Facebook");
+            } else if (app_name.contains("telegram")) {
+                n.setType(Notification::NotificationTypeTelegram);
+                n.setSourceName("Telegram");
+            } else if (app_name.toLower().contains("hangout")) {
+                n.setType(Notification::NotificationTypeHangout);
+                n.setSourceName("Hangout");
+            } else if (app_name.contains("indicator-datetime")) {
+                n.setType(Notification::NotificationTypeReminder);
+                n.setSourceName("reminders");
             } else {
-                emit notificationReceived(app_name, Pebble::NotificationTypeSMS, summary, QString(), body);
+                n.setType(Notification::NotificationTypeGeneric);
             }
+            n.setSender(summary);
+            n.setBody(body);
+            foreach (const QString &action, actions) {
+                if (action.contains(QRegExp("^[a-z]*://"))) {
+                    n.setActToken(action);
+                    break;
+                }
+            }
+            qDebug() << "have act token" << n.actToken();
+
+            emit notificationReceived(n);
         }
     }
     // We never return something. We're just snooping in...

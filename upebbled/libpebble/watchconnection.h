@@ -67,6 +67,7 @@ public:
 //        watchFILE_MANAGER = 8181,
 //        watchCORE_DUMP = 9000,
 //        watchAUDIO = 10000, // New in 3.x
+        EndpointActionHandler = 11440,
         EndpointBlobDB = 45531, // New in 3.x
         EndpointPutBytes = 48879
     };

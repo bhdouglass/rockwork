@@ -10,10 +10,12 @@ class NotificationManager : public QObject
 public:
     explicit NotificationManager(QObject *parent = 0);
 
-    void injectNotification(const QString &source, Pebble::NotificationType type, const QString &from, const QString &title, const QString &message);
+    void injectNotification(const Notification &notification);
+
+    void muteSource(const QString &source);
 
 signals:
-    void displayNotification(Pebble::NotificationType type, const QString &from, const QString &title, const QString &message);
+    void displayNotification(const Notification &notification);
 
 };
 

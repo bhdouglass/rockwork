@@ -15,7 +15,7 @@ public:
 
 // Notifications
 signals:
-    void notificationReceived(const QString &source, Pebble::NotificationType type, const QString &from, const QString &subject, const QString &text);
+    void notificationReceived(const Notification &notification);
 
 // Music
 public:

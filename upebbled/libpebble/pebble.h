@@ -2,11 +2,13 @@
 #define PEBBLE_H
 
 #include "musicmetadata.h"
+#include "notification.h"
 
 #include <QObject>
 #include <QBluetoothAddress>
 #include <QBluetoothLocalDevice>
 #include <QTimer>
+#include <QOrganizerItem>
 
 class WatchConnection;
 class NotificationEndpoint;
@@ -17,6 +19,8 @@ class AppMsgManager;
 class BankManager;
 class JSKitManager;
 class BlobDB;
+
+QTORGANIZER_USE_NAMESPACE
 
 class Pebble : public QObject
 {
@@ -57,12 +61,6 @@ public:
         HardwarePlatformChalk
     };
 
-    enum NotificationType {
-        NotificationTypeEmail,
-        NotificationTypeSMS,
-        NotificationTypeFacebook,
-        NotificationTypeTwitter
-    };
     enum MusicControl {
         MusicControlPlayPause,
         MusicControlSkipBack,
@@ -93,7 +91,7 @@ public:
     QString serialNumber() const;
 
 public slots:
-    void sendNotification(NotificationType type, const QString &sender, const QString &subject, const QString &data);
+    void sendNotification(const Notification &notification);
     void setMusicMetadata(const MusicMetaData &metaData);
     void insertTimelinePin();
     void insertReminder();
@@ -102,6 +100,8 @@ public slots:
     void incomingCall(uint cookie, const QString &number, const QString &name);
     void callStarted(uint cookie);
     void callEnded(uint cookie, bool missed);
+
+    void syncCalendar(const QList<QOrganizerItem> items);
 
 private slots:
     void onPebbleConnected();
@@ -115,6 +115,7 @@ signals:
     void pebbleDisconnected();
     void musicControlPressed(MusicControl control);
     void hangupCall(uint cookie);
+    void muteNotificationSource(const QString &source);
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);

@@ -30,6 +30,7 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
     m_blobDB = new BlobDB(this, m_connection);
+    QObject::connect(m_blobDB, &BlobDB::muteSource, this, &Pebble::muteNotificationSource);
 }
 
 QBluetoothAddress Pebble::address() const
@@ -116,16 +117,17 @@ QString Pebble::serialNumber() const
     return m_serialNumber;
 }
 
-void Pebble::sendNotification(Pebble::NotificationType type, const QString &sender, const QString &subject, const QString &data)
+void Pebble::sendNotification(const Notification &notification)
 {
-    qDebug() << "should send notification from:" << sender << "subject" << subject << "data" << data;
+    qDebug() << "should send notification from:" << notification.sender() << "subject" << notification.subject() << "data" << notification.body();
     switch (m_hardwarePlatform) {
     case Pebble::HardwarePlatformAplite:
-        m_notificationEndpoint->sendLegacyNotification(type, sender, subject, data);
+        m_notificationEndpoint->sendLegacyNotification(notification);
         break;
     case Pebble::HardwarePlatformBasalt:
-    case Pebble::HardwarePlatformChalk:
-        m_blobDB->insertNotification(sender, subject, data);
+    case Pebble::HardwarePlatformChalk: {
+        m_blobDB->insertNotification(notification);
+        }
         break;
     default:
         qDebug() << "Unknown Hardware platform. Cannot send notification.";
@@ -165,6 +167,11 @@ void Pebble::callStarted(uint cookie)
 void Pebble::callEnded(uint cookie, bool missed)
 {
     m_phoneCallEndpoint->callEnded(cookie, missed);
+}
+
+void Pebble::syncCalendar(const QList<QOrganizerItem> items)
+{
+    m_blobDB->syncCalendar(items);
 }
 
 void Pebble::onPebbleConnected()

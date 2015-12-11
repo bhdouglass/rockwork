@@ -15,28 +15,29 @@ NotificationEndpoint::NotificationEndpoint(Pebble *pebble, WatchConnection *watc
     m_watchConnection->registerEndpointHandler(WatchConnection::EndpointBlobDB, this, "notificationReply");
 }
 
-void NotificationEndpoint::sendLegacyNotification(Pebble::NotificationType type, const QString &sender, const QString &data, const QString &subject)
+void NotificationEndpoint::sendLegacyNotification(const Notification &notification)
 {
     LegacyNotification::Source source = LegacyNotification::SourceSMS;
-    switch (type) {
-    case Pebble::NotificationTypeEmail:
+    switch (notification.type()) {
+    case Notification::NotificationTypeEmail:
         source = LegacyNotification::SourceEmail;
         break;
-    case Pebble::NotificationTypeFacebook:
+    case Notification::NotificationTypeFacebook:
         source = LegacyNotification::SourceFacebook;
         break;
-    case Pebble::NotificationTypeSMS:
+    case Notification::NotificationTypeSMS:
         source = LegacyNotification::SourceSMS;
         break;
-    case Pebble::NotificationTypeTwitter:
+    case Notification::NotificationTypeTwitter:
         source = LegacyNotification::SourceTwitter;
         break;
+    default:
+        source = LegacyNotification::SourceSMS;
     }
 
-    qDebug() << "Sending legacy notification. Sender:" << sender << "Subject:" << subject << "Data:" << data;
-    QString body = subject.isEmpty() ? data : subject;
-    LegacyNotification notification(source, sender, body, QDateTime::currentDateTime(), subject);
-    m_watchConnection->writeToPebble(WatchConnection::EndpointNotification, notification.serialize());
+    QString body = notification.subject().isEmpty() ? notification.body() : notification.subject();
+    LegacyNotification legacyNotification(source, notification.sender(), body, QDateTime::currentDateTime(), notification.subject());
+    m_watchConnection->writeToPebble(WatchConnection::EndpointNotification, legacyNotification.serialize());
 }
 
 void NotificationEndpoint::notificationReply(const QByteArray &data)

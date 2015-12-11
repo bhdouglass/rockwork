@@ -1,4 +1,4 @@
-QT += core bluetooth dbus network contacts qml location
+QT += core bluetooth dbus network contacts qml location organizer
 QT -= gui
 
 load(ubuntu-click)
@@ -8,6 +8,12 @@ CONFIG += c++11
 #CONFIG -= app_bundle
 
 TEMPLATE = app
+
+#TODO: figure why pkgconfig doesn't work in the click chroot
+#CONFIG += link_pkgconfig
+#PKGCONFIG += url-dispatcher-1
+INCLUDEPATH += /usr/lib/arm-linux-gnueabihf/glib-2.0/include /usr/lib/x86_64-linux-gnu/glib-2.0/include/ /usr/include/glib-2.0/
+LIBS += -lurl-dispatcher
 
 INCLUDEPATH += /usr/include/telepathy-qt5/ /usr/include/qmenumodel/
 LIBS += -lquazip-qt5 -ltelepathy-qt5 -lqmenumodel
@@ -44,7 +50,9 @@ SOURCES += main.cpp \
 # Platform integration part
     platformintegration/ubuntu/ubuntuplatform.cpp \
     platformintegration/ubuntu/callchannelobserver.cpp \
-    libpebble/blobdb.cpp
+    libpebble/blobdb.cpp \
+    libpebble/timelineitem.cpp \
+    libpebble/notification.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -79,7 +87,9 @@ HEADERS += \
 # Platform integration part
     platformintegration/ubuntu/ubuntuplatform.h \
     platformintegration/ubuntu/callchannelobserver.h \
-    libpebble/blobdb.h
+    libpebble/blobdb.h \
+    libpebble/timelineitem.h \
+    libpebble/notification.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

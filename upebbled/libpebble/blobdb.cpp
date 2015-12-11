@@ -1,51 +1,126 @@
 #include "blobdb.h"
 #include "watchconnection.h"
-#include "pebble.h"
+#include "watchdatareader.h"
+
+#include "liburl-dispatcher-1/url-dispatcher.h"
 
 #include <QDebug>
+#include <QDesktopServices>
+#include <QUrl>
+
 
 BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
     QObject(pebble),
     m_pebble(pebble),
     m_connection(connection)
 {
-
+    m_connection->registerEndpointHandler(WatchConnection::EndpointActionHandler, this, "actionInvokedurl-dispatcher");
 }
 
-void BlobDB::insertNotification(const QString &sender, const QString &subject, const QString &data)
+void BlobDB::insertNotification(const Notification &notification)
 {
+    TimelineAttribute::IconID iconId = TimelineAttribute::IconIDDefaultBell;
+    TimelineAttribute::Color color = TimelineAttribute::ColorRed;
+    QString muteName;
+    switch (notification.type()) {
+    case Notification::NotificationTypeAlarm:
+        iconId = TimelineAttribute::IconIDAlarm;
+        muteName = "Alarms";
+        break;
+    case Notification::NotificationTypeFacebook:
+        iconId = TimelineAttribute::IconIDFacebook;
+        color = TimelineAttribute::ColorBlue;
+        muteName = "facebook";
+        break;
+    case Notification::NotificationTypeGMail:
+        iconId = TimelineAttribute::IconIDGMail;
+        muteName = "GMail";
+        break;
+    case Notification::NotificationTypeHangout:
+        iconId = TimelineAttribute::IconIDHangout;
+        color = TimelineAttribute::ColorGreen;
+        muteName = "Hangout";
+        break;
+    case Notification::NotificationTypeMissedCall:
+        iconId = TimelineAttribute::IconIDDefaultMissedCall;
+        muteName = "call notifications";
+        break;
+    case Notification::NotificationTypeMusic:
+        iconId = TimelineAttribute::IconIDMusic;
+        muteName = "music";
+        break;
+    case Notification::NotificationTypeReminder:
+        iconId = TimelineAttribute::IconIDReminder;
+        muteName = "reminders";
+        break;
+    case Notification::NotificationTypeTelegram:
+        iconId = TimelineAttribute::IconIDTelegram;
+        color = TimelineAttribute::ColorLightBlue;
+        muteName = "Telegram";
+        break;
+    case Notification::NotificationTypeTwitter:
+        iconId = TimelineAttribute::IconIDTwitter;
+        color = TimelineAttribute::ColorBlue2;
+        muteName = "Twitter";
+        break;
+    case Notification::NotificationTypeWeather:
+        iconId = TimelineAttribute::IconIDWeather;
+        muteName = "Weather";
+        break;
+    case Notification::NotificationTypeWhatsApp:
+        iconId = TimelineAttribute::IconIDWhatsApp;
+        color = TimelineAttribute::ColorGreen;
+        muteName = "WhatsApp";
+        break;
+    case Notification::NotificationTypeSMS:
+        muteName = "SMS";
+        iconId = TimelineAttribute::IconIDDefaultBell;
+        break;
+    case Notification::NotificationTypeEmail:
+    default:
+        muteName = "e mails";
+        iconId = TimelineAttribute::IconIDDefaultBell;
+        break;
+    }
+
     QUuid itemUuid = QUuid::createUuid();
     TimelineItem timelineItem(itemUuid, TimelineItem::TypeNotification);
     timelineItem.setFlags(TimelineItem::FlagSingleEvent);
 
-    TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, sender.left(64).toUtf8());
+    TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, notification.sender().left(64).toUtf8());
     timelineItem.appendAttribute(titleAttribute);
 
-    TimelineAttribute subjectAttribute(TimelineAttribute::TypeSubtitle, subject.left(64).toUtf8());
+    TimelineAttribute subjectAttribute(TimelineAttribute::TypeSubtitle, notification.subject().left(64).toUtf8());
     timelineItem.appendAttribute(subjectAttribute);
 
-    TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, data.left(64).toUtf8());
+    TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, notification.body().toUtf8());
     timelineItem.appendAttribute(bodyAttribute);
 
-    // Haven't decrypted this yet. Copied from sailfish...
-    QByteArray blubb;
-    static quint16 bla = 1;
-    blubb.append(bla & 0xFF); blubb.append((bla >> 8) & 0xFF); blubb.append('\0'); blubb.append('\0'); // content
-    bla++;
-    TimelineAttribute sourceAttribute(TimelineAttribute::TypeTinyIcon, blubb);
-    timelineItem.appendAttribute(sourceAttribute);
+    TimelineAttribute iconAttribute(TimelineAttribute::TypeTinyIcon, iconId);
+    timelineItem.appendAttribute(iconAttribute);
+
+    TimelineAttribute colorAttribute(TimelineAttribute::TypeColor, color);
+    timelineItem.appendAttribute(colorAttribute);
 
     TimelineAction dismissAction(0, TimelineAction::TypeDismiss);
     TimelineAttribute dismissAttribute(TimelineAttribute::TypeTitle, "Dismiss");
     dismissAction.appendAttribute(dismissAttribute);
     timelineItem.appendAction(dismissAction);
 
-    TimelineAction dismiss1Action(1, TimelineAction::TypeSnooze);
-    TimelineAttribute dismiss1Attribute(TimelineAttribute::TypeTitle, "Blubb");
-    dismiss1Action.appendAttribute(dismiss1Attribute);
-    timelineItem.appendAction(dismiss1Action);
+    TimelineAction muteAction(1, TimelineAction::TypeGeneric);
+    TimelineAttribute muteActionAttribute(TimelineAttribute::TypeTitle, "Mute " + muteName.toUtf8());
+    muteAction.appendAttribute(muteActionAttribute);
+    timelineItem.appendAction(muteAction);
+
+    if (!notification.actToken().isEmpty()) {
+        TimelineAction actAction(2, TimelineAction::TypeGeneric);
+        TimelineAttribute actActionAttribute(TimelineAttribute::TypeTitle, "Open on phone");
+        actAction.appendAttribute(actActionAttribute);
+        timelineItem.appendAction(actAction);
+    }
 
     insert(BlobDB::BlobDBIdNotification, timelineItem);
+    m_notificationSources.insert(itemUuid, notification);
 }
 
 void BlobDB::insertTimelinePin(TimelineItem::Layout layout)
@@ -65,10 +140,10 @@ void BlobDB::insertTimelinePin(TimelineItem::Layout layout)
 //    TimelineAttribute t1Attribute(TimelineAttribute::TypeTinyIcon, "T1");
 //    item.appendAttribute(t1Attribute);
 
-    QByteArray color;
-    color.append('\0'); color.append('\0'); color.append('\0'); color.append(0xff);
-    TimelineAttribute t2Attribute(TimelineAttribute::TypeGuess2, color);
-    item.appendAttribute(t2Attribute);
+//    QByteArray color;
+//    color.append('\0'); color.append('\0'); color.append('\0'); color.append(0xff);
+//    TimelineAttribute t2Attribute(TimelineAttribute::TypeGuess2, color);
+//    item.appendAttribute(t2Attribute);
 
 //    TimelineAttribute t3Attribute(TimelineAttribute::TypeGuess2, "T3");
 //    item.appendAttribute(t3Attribute);
@@ -95,8 +170,11 @@ void BlobDB::insertReminder()
     TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, "ReminderBody");
     item.appendAttribute(bodyAttribute);
 
-    //    TimelineAttribute guessAttribute(TimelineAttribute::TypeGuess, "ReminderGuess");
-    //    item.appendAttribute(guessAttribute);
+    QByteArray data;
+    data.append(0x07); data.append('\0'); data.append('\0'); data.append(0x80);
+    TimelineAttribute guessAttribute(TimelineAttribute::TypeTinyIcon, data);
+    item.appendAttribute(guessAttribute);
+    qDebug() << "attrib" << guessAttribute.serialize();
 
     TimelineAction dismissAction(0, TimelineAction::TypeDismiss);
     TimelineAttribute dismissAttribute(TimelineAttribute::TypeTitle, "Dismiss");
@@ -106,6 +184,17 @@ void BlobDB::insertReminder()
     insert(BlobDB::BlobDBIdReminder, item);
     //    qDebug() << "adding timeline item" << ddd.toHex();
 
+}
+
+void BlobDB::syncCalendar(const QList<QOrganizerItem> &items)
+{
+    foreach (const QOrganizerItem &item, items) {
+        TimelineItem::Flag flag;
+        QDateTime timestamp;
+        int duration;
+        TimelineItem timelineItem(TimelineItem::TypePin, flag, timestamp, duration);
+
+    }
 }
 
 void BlobDB::insert(BlobDBId database, TimelineItem item)
@@ -131,6 +220,65 @@ void BlobDB::clear(BlobDB::BlobDBId database)
     m_connection->writeToPebble(WatchConnection::EndpointBlobDB, cmd.serialize());
 }
 
+void BlobDB::actionInvoked(const QByteArray &actionReply)
+{
+    WatchDataReader reader(actionReply);
+    TimelineAction::Type actionType = (TimelineAction::Type)reader.read<quint8>();
+    QUuid notificationId = reader.readUuid();
+    quint8 actionId = reader.read<quint8>();
+    quint8 param = reader.read<quint8>(); // Is this correct? So far I've only seen 0x00 in here
+
+    // Not sure what to do with those yet
+    Q_UNUSED(actionType)
+    Q_UNUSED(param)
+
+    qDebug() << "have action reply" << actionId << actionReply.toHex();
+
+    Status status = StatusError;
+    QList<TimelineAttribute> attributes;
+
+    Notification notification = m_notificationSources.value(notificationId);
+    QString sourceId = notification.sourceId();
+    if (sourceId.isEmpty()) {
+        status = StatusError;
+    } else {
+        switch (actionId) {
+        case 1: { // Mute source
+            TimelineAttribute textAttribute(TimelineAttribute::TypeSubtitle, "Muted!");
+            attributes.append(textAttribute);
+//            TimelineAttribute iconAttribute(TimelineAttribute::TypeLargeIcon, TimelineAttribute::IconIDTelegram);
+//            attributes.append(iconAttribute);
+            emit muteSource(sourceId);
+            status = StatusSuccess;
+            break;
+        }
+        case 2: { // Open on phone
+            TimelineAttribute textAttribute(TimelineAttribute::TypeSubtitle, "Opened!");
+            attributes.append(textAttribute);
+            qDebug() << "opening" << notification.actToken();
+//            QDesktopServices::openUrl(QUrl(notification.actToken()));
+            url_dispatch_send(notification.actToken().toStdString().c_str(), [] (const gchar *, gboolean, gpointer) {}, nullptr);
+            status = StatusSuccess;
+        }
+        }
+    }
+
+    QByteArray reply;
+    reply.append(0x11); // Length of id & status code
+    reply.append(notificationId.toRfc4122());
+    reply.append(status);
+    reply.append(attributes.count());
+    foreach (const TimelineAttribute &attrib, attributes) {
+        reply.append(attrib.serialize());
+    }
+    m_connection->writeToPebble(WatchConnection::EndpointActionHandler, reply);
+}
+
+void BlobDB::sendActionReply()
+{
+
+}
+
 quint16 BlobDB::generateToken()
 {
     return (qrand() % ((int)pow(2, 16) - 2)) + 1;
@@ -153,100 +301,5 @@ QByteArray BlobCommand::serialize() const
         ret.append(m_value);
     }
 
-    return ret;
-}
-
-TimelineItem::TimelineItem(TimelineItem::Type type, Flags flags, const QDateTime &timestamp, quint16 duration):
-    TimelineItem(QUuid::createUuid(), type, flags, timestamp, duration)
-{
-
-}
-
-TimelineItem::TimelineItem(const QUuid &uuid, TimelineItem::Type type, Flags flags, const QDateTime &timestamp, quint16 duration):
-    PebblePacket(),
-    m_itemId(uuid),
-    m_timestamp(timestamp),
-    m_duration(duration),
-    m_type(type),
-    m_flags(flags)
-{
-
-}
-
-QUuid TimelineItem::itemId() const
-{
-    return m_itemId;
-}
-
-void TimelineItem::setLayout(quint8 layout)
-{
-    m_layout = layout;
-}
-
-void TimelineItem::setFlags(Flags flags)
-{
-    m_flags = flags;
-}
-
-void TimelineItem::appendAttribute(const TimelineAttribute &attribute)
-{
-    m_attributes.append(attribute);
-}
-
-void TimelineItem::appendAction(const TimelineAction &action)
-{
-    m_actions.append(action);
-}
-
-QByteArray TimelineItem::serialize() const
-{
-    QByteArray ret;
-    ret.append(m_itemId.toRfc4122());
-    ret.append(m_parentId.toRfc4122());
-    int ts = m_timestamp.toMSecsSinceEpoch() / 1000;
-    ret.append(ts & 0xFF); ret.append((ts >> 8) & 0xFF); ret.append((ts >> 16) & 0xFF); ret.append((ts >> 24) & 0xFF);
-    ret.append(m_duration & 0xFF); ret.append(((m_duration >> 8) & 0xFF));
-    ret.append((quint8)m_type);
-    ret.append(m_flags & 0xFF); ret.append(((m_flags >> 8) & 0xFF));
-    ret.append(m_layout);
-
-    QByteArray serializedAttributes;
-    foreach (const TimelineAttribute &attribute, m_attributes) {
-        serializedAttributes.append(attribute.serialize());
-    }
-
-    QByteArray serializedActions;
-    foreach (const TimelineAction &action, m_actions) {
-        serializedActions.append(action.serialize());
-    }
-    quint16 dataLength = serializedAttributes.length() + serializedActions.length();
-    ret.append(dataLength & 0xFF); ret.append(((dataLength >> 8) & 0xFF));
-    ret.append(m_attributes.count());
-    ret.append(m_actions.count());
-    ret.append(serializedAttributes);
-    ret.append(serializedActions);
-    return ret;
-}
-
-TimelineAction::TimelineAction(quint8 actionId, TimelineAction::Type type, const QList<TimelineAttribute> &attributes):
-    PebblePacket(),
-    m_actionId(actionId),
-    m_type(type),
-    m_attributes(attributes)
-{
-
-}
-
-void TimelineAction::appendAttribute(const TimelineAttribute &attribute)
-{
-    m_attributes.append(attribute);
-}
-
-QByteArray TimelineAttribute::serialize() const
-{
-    QByteArray ret;
-    ret.append((quint8)m_type);
-    ret.append(m_content.length() & 0xFF); ret.append(((m_content.length() >> 8) & 0xFF)); // length
-    ret.append(m_content);
     return ret;
 }

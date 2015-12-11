@@ -42,6 +42,7 @@ void PebbleManager::loadPebbles()
 void PebbleManager::setupPebble(Pebble *pebble)
 {
     connect(Core::instance()->notificationManager(), &NotificationManager::displayNotification, pebble, &Pebble::sendNotification);
+    connect(pebble, &Pebble::muteNotificationSource, Core::instance()->notificationManager(), &NotificationManager::muteSource);
 
     pebble->setMusicMetadata(Core::instance()->platform()->musicMetaData());
     connect(pebble, &Pebble::musicControlPressed, Core::instance()->platform(), &PlatformInterface::sendMusicControlCommand);
