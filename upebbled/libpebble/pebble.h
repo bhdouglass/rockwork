@@ -3,12 +3,12 @@
 
 #include "musicmetadata.h"
 #include "notification.h"
+#include "calendarevent.h"
 
 #include <QObject>
 #include <QBluetoothAddress>
 #include <QBluetoothLocalDevice>
 #include <QTimer>
-#include <QOrganizerItem>
 
 class WatchConnection;
 class NotificationEndpoint;
@@ -19,8 +19,6 @@ class AppMsgManager;
 class BankManager;
 class JSKitManager;
 class BlobDB;
-
-QTORGANIZER_USE_NAMESPACE
 
 class Pebble : public QObject
 {
@@ -101,7 +99,7 @@ public slots:
     void callStarted(uint cookie);
     void callEnded(uint cookie, bool missed);
 
-    void syncCalendar(const QList<QOrganizerItem> items);
+    void syncCalendar(const QList<CalendarEvent> items);
 
 private slots:
     void onPebbleConnected();
@@ -116,6 +114,7 @@ signals:
     void musicControlPressed(MusicControl control);
     void hangupCall(uint cookie);
     void muteNotificationSource(const QString &source);
+    void actionTriggered(const QString &actToken);
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);

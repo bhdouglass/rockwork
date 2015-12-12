@@ -52,3 +52,13 @@ void TestingPlatform::hangupCall(uint cookie)
     qDebug() << "Testing platform received a hangup call event";
     emit callEnded(cookie, false);
 }
+
+QList<CalendarEvent> TestingPlatform::organizerItems() const
+{
+    return QList<CalendarEvent>();
+}
+
+void TestingPlatform::actionTriggered(const QString &actToken)
+{
+    qDebug() << "action triggered" << actToken;
+}

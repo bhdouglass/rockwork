@@ -39,10 +39,17 @@ void PebbleManager::loadPebbles()
     }
 }
 
+void PebbleManager::pebbleConnected()
+{
+    Pebble *pebble = static_cast<Pebble*>(sender());
+    pebble->syncCalendar(Core::instance()->platform()->organizerItems());
+}
+
 void PebbleManager::setupPebble(Pebble *pebble)
 {
     connect(Core::instance()->notificationManager(), &NotificationManager::displayNotification, pebble, &Pebble::sendNotification);
     connect(pebble, &Pebble::muteNotificationSource, Core::instance()->notificationManager(), &NotificationManager::muteSource);
+    connect(pebble, &Pebble::actionTriggered, Core::instance()->platform(), &PlatformInterface::actionTriggered);
 
     pebble->setMusicMetadata(Core::instance()->platform()->musicMetaData());
     connect(pebble, &Pebble::musicControlPressed, Core::instance()->platform(), &PlatformInterface::sendMusicControlCommand);
@@ -53,6 +60,8 @@ void PebbleManager::setupPebble(Pebble *pebble)
     connect(Core::instance()->platform(), &PlatformInterface::callEnded, pebble, &Pebble::callEnded);
     connect(pebble, &Pebble::hangupCall, Core::instance()->platform(), &PlatformInterface::hangupCall);
 
+    connect(Core::instance()->platform(), &PlatformInterface::organizerItemsChanged, pebble, &Pebble::syncCalendar);
+
 #ifdef ENABLE_TESTING
     qmlRegisterUncreatableType<Pebble>("PebbleTest", 1, 0, "Pebble", "Dont");
     QQuickView *view = new QQuickView();
@@ -60,6 +69,8 @@ void PebbleManager::setupPebble(Pebble *pebble)
     view->setSource(QUrl("qrc:///testui/PebbleController.qml"));
     view->show();
 #endif
+
+    connect(pebble, &Pebble::pebbleConnected, this, &PebbleManager::pebbleConnected);
 }
 
 Pebble* PebbleManager::get(const QBluetoothAddress &address)

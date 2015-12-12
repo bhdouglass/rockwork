@@ -52,7 +52,10 @@ SOURCES += main.cpp \
     platformintegration/ubuntu/callchannelobserver.cpp \
     libpebble/blobdb.cpp \
     libpebble/timelineitem.cpp \
-    libpebble/notification.cpp
+    libpebble/notification.cpp \
+    platformintegration/ubuntu/organizeradapter.cpp \
+    libpebble/calendarevent.cpp \
+    platformintegration/ubuntu/syncmonitorclient.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -89,7 +92,10 @@ HEADERS += \
     platformintegration/ubuntu/callchannelobserver.h \
     libpebble/blobdb.h \
     libpebble/timelineitem.h \
-    libpebble/notification.h
+    libpebble/notification.h \
+    platformintegration/ubuntu/organizeradapter.h \
+    libpebble/calendarevent.h \
+    platformintegration/ubuntu/syncmonitorclient.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

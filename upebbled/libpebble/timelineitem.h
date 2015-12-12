@@ -16,7 +16,10 @@ public:
         TypeBody = 0x03,
         TypeTinyIcon = 0x04,
         TypeLargeIcon = 0x06,
+        TypeFieldNames = 0x19,
+        TypeFieldValues = 0x1a,
         TypeColor = 0x1c,
+        TypeRecurring = 0x1f
     };
     enum IconID {
         IconIDDefaultBell = 0x01,
@@ -76,11 +79,22 @@ public:
     {
         setContent(color);
     }
-
+    TimelineAttribute(Type type, const QStringList &values):
+        m_type(type)
+    {
+        setContent(values);
+    }
+    TimelineAttribute(Type type, quint8 data):
+        m_type(type)
+    {
+        setContent(data);
+    }
 
     void setContent(const QString &content);
     void setContent(IconID iconId);
     void setContent(Color color);
+    void setContent(const QStringList &values);
+    void setContent(quint8 data);
 
     QByteArray serialize() const;
 private:
@@ -170,7 +184,7 @@ private:
     quint16 m_duration = 0;
     Type m_type;
     Flags m_flags; // quint16
-    quint8 m_layout = 0x04; // TODO: find out what this is about
+    quint8 m_layout = 0x01; // TODO: find out what this is about
     QList<TimelineAttribute> m_attributes;
     QList<TimelineAction> m_actions;
 };

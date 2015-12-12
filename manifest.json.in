@@ -9,7 +9,7 @@
             "desktop": "upebble/upebble.desktop"
         }
     },
-    "version": "0.4",
+    "version": "0.5",
     "maintainer": "Michael Zanetti <michael_zanetti@gmx.net",
     "framework": "ubuntu-sdk-15.04"
 }

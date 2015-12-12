@@ -7,7 +7,7 @@
 
 #include <QObject>
 #include <QDateTime>
-#include <QOrganizerItem>
+#include <QOrganizerEvent>
 
 QTORGANIZER_USE_NAMESPACE
 
@@ -39,9 +39,9 @@ public:
     explicit BlobDB(Pebble *pebble, WatchConnection *connection);
 
     void insertNotification(const Notification &notification);
-    void insertTimelinePin(TimelineItem::Layout layout);
+    void insertTimelinePin(TimelineItem::Layout layout, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring);
     void insertReminder();
-    void syncCalendar(const QList<QOrganizerItem> &items);
+    void syncCalendar(const QList<CalendarEvent> &events);
 
     void insert(BlobDBId database, TimelineItem item);
     void clear(BlobDBId database);
@@ -52,9 +52,9 @@ private slots:
 
 signals:
     void muteSource(const QString &sourceId);
+    void actionTriggered(const QString &actToken);
 
-public:
-    // FIXME: make private after finishing testing
+private:
     quint16 generateToken();
 
 private:

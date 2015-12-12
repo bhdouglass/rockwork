@@ -19,6 +19,9 @@ public:
     Q_INVOKABLE void endCall(uint cookie, bool missed);
 
     void hangupCall(uint cookie) override;
+
+    QList<CalendarEvent> organizerItems() const override;
+    void actionTriggered(const QString &actToken) override;
 signals:
 
 private:

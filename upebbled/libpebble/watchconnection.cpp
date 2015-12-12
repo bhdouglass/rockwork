@@ -106,7 +106,7 @@ void WatchConnection::writeToPebble(Endpoint endpoint, const QByteArray &data)
 
     msg.append(data);
 
-    qDebug() << "Writing:" << msg.toHex();
+//    qDebug() << "Writing:" << msg.toHex();
     m_socket->write(msg);
 }
 

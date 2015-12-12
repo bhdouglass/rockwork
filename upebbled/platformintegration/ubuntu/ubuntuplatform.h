@@ -11,6 +11,8 @@
 
 class QDBusPendingCallWatcher;
 class TelepathyMonitor;
+class OrganizerAdapter;
+class SyncMonitorClient;
 
 class UbuntuPlatform : public PlatformInterface, public QDBusContext
 {
@@ -27,6 +29,10 @@ public:
     MusicMetaData musicMetaData() const override;
 
     void hangupCall(uint cookie) override;
+
+    QList<CalendarEvent> organizerItems() const override;
+
+    void actionTriggered(const QString &actToken) override;
 
 public slots:
     uint Notify(const QString &app_name, uint replaces_id, const QString &app_icon, const QString &summary, const QString &body, const QStringList &actions, const QVariantHash &hints, int expire_timeout);
@@ -46,6 +52,9 @@ private:
     QStateAction *m_volumeAction = nullptr;
 
     TelepathyMonitor *m_telepathyMonitor;
+    OrganizerAdapter *m_organizerAdapter;
+    SyncMonitorClient *m_syncMonitorClient;
+    QTimer m_syncTimer;
 };
 
 #endif // UBUNTUPLATFORM_H

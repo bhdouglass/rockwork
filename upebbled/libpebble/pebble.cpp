@@ -31,6 +31,7 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
     m_blobDB = new BlobDB(this, m_connection);
     QObject::connect(m_blobDB, &BlobDB::muteSource, this, &Pebble::muteNotificationSource);
+    QObject::connect(m_blobDB, &BlobDB::actionTriggered, this, &Pebble::actionTriggered);
 }
 
 QBluetoothAddress Pebble::address() const
@@ -141,7 +142,7 @@ void Pebble::setMusicMetadata(const MusicMetaData &metaData)
 
 void Pebble::insertTimelinePin()
 {
-    m_blobDB->insertTimelinePin(TimelineItem::LayoutGenericPin);
+//    m_blobDB->insertTimelinePin(TimelineItem::LayoutGenericPin,);
 }
 
 void Pebble::insertReminder()
@@ -169,9 +170,11 @@ void Pebble::callEnded(uint cookie, bool missed)
     m_phoneCallEndpoint->callEnded(cookie, missed);
 }
 
-void Pebble::syncCalendar(const QList<QOrganizerItem> items)
+void Pebble::syncCalendar(const QList<CalendarEvent> items)
 {
-    m_blobDB->syncCalendar(items);
+    if (connected()) {
+        m_blobDB->syncCalendar(items);
+    }
 }
 
 void Pebble::onPebbleConnected()

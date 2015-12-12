@@ -5,6 +5,7 @@
 #include "libpebble/musicmetadata.h"
 
 #include <QObject>
+#include <QOrganizerItem>
 
 class PlatformInterface: public QObject
 {
@@ -16,6 +17,7 @@ public:
 // Notifications
 signals:
     void notificationReceived(const Notification &notification);
+    virtual void actionTriggered(const QString &actToken) = 0;
 
 // Music
 public:
@@ -31,7 +33,13 @@ signals:
     void callEnded(uint cookie, bool missed);
 public:
     virtual void hangupCall(uint cookie) = 0;
+
+// Organizer
+public:
+    virtual QList<CalendarEvent> organizerItems() const = 0;
+signals:
+    void organizerItemsChanged(const QList<CalendarEvent> &items);
+
 };
 
 #endif // PLATFORMINTERFACE_H
-

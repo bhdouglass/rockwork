@@ -2,19 +2,15 @@
 #include "watchconnection.h"
 #include "watchdatareader.h"
 
-#include "liburl-dispatcher-1/url-dispatcher.h"
-
 #include <QDebug>
-#include <QDesktopServices>
-#include <QUrl>
-
+#include <QOrganizerRecurrenceRule>
 
 BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
     QObject(pebble),
     m_pebble(pebble),
     m_connection(connection)
 {
-    m_connection->registerEndpointHandler(WatchConnection::EndpointActionHandler, this, "actionInvokedurl-dispatcher");
+    m_connection->registerEndpointHandler(WatchConnection::EndpointActionHandler, this, "actionInvoked");
 }
 
 void BlobDB::insertNotification(const Notification &notification)
@@ -123,30 +119,36 @@ void BlobDB::insertNotification(const Notification &notification)
     m_notificationSources.insert(itemUuid, notification);
 }
 
-void BlobDB::insertTimelinePin(TimelineItem::Layout layout)
+void BlobDB::insertTimelinePin(TimelineItem::Layout layout, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring)
 {
-    TimelineItem item(TimelineItem::TypePin, TimelineItem::FlagSingleEvent, QDateTime::currentDateTime().addMSecs(1000 * 60 * 2), 60);
+//    TimelineItem item(TimelineItem::TypePin, TimelineItem::FlagSingleEvent, QDateTime::currentDateTime().addMSecs(1000 * 60 * 2), 60);
+
+    qDebug() << "inserting timeline pin:" << title << startTime << endTime;
+    int duration = (endTime.toMSecsSinceEpoch() - startTime.toMSecsSinceEpoch()) / 1000 / 60;
+    TimelineItem item(TimelineItem::TypePin, TimelineItem::FlagSingleEvent, startTime, duration);
     item.setLayout(layout);
 
-    TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, "PinTitlex");
+    TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, title.toUtf8());
     item.appendAttribute(titleAttribute);
 
-    TimelineAttribute subjectAttribute(TimelineAttribute::TypeSubtitle, "PinSubtitle");
-    item.appendAttribute(subjectAttribute);
-
-    TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, "PinBody");
+    TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, desctiption.left(128).toUtf8());
     item.appendAttribute(bodyAttribute);
 
-//    TimelineAttribute t1Attribute(TimelineAttribute::TypeTinyIcon, "T1");
-//    item.appendAttribute(t1Attribute);
+//    TimelineAttribute iconAttribute(TimelineAttribute::TypeTinyIcon, TimelineAttribute::IconIDTelegram);
+//    item.appendAttribute(iconAttribute);
 
-//    QByteArray color;
-//    color.append('\0'); color.append('\0'); color.append('\0'); color.append(0xff);
-//    TimelineAttribute t2Attribute(TimelineAttribute::TypeGuess2, color);
-//    item.appendAttribute(t2Attribute);
+    if (!fields.isEmpty()) {
+        TimelineAttribute fieldNames(TimelineAttribute::TypeFieldNames, fields.keys());
+        item.appendAttribute(fieldNames);
 
-//    TimelineAttribute t3Attribute(TimelineAttribute::TypeGuess2, "T3");
-//    item.appendAttribute(t3Attribute);
+        TimelineAttribute fieldValues(TimelineAttribute::TypeFieldValues, fields.values());
+        item.appendAttribute(fieldValues);
+    }
+
+    if (recurring) {
+        TimelineAttribute guess(TimelineAttribute::TypeRecurring, 1);
+        item.appendAttribute(guess);
+    }
 
     TimelineAction dismissAction(0, TimelineAction::TypeDismiss);
     TimelineAttribute dismissAttribute(TimelineAttribute::TypeTitle, "Dismiss");
@@ -186,14 +188,24 @@ void BlobDB::insertReminder()
 
 }
 
-void BlobDB::syncCalendar(const QList<QOrganizerItem> &items)
+void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
 {
-    foreach (const QOrganizerItem &item, items) {
-        TimelineItem::Flag flag;
-        QDateTime timestamp;
-        int duration;
-        TimelineItem timelineItem(TimelineItem::TypePin, flag, timestamp, duration);
+    clear(BlobDB::BlobDBIdPin);
 
+    foreach (const CalendarEvent &event, events) {
+        if (!event.startTime().isValid() || !event.endTime().isValid()
+                || event.startTime().addDays(2) < QDateTime::currentDateTime()
+                || QDateTime::currentDateTime().addDays(5) < event.startTime()) {
+//            qWarning() << "Not adding timeline pin. Out of date";
+            continue;
+        }
+
+        QMap<QString, QString> fields;
+        if (!event.location().isEmpty()) fields.insert("Location", event.location());
+        if (!event.calendar().isEmpty()) fields.insert("Calendar", event.calendar());
+        if (!event.comment().isEmpty()) fields.insert("Comments", event.comment());
+        if (!event.guests().isEmpty()) fields.insert("Guests", event.guests().join(", "));
+        insertTimelinePin(TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
     }
 }
 
@@ -256,8 +268,7 @@ void BlobDB::actionInvoked(const QByteArray &actionReply)
             TimelineAttribute textAttribute(TimelineAttribute::TypeSubtitle, "Opened!");
             attributes.append(textAttribute);
             qDebug() << "opening" << notification.actToken();
-//            QDesktopServices::openUrl(QUrl(notification.actToken()));
-            url_dispatch_send(notification.actToken().toStdString().c_str(), [] (const gchar *, gboolean, gpointer) {}, nullptr);
+            emit actionTriggered(notification.actToken());
             status = StatusSuccess;
         }
         }

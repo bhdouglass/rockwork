@@ -1,6 +1,8 @@
 #include "ubuntuplatform.h"
 
 #include "callchannelobserver.h"
+#include "organizeradapter.h"
+#include "syncmonitorclient.h"
 
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
@@ -8,6 +10,7 @@
 
 // qmenumodel
 #include "dbus-enums.h"
+#include "liburl-dispatcher-1/url-dispatcher.h"
 
 UbuntuPlatform::UbuntuPlatform(QObject *parent):
     PlatformInterface(parent),
@@ -46,6 +49,16 @@ UbuntuPlatform::UbuntuPlatform(QObject *parent):
     connect(m_telepathyMonitor, &TelepathyMonitor::incomingCall, this, &UbuntuPlatform::incomingCall);
     connect(m_telepathyMonitor, &TelepathyMonitor::callStarted, this, &UbuntuPlatform::callStarted);
     connect(m_telepathyMonitor, &TelepathyMonitor::callEnded, this, &UbuntuPlatform::callEnded);
+
+    // Organizer
+    m_organizerAdapter = new OrganizerAdapter(this);
+    m_organizerAdapter->refresh();
+    connect(m_organizerAdapter, &OrganizerAdapter::itemsChanged, this, &UbuntuPlatform::organizerItemsChanged);
+    m_syncMonitorClient = new SyncMonitorClient(this);
+    connect(m_syncMonitorClient, &SyncMonitorClient::stateChanged, [this]() { if (m_syncMonitorClient->state() == "idle") m_organizerAdapter->refresh();});
+    m_syncTimer.start(1000 * 60 * 60);
+    connect(&m_syncTimer, &QTimer::timeout, [this]() { m_syncMonitorClient->sync({"calendar"});});
+    m_syncMonitorClient->sync({"calendar"});
 }
 
 QDBusInterface *UbuntuPlatform::interface() const
@@ -158,6 +171,16 @@ MusicMetaData UbuntuPlatform::musicMetaData() const
 void UbuntuPlatform::hangupCall(uint cookie)
 {
     m_telepathyMonitor->hangupCall(cookie);
+}
+
+QList<CalendarEvent> UbuntuPlatform::organizerItems() const
+{
+    return m_organizerAdapter->items();
+}
+
+void UbuntuPlatform::actionTriggered(const QString &actToken)
+{
+    url_dispatch_send(actToken.toStdString().c_str(), [] (const gchar *, gboolean, gpointer) {}, nullptr);
 }
 
 void UbuntuPlatform::fetchMusicMetadata()

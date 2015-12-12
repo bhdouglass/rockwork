@@ -116,6 +116,23 @@ void TimelineAttribute::setContent(TimelineAttribute::Color color)
     m_content.append((quint8)color);
 }
 
+void TimelineAttribute::setContent(const QStringList &values)
+{
+    m_content.clear();
+    foreach (const QString &value, values) {
+        if (!m_content.isEmpty()) {
+            m_content.append('\0');
+        }
+        m_content.append(value.toUtf8());
+    }
+}
+
+void TimelineAttribute::setContent(quint8 data)
+{
+    m_content.clear();
+    m_content.append(data);
+}
+
 QByteArray TimelineAttribute::serialize() const
 {
     QByteArray ret;

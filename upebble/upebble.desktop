@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=upebble
 Exec=upebble
-Icon=upebble/upebble.png
+Icon=upebble/upebble.svg
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true

@@ -21,7 +21,7 @@ QML_FILES += $$files(*.qml,true) \
              $$files(*.js,true)
 
 CONF_FILES +=  upebble.apparmor \
-               upebble.png \
+               upebble.svg \
                upebble.desktop
 
 AP_TEST_FILES += tests/autopilot/run \

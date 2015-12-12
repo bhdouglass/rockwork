@@ -17,6 +17,8 @@ public:
 private slots:
     void loadPebbles();
 
+    void pebbleConnected();
+
 private:
     void setupPebble(Pebble *pebble);
 
