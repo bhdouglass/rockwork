@@ -22,8 +22,8 @@ An unofficial Pebble App for Ubuntu
 NOTE: This setup requires an Android device
 
 * Install [Wireshark](https://www.wireshark.org/)
-* Setup the [Pebble Dissector](https://github.com/bhdouglass/PebbleDissector) in Wireshark
-    * A guide for adding the dissector: <https://delog.wordpress.com/2010/09/27/create-a-wireshark-dissector-in-lua/>
+* Launch Wireshark with the [Pebble Dissector](https://github.com/bhdouglass/PebbleDissector)
+    * Run: `wireshark -X pebble.lua`
 * Setup [developer options](https://wiki.cyanogenmod.org/w/Doc:_developer_options) on Android
 * In the developer options enable "Enable Bluetooth HCI snoop log"
 * Do something interesting with your Pebble
