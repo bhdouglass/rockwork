@@ -56,8 +56,7 @@ SOURCES += main.cpp \
     libpebble/notification.cpp \
     platformintegration/ubuntu/organizeradapter.cpp \
     libpebble/calendarevent.cpp \
-    platformintegration/ubuntu/syncmonitorclient.cpp \
-    blubb.cpp
+    platformintegration/ubuntu/syncmonitorclient.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -97,8 +96,7 @@ HEADERS += \
     libpebble/notification.h \
     platformintegration/ubuntu/organizeradapter.h \
     libpebble/calendarevent.h \
-    platformintegration/ubuntu/syncmonitorclient.h \
-    blubb.h
+    platformintegration/ubuntu/syncmonitorclient.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp
