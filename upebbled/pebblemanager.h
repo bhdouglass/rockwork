@@ -12,7 +12,11 @@ class PebbleManager : public QObject
 public:
     explicit PebbleManager(QObject *parent = 0);
 
+    QList<Pebble*> pebbles() const;
     Pebble* get(const QBluetoothAddress &address);
+
+signals:
+    void pebbleAdded(Pebble *pebble);
 
 private slots:
     void loadPebbles();

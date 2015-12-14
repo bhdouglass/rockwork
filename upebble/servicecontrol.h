@@ -24,6 +24,7 @@ public:
     bool setServiceRunning(bool running);
     Q_INVOKABLE bool startService();
     Q_INVOKABLE bool stopService();
+    Q_INVOKABLE bool restartService();
 
 signals:
     void serviceNameChanged();

@@ -20,6 +20,7 @@ OrganizerAdapter::OrganizerAdapter(QObject *parent) : QObject(parent)
     }
     m_manager = new QOrganizerManager(envManager);
     m_manager->setParent(this);
+    connect(m_manager, &QOrganizerManager::dataChanged, this, &OrganizerAdapter::refresh);
 }
 
 void OrganizerAdapter::refresh()

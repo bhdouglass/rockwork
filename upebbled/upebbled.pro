@@ -1,6 +1,7 @@
 QT += core bluetooth dbus network contacts qml location organizer
 QT -= gui
 
+include(../version.pri)
 load(ubuntu-click)
 
 TARGET = upebbled
@@ -55,7 +56,8 @@ SOURCES += main.cpp \
     libpebble/notification.cpp \
     platformintegration/ubuntu/organizeradapter.cpp \
     libpebble/calendarevent.cpp \
-    platformintegration/ubuntu/syncmonitorclient.cpp
+    platformintegration/ubuntu/syncmonitorclient.cpp \
+    blubb.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -95,7 +97,8 @@ HEADERS += \
     libpebble/notification.h \
     platformintegration/ubuntu/organizeradapter.h \
     libpebble/calendarevent.h \
-    platformintegration/ubuntu/syncmonitorclient.h
+    platformintegration/ubuntu/syncmonitorclient.h \
+    blubb.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp
@@ -117,3 +120,5 @@ INSTALLS += libs
 target.path = $${UBUNTU_CLICK_BINARY_PATH}
 INSTALLS+=target
 
+QMAKE_POST_LINK = sed -i s/@VERSION@/$$VERSION/g $$OUT_PWD/../manifest.json
+#QMAKE_POST_LINK = echo $$OUT_PWD/../manifest.json > /tmp/huhu;

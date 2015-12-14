@@ -2,6 +2,7 @@
 
 #include "pebblemanager.h"
 #include "notificationmanager.h"
+#include "dbusinterface.h"
 
 #include "platformintegration/ubuntu/ubuntuplatform.h"
 #ifdef ENABLE_TESTING
@@ -53,5 +54,7 @@ void Core::init()
     connect(m_platform, &PlatformInterface::notificationReceived, m_notificationManager, &NotificationManager::injectNotification);
 
     m_pebbleManager = new PebbleManager(this);
+
+    m_dbusInterface = new DBusInterface(this);
 }
 

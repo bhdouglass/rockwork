@@ -29,7 +29,14 @@ MainView {
             if (!serviceController.serviceRunning) {
                 serviceController.startService();
             }
+            if (pebbles.version !== version) {
+                serviceController.restartService();
+            }
         }
+    }
+
+    Pebbles {
+        id: pebbles
     }
 
     PageStack {
@@ -52,7 +59,9 @@ MainView {
                             Icon {
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: height
-                                source: model.icon
+                                implicitHeight: parent.height
+                                implicitWidth: height
+                                name:  model.icon
                             }
                             Label {
                                 text: model.text

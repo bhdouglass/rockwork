@@ -109,3 +109,10 @@ bool ServiceControl::stopService()
     return ret == 0;
 }
 
+bool ServiceControl::restartService()
+{
+    qDebug() << "should stop service";
+    int ret = QProcess::execute("restart", {m_serviceName});
+    return ret == 0;
+}
+

@@ -6,6 +6,7 @@
 
 class PebbleManager;
 class NotificationManager;
+class DBusInterface;
 class PlatformInterface;
 
 class Core : public QObject
@@ -28,6 +29,7 @@ private slots:
 private:
     PebbleManager *m_pebbleManager;
     NotificationManager *m_notificationManager;
+    DBusInterface *m_dbusInterface;
     PlatformInterface *m_platform;
 };
 

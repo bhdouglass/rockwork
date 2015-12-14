@@ -1,19 +1,24 @@
 TEMPLATE = app
 TARGET = upebble
 
+include(../version.pri)
 load(ubuntu-click)
 
-QT += qml quick
+QT += qml quick dbus
 
 CONFIG += c++11
 
 HEADERS += \
     notificationsourcemodel.h \
-    servicecontrol.h
+    servicecontrol.h \
+    pebble.h \
+    pebbles.h
 
 SOURCES += main.cpp \
     notificationsourcemodel.cpp \
-    servicecontrol.cpp
+    servicecontrol.cpp \
+    pebble.cpp \
+    pebbles.cpp
 
 RESOURCES += upebble.qrc
 

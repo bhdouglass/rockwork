@@ -20,6 +20,11 @@ PebbleManager::PebbleManager(QObject *parent) : QObject(parent)
     loadPebbles();
 }
 
+QList<Pebble *> PebbleManager::pebbles() const
+{
+    return m_pebbles;
+}
+
 void PebbleManager::loadPebbles()
 {
     QHash<QString, QString> pairedPebbles = m_bluezClient->pairedPebbles();
@@ -32,6 +37,7 @@ void PebbleManager::loadPebbles()
             pebble->setName(pairedPebbles.value(addrString));
             setupPebble(pebble);
             m_pebbles.append(pebble);
+            emit pebbleAdded(pebble);
         }
         if (!pebble->connected()) {
             pebble->connect();
