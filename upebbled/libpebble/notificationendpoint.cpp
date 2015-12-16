@@ -12,7 +12,6 @@ NotificationEndpoint::NotificationEndpoint(Pebble *pebble, WatchConnection *watc
     m_pebble(pebble),
     m_watchConnection(watchConnection)
 {
-    m_watchConnection->registerEndpointHandler(WatchConnection::EndpointBlobDB, this, "notificationReply");
 }
 
 void NotificationEndpoint::sendLegacyNotification(const Notification &notification)

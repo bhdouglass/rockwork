@@ -2,7 +2,21 @@
 
 CalendarEvent::CalendarEvent()
 {
+}
 
+bool CalendarEvent::isValid() const
+{
+    return !m_id.isNull();
+}
+
+QUuid CalendarEvent::id() const
+{
+    return m_id;
+}
+
+void CalendarEvent::setUuid(const QUuid &id)
+{
+    m_id = id;
 }
 
 QString CalendarEvent::title() const
@@ -97,7 +111,8 @@ void CalendarEvent::setRecurring(bool recurring)
 
 bool CalendarEvent::operator==(const CalendarEvent &other) const
 {
-    return m_title == other.title()
+    return m_id == other.id()
+            && m_title == other.title()
             && m_description == other.description()
             && m_startTime == other.startTime()
             && m_endTime == other.endTime()

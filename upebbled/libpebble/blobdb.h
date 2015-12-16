@@ -39,16 +39,20 @@ public:
     explicit BlobDB(Pebble *pebble, WatchConnection *connection);
 
     void insertNotification(const Notification &notification);
-    void insertTimelinePin(TimelineItem::Layout layout, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring);
+    void insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring);
+    void removeTimelinePin(const QUuid &uuid);
     void insertReminder();
     void syncCalendar(const QList<CalendarEvent> &events);
 
-    void insert(BlobDBId database, TimelineItem item);
+    void insert(BlobDBId database, const TimelineItem &item);
+    void remove(BlobDBId database, const TimelineItem &item);
     void clear(BlobDBId database);
 
 private slots:
+    void blobCommandReply(const QByteArray &data);
     void actionInvoked(const QByteArray &data);
     void sendActionReply();
+    void sendNext();
 
 signals:
     void muteSource(const QString &sourceId);
@@ -58,24 +62,30 @@ private:
     quint16 generateToken();
 
 private:
+
+    class BlobCommand: public PebblePacket
+    {
+    public:
+        BlobDB::Operation m_command; // quint8
+        quint16 m_token;
+        BlobDB::BlobDBId m_database;
+
+        QByteArray m_key;
+        QByteArray m_value;
+
+        QByteArray serialize() const override;
+    };
+
     Pebble *m_pebble;
     WatchConnection *m_connection;
 
     QHash<QUuid, Notification> m_notificationSources;
 
-};
+    QList<CalendarEvent> m_calendarEntries;
+    CalendarEvent findCalendarEvent(const QUuid &id);
 
-class BlobCommand: public PebblePacket
-{
-public:
-    BlobDB::Operation m_command; // quint8
-    quint16 m_token;
-    BlobDB::BlobDBId m_database;
-
-    QByteArray m_key;
-    QByteArray m_value;
-
-    QByteArray serialize() const override;
+    BlobCommand *m_currentCommand = nullptr;
+    QList<BlobCommand*> m_commandQueue;
 };
 
 #endif // BLOBDB_H

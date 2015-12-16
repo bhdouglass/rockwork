@@ -4,11 +4,17 @@
 #include <QString>
 #include <QStringList>
 #include <QDateTime>
+#include <QUuid>
 
 class CalendarEvent
 {
 public:
     CalendarEvent();
+
+    bool isValid() const;
+
+    QUuid id() const;
+    void setUuid(const QUuid &id);
 
     QString title() const;
     void setTitle(const QString &title);
@@ -40,6 +46,7 @@ public:
     bool operator==(const CalendarEvent &other) const;
 
 private:
+    QUuid m_id;
     QString m_title;
     QString m_description;
     QDateTime m_startTime;

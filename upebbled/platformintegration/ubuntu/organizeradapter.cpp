@@ -38,6 +38,9 @@ QList<CalendarEvent> OrganizerAdapter::items() const
 
 void OrganizerAdapter::readStateChanged(QOrganizerAbstractRequest::State state)
 {
+    if (state != QOrganizerAbstractRequest::FinishedState) {
+        return;
+    }
     QOrganizerItemFetchRequest *operation = static_cast<QOrganizerItemFetchRequest*>(sender());
     QList<CalendarEvent> items;
     foreach (const QOrganizerItem &item, operation->items()) {
@@ -46,6 +49,8 @@ void OrganizerAdapter::readStateChanged(QOrganizerAbstractRequest::State state)
             continue;
         }
         CalendarEvent event;
+//        event.setUuid(organizerEvent.id().toString());
+        event.setUuid(QUuid::createUuid());
         event.setTitle(organizerEvent.displayLabel());
         event.setDescription(organizerEvent.description());
         event.setStartTime(organizerEvent.startDateTime());
@@ -61,9 +66,8 @@ void OrganizerAdapter::readStateChanged(QOrganizerAbstractRequest::State state)
 
         items.append(event);
 
-
-        long startTimestamp = QDateTime::currentMSecsSinceEpoch();
-        startTimestamp -= 1000 * 60 * 60 * 24 * 7;
+        quint64 startTimestamp = QDateTime::currentMSecsSinceEpoch();
+        startTimestamp -= (1000 * 60 * 60 * 24 * 7);
 
         foreach (const QOrganizerItem &occurranceItem, m_manager->itemOccurrences(item, QDateTime::fromMSecsSinceEpoch(startTimestamp), QDateTime::currentDateTime().addDays(7))) {
             QOrganizerEventOccurrence organizerOccurrance(occurranceItem);
@@ -72,6 +76,7 @@ void OrganizerAdapter::readStateChanged(QOrganizerAbstractRequest::State state)
             items.append(event);
         }
     }
+
     if (m_items != items) {
         m_items = items;
         emit itemsChanged(m_items);

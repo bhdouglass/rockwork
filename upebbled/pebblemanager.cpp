@@ -47,6 +47,7 @@ void PebbleManager::loadPebbles()
 
 void PebbleManager::pebbleConnected()
 {
+    qDebug() << "pebble connected. Syncing organizer items";
     Pebble *pebble = static_cast<Pebble*>(sender());
     pebble->syncCalendar(Core::instance()->platform()->organizerItems());
 }

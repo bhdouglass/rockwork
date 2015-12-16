@@ -10,7 +10,15 @@ BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
     m_pebble(pebble),
     m_connection(connection)
 {
+    m_connection->registerEndpointHandler(WatchConnection::EndpointBlobDB, this, "blobCommandReply");
     m_connection->registerEndpointHandler(WatchConnection::EndpointActionHandler, this, "actionInvoked");
+
+    connect(m_connection, &WatchConnection::watchConnected, [this]() {
+        if (m_currentCommand) {
+            delete m_currentCommand;
+            m_currentCommand = nullptr;
+        }
+    });
 }
 
 void BlobDB::insertNotification(const Notification &notification)
@@ -119,13 +127,13 @@ void BlobDB::insertNotification(const Notification &notification)
     m_notificationSources.insert(itemUuid, notification);
 }
 
-void BlobDB::insertTimelinePin(TimelineItem::Layout layout, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring)
+void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring)
 {
 //    TimelineItem item(TimelineItem::TypePin, TimelineItem::FlagSingleEvent, QDateTime::currentDateTime().addMSecs(1000 * 60 * 2), 60);
 
     qDebug() << "inserting timeline pin:" << title << startTime << endTime;
     int duration = (endTime.toMSecsSinceEpoch() - startTime.toMSecsSinceEpoch()) / 1000 / 60;
-    TimelineItem item(TimelineItem::TypePin, TimelineItem::FlagSingleEvent, startTime, duration);
+    TimelineItem item(uuid, TimelineItem::TypePin, TimelineItem::FlagSingleEvent, startTime, duration);
     item.setLayout(layout);
 
     TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, title.toUtf8());
@@ -156,6 +164,12 @@ void BlobDB::insertTimelinePin(TimelineItem::Layout layout, const QDateTime &sta
     item.appendAction(dismissAction);
 
     insert(BlobDB::BlobDBIdPin, item);
+}
+
+void BlobDB::removeTimelinePin(const QUuid &uuid)
+{
+    TimelineItem item(uuid, TimelineItem::TypePin);
+    remove(BlobDBId::BlobDBIdPin, item);
 }
 
 void BlobDB::insertReminder()
@@ -190,46 +204,121 @@ void BlobDB::insertReminder()
 
 void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
 {
+    qDebug() << "starting contact sync for" << events.count() << "entries";
+    // For now, let's still clear it...
+    // TODO: store m_calendarEntries to disk and remove the clear calls
+    m_calendarEntries.clear();
     clear(BlobDB::BlobDBIdPin);
 
-    foreach (const CalendarEvent &event, events) {
-        if (!event.startTime().isValid() || !event.endTime().isValid()
-                || event.startTime().addDays(2) < QDateTime::currentDateTime()
-                || QDateTime::currentDateTime().addDays(5) < event.startTime()) {
-//            qWarning() << "Not adding timeline pin. Out of date";
-            continue;
-        }
+    QList<CalendarEvent> itemsToSync;
+    QList<CalendarEvent> itemsToAdd;
+    QList<CalendarEvent> itemsToDelete;
 
+    // Filter out invalid items
+    foreach (const CalendarEvent &event, events) {
+        if (event.startTime().isValid() && event.endTime().isValid()
+                && event.startTime().addDays(2) > QDateTime::currentDateTime()
+                && QDateTime::currentDateTime().addDays(5) > event.startTime()) {
+            itemsToSync.append(event);
+        }
+    }
+
+    // Compare events to local ones
+    foreach (const CalendarEvent &event, itemsToSync) {
+        CalendarEvent syncedEvent = findCalendarEvent(event.id());
+        if (!syncedEvent.isValid()) {
+            itemsToAdd.append(event);
+        } else if (!(syncedEvent == event)) {
+            itemsToDelete.append(syncedEvent);
+            itemsToAdd.append(event);
+        }
+    }
+
+    // Find stale local ones
+    foreach (const CalendarEvent &event, m_calendarEntries) {
+        bool found = false;
+        foreach (const CalendarEvent &tmp, events) {
+            if (tmp.id() == event.id()) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            qDebug() << "removing stale timeline entry";
+            itemsToDelete.append(event);
+        }
+    }
+
+    foreach (const CalendarEvent &event, itemsToDelete) {
+        removeTimelinePin(event.id());
+        m_calendarEntries.removeAll(event);
+    }
+
+    qDebug() << "adding" << itemsToAdd.count() << "timeline entries";
+    foreach (const CalendarEvent &event, itemsToAdd) {
         QMap<QString, QString> fields;
         if (!event.location().isEmpty()) fields.insert("Location", event.location());
         if (!event.calendar().isEmpty()) fields.insert("Calendar", event.calendar());
         if (!event.comment().isEmpty()) fields.insert("Comments", event.comment());
         if (!event.guests().isEmpty()) fields.insert("Guests", event.guests().join(", "));
-        insertTimelinePin(TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
+        insertTimelinePin(event.id(), TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
+        m_calendarEntries.append(event);
     }
 }
 
-void BlobDB::insert(BlobDBId database, TimelineItem item)
+void BlobDB::insert(BlobDBId database, const TimelineItem &item)
 {
-    BlobCommand cmd;
-    cmd.m_command = BlobDB::OperationInsert;
-    cmd.m_token = generateToken();
-    cmd.m_database = database;
+    if (!m_connection->isConnected()) {
+        return;
+    }
+    BlobCommand *cmd = new BlobCommand();
+    cmd->m_command = BlobDB::OperationInsert;
+    cmd->m_token = generateToken();
+    cmd->m_database = database;
 
-    cmd.m_key = item.itemId().toRfc4122();
-    cmd.m_value = item.serialize();
+    cmd->m_key = item.itemId().toRfc4122();
+    cmd->m_value = item.serialize();
 
-    m_connection->writeToPebble(WatchConnection::EndpointBlobDB, cmd.serialize());
+    m_commandQueue.append(cmd);
+    sendNext();
+}
+
+void BlobDB::remove(BlobDB::BlobDBId database, const TimelineItem &item)
+{
+    if (!m_connection->isConnected()) {
+        return;
+    }
+    BlobCommand *cmd = new BlobCommand();
+    cmd->m_command = BlobDB::OperationDelete;
+    cmd->m_token = generateToken();
+    cmd->m_database = database;
+
+    cmd->m_key = item.itemId().toRfc4122();
+
+    m_commandQueue.append(cmd);
+    sendNext();
 }
 
 void BlobDB::clear(BlobDB::BlobDBId database)
 {
-    BlobCommand cmd;
-    cmd.m_command = BlobDB::OperationClear;
-    cmd.m_token = generateToken();
-    cmd.m_database = database;
+    BlobCommand *cmd = new BlobCommand();
+    cmd->m_command = BlobDB::OperationClear;
+    cmd->m_token = generateToken();
+    cmd->m_database = database;
 
-    m_connection->writeToPebble(WatchConnection::EndpointBlobDB, cmd.serialize());
+    m_commandQueue.append(cmd);
+    sendNext();
+}
+
+void BlobDB::blobCommandReply(const QByteArray &data)
+{
+    WatchDataReader reader(data);
+    quint16 token = reader.readLE<quint16>();
+    if (m_currentCommand && token == m_currentCommand->m_token) {
+        delete m_currentCommand;
+        m_currentCommand = nullptr;
+        sendNext();
+    }
 }
 
 void BlobDB::actionInvoked(const QByteArray &actionReply)
@@ -244,7 +333,7 @@ void BlobDB::actionInvoked(const QByteArray &actionReply)
     Q_UNUSED(actionType)
     Q_UNUSED(param)
 
-    qDebug() << "have action reply" << actionId << actionReply.toHex();
+    qDebug() << "Action invoked" << actionId << actionReply.toHex();
 
     Status status = StatusError;
     QList<TimelineAttribute> attributes;
@@ -290,13 +379,31 @@ void BlobDB::sendActionReply()
 
 }
 
+void BlobDB::sendNext()
+{
+    if (m_currentCommand || m_commandQueue.isEmpty()) {
+        return;
+    }
+    m_currentCommand = m_commandQueue.takeFirst();
+    m_connection->writeToPebble(WatchConnection::EndpointBlobDB, m_currentCommand->serialize());
+}
+
 quint16 BlobDB::generateToken()
 {
     return (qrand() % ((int)pow(2, 16) - 2)) + 1;
 }
 
+CalendarEvent BlobDB::findCalendarEvent(const QUuid &id)
+{
+    foreach (const CalendarEvent &entry, m_calendarEntries) {
+        if (entry.id() == id) {
+            return entry;
+        }
+    }
+    return CalendarEvent();
+}
 
-QByteArray BlobCommand::serialize() const
+QByteArray BlobDB::BlobCommand::serialize() const
 {
     QByteArray ret;
     ret.append((quint8)m_command);
