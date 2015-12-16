@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = upebble
+TARGET = rockwork
 
 include(../version.pri)
 load(ubuntu-click)
@@ -20,14 +20,14 @@ SOURCES += main.cpp \
     pebble.cpp \
     pebbles.cpp
 
-RESOURCES += upebble.qrc
+RESOURCES += rockwork.qrc
 
 QML_FILES += $$files(*.qml,true) \
              $$files(*.js,true)
 
-CONF_FILES +=  upebble.apparmor \
-               upebble.svg \
-               upebble.desktop
+CONF_FILES +=  rockwork.apparmor \
+               rockwork.svg \
+               rockwork.desktop
 
 AP_TEST_FILES += tests/autopilot/run \
                  $$files(tests/*.py,true)
@@ -39,14 +39,14 @@ OTHER_FILES += $${CONF_FILES} \
 
 
 #specify where the config files are installed to
-config_files.path = /upebble
+config_files.path = /rockwork
 config_files.files += $${CONF_FILES}
 INSTALLS+=config_files
 
 #install the desktop file, a translated version is 
 #automatically created in the build directory
-desktop_file.path = /upebble
-desktop_file.files = $$OUT_PWD/upebble.desktop
+desktop_file.path = /rockwork
+desktop_file.files = $$OUT_PWD/rockwork.desktop
 desktop_file.CONFIG += no_check_exist
 INSTALLS+=desktop_file
 

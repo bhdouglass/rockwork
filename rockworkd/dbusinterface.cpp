@@ -33,8 +33,8 @@ QString DBusPebble::SerialNumber() const
 DBusInterface::DBusInterface(QObject *parent) :
     QObject(parent)
 {
-    QDBusConnection::sessionBus().registerService("org.upebble");
-    QDBusConnection::sessionBus().registerObject("/org/upebble/Manager", this, QDBusConnection::ExportScriptableSlots|QDBusConnection::ExportScriptableSignals);
+    QDBusConnection::sessionBus().registerService("org.rockwork");
+    QDBusConnection::sessionBus().registerObject("/org/rockwork/Manager", this, QDBusConnection::ExportScriptableSlots|QDBusConnection::ExportScriptableSignals);
 
     foreach (Pebble *pebble, Core::instance()->pebbleManager()->pebbles()) {
         pebbleAdded(pebble);
@@ -52,7 +52,7 @@ QList<QDBusObjectPath> DBusInterface::ListWatches()
 {
     QList<QDBusObjectPath> ret;
     foreach (const QString &address, m_dbusPebbles.keys()) {
-        ret.append(QDBusObjectPath("/org/upebble/" + address));
+        ret.append(QDBusObjectPath("/org/rockwork/" + address));
     }
     return ret;
 }
@@ -66,7 +66,7 @@ void DBusInterface::pebbleAdded(Pebble *pebble)
 
     DBusPebble *dbusPebble = new DBusPebble(pebble, this);
     m_dbusPebbles.insert(address, dbusPebble);
-    QDBusConnection::sessionBus().registerObject("/org/upebble/" + address, dbusPebble, QDBusConnection::ExportAllContents);
+    QDBusConnection::sessionBus().registerObject("/org/rockwork/" + address, dbusPebble, QDBusConnection::ExportAllContents);
 }
 
 

@@ -11,7 +11,7 @@ NotificationManager::NotificationManager(QObject *parent) : QObject(parent)
 
 void NotificationManager::injectNotification(const Notification &notification)
 {
-    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/upebble.mzanetti/notifications.conf";
+    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/notifications.conf";
     QSettings settings(settingsFile, QSettings::IniFormat);
     if (!settings.contains(notification.sourceId())) {
         settings.setValue(notification.sourceId(), true);
@@ -24,7 +24,7 @@ void NotificationManager::injectNotification(const Notification &notification)
 
 void NotificationManager::muteSource(const QString &source)
 {
-    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/upebble.mzanetti/notifications.conf";
+    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/notifications.conf";
     QSettings settings(settingsFile, QSettings::IniFormat);
     settings.setValue(source, false);
 }

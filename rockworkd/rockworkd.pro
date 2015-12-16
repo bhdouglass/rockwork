@@ -4,7 +4,7 @@ QT -= gui
 include(../version.pri)
 load(ubuntu-click)
 
-TARGET = upebbled
+TARGET = rockworkd
 CONFIG += c++11
 #CONFIG -= app_bundle
 
@@ -118,5 +118,5 @@ INSTALLS += libs
 target.path = $${UBUNTU_CLICK_BINARY_PATH}
 INSTALLS+=target
 
-QMAKE_POST_LINK = sed -i s/@VERSION@/$$VERSION/g $$OUT_PWD/../manifest.json
+QMAKE_POST_LINK = sed -i s/@VERSION@/$$VERSION/g $$OUT_PWD/../manifest.json || exit 0
 #QMAKE_POST_LINK = echo $$OUT_PWD/../manifest.json > /tmp/huhu;

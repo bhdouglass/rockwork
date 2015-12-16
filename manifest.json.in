@@ -1,15 +1,15 @@
 {
-    "name": "upebble.mzanetti",
-    "description": "description of upebble",
+    "name": "rockwork.mzanetti",
+    "description": "The clockwork for your Pebble smartwatch",
     "architecture": "@CLICK_ARCH@",
-    "title": "upebble",
+    "title": "RockWork",
     "hooks": {
-        "upebble": {
-            "apparmor": "upebble/upebble.apparmor",
-            "desktop": "upebble/upebble.desktop"
+        "rockwork": {
+            "apparmor": "rockwork/rockwork.apparmor",
+            "desktop": "rockwork/rockwork.desktop"
         }
     },
     "version": "@VERSION@",
-    "maintainer": "Michael Zanetti <michael_zanetti@gmx.net",
-    "framework": "ubuntu-sdk-15.04"
+    "maintainer": "Michael Zanetti <michael_zanetti@gmx.net>",
+    "framework": "ubuntu-sdk-15.04.1"
 }

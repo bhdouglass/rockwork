@@ -7,15 +7,19 @@
 #include <QDBusArgument>
 #include <QDBusServiceWatcher>
 
+#define ROCKWORK_SERVICE QStringLiteral("org.rockwork")
+#define ROCKWORK_MANAGER_PATH QStringLiteral("/org/rockwork/Manager")
+#define ROCKWORK_MANAGER_INTERFACE QStringLiteral("org.rockwork.Manager")
+
 Pebbles::Pebbles(QObject *parent):
     QAbstractListModel(parent)
 {
     refresh();
-    m_watcher = new QDBusServiceWatcher("org.upebble", QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForRegistration, this);
-    QDBusConnection::sessionBus().connect("org.upebble", "/org/upebble/Manager", "org.upebble.Manager", "PebblesChanged", this, SLOT(refresh()));
+    m_watcher = new QDBusServiceWatcher(ROCKWORK_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForRegistration, this);
+    QDBusConnection::sessionBus().connect(ROCKWORK_SERVICE, ROCKWORK_MANAGER_PATH, ROCKWORK_MANAGER_INTERFACE, "PebblesChanged", this, SLOT(refresh()));
     connect(m_watcher, &QDBusServiceWatcher::serviceRegistered, [this]() {
         refresh();
-        QDBusConnection::sessionBus().connect("org.upebble", "/org/upebble/Manager", "org.upebble.Manager", "PebblesChanged", this, SLOT(refresh()));
+        QDBusConnection::sessionBus().connect(ROCKWORK_SERVICE, ROCKWORK_MANAGER_PATH, ROCKWORK_MANAGER_INTERFACE, "PebblesChanged", this, SLOT(refresh()));
     });
 }
 
@@ -53,9 +57,9 @@ QHash<int, QByteArray> Pebbles::roleNames() const
 
 QString Pebbles::version() const
 {
-    QDBusInterface iface("org.upebble", "/org/upebble/Manager", "org.upebble.Manager");
+    QDBusInterface iface(ROCKWORK_SERVICE, ROCKWORK_MANAGER_PATH, ROCKWORK_MANAGER_INTERFACE);
     if (!iface.isValid()) {
-        qWarning() << "Could not connect to upebbled.";
+        qWarning() << "Could not connect to rockworkd.";
         return QString();
     }
     QDBusMessage reply = iface.call("Version");
@@ -87,9 +91,9 @@ int Pebbles::find(const QString &address) const
 
 void Pebbles::refresh()
 {
-    QDBusInterface iface("org.upebble", "/org/upebble/Manager", "org.upebble.Manager");
+    QDBusInterface iface(ROCKWORK_SERVICE, ROCKWORK_MANAGER_PATH, ROCKWORK_MANAGER_INTERFACE);
     if (!iface.isValid()) {
-        qWarning() << "Could not connect to upebbled.";
+        qWarning() << "Could not connect to rockworkd.";
         return;
     }
     QDBusMessage reply = iface.call("ListWatches");

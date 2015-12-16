@@ -283,7 +283,7 @@ void Pebble::phoneVersionAsked(const QByteArray &data)
     m_connection->writeToPebble(WatchConnection::EndpointPhoneVersion, res);
 }
 
-void Pebble::logData(const QByteArray &data)
+void Pebble::logData(const QByteArray &/*data*/)
 {
 //    qDebug() << "Data logged:" << data.toHex();
 }

@@ -120,6 +120,7 @@ bool WatchConnection::registerEndpointHandler(WatchConnection::Endpoint endpoint
     cb.obj = handler;
     cb.method = method;
     m_endpointHandlers.insert(endpoint, cb);
+    return true;
 }
 
 void WatchConnection::pebbleConnected()

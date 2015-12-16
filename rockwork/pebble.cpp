@@ -6,10 +6,10 @@ Pebble::Pebble(const QDBusObjectPath &path, QObject *parent):
     QObject(parent),
     m_path(path)
 {
-    m_iface = new QDBusInterface("org.upebble", path.path(), "org.upebble.Pebble", QDBusConnection::sessionBus(), this);
+    m_iface = new QDBusInterface("org.rockwork", path.path(), "org.rockwork.Pebble", QDBusConnection::sessionBus(), this);
 
-    QDBusConnection::sessionBus().connect("org.upebble", path.path(), "org.upebble.Pebble", "Connected", this, SLOT(pebbleConnected()));
-    QDBusConnection::sessionBus().connect("org.upebble", path.path(), "org.upebble.Pebble", "Disconnected", this, SLOT(pebbleDisconnected()));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "Connected", this, SLOT(pebbleConnected()));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "Disconnected", this, SLOT(pebbleDisconnected()));
     dataChanged();
 }
 

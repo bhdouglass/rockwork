@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 
 Page {
-    title: "Manage Pebbles"
+    title: "Manage watches"
 
     head {
         actions: [

@@ -36,7 +36,7 @@ QHash<int, QByteArray> NotificationSourceModel::roleNames() const
 
 void NotificationSourceModel::setEnabled(int index, bool enabled)
 {
-    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/upebble.mzanetti/notifications.conf";
+    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/notifications.conf";
     qDebug() << "Settings file" << settingsFile;
     QSettings settings(settingsFile, QSettings::IniFormat);
     QString source = m_sources.keys().at(index);
@@ -48,7 +48,7 @@ void NotificationSourceModel::setEnabled(int index, bool enabled)
 
 void NotificationSourceModel::loadSources()
 {
-    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/upebble.mzanetti/notifications.conf";
+    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/notifications.conf";
     qDebug() << "Settings file" << settingsFile;
     QSettings settings(settingsFile, QSettings::IniFormat);
 

@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=upebble
-Exec=upebble
-Icon=upebble/upebble.svg
+Name=RockWork
+Exec=rockwork
+Icon=rockwork/rockwork.svg
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true

@@ -16,10 +16,10 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    qmlRegisterUncreatableType<Pebble>("upebble", 1, 0, "Pebble", "Get them from the model");
-    qmlRegisterType<Pebbles>("upebble", 1, 0, "Pebbles");
-    qmlRegisterType<NotificationSourceModel>("upebble", 1, 0, "NotificationSourceModel");
-    qmlRegisterType<ServiceControl>("upebble", 1, 0, "ServiceController");
+    qmlRegisterUncreatableType<Pebble>("RockWork", 1, 0, "Pebble", "Get them from the model");
+    qmlRegisterType<Pebbles>("RockWork", 1, 0, "Pebbles");
+    qmlRegisterType<NotificationSourceModel>("RockWork", 1, 0, "NotificationSourceModel");
+    qmlRegisterType<ServiceControl>("RockWork", 1, 0, "ServiceController");
 
     QQuickView view;
     view.engine()->rootContext()->setContextProperty("version", VERSION);

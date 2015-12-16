@@ -10,7 +10,7 @@ class Pebble;
 class DBusPebble: public QObject
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.upebble.Pebble")
+    Q_CLASSINFO("D-Bus Interface", "org.rockwork.Pebble")
 public:
     DBusPebble(Pebble *pebble, QObject *parent);
 
@@ -31,7 +31,7 @@ private:
 class DBusInterface : public QObject
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.upebble.Manager")
+    Q_CLASSINFO("D-Bus Interface", "org.rockwork.Manager")
 
 public:
     explicit DBusInterface(QObject *parent = 0);
