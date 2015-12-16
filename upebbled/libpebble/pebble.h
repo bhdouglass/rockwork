@@ -28,6 +28,7 @@ class Pebble : public QObject
     Q_PROPERTY(QString name MEMBER m_name)
     Q_PROPERTY(HardwareRevision HardwareRevision READ hardwareRevision)
     Q_PROPERTY(HardwarePlatform hardwarePlatform MEMBER m_hardwarePlatform)
+    Q_PROPERTY(QString softwareVersion MEMBER m_softwareVersion)
     Q_PROPERTY(QString serialNumber MEMBER m_serialNumber)
 
 public:
@@ -84,6 +85,9 @@ public:
     bool connected() const;
     void connect();
 
+    QDateTime softwareBuildTime() const;
+    QString softwareVersion() const;
+    QString softwareCommitRevision() const;
     HardwareRevision hardwareRevision() const;
     HardwarePlatform hardwarePlatform() const;
     QString serialNumber() const;
@@ -122,6 +126,9 @@ private:
 
     QBluetoothAddress m_address;
     QString m_name;
+    QDateTime m_softwareBuildTime;
+    QString m_softwareVersion;
+    QString m_softwareCommitRevision;
     HardwareRevision m_hardwareRevision;
     HardwarePlatform m_hardwarePlatform;
     QString m_serialNumber;

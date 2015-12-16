@@ -71,6 +71,21 @@ void Pebble::connect()
     m_connection->connectPebble(m_address);
 }
 
+QDateTime Pebble::softwareBuildTime() const
+{
+    return m_softwareBuildTime;
+}
+
+QString Pebble::softwareVersion() const
+{
+    return m_softwareVersion;
+}
+
+QString Pebble::softwareCommitRevision() const
+{
+    return m_softwareCommitRevision;
+}
+
 Pebble::HardwareRevision Pebble::hardwareRevision() const
 {
     return m_hardwareRevision;
@@ -121,17 +136,10 @@ QString Pebble::serialNumber() const
 void Pebble::sendNotification(const Notification &notification)
 {
     qDebug() << "should send notification from:" << notification.sender() << "subject" << notification.subject() << "data" << notification.body();
-    switch (m_hardwarePlatform) {
-    case Pebble::HardwarePlatformAplite:
+    if (m_softwareVersion < "v3.0") {
         m_notificationEndpoint->sendLegacyNotification(notification);
-        break;
-    case Pebble::HardwarePlatformBasalt:
-    case Pebble::HardwarePlatformChalk: {
+    } else {
         m_blobDB->insertNotification(notification);
-        }
-        break;
-    default:
-        qDebug() << "Unknown Hardware platform. Cannot send notification.";
     }
 }
 
@@ -195,9 +203,12 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     WatchDataReader wd(data);
 
     wd.skip(1);
-    qDebug() << "Software Version build:" << QDateTime::fromTime_t(wd.read<quint32>());
-    qDebug() << "Software Version string:" << wd.readFixedString(32);
-    qDebug() << "Software Version commit:" << wd.readFixedString(8);
+    m_softwareBuildTime = QDateTime::fromTime_t(wd.read<quint32>());
+    qDebug() << "Software Version build:" << m_softwareBuildTime;
+    m_softwareVersion = wd.readFixedString(32);
+    qDebug() << "Software Version string:" << m_softwareVersion;
+    m_softwareCommitRevision = wd.readFixedString(8);
+    qDebug() << "Software Version commit:" << m_softwareCommitRevision;
 
     qDebug() << "Recovery:" << wd.read<quint8>();
     Pebble::HardwareRevision rev = (Pebble::HardwareRevision)wd.read<quint8>();
