@@ -107,41 +107,41 @@ uint JSKitPebble::sendAppMessage(QJSValue message, QJSValue callbackForAck, QJSV
     qDebug() << "sendappmessage";
     QVariantMap data = message.toVariant().toMap();
     QPointer<JSKitPebble> pebbObj = this;
-//    uint transactionId = _mgr->_appmsg->nextTransactionId();
+    uint transactionId = _mgr->_appmsg->nextTransactionId();
 
-//    qCDebug(l) << "sendAppMessage" << data;
+    qDebug() << "sendAppMessage" << data;
 
-//    _mgr->_appmsg->send(_appInfo.uuid(), data,
-//    [pebbObj, transactionId, callbackForAck]() mutable {
-//        if (pebbObj.isNull()) return;
-//        if (callbackForAck.isCallable()) {
-//            qCDebug(pebbObj->l) << "Invoking ack callback";
-//            QJSValue event = pebbObj->buildAckEventObject(transactionId);
-//            QJSValue result = callbackForAck.call(QJSValueList({event}));
-//            if (result.isError()) {
-//                qCWarning(pebbObj->l) << "error while invoking ACK callback" << callbackForAck.toString() << ":"
-//                                          << JSKitManager::describeError(result);
-//            }
-//        } else {
-//            qCDebug(pebbObj->l) << "Ack callback not callable";
-//        }
-//    },
-//    [pebbObj, transactionId, callbackForNack]() mutable {
-//        if (pebbObj.isNull()) return;
-//        if (callbackForNack.isCallable()) {
-//            qCDebug(pebbObj->l) << "Invoking nack callback";
-//            QJSValue event = pebbObj->buildAckEventObject(transactionId, "NACK from watch");
-//            QJSValue result = callbackForNack.call(QJSValueList({event}));
-//            if (result.isError()) {
-//                qCWarning(pebbObj->l) << "error while invoking NACK callback" << callbackForNack.toString() << ":"
-//                                          << JSKitManager::describeError(result);
-//            }
-//        } else {
-//            qCDebug(pebbObj->l) << "Nack callback not callable";
-//        }
-//    });
+    _mgr->_appmsg->send(_appInfo.uuid(), data,
+    [pebbObj, transactionId, callbackForAck]() mutable {
+        if (pebbObj.isNull()) return;
+        if (callbackForAck.isCallable()) {
+            qDebug() << "Invoking ack callback";
+            QJSValue event = pebbObj->buildAckEventObject(transactionId);
+            QJSValue result = callbackForAck.call(QJSValueList({event}));
+            if (result.isError()) {
+                qWarning() << "error while invoking ACK callback" << callbackForAck.toString() << ":"
+                                          << JSKitManager::describeError(result);
+            }
+        } else {
+            qDebug() << "Ack callback not callable";
+        }
+    },
+    [pebbObj, transactionId, callbackForNack]() mutable {
+        if (pebbObj.isNull()) return;
+        if (callbackForNack.isCallable()) {
+            qDebug() << "Invoking nack callback";
+            QJSValue event = pebbObj->buildAckEventObject(transactionId, "NACK from watch");
+            QJSValue result = callbackForNack.call(QJSValueList({event}));
+            if (result.isError()) {
+                qWarning() << "error while invoking NACK callback" << callbackForNack.toString() << ":"
+                                          << JSKitManager::describeError(result);
+            }
+        } else {
+            qDebug() << "Nack callback not callable";
+        }
+    });
 
-//    return transactionId;
+    return transactionId;
 }
 
 void JSKitPebble::showSimpleNotificationOnPebble(const QString &title, const QString &body)

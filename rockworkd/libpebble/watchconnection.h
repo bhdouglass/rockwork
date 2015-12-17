@@ -50,6 +50,7 @@ public:
         EndpointPhoneControl = 33,
         EndpointApplicationMessage = 48,
         EndpointLauncher = 49,
+        EndpointAppLaunch = 52,
 //        watchLOGS = 2000,
 //        watchPING = 2001,
 //        watchLOG_DUMP = 2002,
