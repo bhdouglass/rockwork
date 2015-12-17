@@ -104,7 +104,6 @@ void JSKitPebble::timerEvent(QTimerEvent *event)
 
 uint JSKitPebble::sendAppMessage(QJSValue message, QJSValue callbackForAck, QJSValue callbackForNack)
 {
-    qDebug() << "sendappmessage";
     QVariantMap data = message.toVariant().toMap();
     QPointer<JSKitPebble> pebbObj = this;
     uint transactionId = _mgr->_appmsg->nextTransactionId();
