@@ -1,4 +1,4 @@
-# Ubuntu Pebble App
+# Rockwork, the Unofficial Ubuntu Pebble App
 
 An unofficial Pebble App for Ubuntu
 
@@ -9,11 +9,11 @@ An unofficial Pebble App for Ubuntu
 * Installing dependencies (in the armhf chroot)
     * Use the Ubuntu SDKs kit management interface to open up cli access to the chroot
     * OR access it via command line: `click chroot -a armhf -f ubuntu-sdk-15.04 maint`
-    * Run: `apt-get install qtconnectivity5-dev:armhf libqt5bluetooth5:armhf libtelepathy-qt5-dev:armhf libqmenumodel-dev:armhf libquazip-qt5-dev:armhf`
-* Compile uPebble
+    * Run: `apt-get install qtconnectivity5-dev:armhf libqt5bluetooth5:armhf libtelepathy-qt5-dev:armhf libqmenumodel-dev:armhf libquazip-qt5-dev:armhf liburl-dispatcher1-dev:armhf`
+* Compile Rockwork
     * Build/Run using the Ubuntu SDK and the desired kit
     * OR from the cli: `qmake path/to/source && make`
-* Compile uPebble for Debugging
+* Compile Rockwork for Debugging
     * Edit the build configuration to include CONFIG+=testing in the qmake arguments, then build/run using the Ubuntu SDK and the desired kit
     * OR from the cli: `qmake path/to/source CONFIG+=testing && make`
 

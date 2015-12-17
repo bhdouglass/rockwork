@@ -50,6 +50,7 @@ private:
     WatchConnection::Dict mapAppKeys(const QUuid &uuid, const QVariantMap &data);
     QVariantMap mapAppKeys(const QUuid &uuid, const WatchConnection::Dict &dict);
 
+    static bool unpackAppLaunchMessage(const QByteArray &msg, QUuid *uuid);
     static bool unpackPushMessage(const QByteArray &msg, quint8 *transaction, QUuid *uuid, WatchConnection::Dict *dict);
 
     static QByteArray buildPushMessage(quint8 transaction, const QUuid &uuid, const WatchConnection::Dict &dict);
@@ -57,6 +58,7 @@ private:
     static QByteArray buildNackMessage(quint8 transaction);
 
     void handleLauncherPushMessage(const QByteArray &data);
+    void handleAppLaunchMessage(const QByteArray &data);
     void handlePushMessage(const QByteArray &data);
     void handleAckMessage(const QByteArray &data, bool ack);
 

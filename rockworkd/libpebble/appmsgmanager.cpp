@@ -19,6 +19,7 @@ AppMsgManager::AppMsgManager(AppManager *apps, WatchConnection *connection, QObj
             this, &AppMsgManager::handleTimeout);
 
     m_connection->registerEndpointHandler(WatchConnection::EndpointLauncher, this, "handleLauncherMessage");
+    m_connection->registerEndpointHandler(WatchConnection::EndpointAppLaunch, this, "handleAppLaunchMessage");
     m_connection->registerEndpointHandler(WatchConnection::EndpointApplicationMessage, this, "handleApplicationMessage");
 
 }
@@ -178,6 +179,21 @@ QVariantMap AppMsgManager::mapAppKeys(const QUuid &uuid, const WatchConnection::
     return data;
 }
 
+bool AppMsgManager::unpackAppLaunchMessage(const QByteArray &msg, QUuid *uuid)
+{
+    WatchDataReader reader(msg);
+    quint8 action = reader.read<quint8>();
+    Q_UNUSED(action);
+
+    *uuid = reader.readUuid();
+
+    if (reader.bad()) {
+        return false;
+    }
+
+    return true;
+}
+
 bool AppMsgManager::unpackPushMessage(const QByteArray &msg, quint8 *transaction, QUuid *uuid, WatchConnection::Dict *dict)
 {
     WatchDataReader reader(msg);
@@ -222,6 +238,29 @@ QByteArray AppMsgManager::buildNackMessage(quint8 transaction)
     ba[0] = AppMessageNack;
     ba[1] = transaction;
     return ba;
+}
+
+void AppMsgManager::handleAppLaunchMessage(const QByteArray &data)
+{
+    QUuid uuid;
+    if (!unpackAppLaunchMessage(data, &uuid)) {
+        qWarning() << "Failed to parser App Launch message";
+        return;
+    }
+
+    switch (data.at(0)) {
+    case LauncherActionStart:
+        qDebug() << "App starting in watch:" << uuid;
+        emit appStarted(uuid);
+        break;
+    case LauncherActionStop:
+        qDebug() << "App stopping in watch:" << uuid;
+        emit appStopped(uuid);
+        break;
+    default:
+        qWarning() << "App Launch pushed unknown message:" << uuid;
+        break;
+    }
 }
 
 void AppMsgManager::handleLauncherPushMessage(const QByteArray &data)
