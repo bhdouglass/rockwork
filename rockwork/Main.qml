@@ -15,8 +15,8 @@ MainView {
 
     ListModel {
         id: mainMenuModel
-        ListElement { icon: "clock-app-symbolic"; text: "Manage Pebbles"; page: "PebblesPage.qml" }
-        ListElement { icon: "messaging-app-symbolic"; text: "Manage Notifications"; page: "NotificationsPage.qml" }
+        ListElement { icon: "clock-app-symbolic"; text: "Manage watches"; page: "PebblesPage.qml" }
+        ListElement { icon: "messaging-app-symbolic"; text: "Manage notifications"; page: "NotificationsPage.qml" }
     }
 
     ServiceController {
