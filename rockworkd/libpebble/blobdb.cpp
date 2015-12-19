@@ -4,6 +4,8 @@
 
 #include <QDebug>
 #include <QOrganizerRecurrenceRule>
+#include <QDir>
+#include <QStandardPaths>
 
 BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
     QObject(pebble),
@@ -19,6 +21,14 @@ BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
             m_currentCommand = nullptr;
         }
     });
+
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+    dir.setNameFilters({"calendarevent-*"});
+    foreach (const QFileInfo &fi, dir.entryInfoList()) {
+        CalendarEvent event;
+        event.loadFromCache(fi.fileName().split('-').last());
+        m_calendarEntries.append(event);
+    }
 }
 
 void BlobDB::insertNotification(const Notification &notification)
@@ -202,14 +212,18 @@ void BlobDB::insertReminder()
 
 }
 
+void BlobDB::clearTimeline()
+{
+    foreach (CalendarEvent entry, m_calendarEntries) {
+        entry.removeFromCache();
+    }
+    m_calendarEntries.clear();
+    clear(BlobDB::BlobDBIdPin);
+}
+
 void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
 {
     qDebug() << "starting contact sync for" << events.count() << "entries";
-    // For now, let's still clear it...
-    // TODO: store m_calendarEntries to disk and remove the clear calls
-    m_calendarEntries.clear();
-    clear(BlobDB::BlobDBIdPin);
-
     QList<CalendarEvent> itemsToSync;
     QList<CalendarEvent> itemsToAdd;
     QList<CalendarEvent> itemsToDelete;
@@ -252,6 +266,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
     foreach (const CalendarEvent &event, itemsToDelete) {
         removeTimelinePin(event.id());
         m_calendarEntries.removeAll(event);
+        event.removeFromCache();
     }
 
     qDebug() << "adding" << itemsToAdd.count() << "timeline entries";
@@ -263,6 +278,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
         if (!event.guests().isEmpty()) fields.insert("Guests", event.guests().join(", "));
         insertTimelinePin(event.id(), TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
         m_calendarEntries.append(event);
+        event.saveToCache();
     }
 }
 

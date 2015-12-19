@@ -47,8 +47,14 @@ void PebbleManager::loadPebbles()
 
 void PebbleManager::pebbleConnected()
 {
-    qDebug() << "pebble connected. Syncing organizer items";
     Pebble *pebble = static_cast<Pebble*>(sender());
+
+    qDebug() << "Pebble connected:" << pebble->name();
+
+    if (pebble->isUnfaithful()) {
+        qDebug() << "Pebble has been unfaithful. Clearing it up.";
+    }
+    pebble->clearTimeline();
     pebble->syncCalendar(Core::instance()->platform()->organizerItems());
 }
 

@@ -21,7 +21,6 @@ AppMsgManager::AppMsgManager(AppManager *apps, WatchConnection *connection, QObj
     m_connection->registerEndpointHandler(WatchConnection::EndpointLauncher, this, "handleLauncherMessage");
     m_connection->registerEndpointHandler(WatchConnection::EndpointAppLaunch, this, "handleAppLaunchMessage");
     m_connection->registerEndpointHandler(WatchConnection::EndpointApplicationMessage, this, "handleApplicationMessage");
-
 }
 
 void AppMsgManager::handleLauncherMessage(const QByteArray &data)

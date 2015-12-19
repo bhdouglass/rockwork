@@ -45,6 +45,10 @@ public:
 
     bool operator==(const CalendarEvent &other) const;
 
+    void saveToCache() const;
+    void loadFromCache(const QUuid &id);
+    void removeFromCache() const;
+
 private:
     QUuid m_id;
     QString m_title;

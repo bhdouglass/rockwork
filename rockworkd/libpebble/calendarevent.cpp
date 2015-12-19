@@ -1,5 +1,9 @@
 #include "calendarevent.h"
 
+#include <QSettings>
+#include <QStandardPaths>
+#include <QFile>
+
 CalendarEvent::CalendarEvent()
 {
 }
@@ -122,5 +126,41 @@ bool CalendarEvent::operator==(const CalendarEvent &other) const
             && m_guests == other.guests()
             && m_recurring == other.recurring();
 
+}
+
+void CalendarEvent::saveToCache() const
+{
+    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_id.toString(), QSettings::IniFormat);
+    s.setValue("title", m_title);
+    s.setValue("description", m_description);
+    s.setValue("startTime", m_startTime);
+    s.setValue("endTime", m_endTime);
+    s.setValue("location", m_location);
+    s.setValue("calendar", m_calendar);
+    s.setValue("comment", m_comment);
+    s.setValue("guests", m_guests);
+    s.setValue("recurring", m_recurring);
+}
+
+void CalendarEvent::loadFromCache(const QUuid &id)
+{
+    m_id = id;
+    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_id.toString(), QSettings::IniFormat);
+    m_title = s.value("title").toString();
+    m_description = s.value("description").toString();
+    m_startTime = s.value("startTime").toDateTime();
+    m_endTime = s.value("endTime").toDateTime();
+    m_location = s.value("location").toString();
+    m_calendar = s.value("calendar").toString();
+    m_comment = s.value("comment").toString();
+    m_guests = s.value("guests").toStringList();
+    m_recurring = s.value("recurring").toBool();
+}
+
+void CalendarEvent::removeFromCache() const
+{
+    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_id.toString(), QSettings::IniFormat);
+    s.remove("");
+    QFile::remove(s.fileName());
 }
 

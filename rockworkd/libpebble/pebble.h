@@ -91,6 +91,7 @@ public:
     HardwareRevision hardwareRevision() const;
     HardwarePlatform hardwarePlatform() const;
     QString serialNumber() const;
+    bool isUnfaithful() const;
 
 public slots:
     void sendNotification(const Notification &notification);
@@ -132,6 +133,7 @@ private:
     HardwareRevision m_hardwareRevision;
     HardwarePlatform m_hardwarePlatform;
     QString m_serialNumber;
+    bool m_isUnfaithful = false;
 
     WatchConnection *m_connection;
     NotificationEndpoint *m_notificationEndpoint;

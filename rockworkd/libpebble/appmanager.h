@@ -19,7 +19,7 @@ public:
         ActionGetAppBankUuids = 5
     };
 
-    explicit AppManager(QObject *parent = 0);
+    explicit AppManager(WatchConnection *connection, QObject *parent = 0);
 
     QStringList appPaths() const;
     QList<QUuid> appUuids() const;
@@ -32,6 +32,8 @@ public:
 public slots:
     void rescan();
 
+    void handleAppFetchMessage(const QByteArray &data);
+
 signals:
     void appsChanged();
 
@@ -39,6 +41,7 @@ private:
     void scanApp(const QString &path);
 
 private:
+    WatchConnection *m_connection;
     QFileSystemWatcher *_watcher;
     QHash<QUuid, AppInfo> _apps;
     QHash<QString, QUuid> _names;

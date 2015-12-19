@@ -42,6 +42,7 @@ public:
     void insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring);
     void removeTimelinePin(const QUuid &uuid);
     void insertReminder();
+    void clearTimeline();
     void syncCalendar(const QList<CalendarEvent> &events);
 
     void insert(BlobDBId database, const TimelineItem &item);

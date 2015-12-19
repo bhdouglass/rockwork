@@ -2,8 +2,12 @@
 #include <QDir>
 #include "appmanager.h"
 
-AppManager::AppManager(QObject *parent)
+#include "watchconnection.h"
+#include "watchdatareader.h"
+
+AppManager::AppManager(WatchConnection *connection, QObject *parent)
     : QObject(parent),
+      m_connection(connection),
       _watcher(new QFileSystemWatcher(this))
 {
     connect(_watcher, &QFileSystemWatcher::directoryChanged,
@@ -14,6 +18,8 @@ AppManager::AppManager(QObject *parent)
         qWarning() << "could not create apps dir" << dataDir.absoluteFilePath("apps");
     }
     qDebug() << "install apps in" << dataDir.absoluteFilePath("apps");
+
+    m_connection->registerEndpointHandler(WatchConnection::EndpointAppFetch, this, "handleAppFetchMessage");
 
     rescan();
 }
@@ -88,6 +94,18 @@ void AppManager::rescan()
     }
 
     qDebug() << "now watching" << _watcher->directories() << _watcher->files();
+}
+
+void AppManager::handleAppFetchMessage(const QByteArray &data)
+{
+    qDebug() << "should have https://www.filepicker.io/api/file/PNIvamHSwiqoURmxiAhA";
+
+//    539e18f21a19dec6ca0000aa
+
+    qDebug() << "should fetch" << data.toHex();
+    WatchDataReader reader(data);
+    reader.read<quint8>();
+    qDebug() << reader.readUuid();
 }
 
 void AppManager::insertAppInfo(const AppInfo &info)

@@ -25,7 +25,7 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_musicEndpoint = new MusicEndpoint(this, m_connection);
     m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
-    m_appManager = new AppManager(this);
+    m_appManager = new AppManager(m_connection, this);
     m_bankManager = new BankManager(m_connection, m_appManager, this);
     m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
@@ -133,6 +133,11 @@ QString Pebble::serialNumber() const
     return m_serialNumber;
 }
 
+bool Pebble::isUnfaithful() const
+{
+    return m_isUnfaithful;
+}
+
 void Pebble::sendNotification(const Notification &notification)
 {
     qDebug() << "should send notification from:" << notification.sender() << "subject" << notification.subject() << "data" << notification.body();
@@ -158,11 +163,6 @@ void Pebble::insertReminder()
     m_blobDB->insertReminder();
 }
 
-void Pebble::clearTimeline()
-{
-    m_blobDB->clear(BlobDB::BlobDBIdPin);
-}
-
 void Pebble::incomingCall(uint cookie, const QString &number, const QString &name)
 {
     m_phoneCallEndpoint->incomingCall(cookie, number, name);
@@ -176,6 +176,11 @@ void Pebble::callStarted(uint cookie)
 void Pebble::callEnded(uint cookie, bool missed)
 {
     m_phoneCallEndpoint->callEnded(cookie, missed);
+}
+
+void Pebble::clearTimeline()
+{
+    m_blobDB->clearTimeline();
 }
 
 void Pebble::syncCalendar(const QList<CalendarEvent> items)
@@ -202,6 +207,8 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
 {
     WatchDataReader wd(data);
 
+    qDebug() << "blubb" << data.toHex();
+
     wd.skip(1);
     m_softwareBuildTime = QDateTime::fromTime_t(wd.read<quint32>());
     qDebug() << "Software Version build:" << m_softwareBuildTime;
@@ -227,7 +234,14 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "hardwareRevision" << wd.readFixedString(9);
     m_serialNumber = wd.readFixedString(12);
     qDebug() << "serialnumber" << m_serialNumber;
-//    _versions.address = u.readBytes(6);
+    qDebug() << "BT address" << wd.readBytes(6);
+    qDebug() << "CRC:" << wd.read<quint32>();
+    qDebug() << "Resource timestamp:" << QDateTime::fromTime_t(wd.read<quint32>());
+    qDebug() << "Language" << wd.readFixedString(6);
+    qDebug() << "Language version" << wd.read<quint16>();
+    qDebug() << "Capabilities" << wd.read<quint64>();
+    m_isUnfaithful = wd.read<quint8>();
+    qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
 //    platform = hardwareMapping.value(_versions.safe.hw_revision).first;
 
