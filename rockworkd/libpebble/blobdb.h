@@ -4,6 +4,7 @@
 #include "watchconnection.h"
 #include "pebble.h"
 #include "timelineitem.h"
+#include "appmetadata.h"
 
 #include <QObject>
 #include <QDateTime>
@@ -44,6 +45,9 @@ public:
     void insertReminder();
     void clearTimeline();
     void syncCalendar(const QList<CalendarEvent> &events);
+
+    void clearApps();
+    void insertAppMetaData(const AppMetadata &metaData);
 
     void insert(BlobDBId database, const TimelineItem &item);
     void remove(BlobDBId database, const TimelineItem &item);

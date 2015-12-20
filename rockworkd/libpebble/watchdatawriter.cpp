@@ -14,6 +14,14 @@ void WatchDataWriter::writeBytes(int n, const QByteArray &b)
     }
 }
 
+void WatchDataWriter::writeFixedString(int n, const QString &s)
+{
+    _buf->append(s.left(n).toUtf8());
+    for (int i = s.left(n).length(); i < n; i++) {
+        _buf->append('\0');
+    }
+}
+
 void WatchDataWriter::writeCString(const QString &s)
 {
     _buf->append(s.toUtf8());

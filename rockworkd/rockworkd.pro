@@ -22,7 +22,6 @@ LIBS += -lquazip-qt5 -ltelepathy-qt5 -lqmenumodel
 SOURCES += main.cpp \
     libpebble/watchconnection.cpp \
     libpebble/pebble.cpp \
-    libpebble/appinstaller.cpp \
     libpebble/watchdatareader.cpp \
     libpebble/watchdatawriter.cpp \
     libpebble/notificationendpoint.cpp \
@@ -36,7 +35,6 @@ SOURCES += main.cpp \
     libpebble/appmsgmanager.cpp \
     libpebble/uploadmanager.cpp \
     libpebble/bundle.cpp \
-    libpebble/bankmanager.cpp \
     libpebble/bluez/bluezclient.cpp \
     libpebble/bluez/bluez_agentmanager1.cpp \
     libpebble/bluez/bluez_adapter1.cpp \
@@ -56,12 +54,13 @@ SOURCES += main.cpp \
     libpebble/notification.cpp \
     platformintegration/ubuntu/organizeradapter.cpp \
     libpebble/calendarevent.cpp \
-    platformintegration/ubuntu/syncmonitorclient.cpp
+    platformintegration/ubuntu/syncmonitorclient.cpp \
+    libpebble/appmetadata.cpp \
+    libpebble/appdownloader.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
     libpebble/pebble.h \
-    libpebble/appinstaller.h \
     libpebble/watchdatareader.h \
     libpebble/watchdatawriter.h \
     libpebble/notificationendpoint.h \
@@ -76,7 +75,6 @@ HEADERS += \
     libpebble/appmsgmanager.h \
     libpebble/uploadmanager.h \
     libpebble/bundle.h \
-    libpebble/bankmanager.h \
     libpebble/bluez/bluezclient.h \
     libpebble/bluez/bluez_agentmanager1.h \
     libpebble/bluez/bluez_adapter1.h \
@@ -96,7 +94,9 @@ HEADERS += \
     libpebble/notification.h \
     platformintegration/ubuntu/organizeradapter.h \
     libpebble/calendarevent.h \
-    platformintegration/ubuntu/syncmonitorclient.h
+    platformintegration/ubuntu/syncmonitorclient.h \
+    libpebble/appmetadata.h \
+    libpebble/appdownloader.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

@@ -11,7 +11,7 @@ UploadManager::UploadManager(WatchConnection *connection, QObject *parent) :
     m_connection->registerEndpointHandler(WatchConnection::EndpointPutBytes, this, "handlePutBytesMessage");
 }
 
-uint UploadManager::upload(WatchConnection::UploadType type, int index, const QString &filename, QIODevice *device, int size, quint32 crc,
+uint UploadManager::upload(WatchConnection::UploadType type, int index, quint32 appInstallId, const QString &filename, QIODevice *device, int size, quint32 crc,
                            SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
 {
     PendingUpload upload;
@@ -19,6 +19,7 @@ uint UploadManager::upload(WatchConnection::UploadType type, int index, const QS
     upload.type = type;
     upload.index = index;
     upload.filename = filename;
+    upload.appInstallId = appInstallId;
     upload.device = device;
     if (size < 0) {
         upload.size = device->size();
@@ -48,30 +49,30 @@ uint UploadManager::upload(WatchConnection::UploadType type, int index, const QS
     return upload.id;
 }
 
-uint UploadManager::uploadAppBinary(int slot, QIODevice *device, quint32 crc, SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
+uint UploadManager::uploadAppBinary(QIODevice *device, quint32 crc, quint32 appInstallId, SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
 {
-    return upload(WatchConnection::UploadTypeBinary, slot, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
+    return upload(WatchConnection::UploadTypeBinary, -1, appInstallId, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
 }
 
-uint UploadManager::uploadAppResources(int slot, QIODevice *device, quint32 crc, SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
+uint UploadManager::uploadAppResources(quint32 appInstallId, QIODevice *device, quint32 crc, SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
 {
-    return upload(WatchConnection::UploadTypeResources, slot, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
+    return upload(WatchConnection::UploadTypeResources, -1, appInstallId, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
 }
 
 uint UploadManager::uploadFile(const QString &filename, QIODevice *device, quint32 crc, SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
 {
     Q_ASSERT(!filename.isEmpty());
-    return upload(WatchConnection::UploadTypeFile, 0, filename, device, -1, crc, successCallback, errorCallback, progressCallback);
+    return upload(WatchConnection::UploadTypeFile, 0, 0, filename, device, -1, crc, successCallback, errorCallback, progressCallback);
 }
 
 uint UploadManager::uploadFirmwareBinary(bool recovery, QIODevice *device, quint32 crc, SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
 {
-    return upload(recovery ? WatchConnection::UploadTypeRecovery: WatchConnection::UploadTypeFirmware, 0, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
+    return upload(recovery ? WatchConnection::UploadTypeRecovery: WatchConnection::UploadTypeFirmware, 0, 0, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
 }
 
 uint UploadManager::uploadFirmwareResources(QIODevice *device, quint32 crc, SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
 {
-    return upload(WatchConnection::UploadTypeResources, 0, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
+    return upload(WatchConnection::UploadTypeResources, 0, 0, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
 }
 
 void UploadManager::cancel(uint id, int code)
@@ -131,10 +132,15 @@ void UploadManager::startNextUpload()
     WatchDataWriter writer(&msg);
     writer.write<quint8>(PutBytesCommandInit);
     writer.write<quint32>(upload.remaining);
-    writer.write<quint8>(upload.type);
-    writer.write<quint8>(upload.index);
-    if (!upload.filename.isEmpty()) {
-        writer.writeCString(upload.filename);
+    if (upload.index != -1) {
+        writer.write<quint8>(upload.type);
+        writer.write<quint8>(upload.index);
+        if (!upload.filename.isEmpty()) {
+            writer.writeCString(upload.filename);
+        }
+    } else {
+        writer.write<quint8>(upload.type|0x80);
+        writer.writeLE<quint32>(upload.appInstallId);
     }
 
     qDebug().nospace() << "starting new upload " << upload.id
@@ -142,6 +148,8 @@ void UploadManager::startNextUpload()
                          << ", type:" << upload.type
                          << ", slot:" << upload.index
                          << ", crc:" << qPrintable(QString("0x%1").arg(upload.crc, 0, 16));
+
+    qDebug() << msg.toHex();
 
     _state = StateWaitForToken;
     m_connection->writeToPebble(WatchConnection::EndpointPutBytes, msg);

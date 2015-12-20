@@ -6,6 +6,7 @@
 #include <QJsonArray>
 #include "appinfo.h"
 #include "watchdatareader.h"
+#include "pebble.h"
 
 namespace {
 struct ResourceEntry {
@@ -17,6 +18,7 @@ struct ResourceEntry {
 }
 
 struct AppInfoData : public QSharedData {
+    QString appid; // The store end works with this. Let's keep track of it to identify packages without having to unpack them
     QUuid uuid;
     QString shortName;
     QString longName;
@@ -30,6 +32,14 @@ struct AppInfoData : public QSharedData {
     QHash<int, QString> keyNames;
     bool menuIcon;
     int menuIconResource;
+
+    // Entries from the binary header
+    quint32 flags;
+    quint32 icon;
+    quint8 appVersionMajor;
+    quint8 appVersionMinor;
+    quint8 sdkVersionMajor;
+    quint8 sdkVersionMinor;
 };
 
 QLoggingCategory AppInfo::l("AppInfo");
@@ -60,6 +70,11 @@ AppInfo &AppInfo::operator=(const AppInfo &rhs)
 
 AppInfo::~AppInfo()
 {}
+
+QString AppInfo::id() const
+{
+    return d->appid;
+}
 
 bool AppInfo::isLocal() const
 {
@@ -152,10 +167,40 @@ bool AppInfo::hasMenuIcon() const
     return d->menuIcon && d->menuIconResource >= 0;
 }
 
+quint32 AppInfo::flags() const
+{
+    return d->flags;
+}
+
+quint32 AppInfo::icon() const
+{
+    return d->icon;
+}
+
+quint8 AppInfo::appVersionMajor() const
+{
+    return d->appVersionMajor;
+}
+
+quint8 AppInfo::appVersionMinor() const
+{
+    return d->appVersionMinor;
+}
+
+quint8 AppInfo::sdkVersionMajor() const
+{
+    return d->sdkVersionMajor;
+}
+
+quint8 AppInfo::sdkVersionMinor() const
+{
+    return d->sdkVersionMinor;
+}
+
 QImage AppInfo::getMenuIconImage() const
 {
     if (hasMenuIcon()) {
-        QScopedPointer<QIODevice> imageRes(openFile(AppInfo::RESOURCES));
+        QScopedPointer<QIODevice> imageRes(openFile(AppInfo::RESOURCES, m_hardwarePlatform));
         QByteArray data = extractFromResourcePack(imageRes.data(), d->menuIconResource);
         if (!data.isEmpty()) {
             return decodeResourceImage(data);
@@ -179,7 +224,7 @@ QString AppInfo::getJSApp() const
 {
     if (!isValid() || !isLocal()) return QString();
 
-    QScopedPointer<QIODevice> appJS(openFile(AppInfo::APPJS, QIODevice::Text));
+    QScopedPointer<QIODevice> appJS(openFile(AppInfo::APPJS, m_hardwarePlatform, QIODevice::Text));
     if (!appJS) {
         qCWarning(l) << "cannot find app" << d->shortName << "app.js";
         return QString();
@@ -188,16 +233,17 @@ QString AppInfo::getJSApp() const
     return QString::fromUtf8(appJS->readAll());
 }
 
-AppInfo AppInfo::fromPath(const QString &path)
+AppInfo AppInfo::fromPath(const QString &path, Pebble::HardwarePlatform hardwarePlatform)
 {
-    AppInfo info(Bundle::fromPath(path));
+    AppInfo info(Bundle::fromPath(path, hardwarePlatform));
+    info.m_hardwarePlatform = hardwarePlatform;
 
     if (!static_cast<Bundle>(info).isValid()) {
         qCWarning(l) << "bundle" << path << "is not valid";
         return AppInfo();
     }
 
-    QScopedPointer<QIODevice> appInfoJSON(info.openFile(AppInfo::INFO, QIODevice::Text));
+    QScopedPointer<QIODevice> appInfoJSON(info.openFile(AppInfo::INFO, hardwarePlatform, QIODevice::Text));
     if (!appInfoJSON) {
         qCWarning(l) << "cannot find app" << path << "info json";
         return AppInfo();
@@ -211,6 +257,8 @@ AppInfo AppInfo::fromPath(const QString &path)
     }
     appInfoJSON->close();
 
+    info.d->appid = path.split("/").last();
+
     const QJsonObject root = doc.object();
     info.d->uuid = QUuid(root["uuid"].toString());
     info.d->shortName = root["shortName"].toString();
@@ -222,7 +270,7 @@ AppInfo AppInfo::fromPath(const QString &path)
     const QJsonObject watchapp = root["watchapp"].toObject();
     info.d->watchface = watchapp["watchface"].toBool();
 
-    info.d->jskit = info.fileExists(AppInfo::APPJS);
+    info.d->jskit = info.fileExists(AppInfo::APPJS, hardwarePlatform);
 
     if (root.contains("capabilities")) {
         const QJsonArray capabilities = root["capabilities"].toArray();
@@ -273,20 +321,50 @@ AppInfo AppInfo::fromPath(const QString &path)
         return AppInfo();
     }
 
+    QIODevice* appBinary = info.openFile(AppInfo::BINARY, hardwarePlatform, QIODevice::ReadOnly);
+    QByteArray data = appBinary->read(512);
+    WatchDataReader reader(data);
+    qDebug() << "Header:" << reader.readFixedString(8);
+    qDebug() << "struct Major version:" << reader.read<quint8>();
+    qDebug() << "struct Minor version:" << reader.read<quint8>();
+    info.d->sdkVersionMajor = reader.read<quint8>();
+    qDebug() << "sdk Major version:" << info.d->sdkVersionMajor;
+    info.d->sdkVersionMinor = reader.read<quint8>();
+    qDebug() << "sdk Minor version:" << info.d->sdkVersionMinor;
+    info.d->appVersionMajor = reader.read<quint8>();
+    qDebug() << "app Major version:" << info.d->appVersionMajor;
+    info.d->appVersionMinor = reader.read<quint8>();
+    qDebug() << "app Minor version:" << info.d->appVersionMinor;
+    qDebug() << "size:" << reader.readLE<quint16>();
+    qDebug() << "offset:" << reader.readLE<quint32>();
+    qDebug() << "crc:" << reader.readLE<quint32>();
+    qDebug() << "App name:" << reader.readFixedString(32);
+    qDebug() << "Vendor name:" << reader.readFixedString(32);
+    info.d->icon = reader.readLE<quint32>();
+    qDebug() << "Icon:" << info.d->icon;
+    qDebug() << "Symbol table address:" << reader.readLE<quint32>();
+    info.d->flags = reader.readLE<quint32>();
+    qDebug() << "Flags:" << info.d->flags;
+    qDebug() << "Num relocatable entries:" << reader.readLE<quint32>();
+
+    appBinary->close();
+    qDebug() << "app data" << data.toHex();
+
     return info;
 }
 
-AppInfo AppInfo::fromSlot(const BankManager::SlotInfo &slot)
+AppMetadata AppInfo::toAppMetadata()
 {
-    AppInfo info;
-
-    info.d->uuid = QUuid::createUuid();
-    info.d->shortName = slot.name;
-    info.d->companyName = slot.company;
-    info.d->versionCode = slot.version;
-    info.d->capabilities = AppInfo::Capabilities(slot.flags);
-
-    return info;
+    AppMetadata metadata;
+    metadata.setUuid(uuid());
+    metadata.setFlags(flags());
+    metadata.setAppVersion(appVersionMajor(), appVersionMinor());
+    metadata.setSDKVersion(sdkVersionMajor(), sdkVersionMinor());
+    metadata.setAppFaceBgColor(0);
+    metadata.setAppFaceTemplateId(0);
+    metadata.setAppName(shortName());
+    metadata.setIcon(icon());
+    return metadata;
 }
 
 QByteArray AppInfo::extractFromResourcePack(QIODevice *dev, int wanted_id) const

@@ -19,6 +19,7 @@ class AppMsgManager;
 class BankManager;
 class JSKitManager;
 class BlobDB;
+class AppDownloader;
 
 class Pebble : public QObject
 {
@@ -96,15 +97,18 @@ public:
 public slots:
     void sendNotification(const Notification &notification);
     void setMusicMetadata(const MusicMetaData &metaData);
-    void insertTimelinePin();
-    void insertReminder();
-    void clearTimeline();
 
     void incomingCall(uint cookie, const QString &number, const QString &name);
     void callStarted(uint cookie);
     void callEnded(uint cookie, bool missed);
 
+    void clearTimeline();
     void syncCalendar(const QList<CalendarEvent> items);
+
+    void insertReminder();
+
+    void clearAppDB();
+    void installApp(const QString &id);
 
 private slots:
     void onPebbleConnected();
@@ -112,6 +116,7 @@ private slots:
     void pebbleVersionReceived(const QByteArray &data);
     void phoneVersionAsked(const QByteArray &data);
     void logData(const QByteArray &data);
+    void appDownloadFinished(const QString &id);
 
 signals:
     void pebbleConnected();
@@ -123,7 +128,6 @@ signals:
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);
-
 
     QBluetoothAddress m_address;
     QString m_name;
@@ -144,6 +148,9 @@ private:
     JSKitManager *m_jskitManager;
     BankManager *m_bankManager;
     BlobDB *m_blobDB;
+    AppDownloader *m_appDownloader;
+
+    QString m_storagePath;
 };
 
 #endif // PEBBLE_H

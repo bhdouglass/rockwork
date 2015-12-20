@@ -7,13 +7,18 @@
 #include "appmanager.h"
 #include "appmsgmanager.h"
 #include "jskitmanager.h"
-#include "bankmanager.h"
 #include "blobdb.h"
+#include "appdownloader.h"
+#include "core.h"
+#include "platforminterface.h"
 
 #include <QDateTime>
+#include <QStandardPaths>
 
 Pebble::Pebble(QObject *parent) : QObject(parent)
 {
+    m_storagePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+
     m_connection = new WatchConnection(this);
     QObject::connect(m_connection, &WatchConnection::watchConnected, this, &Pebble::onPebbleConnected);
     QObject::connect(m_connection, &WatchConnection::watchDisconnected, this, &Pebble::onPebbleDisconnected);
@@ -25,13 +30,14 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_musicEndpoint = new MusicEndpoint(this, m_connection);
     m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
-    m_appManager = new AppManager(m_connection, this);
-    m_bankManager = new BankManager(m_connection, m_appManager, this);
+    m_appManager = new AppManager(this, m_connection);
     m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
     m_blobDB = new BlobDB(this, m_connection);
     QObject::connect(m_blobDB, &BlobDB::muteSource, this, &Pebble::muteNotificationSource);
     QObject::connect(m_blobDB, &BlobDB::actionTriggered, this, &Pebble::actionTriggered);
+    m_appDownloader = new AppDownloader(m_storagePath, this);
+    QObject::connect(m_appDownloader, &AppDownloader::downloadFinished, this, &Pebble::appDownloadFinished);
 }
 
 QBluetoothAddress Pebble::address() const
@@ -62,7 +68,7 @@ QBluetoothLocalDevice::Pairing Pebble::pairingStatus() const
 
 bool Pebble::connected() const
 {
-    return m_connection->isConnected();
+    return m_connection->isConnected() && !m_serialNumber.isEmpty();
 }
 
 void Pebble::connect()
@@ -153,14 +159,14 @@ void Pebble::setMusicMetadata(const MusicMetaData &metaData)
     m_musicEndpoint->setMusicMetadata(metaData);
 }
 
-void Pebble::insertTimelinePin()
-{
-//    m_blobDB->insertTimelinePin(TimelineItem::LayoutGenericPin,);
-}
-
 void Pebble::insertReminder()
 {
     m_blobDB->insertReminder();
+}
+
+void Pebble::clearAppDB()
+{
+    m_blobDB->clearApps();
 }
 
 void Pebble::incomingCall(uint cookie, const QString &number, const QString &name)
@@ -188,6 +194,11 @@ void Pebble::syncCalendar(const QList<CalendarEvent> items)
     if (connected()) {
         m_blobDB->syncCalendar(items);
     }
+}
+
+void Pebble::installApp(const QString &id)
+{
+    m_appDownloader->downloadApp(id);
 }
 
 void Pebble::onPebbleConnected()
@@ -243,20 +254,23 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     m_isUnfaithful = wd.read<quint8>();
     qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
-//    platform = hardwareMapping.value(_versions.safe.hw_revision).first;
+    m_appManager->rescan();
 
-//    switch (this->platform) {
-//    case APLITE:
-//        _versions.hardwarePlatform = "aplite";
-//        break;
-//    case BASALT:
-//        _versions.hardwarePlatform = "basalt";
-//        break;
-//    case CHALK:
-//        _versions.hardwarePlatform = "chalk";
-//        break;
-//    }
+    // This is useful for debugging
+//    m_isUnfaithful = true;
 
+    if (m_isUnfaithful) {
+        qDebug() << "Pebble has been unfaithful. Clearing it up.";
+        clearTimeline();
+        clearAppDB();
+        foreach (const QUuid &appUuid, m_appManager->appUuids()) {
+            m_blobDB->insertAppMetaData(m_appManager->info(appUuid).toAppMetadata());
+        }
+    }
+
+    syncCalendar(Core::instance()->platform()->organizerItems());
+
+    emit pebbleConnected();
 }
 
 void Pebble::phoneVersionAsked(const QByteArray &data)
@@ -299,5 +313,16 @@ void Pebble::phoneVersionAsked(const QByteArray &data)
 
 void Pebble::logData(const QByteArray &/*data*/)
 {
-//    qDebug() << "Data logged:" << data.toHex();
+    //    qDebug() << "Data logged:" << data.toHex();
+}
+
+void Pebble::appDownloadFinished(const QString &id)
+{
+    m_appManager->scanApp(m_storagePath + "/apps/" + id);
+
+    AppMetadata metadata = m_appManager->info(id).toAppMetadata();
+
+    qDebug() << "********** installing app in blobdb";
+    m_blobDB->insertAppMetaData(metadata);
+
 }

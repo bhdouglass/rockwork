@@ -15,9 +15,10 @@ public:
     virtual ~PlatformInterface() {}
 
 // Notifications
+public:
+    virtual void actionTriggered(const QString &actToken) = 0;
 signals:
     void notificationReceived(const Notification &notification);
-    virtual void actionTriggered(const QString &actToken) = 0;
 
 // Music
 public:

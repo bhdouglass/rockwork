@@ -24,6 +24,8 @@ public slots:
     QString SerialNumber() const;
     bool IsConnected() const;
 
+    void InstallApp(const QString &id);
+
 private:
     Pebble *m_pebble;
 };

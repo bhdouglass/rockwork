@@ -282,6 +282,28 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
     }
 }
 
+void BlobDB::clearApps()
+{
+    clear(BlobDBId::BlobDBIdApp);
+}
+
+void BlobDB::insertAppMetaData(const AppMetadata &metaData)
+{
+    if (!m_connection->isConnected()) {
+        return;
+    }
+    BlobCommand *cmd = new BlobCommand();
+    cmd->m_command = BlobDB::OperationInsert;
+    cmd->m_token = generateToken();
+    cmd->m_database = BlobDBIdApp;
+
+    cmd->m_key = metaData.uuid().toRfc4122();
+    cmd->m_value = metaData.serialize();
+
+    m_commandQueue.append(cmd);
+    sendNext();
+}
+
 void BlobDB::insert(BlobDBId database, const TimelineItem &item)
 {
     if (!m_connection->isConnected()) {
@@ -330,6 +352,10 @@ void BlobDB::blobCommandReply(const QByteArray &data)
 {
     WatchDataReader reader(data);
     quint16 token = reader.readLE<quint16>();
+    quint8 status = reader.read<quint8>();
+    if (status != 0x01) {
+        qWarning() << "Blob Command failed:" << status;
+    }
     if (m_currentCommand && token == m_currentCommand->m_token) {
         delete m_currentCommand;
         m_currentCommand = nullptr;
@@ -401,6 +427,7 @@ void BlobDB::sendNext()
         return;
     }
     m_currentCommand = m_commandQueue.takeFirst();
+    qDebug() << "+++ sending blobdb command to watch" << m_currentCommand->serialize().toHex();
     m_connection->writeToPebble(WatchConnection::EndpointBlobDB, m_currentCommand->serialize());
 }
 

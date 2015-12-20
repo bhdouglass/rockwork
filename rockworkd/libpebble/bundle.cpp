@@ -1,4 +1,5 @@
 #include "bundle.h"
+#include "pebble.h"
 #include <QSharedData>
 #include <QScopedPointer>
 #include <QDir>
@@ -49,7 +50,7 @@ bool Bundle::isValid() const
     return b->isValid;
 }
 
-Bundle Bundle::fromPath(const QString &path)
+Bundle Bundle::fromPath(const QString &path, Pebble::HardwarePlatform hardwarePlatform)
 {
     Bundle bundle;
 
@@ -61,7 +62,7 @@ Bundle Bundle::fromPath(const QString &path)
 
     bundle.b->path = path;
 
-    QScopedPointer<QIODevice> manifestJSON(bundle.openFile(Bundle::MANIFEST, QIODevice::Text));
+    QScopedPointer<QIODevice> manifestJSON(bundle.openFile(Bundle::MANIFEST, hardwarePlatform, QIODevice::Text));
     if (!manifestJSON) {
         qCWarning(l) << "cannot find" << path << "manifest json";
         return Bundle();
@@ -80,8 +81,35 @@ Bundle Bundle::fromPath(const QString &path)
     return bundle;
 }
 
-QIODevice *Bundle::openFile(enum Bundle::File file, QIODevice::OpenMode mode) const
+QIODevice *Bundle::openFile(enum Bundle::File file, Pebble::HardwarePlatform hardwarePlatform, QIODevice::OpenMode mode) const
 {
+    QString subdir;
+    switch (hardwarePlatform) {
+    case Pebble::HardwarePlatformAplite:
+        if (QFileInfo::exists(path() + "/aplite/")) {
+            subdir = "/aplite/";
+        } else {
+            subdir = "/";
+        }
+        break;
+    case Pebble::HardwarePlatformBasalt:
+        qDebug() << "checking path" << path() + "/basalt/";
+        if (QFileInfo::exists(path() + "/basalt/")) {
+            subdir = "/basalt/";
+        } else {
+            subdir = "/";
+        }
+        break;
+    case Pebble::HardwarePlatformChalk:
+        if (QFileInfo::exists(path() + "/chalk/")) {
+            subdir = "/chalk/";
+        } else {
+            qWarning() << "App Bundle doesn't have a chalk build.";
+            return nullptr;
+        }
+        break;
+    }
+
     QString fileName;
     switch (file) {
     case Bundle::MANIFEST:
@@ -89,9 +117,11 @@ QIODevice *Bundle::openFile(enum Bundle::File file, QIODevice::OpenMode mode) co
         break;
     case Bundle::INFO:
         fileName = "appinfo.json";
+        subdir = "/";
         break;
     case Bundle::APPJS:
         fileName = "pebble-js-app.js";
+        subdir = "/";
         break;
     case Bundle::BINARY:
         fileName = b->manifest.value(type()).toObject().value("name").toString();
@@ -104,7 +134,8 @@ QIODevice *Bundle::openFile(enum Bundle::File file, QIODevice::OpenMode mode) co
     QIODevice *dev = 0;
     QFileInfo bundlePath(path());
     if (bundlePath.isDir()) {
-        QDir bundleDir(path());
+        QDir bundleDir(path() + subdir);
+        qDebug() << "opened file:" << bundleDir.absoluteFilePath(fileName);
         if (bundleDir.exists(fileName)) {
             dev = new QFile(bundleDir.absoluteFilePath(fileName));
         }
@@ -120,9 +151,9 @@ QIODevice *Bundle::openFile(enum Bundle::File file, QIODevice::OpenMode mode) co
     return dev;
 }
 
-bool Bundle::fileExists(enum Bundle::File file) const
+bool Bundle::fileExists(enum Bundle::File file, Pebble::HardwarePlatform hardwarePlatform) const
 {
-    QIODevice *dev = openFile(file);
+    QIODevice *dev = openFile(file, hardwarePlatform);
     bool exists = dev && dev->isOpen();
     delete dev;
     return exists;

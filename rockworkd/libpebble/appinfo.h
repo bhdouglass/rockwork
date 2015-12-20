@@ -7,7 +7,7 @@
 #include <QImage>
 #include <QLoggingCategory>
 #include "bundle.h"
-#include "bankmanager.h"
+#include "appmetadata.h"
 
 class AppInfoData;
 
@@ -38,9 +38,9 @@ public:
     Q_PROPERTY(bool menuIcon READ hasMenuIcon)
     Q_PROPERTY(QImage menuIconImage READ getMenuIconImage)
 
-    static AppInfo fromPath(const QString &path);
-    static AppInfo fromSlot(const BankManager::SlotInfo &slot);
+    static AppInfo fromPath(const QString &path, Pebble::HardwarePlatform hardwarePlatform);
 
+    AppMetadata toAppMetadata();
 public:
     AppInfo();
     AppInfo(const AppInfo &);
@@ -48,6 +48,7 @@ public:
     AppInfo &operator=(const AppInfo &);
     ~AppInfo();
 
+    QString id() const;
     bool isLocal() const;
     bool isValid() const;
     QUuid uuid() const;
@@ -60,6 +61,13 @@ public:
     bool isJSKit() const;
     Capabilities capabilities() const;
     bool hasMenuIcon() const;
+
+    quint32 flags() const;
+    quint32 icon() const;
+    quint8 appVersionMajor() const;
+    quint8 appVersionMinor() const;
+    quint8 sdkVersionMajor() const;
+    quint8 sdkVersionMinor() const;
 
     void addAppKey(const QString &key, int value);
     bool hasAppKeyValue(int value) const;
@@ -79,6 +87,7 @@ protected:
     QImage decodeResourceImage(const QByteArray &data) const;
 
 private:
+    Pebble::HardwarePlatform m_hardwarePlatform;
     QSharedDataPointer<AppInfoData> d;
 };
 

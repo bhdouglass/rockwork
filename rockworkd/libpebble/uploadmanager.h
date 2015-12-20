@@ -16,11 +16,11 @@ public:
     typedef std::function<void(int)> ErrorCallback;
     typedef std::function<void(qreal)> ProgressCallback;
 
-    uint upload(WatchConnection::UploadType type, int index, const QString &filename, QIODevice *device, int size = -1, quint32 crc = 0,
+    uint upload(WatchConnection::UploadType type, int index, quint32 appInstallId, const QString &filename, QIODevice *device, int size = -1, quint32 crc = 0,
                 SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
 
-    uint uploadAppBinary(int slot, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
-    uint uploadAppResources(int slot, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+    uint uploadAppBinary(QIODevice *device, quint32 crc, quint32 appInstallId, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+    uint uploadAppResources(quint32 appInstallId, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
     uint uploadFile(const QString &filename, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
     uint uploadFirmwareBinary(bool recovery, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
     uint uploadFirmwareResources(QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
@@ -28,9 +28,6 @@ public:
     void cancel(uint id, int code = 0);
 
 signals:
-
-public slots:
-
 
 private:
     enum State {
@@ -45,8 +42,9 @@ private:
         uint id;
 
         WatchConnection::UploadType type;
-        int index;
+        int index = -1;
         QString filename;
+        quint32 appInstallId;
         QIODevice *device;
         int size;
         int remaining;

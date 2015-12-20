@@ -25,6 +25,12 @@ bool DBusPebble::IsConnected() const
     return m_pebble->connected();
 }
 
+void DBusPebble::InstallApp(const QString &id)
+{
+    qDebug() << "installapp called" << id;
+    m_pebble->installApp(id);
+}
+
 QString DBusPebble::SerialNumber() const
 {
     return m_pebble->serialNumber();
