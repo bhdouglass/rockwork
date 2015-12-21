@@ -24,6 +24,7 @@ public:
     uint uploadFile(const QString &filename, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
     uint uploadFirmwareBinary(bool recovery, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
     uint uploadFirmwareResources(QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+    uint uploadWorker(QIODevice *device, quint32 crc, quint32 appInstallId, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
 
     void cancel(uint id, int code = 0);
 

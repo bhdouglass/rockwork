@@ -75,6 +75,11 @@ uint UploadManager::uploadFirmwareResources(QIODevice *device, quint32 crc, Succ
     return upload(WatchConnection::UploadTypeResources, 0, 0, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
 }
 
+uint UploadManager::uploadWorker(QIODevice *device, quint32 crc, quint32 appInstallId, UploadManager::SuccessCallback successCallback, UploadManager::ErrorCallback errorCallback, UploadManager::ProgressCallback progressCallback)
+{
+    return upload(WatchConnection::UploadTypeWorker, -1, appInstallId, QString(), device, -1, crc, successCallback, errorCallback, progressCallback);
+}
+
 void UploadManager::cancel(uint id, int code)
 {
     if (_pending.empty()) {

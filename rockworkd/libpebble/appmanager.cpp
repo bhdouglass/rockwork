@@ -103,12 +103,24 @@ void AppManager::handleAppFetchMessage(const QByteArray &data)
     m_connection->uploadManager()->uploadAppBinary(binaryFile, crc, appFetchId, [this, binaryFile, appInfo, appFetchId](){
         qDebug() << "binary file uploaded successfully";
         binaryFile->close();
+        binaryFile->deleteLater();
 
         QIODevice *resourcesFile = appInfo.openFile(AppInfo::RESOURCES, m_pebble->hardwarePlatform(), QFile::ReadOnly);
         quint32 crc = appInfo.crcFile(AppInfo::RESOURCES, m_pebble->hardwarePlatform());
-        m_connection->uploadManager()->uploadAppResources(appFetchId, resourcesFile, crc, [this, resourcesFile]() {
+        m_connection->uploadManager()->uploadAppResources(appFetchId, resourcesFile, crc, [this, resourcesFile, appInfo, appFetchId]() {
             qDebug() << "resource file uploaded successfully";
             resourcesFile->close();
+            resourcesFile->deleteLater();
+
+            QIODevice *workerFile = appInfo.openFile(AppInfo::WORKER, HardwarePlatformUnknown, QFile::ReadOnly);
+            if (workerFile) {
+                quint32 crc = appInfo.crcFile(AppInfo::WORKER, HardwarePlatformUnknown);
+                m_connection->uploadManager()->uploadWorker(workerFile, crc, appFetchId, [this, workerFile]() {
+                    qDebug() << "worker file uploaded successfully";
+                    workerFile->close();
+                    workerFile->deleteLater();
+                });
+            }
         });
     });
 }

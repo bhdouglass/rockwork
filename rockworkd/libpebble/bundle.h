@@ -22,7 +22,8 @@ public:
         INFO,
         BINARY,
         RESOURCES,
-        APPJS
+        APPJS,
+        WORKER
     };
 
     static Bundle fromPath(const QString &path);

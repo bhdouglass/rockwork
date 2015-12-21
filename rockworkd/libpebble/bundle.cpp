@@ -127,6 +127,10 @@ QIODevice *Bundle::openFile(enum Bundle::File file, HardwarePlatform hardwarePla
     case Bundle::RESOURCES:
         fileName = b->manifest.value("resources").toObject().value("name").toString();
         break;
+    case Bundle::WORKER:
+        fileName = b->manifest.value("worker").toObject().value("name").toString();
+        subdir = "/";
+        break;
     }
 
     QIODevice *dev = 0;
@@ -160,7 +164,7 @@ bool Bundle::fileExists(enum Bundle::File file, HardwarePlatform hardwarePlatfor
 quint32 Bundle::crcFile(enum Bundle::File file, HardwarePlatform hardwarePlatform) const
 {
     quint32 ret = 0;
-    if (file != Bundle::BINARY && file != Bundle::RESOURCES) {
+    if (file != Bundle::BINARY && file != Bundle::RESOURCES && file != Bundle::WORKER) {
         qWarning() << "Unsupported CRC for" << file;
         return ret;
     }
@@ -179,6 +183,9 @@ quint32 Bundle::crcFile(enum Bundle::File file, HardwarePlatform hardwarePlatfor
         break;
     case Bundle::RESOURCES:
         ret = jsonDoc.object().value("resources").toObject().value("crc").toDouble();
+        break;
+    case Bundle::WORKER:
+        ret = jsonDoc.object().value("worker").toObject().value("crc").toDouble();
         break;
     default:
         ;
