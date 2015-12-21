@@ -34,7 +34,9 @@ Page {
                         fontSize: "small"
                     }
                 }
-
+            }
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("MainMenuPage.qml"), {pebble: pebbles.get(index)})
             }
         }
     }

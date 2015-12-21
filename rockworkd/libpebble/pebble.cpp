@@ -31,6 +31,7 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
     m_appManager = new AppManager(this, m_connection);
+    QObject::connect(m_appManager, &AppManager::appsChanged, this, &Pebble::installedAppsChanged);
     m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
     m_blobDB = new BlobDB(this, m_connection);
@@ -38,6 +39,8 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     QObject::connect(m_blobDB, &BlobDB::actionTriggered, this, &Pebble::actionTriggered);
     m_appDownloader = new AppDownloader(m_storagePath, this);
     QObject::connect(m_appDownloader, &AppDownloader::downloadFinished, this, &Pebble::appDownloadFinished);
+
+    m_appManager->rescan();
 }
 
 QBluetoothAddress Pebble::address() const
@@ -92,12 +95,12 @@ QString Pebble::softwareCommitRevision() const
     return m_softwareCommitRevision;
 }
 
-Pebble::HardwareRevision Pebble::hardwareRevision() const
+HardwareRevision Pebble::hardwareRevision() const
 {
     return m_hardwareRevision;
 }
 
-void Pebble::setHardwareRevision(Pebble::HardwareRevision hardwareRevision)
+void Pebble::setHardwareRevision(HardwareRevision hardwareRevision)
 {
     m_hardwareRevision = hardwareRevision;
     switch (m_hardwareRevision) {
@@ -129,7 +132,7 @@ void Pebble::setHardwareRevision(Pebble::HardwareRevision hardwareRevision)
     }
 }
 
-Pebble::HardwarePlatform Pebble::hardwarePlatform() const
+HardwarePlatform Pebble::hardwarePlatform() const
 {
     return m_hardwarePlatform;
 }
@@ -201,6 +204,22 @@ void Pebble::installApp(const QString &id)
     m_appDownloader->downloadApp(id);
 }
 
+QList<QString> Pebble::installedAppIds()
+{
+    return m_appManager->appIds();
+}
+
+AppInfo Pebble::appInfo(const QString &id)
+{
+    return m_appManager->info(id);
+}
+
+void Pebble::removeApp(const QString &id)
+{
+    m_blobDB->removeApp(m_appManager->info(id));
+    m_appManager->removeApp(id);
+}
+
 void Pebble::onPebbleConnected()
 {
     qDebug() << "Pebble connected:" << m_name;
@@ -229,7 +248,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "Software Version commit:" << m_softwareCommitRevision;
 
     qDebug() << "Recovery:" << wd.read<quint8>();
-    Pebble::HardwareRevision rev = (Pebble::HardwareRevision)wd.read<quint8>();
+    HardwareRevision rev = (HardwareRevision)wd.read<quint8>();
     setHardwareRevision(rev);
     qDebug() << "HW Revision:" << rev;
     qDebug() << "Metadata Version:" << wd.read<quint8>();
@@ -254,8 +273,6 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     m_isUnfaithful = wd.read<quint8>();
     qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
-    m_appManager->rescan();
-
     // This is useful for debugging
 //    m_isUnfaithful = true;
 
@@ -264,7 +281,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
         clearTimeline();
         clearAppDB();
         foreach (const QUuid &appUuid, m_appManager->appUuids()) {
-            m_blobDB->insertAppMetaData(m_appManager->info(appUuid).toAppMetadata());
+            m_blobDB->insertAppMetaData(m_appManager->info(appUuid));
         }
     }
 
@@ -319,10 +336,6 @@ void Pebble::logData(const QByteArray &/*data*/)
 void Pebble::appDownloadFinished(const QString &id)
 {
     m_appManager->scanApp(m_storagePath + "/apps/" + id);
-
-    AppMetadata metadata = m_appManager->info(id).toAppMetadata();
-
-    qDebug() << "********** installing app in blobdb";
-    m_blobDB->insertAppMetaData(metadata);
+    m_blobDB->insertAppMetaData(m_appManager->info(id));
 
 }

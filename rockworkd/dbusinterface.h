@@ -17,6 +17,7 @@ public:
 signals:
     void Connected();
     void Disconnected();
+    void InstalledAppsChanged();
 
 public slots:
     QString Address() const;
@@ -25,6 +26,9 @@ public slots:
     bool IsConnected() const;
 
     void InstallApp(const QString &id);
+    QStringList InstalledAppIds() const;
+    QVariantList InstalledApps() const;
+    void RemoveApp(const QString &id);
 
 private:
     Pebble *m_pebble;

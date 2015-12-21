@@ -8,6 +8,7 @@ DBusPebble::DBusPebble(Pebble *pebble, QObject *parent):
 {
     connect(pebble, &Pebble::pebbleConnected, this, &DBusPebble::Connected);
     connect(pebble, &Pebble::pebbleDisconnected, this, &DBusPebble::Disconnected);
+    connect(pebble, &Pebble::installedAppsChanged, this, &DBusPebble::InstalledAppsChanged);
 }
 
 QString DBusPebble::Address() const
@@ -29,6 +30,42 @@ void DBusPebble::InstallApp(const QString &id)
 {
     qDebug() << "installapp called" << id;
     m_pebble->installApp(id);
+}
+
+QStringList DBusPebble::InstalledAppIds() const
+{
+    return m_pebble->installedAppIds();
+}
+
+QVariantList DBusPebble::InstalledApps() const
+{
+    QVariantList list;
+    foreach (const QString &appId, m_pebble->installedAppIds()) {
+        QVariantMap app;
+        AppInfo info = m_pebble->appInfo(appId);
+        app.insert("id", appId);
+        app.insert("name", info.shortName());
+        app.insert("vendor", info.companyName());
+        app.insert("watchface", info.isWatchface());
+        app.insert("version", info.versionLabel());
+        app.insert("uuid", info.uuid().toString());
+
+        QString path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/" + appId + ".png";
+        QImage icon = info.getMenuIconImage(m_pebble->hardwarePlatform());
+        if (icon.isNull()) {
+            icon = info.getMenuIconImage(HardwarePlatformUnknown);
+        }
+        icon.save(path);
+
+        app.insert("icon", path);
+        list.append(app);
+    }
+    return list;
+}
+
+void DBusPebble::RemoveApp(const QString &id)
+{
+    m_pebble->removeApp(id);
 }
 
 QString DBusPebble::SerialNumber() const

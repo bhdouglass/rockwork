@@ -22,7 +22,7 @@ signals:
 
 // Music
 public:
-    virtual void sendMusicControlCommand(Pebble::MusicControl controlButton) = 0;
+    virtual void sendMusicControlCommand(MusicControlButton controlButton) = 0;
     virtual MusicMetaData musicMetaData() const = 0;
 signals:
     void musicMetadataChanged(MusicMetaData metaData);

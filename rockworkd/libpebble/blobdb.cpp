@@ -178,8 +178,7 @@ void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, c
 
 void BlobDB::removeTimelinePin(const QUuid &uuid)
 {
-    TimelineItem item(uuid, TimelineItem::TypePin);
-    remove(BlobDBId::BlobDBIdPin, item);
+    remove(BlobDBId::BlobDBIdPin, uuid);
 }
 
 void BlobDB::insertReminder()
@@ -287,11 +286,13 @@ void BlobDB::clearApps()
     clear(BlobDBId::BlobDBIdApp);
 }
 
-void BlobDB::insertAppMetaData(const AppMetadata &metaData)
+void BlobDB::insertAppMetaData(const AppInfo &info)
 {
-    if (!m_connection->isConnected()) {
+    if (!m_pebble->connected()) {
         return;
     }
+    AppMetadata metaData = appInfoToMetadata(info, m_pebble->hardwarePlatform());
+
     BlobCommand *cmd = new BlobCommand();
     cmd->m_command = BlobDB::OperationInsert;
     cmd->m_token = generateToken();
@@ -302,6 +303,11 @@ void BlobDB::insertAppMetaData(const AppMetadata &metaData)
 
     m_commandQueue.append(cmd);
     sendNext();
+}
+
+void BlobDB::removeApp(const AppInfo &info)
+{
+    remove(BlobDBId::BlobDBIdApp, info.uuid());
 }
 
 void BlobDB::insert(BlobDBId database, const TimelineItem &item)
@@ -321,7 +327,7 @@ void BlobDB::insert(BlobDBId database, const TimelineItem &item)
     sendNext();
 }
 
-void BlobDB::remove(BlobDB::BlobDBId database, const TimelineItem &item)
+void BlobDB::remove(BlobDB::BlobDBId database, const QUuid &uuid)
 {
     if (!m_connection->isConnected()) {
         return;
@@ -331,7 +337,7 @@ void BlobDB::remove(BlobDB::BlobDBId database, const TimelineItem &item)
     cmd->m_token = generateToken();
     cmd->m_database = database;
 
-    cmd->m_key = item.itemId().toRfc4122();
+    cmd->m_key = uuid.toRfc4122();
 
     m_commandQueue.append(cmd);
     sendNext();
@@ -434,6 +440,51 @@ void BlobDB::sendNext()
 quint16 BlobDB::generateToken()
 {
     return (qrand() % ((int)pow(2, 16) - 2)) + 1;
+}
+
+AppMetadata BlobDB::appInfoToMetadata(const AppInfo &info, HardwarePlatform hardwarePlatform)
+{
+    QIODevice* appBinary = info.openFile(AppInfo::BINARY, hardwarePlatform, QIODevice::ReadOnly);
+    QByteArray data = appBinary->read(512);
+    WatchDataReader reader(data);
+    qDebug() << "Header:" << reader.readFixedString(8);
+    qDebug() << "struct Major version:" << reader.read<quint8>();
+    qDebug() << "struct Minor version:" << reader.read<quint8>();
+    quint8 sdkVersionMajor = reader.read<quint8>();
+    qDebug() << "sdk Major version:" << sdkVersionMajor;
+    quint8 sdkVersionMinor = reader.read<quint8>();
+    qDebug() << "sdk Minor version:" << sdkVersionMinor;
+    quint8 appVersionMajor = reader.read<quint8>();
+    qDebug() << "app Major version:" << appVersionMajor;
+    quint8 appVersionMinor = reader.read<quint8>();
+    qDebug() << "app Minor version:" << appVersionMinor;
+    qDebug() << "size:" << reader.readLE<quint16>();
+    qDebug() << "offset:" << reader.readLE<quint32>();
+    qDebug() << "crc:" << reader.readLE<quint32>();
+    QString appName = reader.readFixedString(32);
+    qDebug() << "App name:" << appName;
+    qDebug() << "Vendor name:" << reader.readFixedString(32);
+    quint32 icon = reader.readLE<quint32>();
+    qDebug() << "Icon:" << icon;
+    qDebug() << "Symbol table address:" << reader.readLE<quint32>();
+    quint32 flags = reader.readLE<quint32>();
+    qDebug() << "Flags:" << flags;
+    qDebug() << "Num relocatable entries:" << reader.readLE<quint32>();
+
+    appBinary->close();
+    qDebug() << "app data" << data.toHex();
+
+    AppMetadata metadata;
+    metadata.setUuid(info.uuid());
+    metadata.setFlags(flags);
+    metadata.setAppVersion(appVersionMajor, appVersionMinor);
+    metadata.setSDKVersion(sdkVersionMajor, sdkVersionMinor);
+    metadata.setAppFaceBgColor(0);
+    metadata.setAppFaceTemplateId(0);
+    metadata.setAppName(appName);
+    metadata.setIcon(icon);
+    return metadata;
+
 }
 
 CalendarEvent BlobDB::findCalendarEvent(const QUuid &id)

@@ -118,17 +118,17 @@ uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QSt
     return 0;
 }
 
-void UbuntuPlatform::sendMusicControlCommand(Pebble::MusicControl controlButton)
+void UbuntuPlatform::sendMusicControlCommand(MusicControlButton controlButton)
 {
     QString method;
     switch (controlButton) {
-    case Pebble::MusicControlPlayPause:
+    case MusicControlPlayPause:
         method = "PlayPause";
         break;
-    case Pebble::MusicControlSkipBack:
+    case MusicControlSkipBack:
         method = "Previous";
         break;
-    case Pebble::MusicControlSkipNext:
+    case MusicControlSkipNext:
         method = "Next";
         break;
     default:
@@ -147,10 +147,10 @@ void UbuntuPlatform::sendMusicControlCommand(Pebble::MusicControl controlButton)
 
     int volumeDiff = 0;
     switch (controlButton) {
-    case Pebble::MusicControlVolumeUp:
+    case MusicControlVolumeUp:
         volumeDiff = 1;
         break;
-    case Pebble::MusicControlVolumeDown:
+    case MusicControlVolumeDown:
         volumeDiff = -1;
         break;
     default:

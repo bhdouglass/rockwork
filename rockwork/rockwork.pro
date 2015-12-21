@@ -12,13 +12,17 @@ HEADERS += \
     notificationsourcemodel.h \
     servicecontrol.h \
     pebble.h \
-    pebbles.h
+    pebbles.h \
+    applicationsmodel.h \
+    applicationsfiltermodel.h
 
 SOURCES += main.cpp \
     notificationsourcemodel.cpp \
     servicecontrol.cpp \
     pebble.cpp \
-    pebbles.cpp
+    pebbles.cpp \
+    applicationsmodel.cpp \
+    applicationsfiltermodel.cpp
 
 RESOURCES += rockwork.qrc
 

@@ -35,6 +35,7 @@ void PhoneCallEndpoint::callStarted(uint cookie)
 
 void PhoneCallEndpoint::callEnded(uint cookie, bool missed)
 {
+    Q_UNUSED(missed)
     // FIXME: The watch doesn't seem to react on Missed... So let's always "End" it for now
 //    phoneControl(missed ? CallActionMissed : CallActionEnd, cookie, QStringList());
     phoneControl(CallActionEnd, cookie, QStringList());

@@ -31,7 +31,7 @@ public:
 
     QString version() const;
 
-    Pebble *get(int index) const;
+    Q_INVOKABLE Pebble *get(int index) const;
     int find(const QString &address) const;
 
 

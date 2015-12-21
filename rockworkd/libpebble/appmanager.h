@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QHash>
 #include <QUuid>
-#include <QFileSystemWatcher>
 #include "appinfo.h"
 #include "watchconnection.h"
 
@@ -45,6 +44,7 @@ public:
 
     QStringList appPaths() const;
     QList<QUuid> appUuids() const;
+    QList<QString> appIds() const;
 
     AppInfo info(const QUuid &uuid) const;
     AppInfo info(const QString &appid) const;
@@ -52,6 +52,8 @@ public:
     void insertAppInfo(const AppInfo &info);
 
     void scanApp(const QString &path);
+
+    void removeApp(const QString &id);
 
 public slots:
     void rescan();
@@ -68,7 +70,6 @@ private:
 private:
     Pebble *m_pebble;
     WatchConnection *m_connection;
-    QFileSystemWatcher *_watcher;
     QHash<QUuid, AppInfo> m_appsUuids;
     QHash<QString, QUuid> m_appsIds;
 };

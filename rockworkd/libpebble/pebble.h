@@ -4,6 +4,7 @@
 #include "musicmetadata.h"
 #include "notification.h"
 #include "calendarevent.h"
+#include "appinfo.h"
 
 #include <QObject>
 #include <QBluetoothAddress>
@@ -33,46 +34,6 @@ class Pebble : public QObject
     Q_PROPERTY(QString serialNumber MEMBER m_serialNumber)
 
 public:
-    enum HardwareRevision {
-        HardwareRevisionUNKNOWN = 0,
-        HardwareRevisionTINTIN_EV1 = 1,
-        HardwareRevisionTINTIN_EV2 = 2,
-        HardwareRevisionTINTIN_EV2_3 = 3,
-        HardwareRevisionTINTIN_EV2_4 = 4,
-        HardwareRevisionTINTIN_V1_5 = 5,
-        HardwareRevisionBIANCA = 6,
-        HardwareRevisionSNOWY_EVT2 = 7,
-        HardwareRevisionSNOWY_DVT = 8,
-        HardwareRevisionSPALDING_EVT = 9,
-        HardwareRevisionBOBBY_SMILES = 10,
-        HardwareRevisionSPALDING = 11,
-
-        HardwareRevisionTINTIN_BB = 0xFF,
-        HardwareRevisionTINTIN_BB2 = 0xFE,
-        HardwareRevisionSNOWY_BB = 0xFD,
-        HardwareRevisionSNOWY_BB2 = 0xFC,
-        HardwareRevisionSPALDING_BB2 = 0xFB
-    };
-
-    enum HardwarePlatform {
-        HardwarePlatformUnknown = 0,
-        HardwarePlatformAplite,
-        HardwarePlatformBasalt,
-        HardwarePlatformChalk
-    };
-
-    enum MusicControl {
-        MusicControlPlayPause,
-        MusicControlSkipBack,
-        MusicControlSkipNext,
-        MusicControlVolumeUp,
-        MusicControlVolumeDown
-    };
-    enum CallStatus {
-        CallStatusIncoming,
-        CallStatusOutGoing
-    };
-
     explicit Pebble(QObject *parent = 0);
 
     QBluetoothAddress address() const;
@@ -109,6 +70,9 @@ public slots:
 
     void clearAppDB();
     void installApp(const QString &id);
+    QList<QString> installedAppIds();
+    AppInfo appInfo(const QString &id);
+    void removeApp(const QString &id);
 
 private slots:
     void onPebbleConnected();
@@ -121,10 +85,11 @@ private slots:
 signals:
     void pebbleConnected();
     void pebbleDisconnected();
-    void musicControlPressed(MusicControl control);
+    void musicControlPressed(MusicControlButton control);
     void hangupCall(uint cookie);
     void muteNotificationSource(const QString &source);
     void actionTriggered(const QString &actToken);
+    void installedAppsChanged();
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);

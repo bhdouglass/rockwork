@@ -47,7 +47,9 @@ void AppMsgManager::handleLauncherMessage(const QByteArray &data)
 
 void AppMsgManager::handleApplicationMessage(const QByteArray &data)
 {
-    switch (data.at(0)) {
+    WatchDataReader reader(data);
+    quint8 messageType = reader.read<quint8>();
+    switch (messageType) {
     case AppMessagePush:
         handlePushMessage(data);
         break;

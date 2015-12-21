@@ -3,5 +3,7 @@
         <file>Main.qml</file>
         <file>NotificationsPage.qml</file>
         <file>PebblesPage.qml</file>
+        <file>InstalledAppsPage.qml</file>
+        <file>MainMenuPage.qml</file>
     </qresource>
 </RCC>

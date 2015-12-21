@@ -34,22 +34,22 @@ void MusicEndpoint::writeMetadata()
 
 void MusicEndpoint::handleMessage(const QByteArray &data)
 {
-    Pebble::MusicControl controlButton;
+    MusicControlButton controlButton;
     switch (data.toHex().toInt()) {
     case 0x01:
-        controlButton = Pebble::MusicControlPlayPause;
+        controlButton = MusicControlPlayPause;
         break;
     case 0x04:
-        controlButton = Pebble::MusicControlSkipNext;
+        controlButton = MusicControlSkipNext;
         break;
     case 0x05:
-        controlButton = Pebble::MusicControlSkipBack;
+        controlButton = MusicControlSkipBack;
         break;
     case 0x06:
-        controlButton = Pebble::MusicControlVolumeUp;
+        controlButton = MusicControlVolumeUp;
         break;
     case 0x07:
-        controlButton = Pebble::MusicControlVolumeDown;
+        controlButton = MusicControlVolumeDown;
         break;
     case 0x08:
         writeMetadata();

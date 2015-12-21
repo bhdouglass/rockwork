@@ -96,7 +96,8 @@ HEADERS += \
     libpebble/calendarevent.h \
     platformintegration/ubuntu/syncmonitorclient.h \
     libpebble/appmetadata.h \
-    libpebble/appdownloader.h
+    libpebble/appdownloader.h \
+    libpebble/enums.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

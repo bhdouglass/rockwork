@@ -13,12 +13,6 @@ MainView {
     width: units.gu(100)
     height: units.gu(75)
 
-    ListModel {
-        id: mainMenuModel
-        ListElement { icon: "clock-app-symbolic"; text: "Manage watches"; page: "PebblesPage.qml" }
-        ListElement { icon: "messaging-app-symbolic"; text: "Manage notifications"; page: "NotificationsPage.qml" }
-    }
-
     ServiceController {
         id: serviceController
         serviceName: "rockworkd"
@@ -41,40 +35,8 @@ MainView {
 
     PageStack {
         id: pageStack
-        Component.onCompleted: push(mainPage)
+        Component.onCompleted: push(Qt.resolvedUrl("PebblesPage.qml"));
 
-        Page {
-            id: mainPage
-            title: "RockWork"
-
-            Column {
-                anchors.fill: parent
-
-                Repeater {
-                    model: mainMenuModel
-                    delegate: ListItem {
-                        RowLayout {
-                            anchors.fill: parent
-                            anchors.margins: units.gu(1)
-                            Icon {
-                                Layout.fillHeight: true
-                                Layout.preferredWidth: height
-                                implicitHeight: parent.height
-                                implicitWidth: height
-                                name:  model.icon
-                            }
-                            Label {
-                                text: model.text
-                                Layout.fillWidth: true
-                            }
-                        }
-                        onClicked: {
-                            pageStack.push(Qt.resolvedUrl(model.page))
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 

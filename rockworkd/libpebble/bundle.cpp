@@ -50,7 +50,7 @@ bool Bundle::isValid() const
     return b->isValid;
 }
 
-Bundle Bundle::fromPath(const QString &path, Pebble::HardwarePlatform hardwarePlatform)
+Bundle Bundle::fromPath(const QString &path)
 {
     Bundle bundle;
 
@@ -62,7 +62,7 @@ Bundle Bundle::fromPath(const QString &path, Pebble::HardwarePlatform hardwarePl
 
     bundle.b->path = path;
 
-    QScopedPointer<QIODevice> manifestJSON(bundle.openFile(Bundle::MANIFEST, hardwarePlatform, QIODevice::Text));
+    QScopedPointer<QIODevice> manifestJSON(bundle.openFile(Bundle::MANIFEST, HardwarePlatformUnknown, QIODevice::Text));
     if (!manifestJSON) {
         qCWarning(l) << "cannot find" << path << "manifest json";
         return Bundle();
@@ -81,26 +81,22 @@ Bundle Bundle::fromPath(const QString &path, Pebble::HardwarePlatform hardwarePl
     return bundle;
 }
 
-QIODevice *Bundle::openFile(enum Bundle::File file, Pebble::HardwarePlatform hardwarePlatform, QIODevice::OpenMode mode) const
+QIODevice *Bundle::openFile(enum Bundle::File file, HardwarePlatform hardwarePlatform, QIODevice::OpenMode mode) const
 {
-    QString subdir;
+    QString subdir = "/";
     switch (hardwarePlatform) {
-    case Pebble::HardwarePlatformAplite:
+    case HardwarePlatformAplite:
         if (QFileInfo::exists(path() + "/aplite/")) {
             subdir = "/aplite/";
-        } else {
-            subdir = "/";
         }
         break;
-    case Pebble::HardwarePlatformBasalt:
+    case HardwarePlatformBasalt:
         qDebug() << "checking path" << path() + "/basalt/";
         if (QFileInfo::exists(path() + "/basalt/")) {
             subdir = "/basalt/";
-        } else {
-            subdir = "/";
         }
         break;
-    case Pebble::HardwarePlatformChalk:
+    case HardwarePlatformChalk:
         if (QFileInfo::exists(path() + "/chalk/")) {
             subdir = "/chalk/";
         } else {
@@ -108,6 +104,8 @@ QIODevice *Bundle::openFile(enum Bundle::File file, Pebble::HardwarePlatform har
             return nullptr;
         }
         break;
+    default:
+        ;
     }
 
     QString fileName;
@@ -151,7 +149,7 @@ QIODevice *Bundle::openFile(enum Bundle::File file, Pebble::HardwarePlatform har
     return dev;
 }
 
-bool Bundle::fileExists(enum Bundle::File file, Pebble::HardwarePlatform hardwarePlatform) const
+bool Bundle::fileExists(enum Bundle::File file, HardwarePlatform hardwarePlatform) const
 {
     QIODevice *dev = openFile(file, hardwarePlatform);
     bool exists = dev && dev->isOpen();
@@ -159,19 +157,31 @@ bool Bundle::fileExists(enum Bundle::File file, Pebble::HardwarePlatform hardwar
     return exists;
 }
 
-quint32 Bundle::crcFile(enum Bundle::File file) const
+quint32 Bundle::crcFile(enum Bundle::File file, HardwarePlatform hardwarePlatform) const
 {
     quint32 ret = 0;
+    if (file != Bundle::BINARY && file != Bundle::RESOURCES) {
+        qWarning() << "Unsupported CRC for" << file;
+        return ret;
+    }
+    QIODevice *manifest = openFile(Bundle::MANIFEST, hardwarePlatform);
+    if (!manifest) {
+        qWarning() << "Manifest file not found for file" << file << "and hardware platform" << hardwarePlatform;
+        return ret;
+    }
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(manifest->readAll());
+    manifest->close();
+    delete manifest;
 
     switch (file) {
     case Bundle::BINARY:
-        ret = b->manifest.value(type()).toObject().value("crc").toDouble();
+        ret = jsonDoc.object().value(type()).toObject().value("crc").toDouble();
         break;
     case Bundle::RESOURCES:
-        ret = b->manifest.value("resources").toObject().value("crc").toDouble();
+        ret = jsonDoc.object().value("resources").toObject().value("crc").toDouble();
         break;
     default:
-        qCWarning(l) << "Unsupported CRC for" << file;
+        ;
     }
 
     return ret;

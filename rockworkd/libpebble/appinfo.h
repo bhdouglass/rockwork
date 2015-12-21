@@ -24,21 +24,7 @@ public:
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 
-    Q_PROPERTY(bool local READ isLocal)
-    Q_PROPERTY(bool valid READ isValid)
-    Q_PROPERTY(QUuid uuid READ uuid)
-    Q_PROPERTY(QString shortName READ shortName)
-    Q_PROPERTY(QString longName READ longName)
-    Q_PROPERTY(QString companyName READ companyName)
-    Q_PROPERTY(int versionCode READ versionCode)
-    Q_PROPERTY(QString versionLabel READ versionLabel)
-    Q_PROPERTY(bool watchface READ isWatchface)
-    Q_PROPERTY(bool jskit READ isJSKit)
-    Q_PROPERTY(Capabilities capabilities READ capabilities)
-    Q_PROPERTY(bool menuIcon READ hasMenuIcon)
-    Q_PROPERTY(QImage menuIconImage READ getMenuIconImage)
-
-    static AppInfo fromPath(const QString &path, Pebble::HardwarePlatform hardwarePlatform);
+    static AppInfo fromPath(const QString &path);
 
     AppMetadata toAppMetadata();
 public:
@@ -62,13 +48,6 @@ public:
     Capabilities capabilities() const;
     bool hasMenuIcon() const;
 
-    quint32 flags() const;
-    quint32 icon() const;
-    quint8 appVersionMajor() const;
-    quint8 appVersionMinor() const;
-    quint8 sdkVersionMajor() const;
-    quint8 sdkVersionMinor() const;
-
     void addAppKey(const QString &key, int value);
     bool hasAppKeyValue(int value) const;
     QString appKeyForValue(int value) const;
@@ -76,8 +55,8 @@ public:
     bool hasAppKey(const QString &key) const;
     int valueForAppKey(const QString &key) const;
 
-    QImage getMenuIconImage() const;
-    QByteArray getMenuIconPng() const;
+    QImage getMenuIconImage(HardwarePlatform hardwarePlatform) const;
+    QByteArray getMenuIconPng(HardwarePlatform hardwarePlatform) const;
     QString getJSApp() const;
 
     void setInvalid();
@@ -87,7 +66,6 @@ protected:
     QImage decodeResourceImage(const QByteArray &data) const;
 
 private:
-    Pebble::HardwarePlatform m_hardwarePlatform;
     QSharedDataPointer<AppInfoData> d;
 };
 

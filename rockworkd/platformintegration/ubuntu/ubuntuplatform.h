@@ -2,6 +2,7 @@
 #define UBUNTUPLATFORM_H
 
 #include "libpebble/platforminterface.h"
+#include "libpebble/enums.h"
 
 #include <QDBusInterface>
 #include <TelepathyQt/AbstractClientObserver>
@@ -25,7 +26,7 @@ public:
     UbuntuPlatform(QObject *parent = 0);
     QDBusInterface* interface() const;
 
-    void sendMusicControlCommand(Pebble::MusicControl controlButton) override;
+    void sendMusicControlCommand(MusicControlButton controlButton) override;
     MusicMetaData musicMetaData() const override;
 
     void hangupCall(uint cookie) override;

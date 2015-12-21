@@ -6,7 +6,7 @@
 #include <QString>
 #include <QIODevice>
 
-#include "pebble.h"
+#include "enums.h"
 
 class BundleData;
 
@@ -25,7 +25,7 @@ public:
         APPJS
     };
 
-    static Bundle fromPath(const QString &path, Pebble::HardwarePlatform hardwarePlatform);
+    static Bundle fromPath(const QString &path);
 
     Bundle();
     Bundle(const Bundle &);
@@ -36,9 +36,9 @@ public:
     QString path() const;
     bool isValid() const;
 
-    QIODevice *openFile(enum File, Pebble::HardwarePlatform hardwarePlatform, QIODevice::OpenMode mode = 0) const;
-    bool fileExists(enum File, Pebble::HardwarePlatform hardwarePlatform) const;
-    quint32 crcFile(enum File) const;
+    QIODevice *openFile(enum File, HardwarePlatform hardwarePlatform, QIODevice::OpenMode mode = 0) const;
+    bool fileExists(enum File, HardwarePlatform hardwarePlatform) const;
+    quint32 crcFile(enum File, HardwarePlatform hardwarePlatform) const;
 
 private:
     QSharedDataPointer<BundleData> b;

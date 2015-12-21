@@ -167,40 +167,10 @@ bool AppInfo::hasMenuIcon() const
     return d->menuIcon && d->menuIconResource >= 0;
 }
 
-quint32 AppInfo::flags() const
-{
-    return d->flags;
-}
-
-quint32 AppInfo::icon() const
-{
-    return d->icon;
-}
-
-quint8 AppInfo::appVersionMajor() const
-{
-    return d->appVersionMajor;
-}
-
-quint8 AppInfo::appVersionMinor() const
-{
-    return d->appVersionMinor;
-}
-
-quint8 AppInfo::sdkVersionMajor() const
-{
-    return d->sdkVersionMajor;
-}
-
-quint8 AppInfo::sdkVersionMinor() const
-{
-    return d->sdkVersionMinor;
-}
-
-QImage AppInfo::getMenuIconImage() const
+QImage AppInfo::getMenuIconImage(HardwarePlatform hardwarePlatform) const
 {
     if (hasMenuIcon()) {
-        QScopedPointer<QIODevice> imageRes(openFile(AppInfo::RESOURCES, m_hardwarePlatform));
+        QScopedPointer<QIODevice> imageRes(openFile(AppInfo::RESOURCES, hardwarePlatform));
         QByteArray data = extractFromResourcePack(imageRes.data(), d->menuIconResource);
         if (!data.isEmpty()) {
             return decodeResourceImage(data);
@@ -210,12 +180,12 @@ QImage AppInfo::getMenuIconImage() const
     return QImage();
 }
 
-QByteArray AppInfo::getMenuIconPng() const
+QByteArray AppInfo::getMenuIconPng(HardwarePlatform hardwarePlatform) const
 {
     QByteArray data;
     QBuffer buf(&data);
     buf.open(QIODevice::WriteOnly);
-    getMenuIconImage().save(&buf, "PNG");
+    getMenuIconImage(hardwarePlatform).save(&buf, "PNG");
     buf.close();
     return data;
 }
@@ -224,7 +194,7 @@ QString AppInfo::getJSApp() const
 {
     if (!isValid() || !isLocal()) return QString();
 
-    QScopedPointer<QIODevice> appJS(openFile(AppInfo::APPJS, m_hardwarePlatform, QIODevice::Text));
+    QScopedPointer<QIODevice> appJS(openFile(AppInfo::APPJS, HardwarePlatformUnknown, QIODevice::Text));
     if (!appJS) {
         qCWarning(l) << "cannot find app" << d->shortName << "app.js";
         return QString();
@@ -233,17 +203,16 @@ QString AppInfo::getJSApp() const
     return QString::fromUtf8(appJS->readAll());
 }
 
-AppInfo AppInfo::fromPath(const QString &path, Pebble::HardwarePlatform hardwarePlatform)
+AppInfo AppInfo::fromPath(const QString &path)
 {
-    AppInfo info(Bundle::fromPath(path, hardwarePlatform));
-    info.m_hardwarePlatform = hardwarePlatform;
+    AppInfo info(Bundle::fromPath(path));
 
     if (!static_cast<Bundle>(info).isValid()) {
         qCWarning(l) << "bundle" << path << "is not valid";
         return AppInfo();
     }
 
-    QScopedPointer<QIODevice> appInfoJSON(info.openFile(AppInfo::INFO, hardwarePlatform, QIODevice::Text));
+    QScopedPointer<QIODevice> appInfoJSON(info.openFile(AppInfo::INFO, HardwarePlatformUnknown, QIODevice::Text));
     if (!appInfoJSON) {
         qCWarning(l) << "cannot find app" << path << "info json";
         return AppInfo();
@@ -270,7 +239,7 @@ AppInfo AppInfo::fromPath(const QString &path, Pebble::HardwarePlatform hardware
     const QJsonObject watchapp = root["watchapp"].toObject();
     info.d->watchface = watchapp["watchface"].toBool();
 
-    info.d->jskit = info.fileExists(AppInfo::APPJS, hardwarePlatform);
+    info.d->jskit = info.fileExists(AppInfo::APPJS, HardwarePlatformUnknown);
 
     if (root.contains("capabilities")) {
         const QJsonArray capabilities = root["capabilities"].toArray();
@@ -321,50 +290,7 @@ AppInfo AppInfo::fromPath(const QString &path, Pebble::HardwarePlatform hardware
         return AppInfo();
     }
 
-    QIODevice* appBinary = info.openFile(AppInfo::BINARY, hardwarePlatform, QIODevice::ReadOnly);
-    QByteArray data = appBinary->read(512);
-    WatchDataReader reader(data);
-    qDebug() << "Header:" << reader.readFixedString(8);
-    qDebug() << "struct Major version:" << reader.read<quint8>();
-    qDebug() << "struct Minor version:" << reader.read<quint8>();
-    info.d->sdkVersionMajor = reader.read<quint8>();
-    qDebug() << "sdk Major version:" << info.d->sdkVersionMajor;
-    info.d->sdkVersionMinor = reader.read<quint8>();
-    qDebug() << "sdk Minor version:" << info.d->sdkVersionMinor;
-    info.d->appVersionMajor = reader.read<quint8>();
-    qDebug() << "app Major version:" << info.d->appVersionMajor;
-    info.d->appVersionMinor = reader.read<quint8>();
-    qDebug() << "app Minor version:" << info.d->appVersionMinor;
-    qDebug() << "size:" << reader.readLE<quint16>();
-    qDebug() << "offset:" << reader.readLE<quint32>();
-    qDebug() << "crc:" << reader.readLE<quint32>();
-    qDebug() << "App name:" << reader.readFixedString(32);
-    qDebug() << "Vendor name:" << reader.readFixedString(32);
-    info.d->icon = reader.readLE<quint32>();
-    qDebug() << "Icon:" << info.d->icon;
-    qDebug() << "Symbol table address:" << reader.readLE<quint32>();
-    info.d->flags = reader.readLE<quint32>();
-    qDebug() << "Flags:" << info.d->flags;
-    qDebug() << "Num relocatable entries:" << reader.readLE<quint32>();
-
-    appBinary->close();
-    qDebug() << "app data" << data.toHex();
-
     return info;
-}
-
-AppMetadata AppInfo::toAppMetadata()
-{
-    AppMetadata metadata;
-    metadata.setUuid(uuid());
-    metadata.setFlags(flags());
-    metadata.setAppVersion(appVersionMajor(), appVersionMinor());
-    metadata.setSDKVersion(sdkVersionMajor(), sdkVersionMinor());
-    metadata.setAppFaceBgColor(0);
-    metadata.setAppFaceTemplateId(0);
-    metadata.setAppName(shortName());
-    metadata.setIcon(icon());
-    return metadata;
 }
 
 QByteArray AppInfo::extractFromResourcePack(QIODevice *dev, int wanted_id) const

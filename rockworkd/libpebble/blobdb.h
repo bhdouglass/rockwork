@@ -47,10 +47,11 @@ public:
     void syncCalendar(const QList<CalendarEvent> &events);
 
     void clearApps();
-    void insertAppMetaData(const AppMetadata &metaData);
+    void insertAppMetaData(const AppInfo &info);
+    void removeApp(const AppInfo &info);
 
     void insert(BlobDBId database, const TimelineItem &item);
-    void remove(BlobDBId database, const TimelineItem &item);
+    void remove(BlobDBId database, const QUuid &uuid);
     void clear(BlobDBId database);
 
 private slots:
@@ -65,6 +66,7 @@ signals:
 
 private:
     quint16 generateToken();
+    AppMetadata appInfoToMetadata(const AppInfo &info, HardwarePlatform hardwarePlatform);
 
 private:
 
