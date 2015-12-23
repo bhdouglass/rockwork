@@ -15,7 +15,7 @@ TestingPlatform::TestingPlatform(QObject *parent):
     m_view->show();
 }
 
-void TestingPlatform::sendMusicControlCommand(Pebble::MusicControl command)
+void TestingPlatform::sendMusicControlCommand(MusicControlButton command)
 {
     qDebug() << "Testing platform received music command from pebble" << command;
 }

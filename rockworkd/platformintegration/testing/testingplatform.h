@@ -11,7 +11,7 @@ class TestingPlatform : public PlatformInterface
 public:
     explicit TestingPlatform(QObject *parent = 0);
 
-    void sendMusicControlCommand(Pebble::MusicControl command) override;
+    void sendMusicControlCommand(MusicControlButton command) override;
     MusicMetaData musicMetaData() const override;
 
     Q_INVOKABLE void sendNotification(int type, const QString &from, const QString &subject, const QString &text);
