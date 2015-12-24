@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 
 Page {
-    title: "Manage watches"
+    title: i18n.tr("Manage Pebbles")
 
     head {
         actions: [
@@ -23,18 +23,22 @@ Page {
             RowLayout {
                 anchors.fill: parent
                 anchors.margins: units.gu(1)
+
                 ColumnLayout {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
+
                     Label {
                         text: model.name
                     }
+
                     Label {
-                        text: model.connected ? "Connected" : "Disconnected"
+                        text: model.connected ? i18n.tr("Connected") : i18n.tr("Disconnected")
                         fontSize: "small"
                     }
                 }
             }
+
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("MainMenuPage.qml"), {pebble: pebbles.get(index)})
             }
@@ -46,18 +50,18 @@ Page {
         width: parent.width - units.gu(4)
         spacing: units.gu(4)
         visible: pebbles.count === 0
+
         Label {
-            text: "No Pebble set up yet. Please connect your Pebble watch using the system settings app."
+            text: i18n.tr("No Pebbles configured yet. Please connect your Pebble watch using the system settings.")
             fontSize: "large"
             width: parent.width
             wrapMode: Text.WordWrap
         }
+
         Button {
-            text: "Open system settings"
+            text: i18n.tr("Open system settings")
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: Qt.openUrlExternally("settings://system/bluetooth")
         }
     }
-
 }
-

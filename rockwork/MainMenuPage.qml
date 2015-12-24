@@ -8,11 +8,34 @@ Page {
 
     property var pebble: null
 
-    ListModel {
-        id: mainMenuModel
-        ListElement { icon: "stock_notification"; text: "Manage notifications"; page: "NotificationsPage.qml" }
-        ListElement { icon: "stock_application"; text: "Manage apps"; page: "InstalledAppsPage.qml"; showWatchApps: true }
-        ListElement { icon: "stock_alarm-clock"; text: "Manage watchfaces"; page: "InstalledAppsPage.qml"; showWatchFaces: true }
+    //Creating the menu list this way to allow the text field to be translatable (http://askubuntu.com/a/476331)
+    Item {
+        ListModel {
+            id: mainMenuModel
+            dynamicRoles: true
+        }
+
+        Component.onCompleted: {
+            mainMenuModel.append({
+                icon: "stock_notification",
+                text: i18n.tr("Manage notifications"),
+                page: "NotificationsPage.qml",
+            });
+
+            mainMenuModel.append({
+                icon: "stock_application",
+                text: i18n.tr("Manage Apps"),
+                page: "InstalledAppsPage.qml",
+                showWatchApps: true,
+            });
+
+            mainMenuModel.append({
+                icon: "stock_alarm-clock",
+                text: i18n.tr("Manage Watchfaces"),
+                page: "InstalledAppsPage.qml",
+                showWatchFaces: true,
+            });
+        }
     }
 
     Column {
@@ -24,18 +47,21 @@ Page {
                 RowLayout {
                     anchors.fill: parent
                     anchors.margins: units.gu(1)
+
                     Icon {
                         Layout.fillHeight: true
                         Layout.preferredWidth: height
                         implicitHeight: parent.height
                         implicitWidth: height
-                        name:  model.icon
+                        name: model.icon
                     }
+
                     Label {
                         text: model.text
                         Layout.fillWidth: true
                     }
                 }
+
                 onClicked: {
                     var options = {};
                     options["pebble"] = root.pebble
@@ -47,4 +73,3 @@ Page {
         }
     }
 }
-

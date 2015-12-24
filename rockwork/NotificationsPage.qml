@@ -4,20 +4,26 @@ import Ubuntu.Components 1.3
 import RockWork 1.0
 
 Page {
-    title: "Notifications"
+    title: i18n.tr("Notifications")
 
     ColumnLayout {
         anchors.fill: parent
         anchors.topMargin: units.gu(1)
+
         Item {
             Layout.fillWidth: true
             implicitHeight: infoLabel.height
 
             Label {
                 id: infoLabel
-                anchors { left: parent.left; right: parent.right; margins: units.gu(1) }
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    margins: units.gu(1)
+                }
+
                 wrapMode: Text.WordWrap
-                text: "Entries here will appear as notifications keep coming. Selected notifications will be shown on your Pebble."
+                text: i18n.tr("Entries here will appear as notifications keep coming. Selected notifications will be shown on your Pebble.")
             }
         }
 
@@ -29,18 +35,20 @@ Page {
             model: NotificationSourceModel {
                 id: notificationSourceModel
             }
+
             delegate: ListItem {
                 RowLayout {
                     anchors.fill: parent
                     anchors.margins: units.gu(1)
+
                     Label {
                         text: model.name
                         Layout.fillWidth: true
                     }
+
                     Switch {
                         checked: model.enabled
                         onCheckedChanged: {
-                            print("new checked", checked)
                             notificationSourceModel.setEnabled(index, checked)
                         }
                     }
@@ -48,6 +56,5 @@ Page {
             }
         }
     }
-
 }
 

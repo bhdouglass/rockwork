@@ -45,6 +45,7 @@ private slots:
 
 private:
     int find(const QDBusObjectPath &path) const;
+    static bool sortPebbles(Pebble *a, Pebble *b);
 
 private:
     QDBusInterface *m_iface;
