@@ -131,6 +131,7 @@ void Pebble::refreshApps()
         app->setVendor(v.toMap().value("vendor").toString());
         app->setVersion(v.toMap().value("version").toString());
         app->setIsWatchFace(v.toMap().value("watchface").toBool());
+        qDebug() << "inserting app" << app->name();
         m_installedApps->insert(app);
     }
 }

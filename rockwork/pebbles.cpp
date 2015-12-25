@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QDBusArgument>
 #include <QDBusServiceWatcher>
+#include <algorithm>
 
 #define ROCKWORK_SERVICE QStringLiteral("org.rockwork")
 #define ROCKWORK_MANAGER_PATH QStringLiteral("/org/rockwork/Manager")
@@ -118,8 +119,23 @@ void Pebbles::refresh()
             endInsertRows();
             emit countChanged();
         }
+
+        std::sort(m_pebbles.begin(), m_pebbles.end(), Pebbles::sortPebbles);
     }
     arg.endArray();
+}
+
+bool Pebbles::sortPebbles(Pebble *a, Pebble *b)
+{
+    if (a->connected() && !b->connected()) {
+        return true;
+    }
+    else if (!a->connected() && b->connected()) {
+        return false;
+    }
+    else {
+        return a->name() < b->name();
+    }
 }
 
 void Pebbles::pebbleConnectedChanged()
@@ -137,4 +153,3 @@ int Pebbles::find(const QDBusObjectPath &path) const
     }
     return -1;
 }
-

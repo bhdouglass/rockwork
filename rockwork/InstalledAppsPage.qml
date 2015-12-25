@@ -5,7 +5,7 @@ import RockWork 1.0
 
 Page {
     id: root
-    title: showWatchApps ? (showWatchFaces ? "Apps & Watchfaces" : "Apps") : "Watchfaces"
+    title: showWatchApps ? (showWatchFaces ? i18n.tr("Apps & Watchfaces") : i18n.tr("Apps")) : i18n.tr("Watchfaces")
 
     property var pebble: null
     property bool showWatchApps: false
@@ -34,23 +34,27 @@ Page {
                     }
                 ]
             }
+
             RowLayout {
                 anchors {
                     fill: parent
                     margins: units.gu(1)
                 }
                 spacing: units.gu(1)
+
                 Image {
                     Layout.fillHeight: true
                     Layout.preferredWidth: height
                     source: "file://" + model.icon
                 }
+
                 ColumnLayout {
                     Layout.fillWidth: true
                     Label {
                         text: model.name
                         Layout.fillWidth: true
                     }
+
                     Label {
                         text: model.vendor
                         Layout.fillWidth: true
