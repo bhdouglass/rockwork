@@ -9,33 +9,31 @@ Page {
     property var pebble: null
 
     //Creating the menu list this way to allow the text field to be translatable (http://askubuntu.com/a/476331)
-    Item {
-        ListModel {
-            id: mainMenuModel
-            dynamicRoles: true
-        }
+    ListModel {
+        id: mainMenuModel
+        dynamicRoles: true
+    }
 
-        Component.onCompleted: {
-            mainMenuModel.append({
-                icon: "stock_notification",
-                text: i18n.tr("Manage notifications"),
-                page: "NotificationsPage.qml",
-            });
+    Component.onCompleted: {
+        mainMenuModel.append({
+            icon: "stock_notification",
+            text: i18n.tr("Manage notifications"),
+            page: "NotificationsPage.qml",
+        });
 
-            mainMenuModel.append({
-                icon: "stock_application",
-                text: i18n.tr("Manage Apps"),
-                page: "InstalledAppsPage.qml",
-                showWatchApps: true,
-            });
+        mainMenuModel.append({
+            icon: "stock_application",
+            text: i18n.tr("Manage Apps"),
+            page: "InstalledAppsPage.qml",
+            showWatchApps: true,
+        });
 
-            mainMenuModel.append({
-                icon: "stock_alarm-clock",
-                text: i18n.tr("Manage Watchfaces"),
-                page: "InstalledAppsPage.qml",
-                showWatchFaces: true,
-            });
-        }
+        mainMenuModel.append({
+            icon: "stock_alarm-clock",
+            text: i18n.tr("Manage Watchfaces"),
+            page: "InstalledAppsPage.qml",
+            showWatchFaces: true,
+        });
     }
 
     Column {
