@@ -11,6 +11,15 @@ Page {
     property bool showWatchApps: false
     property bool showWatchFaces: false
 
+    head {
+        actions: [
+            Action {
+                iconName: "add"
+                onTriggered: pageStack.push(Qt.resolvedUrl("AppStorePage.qml"), {pebble: root.pebble, showWatchApps: root.showWatchApps, showWatchFaces: root.showWatchFaces})
+            }
+        ]
+    }
+
     ApplicationsFilterModel {
         id: filterModel
         model: root.pebble.installedApps

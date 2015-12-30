@@ -34,28 +34,26 @@ QList<QUuid> AppManager::appUuids() const
     return m_appsUuids.keys();
 }
 
-QList<QString> AppManager::appIds() const
-{
-    return m_appsIds.keys();
-}
+//QList<QString> AppManager::appIds() const
+//{
+//    return m_appsIds.keys();
+//}
 
 AppInfo AppManager::info(const QUuid &uuid) const
 {
     return m_appsUuids.value(uuid);
 }
 
-AppInfo AppManager::info(const QString &id) const
-{
-    return m_appsUuids.value(m_appsIds.value(id));
-}
+//AppInfo AppManager::info(const QString &id) const
+//{
+//    return m_appsUuids.value(m_appsIds.value(id));
+//}
 
 void AppManager::rescan()
 {
     Q_FOREACH(const AppInfo &appInfo, m_appsUuids) {
-        if (appInfo.isLocal()) {
-            m_appsUuids.remove(appInfo.uuid());
-            m_appsIds.remove(appInfo.id());
-        }
+        m_appsUuids.remove(appInfo.uuid());
+//        m_appsIds.remove(appInfo.id());
     }
 
     Q_FOREACH(const QString &path, appPaths()) {
@@ -97,28 +95,23 @@ void AppManager::handleAppFetchMessage(const QByteArray &data)
 
     AppInfo appInfo = m_appsUuids.value(uuid);
 
-    QIODevice *binaryFile = appInfo.openFile(AppInfo::BINARY, m_pebble->hardwarePlatform(), QFile::ReadOnly);
-    quint32 crc = appInfo.crcFile(AppInfo::BINARY, m_pebble->hardwarePlatform());
+    QString binaryFile = appInfo.file(AppInfo::FileTypeApplication, m_pebble->hardwarePlatform());
+    quint32 crc = appInfo.crc(AppInfo::FileTypeApplication, m_pebble->hardwarePlatform());
     qDebug() << "opened binary" << binaryFile << "for hardware" << m_pebble->hardwarePlatform() << "crc" << crc;
-    m_connection->uploadManager()->uploadAppBinary(binaryFile, crc, appFetchId, [this, binaryFile, appInfo, appFetchId](){
+    m_connection->uploadManager()->uploadAppBinary(appFetchId, binaryFile, crc, [this, appInfo, appFetchId](){
         qDebug() << "binary file uploaded successfully";
-        binaryFile->close();
-        binaryFile->deleteLater();
 
-        QIODevice *resourcesFile = appInfo.openFile(AppInfo::RESOURCES, m_pebble->hardwarePlatform(), QFile::ReadOnly);
-        quint32 crc = appInfo.crcFile(AppInfo::RESOURCES, m_pebble->hardwarePlatform());
-        m_connection->uploadManager()->uploadAppResources(appFetchId, resourcesFile, crc, [this, resourcesFile, appInfo, appFetchId]() {
+        QString resourcesFile = appInfo.file(AppInfo::FileTypeResources, m_pebble->hardwarePlatform());
+        quint32 crc = appInfo.crc(AppInfo::FileTypeResources, m_pebble->hardwarePlatform());
+        qDebug() << "uploadign resource file" << resourcesFile;
+        m_connection->uploadManager()->uploadAppResources(appFetchId, resourcesFile, crc, [this, appInfo, appFetchId]() {
             qDebug() << "resource file uploaded successfully";
-            resourcesFile->close();
-            resourcesFile->deleteLater();
 
-            QIODevice *workerFile = appInfo.openFile(AppInfo::WORKER, HardwarePlatformUnknown, QFile::ReadOnly);
-            if (workerFile) {
-                quint32 crc = appInfo.crcFile(AppInfo::WORKER, HardwarePlatformUnknown);
-                m_connection->uploadManager()->uploadWorker(workerFile, crc, appFetchId, [this, workerFile]() {
+            QString workerFile = appInfo.file(AppInfo::FileTypeWorker, m_pebble->hardwarePlatform());
+            if (!workerFile.isEmpty()) {
+                quint32 crc = appInfo.crc(AppInfo::FileTypeWorker, m_pebble->hardwarePlatform());
+                m_connection->uploadManager()->uploadAppWorker(appFetchId, workerFile, crc, [this]() {
                     qDebug() << "worker file uploaded successfully";
-                    workerFile->close();
-                    workerFile->deleteLater();
                 });
             }
         });
@@ -128,24 +121,22 @@ void AppManager::handleAppFetchMessage(const QByteArray &data)
 void AppManager::insertAppInfo(const AppInfo &info)
 {
     m_appsUuids.insert(info.uuid(), info);
-    m_appsIds.insert(info.id(), info.uuid());
-
-    const char *type = info.isWatchface() ? "watchface" : "app";
-    const char *local = info.isLocal() ? "local" : "watch";
-    qDebug() << "found" << local << type << info.shortName() << info.versionCode() << "/" << info.versionLabel() << "with uuid" << info.uuid().toString();
+//    m_appsIds.insert(info.id(), info.uuid());
     emit appsChanged();
 }
 
-void AppManager::scanApp(const QString &path)
+QUuid AppManager::scanApp(const QString &path)
 {
     qDebug() << "scanning app" << path;
-    const AppInfo &info = AppInfo::fromPath(path);
-    if (info.isValid() && info.isLocal()) insertAppInfo(info);
+    AppInfo info(path);
+    if (info.isValid()) {
+        insertAppInfo(info);
+    }
+    return info.uuid();
 }
 
-void AppManager::removeApp(const QString &id)
+void AppManager::removeApp(const QUuid &uuid)
 {
-    QUuid uuid = m_appsIds.take(id);
     AppInfo info = m_appsUuids.take(uuid);
     QDir dir(info.path());
     dir.removeRecursively();

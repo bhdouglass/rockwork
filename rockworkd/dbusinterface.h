@@ -23,6 +23,7 @@ public slots:
     QString Address() const;
     QString Name() const;
     QString SerialNumber() const;
+    QString HardwarePlatform() const;
     bool IsConnected() const;
 
     void InstallApp(const QString &id);

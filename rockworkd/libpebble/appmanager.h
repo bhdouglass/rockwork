@@ -44,16 +44,16 @@ public:
 
     QStringList appPaths() const;
     QList<QUuid> appUuids() const;
-    QList<QString> appIds() const;
+//    QList<QString> appIds() const;
 
     AppInfo info(const QUuid &uuid) const;
-    AppInfo info(const QString &appid) const;
+//    AppInfo info(const QString &appid) const;
 
     void insertAppInfo(const AppInfo &info);
 
-    void scanApp(const QString &path);
+    QUuid scanApp(const QString &path);
 
-    void removeApp(const QString &id);
+    void removeApp(const QUuid &uuid);
 
 public slots:
     void rescan();
@@ -71,7 +71,7 @@ private:
     Pebble *m_pebble;
     WatchConnection *m_connection;
     QHash<QUuid, AppInfo> m_appsUuids;
-    QHash<QString, QUuid> m_appsIds;
+//    QHash<QString, QUuid> m_appsIds;
 };
 
 #endif // APPMANAGER_H

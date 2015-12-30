@@ -14,7 +14,8 @@ HEADERS += \
     pebble.h \
     pebbles.h \
     applicationsmodel.h \
-    applicationsfiltermodel.h
+    applicationsfiltermodel.h \
+    appstoreclient.h
 
 SOURCES += main.cpp \
     notificationsourcemodel.cpp \
@@ -22,7 +23,8 @@ SOURCES += main.cpp \
     pebble.cpp \
     pebbles.cpp \
     applicationsmodel.cpp \
-    applicationsfiltermodel.cpp
+    applicationsfiltermodel.cpp \
+    appstoreclient.cpp
 
 RESOURCES += rockwork.qrc
 
@@ -60,4 +62,5 @@ INSTALLS+=target
 
 DISTFILES += \
     NotificationsPage.qml \
-    PebblesPage.qml
+    PebblesPage.qml \
+    AppStorePage.qml

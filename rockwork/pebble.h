@@ -11,6 +11,7 @@ class Pebble : public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name CONSTANT)
     Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged)
+    Q_PROPERTY(QString hardwarePlatform READ hardwarePlatform CONSTANT)
     Q_PROPERTY(ApplicationsModel* installedApps READ installedApps CONSTANT)
 public:
     explicit Pebble(const QDBusObjectPath &path, QObject *parent = 0);
@@ -20,12 +21,14 @@ public:
     bool connected() const;
     QString address() const;
     QString name() const;
+    QString hardwarePlatform() const;
     QString serialNumber() const;
 
     ApplicationsModel* installedApps() const;
 
 public slots:
     void removeApp(const QString &id);
+    void installApp(const QString &id);
 
 signals:
     void connectedChanged();
@@ -45,6 +48,7 @@ private:
     bool m_connected = false;
     QString m_address;
     QString m_name;
+    QString m_hardwarePlatform;
     QString m_serialNumber;
     QDBusInterface *m_iface;
     ApplicationsModel *m_installedApps;

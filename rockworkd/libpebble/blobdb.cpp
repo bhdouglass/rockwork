@@ -444,8 +444,13 @@ quint16 BlobDB::generateToken()
 
 AppMetadata BlobDB::appInfoToMetadata(const AppInfo &info, HardwarePlatform hardwarePlatform)
 {
-    QIODevice* appBinary = info.openFile(AppInfo::BINARY, hardwarePlatform, QIODevice::ReadOnly);
-    QByteArray data = appBinary->read(512);
+    QString binaryFile = info.file(AppInfo::FileTypeApplication, hardwarePlatform);
+    QFile f(binaryFile);
+    if (!f.open(QFile::ReadOnly)) {
+        qWarning() << "Error opening app binary";
+        return AppMetadata();
+    }
+    QByteArray data = f.read(512);
     WatchDataReader reader(data);
     qDebug() << "Header:" << reader.readFixedString(8);
     qDebug() << "struct Major version:" << reader.read<quint8>();
@@ -471,7 +476,7 @@ AppMetadata BlobDB::appInfoToMetadata(const AppInfo &info, HardwarePlatform hard
     qDebug() << "Flags:" << flags;
     qDebug() << "Num relocatable entries:" << reader.readLE<quint32>();
 
-    appBinary->close();
+    f.close();
     qDebug() << "app data" << data.toHex();
 
     AppMetadata metadata;

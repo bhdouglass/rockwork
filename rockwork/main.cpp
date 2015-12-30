@@ -10,7 +10,7 @@
 #include "pebble.h"
 #include "applicationsmodel.h"
 #include "applicationsfiltermodel.h"
-
+#include "appstoreclient.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Pebbles>("RockWork", 1, 0, "Pebbles");
     qmlRegisterType<NotificationSourceModel>("RockWork", 1, 0, "NotificationSourceModel");
     qmlRegisterType<ServiceControl>("RockWork", 1, 0, "ServiceController");
+    qmlRegisterType<AppStoreClient>("RockWork", 1, 0, "AppStoreClient");
 
     QQuickView view;
     view.engine()->rootContext()->setContextProperty("version", VERSION);

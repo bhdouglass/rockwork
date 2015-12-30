@@ -39,6 +39,11 @@ QString Pebble::name() const
     return m_name;
 }
 
+QString Pebble::hardwarePlatform() const
+{
+    return m_hardwarePlatform;
+}
+
 QString Pebble::serialNumber() const
 {
     return m_serialNumber;
@@ -53,6 +58,12 @@ void Pebble::removeApp(const QString &id)
 {
     qDebug() << "should remove app" << id;
     m_iface->call("RemoveApp", id);
+}
+
+void Pebble::installApp(const QString &id)
+{
+    qDebug() << "should install app" << id;
+    m_iface->call("InstallApp", id);
 }
 
 QVariant Pebble::fetchProperty(const QString &propertyName)
@@ -73,6 +84,7 @@ void Pebble::dataChanged()
     m_name = fetchProperty("Name").toString();;
     m_address = fetchProperty("Address").toString();
     m_serialNumber = fetchProperty("SerialNumber").toString();
+    m_hardwarePlatform = fetchProperty("HardwarePlatform").toString();
 
     bool connected = fetchProperty("IsConnected").toBool();
     if (connected != m_connected) {
@@ -125,7 +137,7 @@ void Pebble::refreshApps()
     qDebug() << "have apps" << appList;
     foreach (const QVariant &v, appList) {
         AppItem *app = new AppItem(this);
-        app->setId(v.toMap().value("id").toString());
+        app->setId(v.toMap().value("uuid").toString());
         app->setName(v.toMap().value("name").toString());
         app->setIcon(v.toMap().value("icon").toString());
         app->setVendor(v.toMap().value("vendor").toString());
