@@ -73,6 +73,7 @@ public slots:
     QList<QString> installedAppIds();
     AppInfo appInfo(const QString &id);
     void removeApp(const QString &id);
+    void requestConfigurationURL(const QString &id);
 
 private slots:
     void onPebbleConnected();

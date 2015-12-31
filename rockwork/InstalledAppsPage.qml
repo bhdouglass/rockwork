@@ -35,6 +35,18 @@ Page {
                 ]
             }
 
+            trailingActions: ListItemActions {
+                actions: [
+                    Action {
+                        visible: model.hasSettings
+                        iconName: "settings"
+                        onTriggered: {
+                            pebble.requestConfigurationURL(model.id);
+                        }
+                    }
+                ]
+            }
+
             RowLayout {
                 anchors {
                     fill: parent
@@ -64,4 +76,3 @@ Page {
         }
     }
 }
-

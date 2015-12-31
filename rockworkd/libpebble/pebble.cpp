@@ -32,7 +32,7 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
     m_appManager = new AppManager(this, m_connection);
     QObject::connect(m_appManager, &AppManager::appsChanged, this, &Pebble::installedAppsChanged);
-    m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
+    m_appMsgManager = new AppMsgManager(this, m_appManager, m_connection);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
     m_blobDB = new BlobDB(this, m_connection);
     QObject::connect(m_blobDB, &BlobDB::muteSource, this, &Pebble::muteNotificationSource);
@@ -218,6 +218,15 @@ void Pebble::removeApp(const QString &id)
 {
     m_blobDB->removeApp(m_appManager->info(id));
     m_appManager->removeApp(id);
+}
+
+void Pebble::requestConfigurationURL(const QString &id) {
+    AppInfo info = m_appManager->info(id);
+
+    qDebug() << "requestConfigurationURL" << id << info.uuid();
+
+    m_jskitManager->setConfigurationId(info.uuid());
+    m_appMsgManager->launchApp(info.uuid());
 }
 
 void Pebble::onPebbleConnected()

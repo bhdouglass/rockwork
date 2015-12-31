@@ -65,8 +65,9 @@ Page {
                 onClicked: {
                     var options = {};
                     options["pebble"] = root.pebble
-                    options["showWatchApps"] = model.showWatchApps
-                    options["showWatchFaces"] = model.showWatchFaces
+                    var modelItem = mainMenuModel.get(index)
+                    options["showWatchApps"] = modelItem.showWatchApps
+                    options["showWatchFaces"] = modelItem.showWatchFaces
                     pageStack.push(Qt.resolvedUrl(model.page), options)
                 }
             }

@@ -99,6 +99,11 @@ bool AppItem::isWatchFace() const
     return m_isWatchFace;
 }
 
+bool AppItem::hasSettings() const
+{
+    return m_hasSettings;
+}
+
 void AppItem::setId(const QString &id)
 {
     m_id = id;
@@ -127,4 +132,9 @@ void AppItem::setVersion(const QString &version)
 void AppItem::setIsWatchFace(bool isWatchFace)
 {
     m_isWatchFace = isWatchFace;
+}
+
+void AppItem::setHasSettings(bool hasSettings)
+{
+    m_hasSettings = hasSettings;
 }

@@ -47,6 +47,7 @@ public:
     bool isJSKit() const;
     Capabilities capabilities() const;
     bool hasMenuIcon() const;
+    bool hasSettings() const;
 
     void addAppKey(const QString &key, int value);
     bool hasAppKeyValue(int value) const;

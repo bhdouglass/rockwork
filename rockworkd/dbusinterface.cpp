@@ -49,6 +49,7 @@ QVariantList DBusPebble::InstalledApps() const
         app.insert("watchface", info.isWatchface());
         app.insert("version", info.versionLabel());
         app.insert("uuid", info.uuid().toString());
+        app.insert("hasSettings", info.hasSettings());
 
         QString path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/" + appId + ".png";
         QImage icon = info.getMenuIconImage(m_pebble->hardwarePlatform());
@@ -66,6 +67,12 @@ QVariantList DBusPebble::InstalledApps() const
 void DBusPebble::RemoveApp(const QString &id)
 {
     m_pebble->removeApp(id);
+}
+
+QString DBusPebble::ConfigurationURL(const QString &id)
+{
+    qDebug() << "configuration url request" << id;
+    m_pebble->requestConfigurationURL(id);
 }
 
 QString DBusPebble::SerialNumber() const
@@ -111,6 +118,3 @@ void DBusInterface::pebbleAdded(Pebble *pebble)
     m_dbusPebbles.insert(address, dbusPebble);
     QDBusConnection::sessionBus().registerObject("/org/rockwork/" + address, dbusPebble, QDBusConnection::ExportAllContents);
 }
-
-
-

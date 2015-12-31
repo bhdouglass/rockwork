@@ -29,6 +29,7 @@ public slots:
     QStringList InstalledAppIds() const;
     QVariantList InstalledApps() const;
     void RemoveApp(const QString &id);
+    QString ConfigurationURL(const QString &id);
 
 private:
     Pebble *m_pebble;

@@ -9,6 +9,7 @@ JSKitManager::JSKitManager(Pebble *pebble, WatchConnection *connection, AppManag
     m_pebble(pebble),
     m_connection(connection), _apps(apps), _appmsg(appmsg), _engine(0)
 {
+    m_configurationId = QUuid();
     connect(_appmsg, &AppMsgManager::appStarted, this, &JSKitManager::handleAppStarted);
     connect(_appmsg, &AppMsgManager::appStopped, this, &JSKitManager::handleAppStopped);
 }
@@ -60,6 +61,11 @@ void JSKitManager::handleWebviewClosed(const QString &result)
     } else {
         qWarning() << "webview closed event, but JS engine is not running";
     }
+}
+
+void JSKitManager::setConfigurationId(const QUuid &id)
+{
+    m_configurationId = id;
 }
 
 void JSKitManager::handleAppStarted(const QUuid &uuid)
@@ -191,6 +197,13 @@ void JSKitManager::startJsApp()
 
     // We try to invoke the callbacks even if script parsing resulted in error...
     _jspebble->invokeCallbacks("ready");
+
+    if (m_configurationId == _curApp.uuid()) {
+        qDebug() << "going to launch config for" << m_configurationId;
+        showConfiguration();
+    }
+
+    m_configurationId = QUuid();
 }
 
 void JSKitManager::stopJsApp()

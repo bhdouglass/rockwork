@@ -55,6 +55,12 @@ void Pebble::removeApp(const QString &id)
     m_iface->call("RemoveApp", id);
 }
 
+void Pebble::requestConfigurationURL(const QString &id)
+{
+    qDebug() << "requesting settings url" << id;
+    m_iface->call("ConfigurationURL", id);
+}
+
 QVariant Pebble::fetchProperty(const QString &propertyName)
 {
     QDBusMessage m = m_iface->call(propertyName);
@@ -124,6 +130,7 @@ void Pebble::refreshApps()
 
     qDebug() << "have apps" << appList;
     foreach (const QVariant &v, appList) {
+        qDebug() << v.toMap().value("id").toString() << v.toMap().value("hasSettings").toBool();
         AppItem *app = new AppItem(this);
         app->setId(v.toMap().value("id").toString());
         app->setName(v.toMap().value("name").toString());
@@ -131,6 +138,7 @@ void Pebble::refreshApps()
         app->setVendor(v.toMap().value("vendor").toString());
         app->setVersion(v.toMap().value("version").toString());
         app->setIsWatchFace(v.toMap().value("watchface").toBool());
+        app->setHasSettings(v.toMap().value("hasSettings").toBool());
         m_installedApps->insert(app);
     }
 }

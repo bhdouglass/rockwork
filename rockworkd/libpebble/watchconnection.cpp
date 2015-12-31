@@ -95,7 +95,8 @@ void WatchConnection::writeToPebble(Endpoint endpoint, const QByteArray &data)
         qWarning() << "Socket not open. Cannot send data to Pebble. (Endpoint:" << endpoint << ")";
         return;
     }
-//    qCDebug(l) << "sending message to endpoint" << decodeEndpoint(endpoint);
+
+    //qDebug() << "sending message to endpoint" << endpoint;
     QByteArray msg;
 
     msg.append((data.length() & 0xFF00) >> 8);
@@ -106,7 +107,7 @@ void WatchConnection::writeToPebble(Endpoint endpoint, const QByteArray &data)
 
     msg.append(data);
 
-//    qDebug() << "Writing:" << msg.toHex();
+    //qDebug() << "Writing:" << msg.toHex();
     m_socket->write(msg);
 }
 
@@ -232,4 +233,3 @@ QByteArray WatchConnection::buildMessageData(uint lead, QStringList data)
     res.append(buildData(data));
     return res;
 }
-

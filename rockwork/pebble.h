@@ -26,6 +26,7 @@ public:
 
 public slots:
     void removeApp(const QString &id);
+    void requestConfigurationURL(const QString &id);
 
 signals:
     void connectedChanged();

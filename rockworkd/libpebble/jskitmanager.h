@@ -29,6 +29,7 @@ public:
 
     void showConfiguration();
     void handleWebviewClosed(const QString &result);
+    void setConfigurationId(const QUuid &id);
 
 signals:
     void appNotification(const QUuid &uuid, const QString &title, const QString &body);
@@ -57,6 +58,7 @@ private:
     QPointer<JSKitConsole> _jsconsole;
     QPointer<JSKitLocalStorage> _jsstorage;
     QPointer<JSKitGeolocation> _jsgeo;
+    QUuid m_configurationId;
 };
 
 #endif // JSKITMANAGER_H

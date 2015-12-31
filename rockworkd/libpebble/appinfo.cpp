@@ -131,6 +131,11 @@ bool AppInfo::isJSKit() const
     return d->jskit;
 }
 
+bool AppInfo::hasSettings() const
+{
+    return (capabilities() & Configurable);
+}
+
 AppInfo::Capabilities AppInfo::capabilities() const
 {
     return d->capabilities;

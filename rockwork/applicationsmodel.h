@@ -15,6 +15,7 @@ class AppItem: public QObject
     Q_PROPERTY(QString vendor MEMBER m_vendor)
     Q_PROPERTY(QString version MEMBER m_version)
     Q_PROPERTY(bool isWatchFace MEMBER m_isWatchFace)
+    Q_PROPERTY(bool hasSettings MEMBER m_hasSettings)
 
 public:
     AppItem(QObject *parent = 0);
@@ -25,6 +26,7 @@ public:
     QString vendor() const;
     QString version() const;
     bool isWatchFace() const;
+    bool hasSettings() const;
 
     void setId(const QString &id);
     void setName(const QString &name);
@@ -32,6 +34,7 @@ public:
     void setVendor(const QString &vendor);
     void setVersion(const QString &version);
     void setIsWatchFace(bool isWatchFace);
+    void setHasSettings(bool hasSettings);
 
 private:
     QString m_id;
@@ -40,6 +43,7 @@ private:
     QString m_vendor;
     QString m_version;
     bool m_isWatchFace = false;
+    bool m_hasSettings = false;
 };
 
 class ApplicationsModel : public QAbstractListModel
