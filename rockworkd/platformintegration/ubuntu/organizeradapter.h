@@ -25,9 +25,6 @@ public slots:
 signals:
     void itemsChanged(const QList<CalendarEvent> &items);
 
-private slots:
-    void readStateChanged(QOrganizerAbstractRequest::State state);
-
 private:
     QOrganizerManager *m_manager;
     QList<CalendarEvent> m_items;

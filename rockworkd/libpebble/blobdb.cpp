@@ -26,7 +26,8 @@ BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
     dir.setNameFilters({"calendarevent-*"});
     foreach (const QFileInfo &fi, dir.entryInfoList()) {
         CalendarEvent event;
-        event.loadFromCache(fi.fileName().split('-').last());
+        event.loadFromCache(fi.fileName().right(QUuid().toString().length()));
+
         m_calendarEntries.append(event);
     }
 }
@@ -178,6 +179,7 @@ void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, c
 
 void BlobDB::removeTimelinePin(const QUuid &uuid)
 {
+    qDebug() << "Removing timeline pin:" << uuid;
     remove(BlobDBId::BlobDBIdPin, uuid);
 }
 
@@ -242,6 +244,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
         if (!syncedEvent.isValid()) {
             itemsToAdd.append(event);
         } else if (!(syncedEvent == event)) {
+            qDebug() << "event has changed!";
             itemsToDelete.append(syncedEvent);
             itemsToAdd.append(event);
         }
@@ -263,7 +266,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
     }
 
     foreach (const CalendarEvent &event, itemsToDelete) {
-        removeTimelinePin(event.id());
+        removeTimelinePin(event.uuid());
         m_calendarEntries.removeAll(event);
         event.removeFromCache();
     }
@@ -275,7 +278,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
         if (!event.calendar().isEmpty()) fields.insert("Calendar", event.calendar());
         if (!event.comment().isEmpty()) fields.insert("Comments", event.comment());
         if (!event.guests().isEmpty()) fields.insert("Guests", event.guests().join(", "));
-        insertTimelinePin(event.id(), TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
+        insertTimelinePin(event.uuid(), TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
         m_calendarEntries.append(event);
         event.saveToCache();
     }
@@ -492,7 +495,7 @@ AppMetadata BlobDB::appInfoToMetadata(const AppInfo &info, HardwarePlatform hard
 
 }
 
-CalendarEvent BlobDB::findCalendarEvent(const QUuid &id)
+CalendarEvent BlobDB::findCalendarEvent(const QString &id)
 {
     foreach (const CalendarEvent &entry, m_calendarEntries) {
         if (entry.id() == id) {

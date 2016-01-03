@@ -237,8 +237,6 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
 {
     WatchDataReader wd(data);
 
-    qDebug() << "blubb" << data.toHex();
-
     wd.skip(1);
     m_softwareBuildTime = QDateTime::fromTime_t(wd.read<quint32>());
     qDebug() << "Software Version build:" << m_softwareBuildTime;
