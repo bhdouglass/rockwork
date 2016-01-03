@@ -32,6 +32,7 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
     m_appManager = new AppManager(this, m_connection);
     QObject::connect(m_appManager, &AppManager::appsChanged, this, &Pebble::installedAppsChanged);
+    QObject::connect(m_appManager, &AppManager::idMismatchDetected, this, &Pebble::resetPebble);
     m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
     m_blobDB = new BlobDB(this, m_connection);
@@ -276,14 +277,10 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
 
     if (m_isUnfaithful) {
         qDebug() << "Pebble has been unfaithful. Clearing it up.";
-        clearTimeline();
-        clearAppDB();
-        foreach (const QUuid &appUuid, m_appManager->appUuids()) {
-            m_blobDB->insertAppMetaData(m_appManager->info(appUuid));
-        }
+        resetPebble();
+    } else {
+        syncCalendar(Core::instance()->platform()->organizerItems());
     }
-
-    syncCalendar(Core::instance()->platform()->organizerItems());
 
     emit pebbleConnected();
 }
@@ -340,4 +337,14 @@ void Pebble::appDownloadFinished(const QString &id)
     }
     m_blobDB->insertAppMetaData(m_appManager->info(uuid));
 
+}
+
+void Pebble::resetPebble()
+{
+    clearTimeline();
+    clearAppDB();
+    foreach (const QUuid &appUuid, m_appManager->appUuids()) {
+        m_blobDB->insertAppMetaData(m_appManager->info(appUuid));
+    }
+    syncCalendar(Core::instance()->platform()->organizerItems());
 }

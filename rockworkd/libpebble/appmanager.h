@@ -65,6 +65,8 @@ signals:
 
     void uploadRequested(const QString &file, quint32 appInstallId);
 
+    void idMismatchDetected();
+
 private:
 
 private:

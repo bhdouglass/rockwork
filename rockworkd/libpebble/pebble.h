@@ -82,6 +82,8 @@ private slots:
     void logData(const QByteArray &data);
     void appDownloadFinished(const QString &id);
 
+    void resetPebble();
+
 signals:
     void pebbleConnected();
     void pebbleDisconnected();

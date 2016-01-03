@@ -90,6 +90,7 @@ void AppManager::handleAppFetchMessage(const QByteArray &data)
         qWarning() << "App with uuid" << uuid.toString() << "which is not installed.";
         response.setStatus(AppFetchResponse::StatusInvalidUUID);
         m_connection->writeToPebble(WatchConnection::EndpointAppFetch, response.serialize());
+        emit idMismatchDetected();
         return;
     }
 
