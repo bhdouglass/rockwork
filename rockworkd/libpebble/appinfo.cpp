@@ -44,6 +44,7 @@ AppInfo::AppInfo(const QString &path):
     m_companyName = map.value("companyName").toString();
     m_versionCode = map.value("versionCode").toInt();
     m_versionLabel = map.value("versionLabel").toString();
+    m_capabilities = 0;
 
     m_isWatchface = map.value("watchapp").toMap().value("watchface").toBool();
 
@@ -51,6 +52,20 @@ AppInfo::AppInfo(const QString &path):
         QVariantMap appKeyMap = map.value("appKeys").toMap();
         foreach (const QString &key, appKeyMap.keys()) {
             m_appKeys.insert(key, appKeyMap.value(key).toInt());
+        }
+    }
+
+    if (map.contains("capabilities")) {
+        QList<QVariant> capabilities = map.value("capabilities").toList();
+
+        foreach (const QVariant &value, capabilities) {
+            QString capability = value.toString();
+            if (capability == "location") {
+                m_capabilities |= Location;
+            }
+            else if (capability == "configurable") {
+                m_capabilities |= Configurable;
+            }
         }
     }
 
@@ -115,6 +130,11 @@ bool AppInfo::isJSKit() const
 QHash<QString, int> AppInfo::appKeys() const
 {
     return m_appKeys;
+}
+
+bool AppInfo::hasSettings() const
+{
+    return (m_capabilities & Configurable);
 }
 
 AppInfo::Capabilities AppInfo::capabilities() const
@@ -249,4 +269,3 @@ quint32 AppInfo::crc(AppInfo::FileType type, HardwarePlatform hardwarePlatform) 
     }
     return 0;
 }
-

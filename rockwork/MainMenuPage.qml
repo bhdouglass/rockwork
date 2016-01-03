@@ -71,4 +71,13 @@ Page {
             }
         }
     }
+
+    Connections {
+        target: pebble
+        onOpenURL: {
+            if (url) {
+                pageStack.push(Qt.resolvedUrl("AppSettingsPage.qml"), {uuid: uuid, url: url, pebble: pebble})
+            }
+        }
+    }
 }

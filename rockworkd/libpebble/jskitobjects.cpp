@@ -152,7 +152,7 @@ void JSKitPebble::showSimpleNotificationOnPebble(const QString &title, const QSt
 void JSKitPebble::openURL(const QUrl &url)
 {
     qDebug() << "opening url" << url.toString();
-    emit _mgr->appOpenUrl(url);
+    emit _mgr->openURL(_appInfo.uuid().toString(), url.toString());
 }
 
 QString JSKitPebble::getAccountToken() const
@@ -240,6 +240,21 @@ JSKitConsole::JSKitConsole(QObject *parent)
 }
 
 void JSKitConsole::log(const QString &msg)
+{
+    qCDebug(l) << msg;
+}
+
+void JSKitConsole::warn(const QString &msg)
+{
+    qCWarning(l) << msg;
+}
+
+void JSKitConsole::error(const QString &msg)
+{
+    qCCritical(l) << msg;
+}
+
+void JSKitConsole::info(const QString &msg)
 {
     qCDebug(l) << msg;
 }

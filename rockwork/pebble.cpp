@@ -14,6 +14,7 @@ Pebble::Pebble(const QDBusObjectPath &path, QObject *parent):
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "Connected", this, SLOT(pebbleConnected()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "Disconnected", this, SLOT(pebbleDisconnected()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "InstalledAppsChanged", this, SLOT(refreshApps()));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "OpenURL", this, SIGNAL(openURL(const QString&, const QString&)));
 
     dataChanged();
     refreshApps();
@@ -52,6 +53,16 @@ QString Pebble::serialNumber() const
 ApplicationsModel *Pebble::installedApps() const
 {
     return m_installedApps;
+}
+
+void Pebble::configurationClosed(const QString &uuid, const QString &url)
+{
+    m_iface->call("ConfigurationClosed", uuid, url.mid(17));
+}
+
+void Pebble::requestConfigurationURL(const QString &id)
+{
+    m_iface->call("ConfigurationURL", id);
 }
 
 void Pebble::removeApp(const QString &id)
@@ -138,12 +149,14 @@ void Pebble::refreshApps()
     foreach (const QVariant &v, appList) {
         AppItem *app = new AppItem(this);
         app->setId(v.toMap().value("uuid").toString());
+        app->setUuid(v.toMap().value("uuid").toString());
         app->setName(v.toMap().value("name").toString());
         app->setIcon(v.toMap().value("icon").toString());
         app->setVendor(v.toMap().value("vendor").toString());
         app->setVersion(v.toMap().value("version").toString());
         app->setIsWatchFace(v.toMap().value("watchface").toBool());
-        qDebug() << "inserting app" << app->name();
+        app->setHasSettings(v.toMap().value("hasSettings").toBool());
+
         m_installedApps->insert(app);
     }
 }

@@ -36,7 +36,5 @@ MainView {
     PageStack {
         id: pageStack
         Component.onCompleted: push(Qt.resolvedUrl("PebblesPage.qml"));
-
     }
 }
-

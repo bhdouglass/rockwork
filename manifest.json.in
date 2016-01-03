@@ -6,7 +6,8 @@
     "hooks": {
         "rockwork": {
             "apparmor": "rockwork/rockwork.apparmor",
-            "desktop": "rockwork/rockwork.desktop"
+            "desktop": "rockwork/rockwork.desktop",
+            "urls": "rockwork/rockwork.url-dispatcher"
         }
     },
     "version": "@VERSION@",

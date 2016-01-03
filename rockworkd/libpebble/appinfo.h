@@ -41,6 +41,7 @@ public:
     bool isJSKit() const;
     QHash<QString, int> appKeys() const;
     Capabilities capabilities() const;
+    bool hasSettings() const;
 
     bool hasMenuIcon() const;
     QImage getMenuIconImage(HardwarePlatform hardwarePlatform) const;

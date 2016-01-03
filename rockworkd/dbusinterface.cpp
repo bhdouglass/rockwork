@@ -9,6 +9,7 @@ DBusPebble::DBusPebble(Pebble *pebble, QObject *parent):
     connect(pebble, &Pebble::pebbleConnected, this, &DBusPebble::Connected);
     connect(pebble, &Pebble::pebbleDisconnected, this, &DBusPebble::Disconnected);
     connect(pebble, &Pebble::installedAppsChanged, this, &DBusPebble::InstalledAppsChanged);
+    connect(pebble, SIGNAL(openURL(const QString&, const QString&)), this, SIGNAL(OpenURL(const QString&, const QString&)));
 }
 
 QString DBusPebble::Address() const
@@ -52,6 +53,7 @@ QVariantList DBusPebble::InstalledApps() const
         app.insert("watchface", info.isWatchface());
         app.insert("version", info.versionLabel());
         app.insert("uuid", info.uuid().toString());
+        app.insert("hasSettings", info.hasSettings());
 
         list.append(app);
     }
@@ -61,6 +63,16 @@ QVariantList DBusPebble::InstalledApps() const
 void DBusPebble::RemoveApp(const QString &id)
 {
     m_pebble->removeApp(id);
+}
+
+void DBusPebble::ConfigurationURL(const QString &uuid)
+{
+    m_pebble->requestConfigurationURL(QUuid(uuid));
+}
+
+void DBusPebble::ConfigurationClosed(const QString &uuid, const QString &result)
+{
+    m_pebble->configurationClosed(QUuid(uuid), result);
 }
 
 QString DBusPebble::SerialNumber() const
@@ -121,6 +133,3 @@ void DBusInterface::pebbleAdded(Pebble *pebble)
     m_dbusPebbles.insert(address, dbusPebble);
     QDBusConnection::sessionBus().registerObject("/org/rockwork/" + address, dbusPebble, QDBusConnection::ExportAllContents);
 }
-
-
-

@@ -24,7 +24,7 @@ public:
         LauncherActionStop = 0
     };
 
-    explicit AppMsgManager(AppManager *apps, WatchConnection *connection, QObject *parent);
+    explicit AppMsgManager(Pebble *pebble, AppManager *apps, WatchConnection *connection);
 
     void send(const QUuid &uuid, const QVariantMap &data,
               const std::function<void()> &ackCallback,
@@ -54,6 +54,7 @@ private:
     static bool unpackPushMessage(const QByteArray &msg, quint8 *transaction, QUuid *uuid, WatchConnection::Dict *dict);
 
     static QByteArray buildPushMessage(quint8 transaction, const QUuid &uuid, const WatchConnection::Dict &dict);
+    static QByteArray buildLaunchMessage(quint8 messageType, const QUuid &uuid);
     static QByteArray buildAckMessage(quint8 transaction);
     static QByteArray buildNackMessage(quint8 transaction);
 
@@ -73,6 +74,7 @@ private slots:
     void handleApplicationMessage(const QByteArray &data);
 
 private:
+    Pebble *m_pebble;
     AppManager *apps;
     WatchConnection *m_connection;
     QHash<QUuid, MessageHandlerFunc> _handlers;

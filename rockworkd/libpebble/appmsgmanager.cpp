@@ -1,13 +1,16 @@
 #include <QTimer>
 
+#include "pebble.h"
 #include "appmsgmanager.h"
 #include "watchdatareader.h"
 #include "watchdatawriter.h"
 
 // TODO D-Bus server for non JS kit apps!!!!
 
-AppMsgManager::AppMsgManager(AppManager *apps, WatchConnection *connection, QObject *parent)
-    : QObject(parent), apps(apps),
+AppMsgManager::AppMsgManager(Pebble *pebble, AppManager *apps, WatchConnection *connection)
+    : QObject(pebble),
+      m_pebble(pebble),
+      apps(apps),
       m_connection(connection), _lastTransactionId(0), _timeout(new QTimer(this))
 {
     connect(m_connection, &WatchConnection::watchConnected,
@@ -113,24 +116,36 @@ void AppMsgManager::send(const QUuid &uuid, const QVariantMap &data)
 
 void AppMsgManager::launchApp(const QUuid &uuid)
 {
-    WatchConnection::Dict dict;
-    dict.insert(1, LauncherActionStart);
+    if (m_pebble->softwareVersion() < "v3.0") {
+        WatchConnection::Dict dict;
+        dict.insert(1, LauncherActionStart);
 
-    qDebug() << "Sending message to launcher" << uuid << dict;
-
-    QByteArray msg = buildPushMessage(++_lastTransactionId, uuid, dict);
-    m_connection->writeToPebble(WatchConnection::EndpointLauncher, msg);
+        qDebug() << "Sending start message to launcher" << uuid << dict;
+        QByteArray msg = buildPushMessage(++_lastTransactionId, uuid, dict);
+        m_connection->writeToPebble(WatchConnection::EndpointLauncher, msg);
+    }
+    else {
+        QByteArray msg = buildLaunchMessage(LauncherActionStart, uuid);
+        qDebug() << "Sending start message to launcher" << uuid;
+        m_connection->writeToPebble(WatchConnection::EndpointAppLaunch, msg);
+    }
 }
 
 void AppMsgManager::closeApp(const QUuid &uuid)
 {
-    WatchConnection::Dict dict;
-    dict.insert(1, LauncherActionStop);
+    if (m_pebble->softwareVersion() < "v3.0") {
+        WatchConnection::Dict dict;
+        dict.insert(1, LauncherActionStop);
 
-    qDebug() << "Sending message to launcher" << uuid << dict;
-
-    QByteArray msg = buildPushMessage(++_lastTransactionId, uuid, dict);
-    m_connection->writeToPebble(WatchConnection::EndpointLauncher, msg);
+        qDebug() << "Sending stop message to launcher" << uuid << dict;
+        QByteArray msg = buildPushMessage(++_lastTransactionId, uuid, dict);
+        m_connection->writeToPebble(WatchConnection::EndpointLauncher, msg);
+    }
+    else {
+        QByteArray msg = buildLaunchMessage(LauncherActionStop, uuid);
+        qDebug() << "Sending stop message to launcher" << uuid;
+        m_connection->writeToPebble(WatchConnection::EndpointAppLaunch, msg);
+    }
 }
 
 WatchConnection::Dict AppMsgManager::mapAppKeys(const QUuid &uuid, const QVariantMap &data)
@@ -223,6 +238,16 @@ QByteArray AppMsgManager::buildPushMessage(quint8 transaction, const QUuid &uuid
     writer.write<quint8>(transaction);
     writer.writeUuid(uuid);
     writer.writeDict(dict);
+
+    return ba;
+}
+
+QByteArray AppMsgManager::buildLaunchMessage(quint8 messageType, const QUuid &uuid)
+{
+    QByteArray ba;
+    WatchDataWriter writer(&ba);
+    writer.write<quint8>(messageType);
+    writer.writeUuid(uuid);
 
     return ba;
 }

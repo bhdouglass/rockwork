@@ -33,7 +33,8 @@ QML_FILES += $$files(*.qml,true) \
 
 CONF_FILES +=  rockwork.apparmor \
                rockwork.svg \
-               rockwork.desktop
+               rockwork.desktop \
+               rockwork.url-dispatcher
 
 AP_TEST_FILES += tests/autopilot/run \
                  $$files(tests/*.py,true)
@@ -49,7 +50,7 @@ config_files.path = /rockwork
 config_files.files += $${CONF_FILES}
 INSTALLS+=config_files
 
-#install the desktop file, a translated version is 
+#install the desktop file, a translated version is
 #automatically created in the build directory
 desktop_file.path = /rockwork
 desktop_file.files = $$OUT_PWD/rockwork.desktop

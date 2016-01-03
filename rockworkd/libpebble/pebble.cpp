@@ -26,18 +26,23 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_connection->registerEndpointHandler(WatchConnection::EndpointVersion, this, "pebbleVersionReceived");
     m_connection->registerEndpointHandler(WatchConnection::EndpointPhoneVersion, this, "phoneVersionAsked");
     m_connection->registerEndpointHandler(WatchConnection::EndpointDataLogging, this, "logData");
+
     m_notificationEndpoint = new NotificationEndpoint(this, m_connection);
     m_musicEndpoint = new MusicEndpoint(this, m_connection);
     m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
+
     m_appManager = new AppManager(this, m_connection);
     QObject::connect(m_appManager, &AppManager::appsChanged, this, &Pebble::installedAppsChanged);
     QObject::connect(m_appManager, &AppManager::idMismatchDetected, this, &Pebble::resetPebble);
-    m_appMsgManager = new AppMsgManager(m_appManager, m_connection, this);
+    m_appMsgManager = new AppMsgManager(this, m_appManager, m_connection);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
+    QObject::connect(m_jskitManager, SIGNAL(openURL(const QString&, const QString&)), this, SIGNAL(openURL(const QString&, const QString&)));
+
     m_blobDB = new BlobDB(this, m_connection);
     QObject::connect(m_blobDB, &BlobDB::muteSource, this, &Pebble::muteNotificationSource);
     QObject::connect(m_blobDB, &BlobDB::actionTriggered, this, &Pebble::actionTriggered);
+
     m_appDownloader = new AppDownloader(m_storagePath, this);
     QObject::connect(m_appDownloader, &AppDownloader::downloadFinished, this, &Pebble::appDownloadFinished);
 
@@ -219,6 +224,23 @@ void Pebble::removeApp(const QUuid &uuid)
 {
     m_blobDB->removeApp(m_appManager->info(uuid));
     m_appManager->removeApp(uuid);
+}
+
+void Pebble::requestConfigurationURL(const QUuid &uuid) {
+    if (m_jskitManager->currentApp().uuid() == uuid) {
+        m_jskitManager->showConfiguration();
+    }
+    else {
+        m_jskitManager->setConfigurationId(uuid);
+        m_appMsgManager->launchApp(uuid);
+    }
+}
+
+void Pebble::configurationClosed(const QUuid &uuid, const QString &result)
+{
+    if (m_jskitManager->currentApp().uuid() == uuid) {
+        m_jskitManager->handleWebviewClosed(result);
+    }
 }
 
 void Pebble::onPebbleConnected()

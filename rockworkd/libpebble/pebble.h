@@ -73,6 +73,8 @@ public slots:
     QList<QUuid> installedAppIds();
     AppInfo appInfo(const QUuid &uuid);
     void removeApp(const QUuid &uuid);
+    void requestConfigurationURL(const QUuid &uuid);
+    void configurationClosed(const QUuid &uuid, const QString &result);
 
 private slots:
     void onPebbleConnected();
@@ -92,6 +94,7 @@ signals:
     void muteNotificationSource(const QString &source);
     void actionTriggered(const QString &actToken);
     void installedAppsChanged();
+    void openURL(const QString &uuid, const QString &url);
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);

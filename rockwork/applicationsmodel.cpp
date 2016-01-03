@@ -18,6 +18,8 @@ QVariant ApplicationsModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case RoleId:
         return m_apps.at(index.row())->id();
+    case RoleUuid:
+        return m_apps.at(index.row())->uuid();
     case RoleName:
         return m_apps.at(index.row())->name();
     case RoleIcon:
@@ -26,7 +28,12 @@ QVariant ApplicationsModel::data(const QModelIndex &index, int role) const
         return m_apps.at(index.row())->vendor();
     case RoleVersion:
         return m_apps.at(index.row())->version();
+    case RoleIsWatchFace:
+        return m_apps.at(index.row())->isWatchFace();
+    case RoleHasSettings:
+        return m_apps.at(index.row())->hasSettings();
     }
+
     return QVariant();
 }
 
@@ -34,10 +41,14 @@ QHash<int, QByteArray> ApplicationsModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RoleId, "id");
+    roles.insert(RoleUuid, "uuid");
     roles.insert(RoleName, "name");
     roles.insert(RoleIcon, "icon");
     roles.insert(RoleVendor, "vendor");
     roles.insert(RoleVersion, "version");
+    roles.insert(RoleIsWatchFace, "isWatchFace");
+    roles.insert(RoleHasSettings, "hasSettings");
+
     return roles;
 }
 
@@ -74,6 +85,11 @@ QString AppItem::id() const
     return m_id;
 }
 
+QString AppItem::uuid() const
+{
+    return m_uuid;
+}
+
 QString AppItem::name() const
 {
     return m_name;
@@ -99,9 +115,19 @@ bool AppItem::isWatchFace() const
     return m_isWatchFace;
 }
 
+bool AppItem::hasSettings() const
+{
+    return m_hasSettings;
+}
+
 void AppItem::setId(const QString &id)
 {
     m_id = id;
+}
+
+void AppItem::setUuid(const QString &uuid)
+{
+    m_uuid = uuid;
 }
 
 void AppItem::setName(const QString &name)
@@ -127,4 +153,9 @@ void AppItem::setVersion(const QString &version)
 void AppItem::setIsWatchFace(bool isWatchFace)
 {
     m_isWatchFace = isWatchFace;
+}
+
+void AppItem::setHasSettings(bool hasSettings)
+{
+    m_hasSettings = hasSettings;
 }
