@@ -158,8 +158,8 @@ WatchConnection::Dict AppMsgManager::mapAppKeys(const QUuid &uuid, const QVarian
     WatchConnection::Dict d;
 
     for (QVariantMap::const_iterator it = data.constBegin(); it != data.constEnd(); ++it) {
-        if (info.hasAppKey(it.key())) {
-            d.insert(info.valueForAppKey(it.key()), it.value());
+        if (info.appKeys().contains(it.key())) {
+            d.insert(info.appKeys().value(it.key()), it.value());
         } else {
             // Even if we do not know about this appkey, try to see if it's already a numeric key we
             // can send to the watch.
@@ -186,8 +186,8 @@ QVariantMap AppMsgManager::mapAppKeys(const QUuid &uuid, const WatchConnection::
     QVariantMap data;
 
     for (WatchConnection::Dict::const_iterator it = dict.constBegin(); it != dict.constEnd(); ++it) {
-        if (info.hasAppKeyValue(it.key())) {
-            data.insert(info.appKeyForValue(it.key()), it.value());
+        if (info.appKeys().contains(QString::number(it.key()))) {
+            data.insert(QString::number(info.appKeys().value(QString::number(it.key()))), it.value());
         } else {
             qWarning() << "Unknown appKey value" << it.key() << "for app with GUID" << uuid;
             data.insert(QString::number(it.key()), it.value());

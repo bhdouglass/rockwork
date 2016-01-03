@@ -35,16 +35,19 @@ void DBusPebble::InstallApp(const QString &id)
 
 QStringList DBusPebble::InstalledAppIds() const
 {
-    return m_pebble->installedAppIds();
+    QStringList ret;
+    foreach (const QUuid &id, m_pebble->installedAppIds()) {
+        ret << id.toString();
+    }
+    return ret;
 }
 
 QVariantList DBusPebble::InstalledApps() const
 {
     QVariantList list;
-    foreach (const QString &appId, m_pebble->installedAppIds()) {
+    foreach (const QUuid &appId, m_pebble->installedAppIds()) {
         QVariantMap app;
         AppInfo info = m_pebble->appInfo(appId);
-        app.insert("id", appId);
         app.insert("name", info.shortName());
         app.insert("vendor", info.companyName());
         app.insert("watchface", info.isWatchface());
@@ -52,14 +55,6 @@ QVariantList DBusPebble::InstalledApps() const
         app.insert("uuid", info.uuid().toString());
         app.insert("hasSettings", info.hasSettings());
 
-        QString path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/" + appId + ".png";
-        QImage icon = info.getMenuIconImage(m_pebble->hardwarePlatform());
-        if (icon.isNull()) {
-            icon = info.getMenuIconImage(HardwarePlatformUnknown);
-        }
-        icon.save(path);
-
-        app.insert("icon", path);
         list.append(app);
     }
     return list;
@@ -83,6 +78,21 @@ void DBusPebble::ConfigurationClosed(const QString &uuid, const QString &result)
 QString DBusPebble::SerialNumber() const
 {
     return m_pebble->serialNumber();
+}
+
+QString DBusPebble::HardwarePlatform() const
+{
+    switch (m_pebble->hardwarePlatform()) {
+    case HardwarePlatformAplite:
+        return "aplite";
+    case HardwarePlatformBasalt:
+        return "basalt";
+    case HardwarePlatformChalk:
+        return "chalk";
+    default:
+        ;
+    }
+    return "unknown";
 }
 
 DBusInterface::DBusInterface(QObject *parent) :

@@ -89,7 +89,7 @@ private:
     QHash<QUuid, Notification> m_notificationSources;
 
     QList<CalendarEvent> m_calendarEntries;
-    CalendarEvent findCalendarEvent(const QUuid &id);
+    CalendarEvent findCalendarEvent(const QString &id);
 
     BlobCommand *m_currentCommand = nullptr;
     QList<BlobCommand*> m_commandQueue;

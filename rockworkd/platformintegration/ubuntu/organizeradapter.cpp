@@ -25,32 +25,14 @@ OrganizerAdapter::OrganizerAdapter(QObject *parent) : QObject(parent)
 
 void OrganizerAdapter::refresh()
 {
-    QOrganizerItemFetchRequest *operation = new QOrganizerItemFetchRequest(this);
-    operation->setManager(m_manager);
-    connect(operation, &QOrganizerItemFetchRequest::stateChanged, this, &OrganizerAdapter::readStateChanged);
-    operation->start();
-}
-
-QList<CalendarEvent> OrganizerAdapter::items() const
-{
-    return m_items;
-}
-
-void OrganizerAdapter::readStateChanged(QOrganizerAbstractRequest::State state)
-{
-    if (state != QOrganizerAbstractRequest::FinishedState) {
-        return;
-    }
-    QOrganizerItemFetchRequest *operation = static_cast<QOrganizerItemFetchRequest*>(sender());
     QList<CalendarEvent> items;
-    foreach (const QOrganizerItem &item, operation->items()) {
+    foreach (const QOrganizerItem &item, m_manager->items()) {
         QOrganizerEvent organizerEvent(item);
         if (organizerEvent.displayLabel().isEmpty()) {
             continue;
         }
         CalendarEvent event;
-//        event.setUuid(organizerEvent.id().toString());
-        event.setUuid(QUuid::createUuid());
+        event.setId(organizerEvent.id().toString());
         event.setTitle(organizerEvent.displayLabel());
         event.setDescription(organizerEvent.description());
         event.setStartTime(organizerEvent.startDateTime());
@@ -71,6 +53,7 @@ void OrganizerAdapter::readStateChanged(QOrganizerAbstractRequest::State state)
 
         foreach (const QOrganizerItem &occurranceItem, m_manager->itemOccurrences(item, QDateTime::fromMSecsSinceEpoch(startTimestamp), QDateTime::currentDateTime().addDays(7))) {
             QOrganizerEventOccurrence organizerOccurrance(occurranceItem);
+            event.setId(organizerOccurrance.id().toString());
             event.setStartTime(organizerOccurrance.startDateTime());
             event.setEndTime(organizerOccurrance.endDateTime());
             items.append(event);
@@ -81,5 +64,10 @@ void OrganizerAdapter::readStateChanged(QOrganizerAbstractRequest::State state)
         m_items = items;
         emit itemsChanged(m_items);
     }
+
 }
 
+QList<CalendarEvent> OrganizerAdapter::items() const
+{
+    return m_items;
+}

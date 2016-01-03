@@ -26,7 +26,8 @@ BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
     dir.setNameFilters({"calendarevent-*"});
     foreach (const QFileInfo &fi, dir.entryInfoList()) {
         CalendarEvent event;
-        event.loadFromCache(fi.fileName().split('-').last());
+        event.loadFromCache(fi.fileName().right(QUuid().toString().length()));
+
         m_calendarEntries.append(event);
     }
 }
@@ -178,6 +179,7 @@ void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, c
 
 void BlobDB::removeTimelinePin(const QUuid &uuid)
 {
+    qDebug() << "Removing timeline pin:" << uuid;
     remove(BlobDBId::BlobDBIdPin, uuid);
 }
 
@@ -242,6 +244,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
         if (!syncedEvent.isValid()) {
             itemsToAdd.append(event);
         } else if (!(syncedEvent == event)) {
+            qDebug() << "event has changed!";
             itemsToDelete.append(syncedEvent);
             itemsToAdd.append(event);
         }
@@ -263,7 +266,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
     }
 
     foreach (const CalendarEvent &event, itemsToDelete) {
-        removeTimelinePin(event.id());
+        removeTimelinePin(event.uuid());
         m_calendarEntries.removeAll(event);
         event.removeFromCache();
     }
@@ -275,7 +278,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
         if (!event.calendar().isEmpty()) fields.insert("Calendar", event.calendar());
         if (!event.comment().isEmpty()) fields.insert("Comments", event.comment());
         if (!event.guests().isEmpty()) fields.insert("Guests", event.guests().join(", "));
-        insertTimelinePin(event.id(), TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
+        insertTimelinePin(event.uuid(), TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
         m_calendarEntries.append(event);
         event.saveToCache();
     }
@@ -444,8 +447,13 @@ quint16 BlobDB::generateToken()
 
 AppMetadata BlobDB::appInfoToMetadata(const AppInfo &info, HardwarePlatform hardwarePlatform)
 {
-    QIODevice* appBinary = info.openFile(AppInfo::BINARY, hardwarePlatform, QIODevice::ReadOnly);
-    QByteArray data = appBinary->read(512);
+    QString binaryFile = info.file(AppInfo::FileTypeApplication, hardwarePlatform);
+    QFile f(binaryFile);
+    if (!f.open(QFile::ReadOnly)) {
+        qWarning() << "Error opening app binary";
+        return AppMetadata();
+    }
+    QByteArray data = f.read(512);
     WatchDataReader reader(data);
     qDebug() << "Header:" << reader.readFixedString(8);
     qDebug() << "struct Major version:" << reader.read<quint8>();
@@ -471,7 +479,7 @@ AppMetadata BlobDB::appInfoToMetadata(const AppInfo &info, HardwarePlatform hard
     qDebug() << "Flags:" << flags;
     qDebug() << "Num relocatable entries:" << reader.readLE<quint32>();
 
-    appBinary->close();
+    f.close();
     qDebug() << "app data" << data.toHex();
 
     AppMetadata metadata;
@@ -487,7 +495,7 @@ AppMetadata BlobDB::appInfoToMetadata(const AppInfo &info, HardwarePlatform hard
 
 }
 
-CalendarEvent BlobDB::findCalendarEvent(const QUuid &id)
+CalendarEvent BlobDB::findCalendarEvent(const QString &id)
 {
     foreach (const CalendarEvent &entry, m_calendarEntries) {
         if (entry.id() == id) {

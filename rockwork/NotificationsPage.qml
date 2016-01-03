@@ -23,7 +23,7 @@ Page {
                 }
 
                 wrapMode: Text.WordWrap
-                text: i18n.tr("Entries here will appear as notifications keep coming. Selected notifications will be shown on your Pebble.")
+                text: i18n.tr("Entries here will appear as notifications keep coming. Selected notifications will be shown on your Pebble smartwatch.")
             }
         }
 
@@ -57,4 +57,3 @@ Page {
         }
     }
 }
-

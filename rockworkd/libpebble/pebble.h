@@ -70,9 +70,9 @@ public slots:
 
     void clearAppDB();
     void installApp(const QString &id);
-    QList<QString> installedAppIds();
-    AppInfo appInfo(const QString &id);
-    void removeApp(const QString &id);
+    QList<QUuid> installedAppIds();
+    AppInfo appInfo(const QUuid &uuid);
+    void removeApp(const QUuid &uuid);
     void requestConfigurationURL(const QUuid &uuid);
     void configurationClosed(const QUuid &uuid, const QString &result);
 

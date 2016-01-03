@@ -16,15 +16,17 @@ public:
     typedef std::function<void(int)> ErrorCallback;
     typedef std::function<void(qreal)> ProgressCallback;
 
-    uint upload(WatchConnection::UploadType type, int index, quint32 appInstallId, const QString &filename, QIODevice *device, int size = -1, quint32 crc = 0,
+    uint upload(WatchConnection::UploadType type, int index, quint32 appInstallId, const QString &filename, int size = -1, quint32 crc = 0,
                 SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
 
-    uint uploadAppBinary(QIODevice *device, quint32 crc, quint32 appInstallId, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
-    uint uploadAppResources(quint32 appInstallId, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
-    uint uploadFile(const QString &filename, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
-    uint uploadFirmwareBinary(bool recovery, QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
-    uint uploadFirmwareResources(QIODevice *device, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
-    uint uploadWorker(QIODevice *device, quint32 crc, quint32 appInstallId, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+    uint uploadAppBinary(quint32 appInstallId, const QString &filename, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+    uint uploadAppResources(quint32 appInstallId, const QString &filename, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+    uint uploadAppWorker(quint32 appInstallId, const QString &filename, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+
+    uint uploadFirmwareBinary(bool recovery, const QString &filename, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+    uint uploadFirmwareResources(const QString &filename, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
+
+    uint uploadFile(const QString &filename, quint32 crc, SuccessCallback successCallback = SuccessCallback(), ErrorCallback errorCallback = ErrorCallback(), ProgressCallback progressCallback = ProgressCallback());
 
     void cancel(uint id, int code = 0);
 

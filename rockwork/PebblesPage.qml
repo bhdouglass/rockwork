@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 
 Page {
-    title: i18n.tr("Manage Pebbles")
+    title: i18n.tr("Manage Pebble Watches")
 
     head {
         actions: [
@@ -52,7 +52,7 @@ Page {
         visible: pebbles.count === 0
 
         Label {
-            text: i18n.tr("No Pebbles configured yet. Please connect your Pebble watch using the system settings.")
+            text: i18n.tr("No Pebble smartwatches configured yet. Please connect your Pebble watch using the system settings.")
             fontSize: "large"
             width: parent.width
             wrapMode: Text.WordWrap

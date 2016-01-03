@@ -3,7 +3,7 @@
 
 #include "watchconnection.h"
 
-class AppMetadata: PebblePacket
+class AppMetadata: public PebblePacket
 {
 public:
     AppMetadata();

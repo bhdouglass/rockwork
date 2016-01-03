@@ -92,7 +92,7 @@ void JSKitManager::handleAppStopped(const QUuid &uuid)
         }
 
         stopJsApp();
-        _curApp.setInvalid();
+        _curApp = AppInfo();
         qDebug() << "App stopped" << uuid;
     }
 }
@@ -185,7 +185,13 @@ void JSKitManager::startJsApp()
     loadJsFile("/usr/share/pebble/js/typedarray.js");
 
     // Now the actual script
-    _engine->evaluate(_curApp.getJSApp());
+    QString jsApp = _curApp.file(AppInfo::FileTypeJsApp, HardwarePlatformUnknown);
+    QFile f(jsApp);
+    if (!f.open(QFile::ReadOnly)) {
+        qWarning() << "Error opening" << jsApp;
+        return;
+    }
+    _engine->evaluate(QString::fromUtf8(f.readAll()));
 
     // Setup the message callback
     QUuid uuid = _curApp.uuid();

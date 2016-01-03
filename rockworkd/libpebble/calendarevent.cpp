@@ -3,8 +3,10 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QFile>
+#include <QTimeZone>
 
-CalendarEvent::CalendarEvent()
+CalendarEvent::CalendarEvent():
+    m_uuid(QUuid::createUuid())
 {
 }
 
@@ -13,14 +15,19 @@ bool CalendarEvent::isValid() const
     return !m_id.isNull();
 }
 
-QUuid CalendarEvent::id() const
+QString CalendarEvent::id() const
 {
     return m_id;
 }
 
-void CalendarEvent::setUuid(const QUuid &id)
+void CalendarEvent::setId(const QString &id)
 {
     m_id = id;
+}
+
+QUuid CalendarEvent::uuid() const
+{
+    return m_uuid;
 }
 
 QString CalendarEvent::title() const
@@ -115,11 +122,17 @@ void CalendarEvent::setRecurring(bool recurring)
 
 bool CalendarEvent::operator==(const CalendarEvent &other) const
 {
+    // Storing a QDateTime to QSettings seems to lose time zone information. Lets ignore the time zone when
+    // comparing or we'll never find ourselves again.
+    QDateTime thisStartTime = m_startTime;
+    thisStartTime.setTimeZone(other.startTime().timeZone());
+    QDateTime thisEndTime = m_endTime;
+    thisEndTime.setTimeZone(other.endTime().timeZone());
     return m_id == other.id()
             && m_title == other.title()
             && m_description == other.description()
-            && m_startTime == other.startTime()
-            && m_endTime == other.endTime()
+            && thisStartTime == other.startTime()
+            && thisEndTime == other.endTime()
             && m_location == other.location()
             && m_calendar == other.calendar()
             && m_comment == other.comment()
@@ -130,7 +143,9 @@ bool CalendarEvent::operator==(const CalendarEvent &other) const
 
 void CalendarEvent::saveToCache() const
 {
-    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_id.toString(), QSettings::IniFormat);
+    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_uuid.toString(), QSettings::IniFormat);
+    s.setValue("id", m_id);
+    s.setValue("uuid", m_uuid);
     s.setValue("title", m_title);
     s.setValue("description", m_description);
     s.setValue("startTime", m_startTime);
@@ -142,10 +157,11 @@ void CalendarEvent::saveToCache() const
     s.setValue("recurring", m_recurring);
 }
 
-void CalendarEvent::loadFromCache(const QUuid &id)
+void CalendarEvent::loadFromCache(const QString &uuid)
 {
-    m_id = id;
-    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_id.toString(), QSettings::IniFormat);
+    m_uuid = uuid;
+    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_uuid.toString(), QSettings::IniFormat);
+    m_id = s.value("id").toString();
     m_title = s.value("title").toString();
     m_description = s.value("description").toString();
     m_startTime = s.value("startTime").toDateTime();
@@ -159,8 +175,8 @@ void CalendarEvent::loadFromCache(const QUuid &id)
 
 void CalendarEvent::removeFromCache() const
 {
-    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_id.toString(), QSettings::IniFormat);
+    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_uuid.toString(), QSettings::IniFormat);
     s.remove("");
-    QFile::remove(s.fileName());
+    QFile::remove(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_uuid.toString());
 }
 

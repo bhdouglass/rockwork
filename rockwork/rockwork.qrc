@@ -6,5 +6,6 @@
         <file>InstalledAppsPage.qml</file>
         <file>MainMenuPage.qml</file>
         <file>AppSettingsPage.qml</file>
+        <file>AppStorePage.qml</file>
     </qresource>
 </RCC>

@@ -211,20 +211,20 @@ void Pebble::installApp(const QString &id)
     m_appDownloader->downloadApp(id);
 }
 
-QList<QString> Pebble::installedAppIds()
+QList<QUuid> Pebble::installedAppIds()
 {
-    return m_appManager->appIds();
+    return m_appManager->appUuids();
 }
 
-AppInfo Pebble::appInfo(const QString &id)
+AppInfo Pebble::appInfo(const QUuid &uuid)
 {
-    return m_appManager->info(id);
+    return m_appManager->info(uuid);
 }
 
-void Pebble::removeApp(const QString &id)
+void Pebble::removeApp(const QUuid &uuid)
 {
-    m_blobDB->removeApp(m_appManager->info(id));
-    m_appManager->removeApp(id);
+    m_blobDB->removeApp(m_appManager->info(uuid));
+    m_appManager->removeApp(uuid);
 }
 
 void Pebble::requestConfigurationURL(const QUuid &uuid) {
@@ -260,8 +260,6 @@ void Pebble::onPebbleDisconnected()
 void Pebble::pebbleVersionReceived(const QByteArray &data)
 {
     WatchDataReader wd(data);
-
-    qDebug() << "blubb" << data.toHex();
 
     wd.skip(1);
     m_softwareBuildTime = QDateTime::fromTime_t(wd.read<quint32>());
@@ -359,7 +357,11 @@ void Pebble::logData(const QByteArray &/*data*/)
 
 void Pebble::appDownloadFinished(const QString &id)
 {
-    m_appManager->scanApp(m_storagePath + "/apps/" + id);
-    m_blobDB->insertAppMetaData(m_appManager->info(id));
+    QUuid uuid = m_appManager->scanApp(m_storagePath + "/apps/" + id);
+    if (uuid.isNull()) {
+        qWarning() << "Error scanning downloaded app. Won't install on watch";
+        return;
+    }
+    m_blobDB->insertAppMetaData(m_appManager->info(uuid));
 
 }

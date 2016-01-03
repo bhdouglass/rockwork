@@ -13,8 +13,10 @@ public:
 
     bool isValid() const;
 
-    QUuid id() const;
-    void setUuid(const QUuid &id);
+    QString id() const;
+    void setId(const QString &id);
+
+    QUuid uuid() const;
 
     QString title() const;
     void setTitle(const QString &title);
@@ -46,11 +48,12 @@ public:
     bool operator==(const CalendarEvent &other) const;
 
     void saveToCache() const;
-    void loadFromCache(const QUuid &id);
+    void loadFromCache(const QString &uuid);
     void removeFromCache() const;
 
 private:
-    QUuid m_id;
+    QString m_id;
+    QUuid m_uuid;
     QString m_title;
     QString m_description;
     QDateTime m_startTime;
