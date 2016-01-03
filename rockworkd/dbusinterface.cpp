@@ -9,6 +9,7 @@ DBusPebble::DBusPebble(Pebble *pebble, QObject *parent):
     connect(pebble, &Pebble::pebbleConnected, this, &DBusPebble::Connected);
     connect(pebble, &Pebble::pebbleDisconnected, this, &DBusPebble::Disconnected);
     connect(pebble, &Pebble::installedAppsChanged, this, &DBusPebble::InstalledAppsChanged);
+    connect(pebble, SIGNAL(openURL(const QString&, const QString&)), this, SIGNAL(OpenURL(const QString&, const QString&)));
 }
 
 QString DBusPebble::Address() const
@@ -69,10 +70,14 @@ void DBusPebble::RemoveApp(const QString &id)
     m_pebble->removeApp(id);
 }
 
-QString DBusPebble::ConfigurationURL(const QString &id)
+void DBusPebble::ConfigurationURL(const QString &uuid)
 {
-    qDebug() << "configuration url request" << id;
-    m_pebble->requestConfigurationURL(id);
+    m_pebble->requestConfigurationURL(QUuid(uuid));
+}
+
+void DBusPebble::ConfigurationClosed(const QString &uuid, const QString &result)
+{
+    m_pebble->configurationClosed(QUuid(uuid), result);
 }
 
 QString DBusPebble::SerialNumber() const

@@ -30,4 +30,3 @@ int main(int argc, char *argv[])
     view.show();
     return app.exec();
 }
-

@@ -18,6 +18,7 @@ signals:
     void Connected();
     void Disconnected();
     void InstalledAppsChanged();
+    void OpenURL(const QString &uuid, const QString &url);
 
 public slots:
     QString Address() const;
@@ -29,7 +30,8 @@ public slots:
     QStringList InstalledAppIds() const;
     QVariantList InstalledApps() const;
     void RemoveApp(const QString &id);
-    QString ConfigurationURL(const QString &id);
+    void ConfigurationURL(const QString &uuid);
+    void ConfigurationClosed(const QString &uuid, const QString &result);
 
 private:
     Pebble *m_pebble;

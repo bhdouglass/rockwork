@@ -9,7 +9,7 @@ JSKitManager::JSKitManager(Pebble *pebble, WatchConnection *connection, AppManag
     m_pebble(pebble),
     m_connection(connection), _apps(apps), _appmsg(appmsg), _engine(0)
 {
-    m_configurationId = QUuid();
+    m_configurationUuid = QUuid();
     connect(_appmsg, &AppMsgManager::appStarted, this, &JSKitManager::handleAppStarted);
     connect(_appmsg, &AppMsgManager::appStopped, this, &JSKitManager::handleAppStopped);
 }
@@ -63,9 +63,14 @@ void JSKitManager::handleWebviewClosed(const QString &result)
     }
 }
 
-void JSKitManager::setConfigurationId(const QUuid &id)
+void JSKitManager::setConfigurationId(const QUuid &uuid)
 {
-    m_configurationId = id;
+    m_configurationUuid = uuid;
+}
+
+AppInfo JSKitManager::currentApp()
+{
+    return _curApp;
 }
 
 void JSKitManager::handleAppStarted(const QUuid &uuid)
@@ -198,12 +203,12 @@ void JSKitManager::startJsApp()
     // We try to invoke the callbacks even if script parsing resulted in error...
     _jspebble->invokeCallbacks("ready");
 
-    if (m_configurationId == _curApp.uuid()) {
-        qDebug() << "going to launch config for" << m_configurationId;
+    if (m_configurationUuid == _curApp.uuid()) {
+        qDebug() << "going to launch config for" << m_configurationUuid;
         showConfiguration();
     }
 
-    m_configurationId = QUuid();
+    m_configurationUuid = QUuid();
 }
 
 void JSKitManager::stopJsApp()

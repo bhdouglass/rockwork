@@ -10,6 +10,7 @@ class AppItem: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id MEMBER m_id)
+    Q_PROPERTY(QString uuid MEMBER m_uuid)
     Q_PROPERTY(QString name MEMBER m_name)
     Q_PROPERTY(QString icon MEMBER m_icon)
     Q_PROPERTY(QString vendor MEMBER m_vendor)
@@ -21,6 +22,7 @@ public:
     AppItem(QObject *parent = 0);
 
     QString id() const;
+    QString uuid() const;
     QString name() const;
     QString icon() const;
     QString vendor() const;
@@ -29,6 +31,7 @@ public:
     bool hasSettings() const;
 
     void setId(const QString &id);
+    void setUuid(const QString &uuid);
     void setName(const QString &name);
     void setIcon(const QString &icon);
     void setVendor(const QString &vendor);
@@ -38,6 +41,7 @@ public:
 
 private:
     QString m_id;
+    QString m_uuid;
     QString m_name;
     QString m_icon;
     QString m_vendor;
@@ -52,10 +56,13 @@ class ApplicationsModel : public QAbstractListModel
 public:
     enum Roles {
         RoleId,
+        RoleUuid,
         RoleName,
         RoleIcon,
         RoleVendor,
-        RoleVersion
+        RoleVersion,
+        RoleIsWatchFace,
+        RoleHasSettings
     };
 
     ApplicationsModel(QObject *parent = nullptr);

@@ -27,9 +27,11 @@ public:
 public slots:
     void removeApp(const QString &id);
     void requestConfigurationURL(const QString &id);
+    void configurationClosed(const QString &uuid, const QString &url);
 
 signals:
     void connectedChanged();
+    void openURL(const QString &uuid, const QString &url);
 
 private:
     QVariant fetchProperty(const QString &propertyName);

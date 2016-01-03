@@ -41,7 +41,7 @@ Page {
                         visible: model.hasSettings
                         iconName: "settings"
                         onTriggered: {
-                            pebble.requestConfigurationURL(model.id);
+                            pebble.requestConfigurationURL(model.uuid);
                         }
                     }
                 ]

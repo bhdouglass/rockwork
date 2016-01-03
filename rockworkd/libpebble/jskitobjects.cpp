@@ -152,7 +152,7 @@ void JSKitPebble::showSimpleNotificationOnPebble(const QString &title, const QSt
 void JSKitPebble::openURL(const QUrl &url)
 {
     qDebug() << "opening url" << url.toString();
-    emit _mgr->appOpenUrl(url);
+    emit _mgr->openURL(_appInfo.uuid().toString(), url.toString());
 }
 
 QString JSKitPebble::getAccountToken() const

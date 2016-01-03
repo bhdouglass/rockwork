@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-24 05:46+0000\n"
+"POT-Creation-Date: 2016-01-02 17:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,58 +17,63 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/vagrant/translations/rockwork/InstalledAppsPage.qml:8
+#: /home/vagrant/appsettings/rockwork/AppSettingsPage.qml:13
+#: /home/vagrant/appsettings/rockwork/SettingsPage.qml:13
+msgid "App Settings"
+msgstr ""
+
+#: /home/vagrant/appsettings/rockwork/InstalledAppsPage.qml:8
 msgid "Apps & Watchfaces"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/InstalledAppsPage.qml:8
+#: /home/vagrant/appsettings/rockwork/InstalledAppsPage.qml:8
 msgid "Apps"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/InstalledAppsPage.qml:8
+#: /home/vagrant/appsettings/rockwork/InstalledAppsPage.qml:8
 msgid "Watchfaces"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/MainMenuPage.qml:21
+#: /home/vagrant/appsettings/rockwork/MainMenuPage.qml:21
 msgid "Manage notifications"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/MainMenuPage.qml:27
+#: /home/vagrant/appsettings/rockwork/MainMenuPage.qml:27
 msgid "Manage Apps"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/MainMenuPage.qml:34
+#: /home/vagrant/appsettings/rockwork/MainMenuPage.qml:34
 msgid "Manage Watchfaces"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/NotificationsPage.qml:7
+#: /home/vagrant/appsettings/rockwork/NotificationsPage.qml:7
 msgid "Notifications"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/NotificationsPage.qml:26
+#: /home/vagrant/appsettings/rockwork/NotificationsPage.qml:26
 msgid ""
 "Entries here will appear as notifications keep coming. Selected "
 "notifications will be shown on your Pebble."
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/PebblesPage.qml:6
+#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:6
 msgid "Manage Pebbles"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/PebblesPage.qml:36
+#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/PebblesPage.qml:36
+#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/PebblesPage.qml:55
+#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:55
 msgid ""
 "No Pebbles configured yet. Please connect your Pebble watch using the system "
 "settings."
 msgstr ""
 
-#: /home/vagrant/translations/rockwork/PebblesPage.qml:62
+#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:62
 msgid "Open system settings"
 msgstr ""

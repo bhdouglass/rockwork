@@ -14,6 +14,7 @@ Pebble::Pebble(const QDBusObjectPath &path, QObject *parent):
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "Connected", this, SLOT(pebbleConnected()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "Disconnected", this, SLOT(pebbleDisconnected()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "InstalledAppsChanged", this, SLOT(refreshApps()));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "OpenURL", this, SIGNAL(openURL(const QString&, const QString&)));
 
     dataChanged();
     refreshApps();
@@ -49,6 +50,11 @@ ApplicationsModel *Pebble::installedApps() const
     return m_installedApps;
 }
 
+void Pebble::configurationClosed(const QString &uuid, const QString &url)
+{
+    m_iface->call("ConfigurationClosed", uuid, url.mid(17));
+}
+
 void Pebble::removeApp(const QString &id)
 {
     qDebug() << "should remove app" << id;
@@ -57,7 +63,6 @@ void Pebble::removeApp(const QString &id)
 
 void Pebble::requestConfigurationURL(const QString &id)
 {
-    qDebug() << "requesting settings url" << id;
     m_iface->call("ConfigurationURL", id);
 }
 
@@ -130,9 +135,9 @@ void Pebble::refreshApps()
 
     qDebug() << "have apps" << appList;
     foreach (const QVariant &v, appList) {
-        qDebug() << v.toMap().value("id").toString() << v.toMap().value("hasSettings").toBool();
         AppItem *app = new AppItem(this);
         app->setId(v.toMap().value("id").toString());
+        app->setUuid(v.toMap().value("uuid").toString());
         app->setName(v.toMap().value("name").toString());
         app->setIcon(v.toMap().value("icon").toString());
         app->setVendor(v.toMap().value("vendor").toString());
