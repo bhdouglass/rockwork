@@ -119,3 +119,6 @@ INSTALLS+=target
 
 QMAKE_POST_LINK = sed -i s/@VERSION@/$$VERSION/g $$OUT_PWD/../manifest.json || exit 0
 #QMAKE_POST_LINK = echo $$OUT_PWD/../manifest.json > /tmp/huhu;
+
+RESOURCES += \
+    libpebble/jsfiles.qrc

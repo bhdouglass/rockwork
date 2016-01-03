@@ -182,7 +182,7 @@ void JSKitManager::startJsApp()
     Q_ASSERT(!result.isError());
 
     // Polyfills...
-    loadJsFile("/usr/share/pebble/js/typedarray.js");
+    loadJsFile(":/typedarray.js");
 
     // Now the actual script
     QString jsApp = _curApp.file(AppInfo::FileTypeJsApp, HardwarePlatformUnknown);

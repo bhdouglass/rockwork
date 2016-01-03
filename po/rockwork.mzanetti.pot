@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-03 05:55+0000\n"
+"POT-Creation-Date: 2016-01-03 16:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,78 +17,78 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/vagrant/appsettings/rockwork/AppSettingsPage.qml:13
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/AppStorePage.qml:8
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/AppStorePage.qml:8
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/AppStorePage.qml:76
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:76
 msgid "Previous"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/AppStorePage.qml:84
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:84
 msgid "Next"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/InstalledAppsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:8
 msgid "Apps & Watchfaces"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/InstalledAppsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:8
 msgid "Apps"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/InstalledAppsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:8
 msgid "Watchfaces"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/MainMenuPage.qml:20
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:20
 msgid "Manage notifications"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/MainMenuPage.qml:26
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:26
 msgid "Manage Apps"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/MainMenuPage.qml:33
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:33
 msgid "Manage Watchfaces"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/NotificationsPage.qml:7
+#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:7
 msgid "Notifications"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/NotificationsPage.qml:26
+#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:26
 msgid ""
 "Entries here will appear as notifications keep coming. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:6
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:36
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:36
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:55
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:55
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble watch "
 "using the system settings."
 msgstr ""
 
-#: /home/vagrant/appsettings/rockwork/PebblesPage.qml:62
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:62
 msgid "Open system settings"
 msgstr ""
