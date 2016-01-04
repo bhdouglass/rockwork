@@ -32,6 +32,7 @@ public:
     QString path() const;
     bool isValid() const;
     QUuid uuid() const;
+    QString storeId() const;
     QString shortName() const;
     QString longName() const;
     QString companyName() const;
@@ -53,6 +54,7 @@ private:
     QString m_path;
 
     QUuid m_uuid;
+    QString m_storeId;
     QString m_shortName;
     QString m_longName;
     QString m_companyName;

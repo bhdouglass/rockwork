@@ -11,82 +11,181 @@ Page {
     property bool showWatchApps: false
     property bool showWatchFaces: false
 
+    property string link: ""
+
     AppStoreClient {
         id: client
         Component.onCompleted: {
-            refresh()
-        }
-
-        property int offset: 0
-        property int limit: 25
-
-        function refresh() {
-            if (showWatchApps) {
-                client.fetch(AppStoreClient.TypeWatchapp, root.pebble.hardwarePlatform, limit, offset)
+            if (root.link) {
+                fetchLink(link)
             } else {
-                client.fetch(AppStoreClient.TypeWatchface, root.pebble.hardwarePlatform, limit, offset)
+                if (showWatchApps) {
+                    fetchHome(AppStoreClient.TypeWatchapp)
+                } else {
+                    fetchHome(AppStoreClient.TypeWatchface)
+                }
             }
-        }
-
-        function next() {
-            offset += limit;
-            refresh();
-        }
-
-        function previous() {
-            offset = Math.max(0, offset - limit);
-            refresh();
         }
     }
 
-    ListView {
+    Item {
         anchors.fill: parent
-        anchors.bottomMargin: buttonRow.height + units.gu(1)
-        model: client.model
-        clip: true
-        delegate: ListItem {
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: units.gu(1)
-                spacing: units.gu(1)
+        ListView {
+            anchors.fill: parent
+            model: ApplicationsFilterModel {
+                id: appsFilterModel
+                model: client.model
+            }
+            clip: true
+            section.property: "groupId"
+            section.labelPositioning: ViewSection.CurrentLabelAtStart |
+                                      ViewSection.InlineLabels
+            section.delegate: ListItem {
+                height: section ? label.implicitHeight + units.gu(3) : 0
 
-                Image {
-                    Layout.fillHeight: true
-                    Layout.preferredWidth: height
-                    source: model.icon
+                Rectangle {
+                    anchors.fill: parent
+                    color: "white"
                 }
 
-                Label {
-                    Layout.fillWidth: true
-                    text: model.name
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.margins: units.gu(1)
+                    Label {
+                        id: label
+                        text: client.model.groupName(section)
+                        fontSize: "large"
+//                        font.weight: Font.DemiBold
+                        Layout.fillWidth: true
+                    }
+                    AbstractButton {
+                        Layout.fillHeight: true
+                        implicitWidth: seeAllLabel.implicitWidth + height
+                        Row {
+                            anchors.verticalCenter: parent.verticalCenter
+                            Label {
+                                id: seeAllLabel
+                                text: i18n.tr("See all")
+                            }
+                            Icon {
+                                implicitHeight: parent.height
+                                implicitWidth: height
+                                name: "go-next"
+                            }
+                        }
+                        onClicked: {
+                            pageStack.push(Qt.resolvedUrl("AppStorePage.qml"), {pebble: root.pebble, link: client.model.groupLink(section), title: client.model.groupName(section)});
+                        }
+                    }
                 }
             }
 
-            onClicked: {
-                pebble.installApp(model.id)
+            footer: Item {
+                height: client.model.links.length > 0 ? units.gu(6) : 0
+                width: parent.width
+
+                RowLayout {
+                    anchors {
+                        fill: parent
+                        margins: units.gu(1)
+                    }
+                    spacing: units.gu(1)
+
+                    Repeater {
+                        model: client.model.links
+                        Button {
+                            text: client.model.linkName(client.model.links[index])
+                            onClicked: client.fetchLink(client.model.links[index]);
+                            color: UbuntuColors.orange
+                            Layout.fillWidth: true
+                        }
+                    }
+                }
+            }
+
+            delegate: ListItem {
+                height: delegateColumn.height + units.gu(2)
+
+                RowLayout {
+                    id: delegateRow
+                    anchors.fill: parent
+                    anchors.margins: units.gu(1)
+                    spacing: units.gu(1)
+
+                    Image {
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: height
+                        source: model.icon
+                    }
+
+                    ColumnLayout {
+                        id: delegateColumn
+                        Layout.fillWidth: true;
+                        Layout.fillHeight: true;
+                        Label {
+                            Layout.fillWidth: true
+                            text: model.name
+                            font.weight: Font.DemiBold
+                            elide: Text.ElideRight
+                        }
+                        Label {
+                            Layout.fillWidth: true
+                            text: model.category
+                        }
+                        RowLayout {
+                            Icon {
+                                name: "like"
+                                Layout.preferredHeight: parent.height
+                                Layout.preferredWidth: height
+                                implicitHeight: parent.height
+                            }
+                            Label {
+                                Layout.fillWidth: true
+                                text: model.hearts
+                            }
+                            Icon {
+                                name: "tick"
+                                implicitHeight: parent.height
+                                Layout.preferredWidth: height
+                                visible: root.pebble.installedApps.contains(model.id)
+                            }
+                        }
+                    }
+
+                }
+
+                onClicked: {
+                    client.fetchAppDetails(model.id);
+                    pageStack.push(Qt.resolvedUrl("AppStoreDetailsPage.qml"), {app: appsFilterModel.get(index), pebble: root.pebble})
+                }
             }
         }
+
+//        RowLayout {
+//            id: buttonRow
+//            anchors { left: parent.left; bottom: parent.bottom; right: parent.right; margins: units.gu(1) }
+//            spacing: units.gu(1)
+//            Button {
+//                text: i18n.tr("Previous")
+//                Layout.fillWidth: true
+//                enabled: client.offset > 0
+//                onClicked: {
+//                    client.previous()
+//                }
+//            }
+//            Button {
+//                text: i18n.tr("Next")
+//                Layout.fillWidth: true
+//                onClicked: {
+//                    client.next()
+//                }
+//            }
+//        }
     }
 
-    RowLayout {
-        id: buttonRow
-        anchors { left: parent.left; bottom: parent.bottom; right: parent.right; margins: units.gu(1) }
-        spacing: units.gu(1)
-        Button {
-            text: i18n.tr("Previous")
-            Layout.fillWidth: true
-            enabled: client.offset > 0
-            onClicked: {
-                client.previous()
-            }
-        }
-        Button {
-            text: i18n.tr("Next")
-            Layout.fillWidth: true
-            onClicked: {
-                client.next()
-            }
-        }
+    ActivityIndicator {
+        anchors.centerIn: parent
+        running: client.busy
     }
 }
 

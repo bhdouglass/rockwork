@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-03 16:07+0100\n"
+"POT-Creation-Date: 2016-01-04 01:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,30 @@ msgstr ""
 msgid "App Settings"
 msgstr ""
 
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:8
+msgid "App details"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:55
+msgid "Install"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:55
+msgid "Installed"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:154
+msgid "Description"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:177
+msgid "Developer"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:185
+msgid "Version"
+msgstr ""
+
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
 msgstr ""
@@ -29,12 +53,8 @@ msgstr ""
 msgid "Add new watchface"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:76
-msgid "Previous"
-msgstr ""
-
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:84
-msgid "Next"
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:68
+msgid "See all"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:8

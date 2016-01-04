@@ -9,14 +9,22 @@ class QDBusInterface;
 class AppItem: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString id MEMBER m_id)
-    Q_PROPERTY(QString uuid MEMBER m_uuid)
-    Q_PROPERTY(QString name MEMBER m_name)
-    Q_PROPERTY(QString icon MEMBER m_icon)
-    Q_PROPERTY(QString vendor MEMBER m_vendor)
-    Q_PROPERTY(QString version MEMBER m_version)
-    Q_PROPERTY(bool isWatchFace MEMBER m_isWatchFace)
-    Q_PROPERTY(bool hasSettings MEMBER m_hasSettings)
+    Q_PROPERTY(QString id MEMBER m_id CONSTANT)
+    Q_PROPERTY(QString uuid MEMBER m_uuid CONSTANT)
+    Q_PROPERTY(QString name MEMBER m_name CONSTANT)
+    Q_PROPERTY(QString icon MEMBER m_icon CONSTANT)
+    Q_PROPERTY(QString vendor MEMBER m_vendor NOTIFY vendorChanged)
+    Q_PROPERTY(QString version MEMBER m_version NOTIFY versionChanged)
+    Q_PROPERTY(QString description MEMBER m_description CONSTANT)
+    Q_PROPERTY(int hearts MEMBER m_hearts CONSTANT)
+    Q_PROPERTY(QStringList screenshotImages MEMBER m_screenshotImages CONSTANT)
+    Q_PROPERTY(QString headerImage READ headerImage NOTIFY headerImageChanged)
+    Q_PROPERTY(bool isWatchFace MEMBER m_isWatchFace NOTIFY isWatchFaceChanged)
+    Q_PROPERTY(bool hasSettings MEMBER m_hasSettings CONSTANT)
+    Q_PROPERTY(QString category MEMBER m_category CONSTANT)
+
+    Q_PROPERTY(QString groupId MEMBER m_groupId CONSTANT)
+
 
 public:
     AppItem(QObject *parent = 0);
@@ -27,8 +35,15 @@ public:
     QString icon() const;
     QString vendor() const;
     QString version() const;
+    QString description() const;
+    int hearts() const;
+    QStringList screenshotImages() const;
+    QString headerImage() const;
     bool isWatchFace() const;
     bool hasSettings() const;
+    QString category() const;
+
+    QString groupId() const;
 
     void setId(const QString &id);
     void setUuid(const QString &uuid);
@@ -36,8 +51,23 @@ public:
     void setIcon(const QString &icon);
     void setVendor(const QString &vendor);
     void setVersion(const QString &version);
+    void setDescription(const QString &description);
+    void setHearts(int hearts);
+    void setCategory(const QString &category);
+    void setScreenshotImages(const QStringList &screenshotImages);
+    void setHeaderImage(const QString &headerImage);
     void setIsWatchFace(bool isWatchFace);
     void setHasSettings(bool hasSettings);
+
+    // For grouping in lists, e.g. by collection
+    void setGroupId(const QString &groupId);
+
+
+signals:
+    void versionChanged();
+    void vendorChanged();
+    void headerImageChanged();
+    void isWatchFaceChanged();
 
 private:
     QString m_id;
@@ -46,13 +76,23 @@ private:
     QString m_icon;
     QString m_vendor;
     QString m_version;
+    QString m_description;
+    int m_hearts = 0;
+    QString m_category;
+    QStringList m_screenshotImages;
     bool m_isWatchFace = false;
     bool m_hasSettings = false;
+
+    QString m_groupId;
+
+    QString m_headerImage;
 };
 
 class ApplicationsModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(QStringList links READ links NOTIFY linksChanged)
+
 public:
     enum Roles {
         RoleId,
@@ -62,7 +102,11 @@ public:
         RoleVendor,
         RoleVersion,
         RoleIsWatchFace,
-        RoleHasSettings
+        RoleHasSettings,
+        RoleDescription,
+        RoleHearts,
+        RoleCategory,
+        RoleGroupId
     };
 
     ApplicationsModel(QObject *parent = nullptr);
@@ -73,10 +117,28 @@ public:
 
     void clear();
     void insert(AppItem *item);
-    AppItem* get(int index) const;
+    void insertGroup(const QString &id, const QString &name, const QString &link);
+
+    Q_INVOKABLE AppItem* get(int index) const;
+    AppItem* findApp(const QString &id) const;
+    Q_INVOKABLE bool contains(const QString &id) const;
+
+    Q_INVOKABLE QString groupName(const QString &groupId) const;
+    Q_INVOKABLE QString groupLink(const QString &groupId) const;
+
+    QStringList links() const;
+    Q_INVOKABLE QString linkName(const QString &link) const;
+    void addLink(const QString &link, const QString &name);
+
+signals:
+    void linksChanged();
 
 private:
     QList<AppItem*> m_apps;
+    QHash<QString, QString> m_groupNames;
+    QHash<QString, QString> m_groupLinks;
+    QStringList m_links;
+    QHash<QString, QString> m_linkNames;
 };
 
 #endif // APPLICATIONSMODEL_H

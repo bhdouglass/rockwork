@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterUncreatableType<Pebble>("RockWork", 1, 0, "Pebble", "Get them from the model");
     qmlRegisterUncreatableType<ApplicationsModel>("RockWork", 1, 0, "ApplicationsModel", "Get them from a Pebble object");
+    qmlRegisterUncreatableType<AppItem>("RockWork", 1, 0, "AppItem", "Get them from an ApplicationsModel");
     qmlRegisterType<ApplicationsFilterModel>("RockWork", 1, 0, "ApplicationsFilterModel");
     qmlRegisterType<Pebbles>("RockWork", 1, 0, "Pebbles");
     qmlRegisterType<NotificationSourceModel>("RockWork", 1, 0, "NotificationSourceModel");

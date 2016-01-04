@@ -148,7 +148,7 @@ void Pebble::refreshApps()
     qDebug() << "have apps" << appList;
     foreach (const QVariant &v, appList) {
         AppItem *app = new AppItem(this);
-        app->setId(v.toMap().value("uuid").toString());
+        app->setId(v.toMap().value("storeId").toString());
         app->setUuid(v.toMap().value("uuid").toString());
         app->setName(v.toMap().value("name").toString());
         app->setIcon(v.toMap().value("icon").toString());

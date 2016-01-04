@@ -64,4 +64,5 @@ INSTALLS+=target
 DISTFILES += \
     NotificationsPage.qml \
     PebblesPage.qml \
-    AppStorePage.qml
+    AppStorePage.qml \
+    AppStoreDetailsPage.qml

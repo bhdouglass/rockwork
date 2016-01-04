@@ -23,8 +23,8 @@ private slots:
     void packageFetched();
 
 private:
-    void fetchPackage(const QString &url);
-    void unpackArchive(const QString &hash);
+    void fetchPackage(const QString &url, const QString &storeId);
+    void unpackArchive(const QString &storeId, const QString &filename);
 
     QNetworkAccessManager *m_nam;
     QString m_storagePath;

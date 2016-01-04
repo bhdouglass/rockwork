@@ -4,7 +4,7 @@
 ApplicationsFilterModel::ApplicationsFilterModel(QObject *parent):
     QSortFilterProxyModel(parent)
 {
-
+    sort(0);
 }
 
 ApplicationsModel *ApplicationsFilterModel::appsModel() const
@@ -49,6 +49,20 @@ void ApplicationsFilterModel::setShowWatchFaces(bool showWatchFaces)
     }
 }
 
+bool ApplicationsFilterModel::sortByGroupId() const
+{
+    return m_sortByGroupId;
+}
+
+void ApplicationsFilterModel::setSortByGroupId(bool sortByGroupId)
+{
+    if (m_sortByGroupId != sortByGroupId) {
+        m_sortByGroupId = sortByGroupId;
+        emit sortByGroupIdChanged();
+        sort(0);
+    }
+}
+
 bool ApplicationsFilterModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     Q_UNUSED(source_parent)
@@ -61,3 +75,21 @@ bool ApplicationsFilterModel::filterAcceptsRow(int source_row, const QModelIndex
     }
     return false;
 }
+
+bool ApplicationsFilterModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
+{
+    AppItem *leftItem = m_appsModel->get(source_left.row());
+    AppItem *rightItem = m_appsModel->get(source_right.row());
+
+    if (m_sortByGroupId && leftItem->groupId() != rightItem->groupId()) {
+        return leftItem->groupId() < rightItem->groupId();
+    }
+
+    return QSortFilterProxyModel::lessThan(source_left, source_right);
+}
+
+AppItem* ApplicationsFilterModel::get(int index) const
+{
+    return m_appsModel->get(mapToSource(this->index(index, 0)).row());
+}
+

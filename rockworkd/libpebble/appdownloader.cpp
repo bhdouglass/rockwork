@@ -24,6 +24,7 @@ void AppDownloader::downloadApp(const QString &id)
 {
     QNetworkRequest request(QUrl("https://api2.getpebble.com/v2/apps/id/" + id));
     QNetworkReply *reply = m_nam->get(request);
+    reply->setProperty("storeId", id);
     connect(reply, &QNetworkReply::finished, this, &AppDownloader::appJsonFetched);
 }
 
@@ -31,6 +32,8 @@ void AppDownloader::appJsonFetched()
 {
     QNetworkReply *reply = static_cast<QNetworkReply*>(sender());
     reply->deleteLater();
+
+    QString storeId = reply->property("storeId").toString();
 
     if (reply->error() != QNetworkReply::NoError) {
         qWarning() << "Error fetching App Json" << reply->errorString();
@@ -56,13 +59,14 @@ void AppDownloader::appJsonFetched()
         return;
     }
 
-    fetchPackage(pbwFileUrl);
+    fetchPackage(pbwFileUrl, storeId);
 }
 
-void AppDownloader::fetchPackage(const QString &url)
+void AppDownloader::fetchPackage(const QString &url, const QString &storeId)
 {
     QNetworkRequest request(url);
     QNetworkReply *reply = m_nam->get(request);
+    reply->setProperty("storeId", storeId);
     connect(reply, &QNetworkReply::finished, this, &AppDownloader::packageFetched);
 }
 
@@ -71,9 +75,11 @@ void AppDownloader::packageFetched()
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
     reply->deleteLater();
 
+    QString storeId = reply->property("storeId").toString();
+
     QDir dir;
-    dir.mkpath(m_storagePath + reply->request().url().fileName());
-    QFile f(m_storagePath + reply->request().url().fileName() + "/" + reply->request().url().fileName() + ".zip");
+    dir.mkpath(m_storagePath + storeId);
+    QFile f(m_storagePath + storeId + "/" + reply->request().url().fileName() + ".zip");
     if (!f.open(QFile::WriteOnly | QFile::Truncate)) {
         qWarning() << "Error opening file for writing";
         return;
@@ -82,15 +88,15 @@ void AppDownloader::packageFetched()
     f.flush();
     f.close();
 
-    unpackArchive(reply->request().url().fileName());
+    unpackArchive(storeId, reply->request().url().fileName());
 }
 
-void AppDownloader::unpackArchive(const QString &hash)
+void AppDownloader::unpackArchive(const QString &storeId, const QString &filename)
 {
-    QString zipName = m_storagePath + hash + "/" + hash + ".zip";
+    QString zipName = m_storagePath + storeId + "/" + filename + ".zip";
 
     QuaZip zipFile(zipName);
-    zipFile.setZipName(m_storagePath + hash + "/" + hash + ".zip");
+    zipFile.setZipName(m_storagePath + storeId + "/" + filename + ".zip");
     qDebug() << "created zip file";
     if (!zipFile.open(QuaZip::mdUnzip)) {
         qWarning() << "Failed to open zip file" << zipFile.getZipName();
@@ -104,11 +110,11 @@ void AppDownloader::unpackArchive(const QString &hash)
             continue;
         }
         qDebug() << "Inflating:" << fi.name;
-        QFileInfo dirInfo(m_storagePath + hash + "/" + fi.name);
+        QFileInfo dirInfo(m_storagePath + storeId + "/" + fi.name);
         if (!dirInfo.absoluteDir().exists()) {
             dirInfo.absoluteDir().mkpath(dirInfo.absolutePath());
         }
-        QFile of(m_storagePath + hash + "/" + fi.name);
+        QFile of(m_storagePath + storeId + "/" + fi.name);
         if (!of.open(QFile::WriteOnly | QFile::Truncate)) {
             qWarning() << "Could not open output file for writing" << fi.name;
             f.close();
@@ -119,5 +125,5 @@ void AppDownloader::unpackArchive(const QString &hash)
         of.close();
     }
 
-    emit downloadFinished(hash);
+    emit downloadFinished(storeId);
 }

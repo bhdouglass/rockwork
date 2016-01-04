@@ -10,8 +10,8 @@ import RockWork 1.0
 MainView {
     applicationName: "rockwork.mzanetti"
 
-    width: units.gu(100)
-    height: units.gu(75)
+    width: units.gu(40)
+    height: units.gu(70)
 
     ServiceController {
         id: serviceController

@@ -36,6 +36,8 @@ AppInfo::AppInfo(const QString &path):
         return;
     }
 
+    m_storeId = m_path.split("/").last();
+
     QVariantMap map = jsonDoc.toVariant().toMap();
 
     m_uuid = map.value("uuid").toUuid();
@@ -90,6 +92,11 @@ bool AppInfo::isValid() const
 QUuid AppInfo::uuid() const
 {
     return m_uuid;
+}
+
+QString AppInfo::storeId() const
+{
+    return m_storeId;
 }
 
 QString AppInfo::shortName() const

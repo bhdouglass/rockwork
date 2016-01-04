@@ -48,6 +48,7 @@ QVariantList DBusPebble::InstalledApps() const
     foreach (const QUuid &appId, m_pebble->installedAppIds()) {
         QVariantMap app;
         AppInfo info = m_pebble->appInfo(appId);
+        app.insert("storeId", info.storeId());
         app.insert("name", info.shortName());
         app.insert("vendor", info.companyName());
         app.insert("watchface", info.isWatchface());

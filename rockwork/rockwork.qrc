@@ -7,5 +7,6 @@
         <file>MainMenuPage.qml</file>
         <file>AppSettingsPage.qml</file>
         <file>AppStorePage.qml</file>
+        <file>AppStoreDetailsPage.qml</file>
     </qresource>
 </RCC>

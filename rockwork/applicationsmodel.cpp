@@ -2,6 +2,7 @@
 
 #include <QDebug>
 
+
 ApplicationsModel::ApplicationsModel(QObject *parent):
     QAbstractListModel(parent)
 {
@@ -32,6 +33,14 @@ QVariant ApplicationsModel::data(const QModelIndex &index, int role) const
         return m_apps.at(index.row())->isWatchFace();
     case RoleHasSettings:
         return m_apps.at(index.row())->hasSettings();
+    case RoleDescription:
+        return m_apps.at(index.row())->description();
+    case RoleHearts:
+        return m_apps.at(index.row())->hearts();
+    case RoleCategory:
+        return m_apps.at(index.row())->category();
+    case RoleGroupId:
+        return m_apps.at(index.row())->groupId();
     }
 
     return QVariant();
@@ -48,7 +57,10 @@ QHash<int, QByteArray> ApplicationsModel::roleNames() const
     roles.insert(RoleVersion, "version");
     roles.insert(RoleIsWatchFace, "isWatchFace");
     roles.insert(RoleHasSettings, "hasSettings");
-
+    roles.insert(RoleDescription, "description");
+    roles.insert(RoleHearts, "hearts");
+    roles.insert(RoleCategory, "category");
+    roles.insert(RoleGroupId, "groupId");
     return roles;
 }
 
@@ -57,6 +69,11 @@ void ApplicationsModel::clear()
     beginResetModel();
     qDeleteAll(m_apps);
     m_apps.clear();
+    m_groupNames.clear();
+    m_groupLinks.clear();
+    m_links.clear();
+    m_linkNames.clear();
+    emit linksChanged();
     endResetModel();
 }
 
@@ -69,9 +86,62 @@ void ApplicationsModel::insert(AppItem *item)
     endInsertRows();
 }
 
+void ApplicationsModel::insertGroup(const QString &id, const QString &name, const QString &link)
+{
+    m_groupNames[id] = name;
+    m_groupLinks[id] = link;
+}
+
 AppItem *ApplicationsModel::get(int index) const
 {
     return m_apps.at(index);
+}
+
+AppItem *ApplicationsModel::findApp(const QString &id) const
+{
+    foreach (AppItem *item, m_apps) {
+        if (item->id() == id) {
+            return item;
+        }
+    }
+    return nullptr;
+}
+
+bool ApplicationsModel::contains(const QString &id) const
+{
+    foreach (AppItem* item, m_apps) {
+        if (item->id() == id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+QString ApplicationsModel::groupName(const QString &groupId) const
+{
+    return m_groupNames.value(groupId);
+}
+
+QString ApplicationsModel::groupLink(const QString &groupId) const
+{
+    return m_groupLinks.value(groupId);
+}
+
+QString ApplicationsModel::linkName(const QString &link) const
+{
+    return m_linkNames.value(link);
+}
+
+QStringList ApplicationsModel::links() const
+{
+    return m_links;
+}
+
+void ApplicationsModel::addLink(const QString &link, const QString &name)
+{
+    m_links.append(link);
+    m_linkNames[link] = name;
+    emit linksChanged();
 }
 
 AppItem::AppItem(QObject *parent):
@@ -110,6 +180,21 @@ QString AppItem::version() const
     return m_version;
 }
 
+QString AppItem::description() const
+{
+    return m_description;
+}
+
+int AppItem::hearts() const
+{
+    return m_hearts;
+}
+
+QStringList AppItem::screenshotImages() const
+{
+    return m_screenshotImages;
+}
+
 bool AppItem::isWatchFace() const
 {
     return m_isWatchFace;
@@ -118,6 +203,16 @@ bool AppItem::isWatchFace() const
 bool AppItem::hasSettings() const
 {
     return m_hasSettings;
+}
+
+QString AppItem::category() const
+{
+    return m_category;
+}
+
+QString AppItem::groupId() const
+{
+    return m_groupId;
 }
 
 void AppItem::setId(const QString &id)
@@ -143,19 +238,59 @@ void AppItem::setIcon(const QString &icon)
 void AppItem::setVendor(const QString &vendor)
 {
     m_vendor = vendor;
+    emit vendorChanged();
 }
 
 void AppItem::setVersion(const QString &version)
 {
     m_version = version;
+    emit versionChanged();
+}
+
+void AppItem::setDescription(const QString &description)
+{
+    m_description = description;
+}
+
+void AppItem::setHearts(int hearts)
+{
+    m_hearts = hearts;
 }
 
 void AppItem::setIsWatchFace(bool isWatchFace)
 {
     m_isWatchFace = isWatchFace;
+    emit isWatchFaceChanged();
 }
 
 void AppItem::setHasSettings(bool hasSettings)
 {
     m_hasSettings = hasSettings;
 }
+
+void AppItem::setCategory(const QString &category)
+{
+    m_category = category;
+}
+
+void AppItem::setScreenshotImages(const QStringList &screenshotImages)
+{
+    m_screenshotImages = screenshotImages;
+}
+
+void AppItem::setHeaderImage(const QString &headerImage)
+{
+    m_headerImage = headerImage;
+    emit headerImageChanged();
+}
+
+void AppItem::setGroupId(const QString &groupId)
+{
+    m_groupId = groupId;
+}
+
+QString AppItem::headerImage() const
+{
+    return m_headerImage;
+}
+
