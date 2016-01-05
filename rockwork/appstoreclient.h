@@ -14,6 +14,7 @@ class AppStoreClient : public QObject
     Q_PROPERTY(ApplicationsModel* model READ model CONSTANT)
     Q_PROPERTY(int limit READ limit WRITE setLimit NOTIFY limitChanged)
     Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
+
 public:
     enum Type {
         TypeWatchapp,

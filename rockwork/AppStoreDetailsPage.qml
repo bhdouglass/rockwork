@@ -52,9 +52,24 @@ Page {
                 }
 
                 Button {
+                    id: installButton
                     text: enabled ? i18n.tr("Install") : i18n.tr("Installed")
                     color: UbuntuColors.green
                     enabled: !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId)
+                    Connections {
+                        target: root.pebble.installedApps
+                        onChanged: {
+                            installButton.enabled = !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId)
+                        }
+                    }
+
+                    Connections {
+                        target: root.pebble.installedWatchfaces
+                        onChanged: {
+                            installButton.enabled = !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId)
+                        }
+                    }
+
                     onClicked: {
                         root.pebble.installApp(root.app.storeId)
                     }

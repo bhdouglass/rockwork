@@ -125,6 +125,7 @@ void AppStoreClient::fetchLink(const QString &link)
 
     QNetworkReply *reply = m_nam->get(request);
     connect(reply, &QNetworkReply::finished, [this, reply]() {
+        qDebug() << "fetch reply";
         QByteArray data = reply->readAll();
         reply->deleteLater();
 
@@ -259,7 +260,9 @@ AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
     item->setCategory(map.value("category_name").toString());
     QStringList screenshotImages;
     foreach (const QVariant &screenshotItem, map.value("screenshot_images").toList()) {
-        screenshotImages << screenshotItem.toMap().first().toString();
+        if (screenshotItem.toMap().count() > 0) {
+            screenshotImages << screenshotItem.toMap().first().toString();
+        }
     }
     item->setScreenshotImages(screenshotImages);
 

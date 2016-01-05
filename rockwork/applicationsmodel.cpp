@@ -72,12 +72,13 @@ void ApplicationsModel::clear()
     beginResetModel();
     qDeleteAll(m_apps);
     m_apps.clear();
+    endResetModel();
     m_groupNames.clear();
     m_groupLinks.clear();
     m_links.clear();
     m_linkNames.clear();
     emit linksChanged();
-    endResetModel();
+    emit changed();
 }
 
 void ApplicationsModel::insert(AppItem *item)
@@ -86,6 +87,7 @@ void ApplicationsModel::insert(AppItem *item)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_apps.append(item);
     endInsertRows();
+    emit changed();
 }
 
 void ApplicationsModel::insertGroup(const QString &id, const QString &name, const QString &link)

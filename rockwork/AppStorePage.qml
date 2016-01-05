@@ -144,10 +144,25 @@ Page {
                                 text: model.hearts
                             }
                             Icon {
+                                id: tickIcon
                                 name: "tick"
                                 implicitHeight: parent.height
                                 Layout.preferredWidth: height
                                 visible: root.pebble.installedApps.contains(model.storeId) || root.pebble.installedWatchfaces.contains(model.storeId)
+                                Connections {
+                                    target: root.pebble.installedApps
+                                    onChanged: {
+                                        tickIcon.visible = root.pebble.installedApps.contains(model.storeId) || root.pebble.installedWatchfaces.contains(model.storeId)
+                                    }
+                                }
+
+                                Connections {
+                                    target: root.pebble.installedWatchfaces
+                                    onChanged: {
+                                        tickIcon.visible = root.pebble.installedApps.contains(model.storeId) || root.pebble.installedWatchfaces.contains(model.storeId)
+                                    }
+                                }
+
                             }
                         }
                     }

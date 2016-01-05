@@ -143,6 +143,7 @@ public:
 signals:
     void linksChanged();
     void appsSorted();
+    void changed();
 
 private:
     QList<AppItem*> m_apps;

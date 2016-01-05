@@ -71,7 +71,7 @@ Page {
 
         onPressAndHold: {
             startY = mouseY;
-            var mappedToListView = mapToItem(listView, mouseX, mouseY)
+            var mappedToListView = mapToItem(listView.contentItem, mouseX, mouseY)
             draggedIndex = listView.indexAt(0, mappedToListView.y);
             if (draggedIndex == 0) {
                 print("cannot drag settings app");
@@ -90,7 +90,7 @@ Page {
         }
 
         onMouseYChanged: {
-            var mappedToListView = mapToItem(listView, mouseX, mouseY)
+            var mappedToListView = mapToItem(listView.contentItem, mouseX, mouseY)
             var newIndex = listView.indexAt(0, mappedToListView.y);
 
             if (newIndex > draggedIndex) {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-05 03:17+0100\n"
+"POT-Creation-Date: 2016-01-05 20:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,23 +25,23 @@ msgstr ""
 msgid "App details"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:55
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:56
 msgid "Install"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:55
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:56
 msgid "Installed"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:154
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:169
 msgid "Description"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:177
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:192
 msgid "Developer"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:185
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:200
 msgid "Version"
 msgstr ""
 
