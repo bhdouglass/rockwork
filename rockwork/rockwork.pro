@@ -15,7 +15,8 @@ HEADERS += \
     pebbles.h \
     applicationsmodel.h \
     applicationsfiltermodel.h \
-    appstoreclient.h
+    appstoreclient.h \
+    screenshotmodel.h
 
 SOURCES += main.cpp \
     notificationsourcemodel.cpp \
@@ -24,7 +25,8 @@ SOURCES += main.cpp \
     pebbles.cpp \
     applicationsmodel.cpp \
     applicationsfiltermodel.cpp \
-    appstoreclient.cpp
+    appstoreclient.cpp \
+    screenshotmodel.cpp
 
 RESOURCES += rockwork.qrc
 

@@ -11,6 +11,7 @@
 #include "applicationsmodel.h"
 #include "applicationsfiltermodel.h"
 #include "appstoreclient.h"
+#include "screenshotmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,6 +25,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<NotificationSourceModel>("RockWork", 1, 0, "NotificationSourceModel");
     qmlRegisterType<ServiceControl>("RockWork", 1, 0, "ServiceController");
     qmlRegisterType<AppStoreClient>("RockWork", 1, 0, "AppStoreClient");
+    qmlRegisterType<ScreenshotModel>("RockWork", 1, 0, "ScreenshotModel");
 
     QQuickView view;
     view.engine()->rootContext()->setContextProperty("version", VERSION);

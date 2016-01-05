@@ -9,6 +9,7 @@
 #include "jskitmanager.h"
 #include "blobdb.h"
 #include "appdownloader.h"
+#include "screenshotendpoint.h"
 #include "core.h"
 #include "platforminterface.h"
 
@@ -45,6 +46,9 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
 
     m_appDownloader = new AppDownloader(m_storagePath, this);
     QObject::connect(m_appDownloader, &AppDownloader::downloadFinished, this, &Pebble::appDownloadFinished);
+
+    m_screenshotEndpoint = new ScreenshotEndpoint(m_connection, this);
+    QObject::connect(m_screenshotEndpoint, &ScreenshotEndpoint::screenshotSaved, this, &Pebble::screenshotSaved);
 
     m_appManager->rescan();
 }
@@ -252,6 +256,11 @@ void Pebble::configurationClosed(const QUuid &uuid, const QString &result)
     if (m_jskitManager->currentApp().uuid() == uuid) {
         m_jskitManager->handleWebviewClosed(result);
     }
+}
+
+void Pebble::requestScreenshot()
+{
+    m_screenshotEndpoint->requestScreenshot();
 }
 
 void Pebble::onPebbleConnected()

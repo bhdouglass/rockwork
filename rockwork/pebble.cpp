@@ -213,3 +213,8 @@ void Pebble::appsSorted()
     }
     m_iface->call("SetAppOrder", newList);
 }
+
+void Pebble::requestScreenshot()
+{
+    m_iface->call("RequestScreenshot");
+}

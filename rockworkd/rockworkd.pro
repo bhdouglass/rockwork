@@ -55,7 +55,8 @@ SOURCES += main.cpp \
     libpebble/calendarevent.cpp \
     platformintegration/ubuntu/syncmonitorclient.cpp \
     libpebble/appmetadata.cpp \
-    libpebble/appdownloader.cpp
+    libpebble/appdownloader.cpp \
+    libpebble/screenshotendpoint.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -95,7 +96,8 @@ HEADERS += \
     platformintegration/ubuntu/syncmonitorclient.h \
     libpebble/appmetadata.h \
     libpebble/appdownloader.h \
-    libpebble/enums.h
+    libpebble/enums.h \
+    libpebble/screenshotendpoint.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

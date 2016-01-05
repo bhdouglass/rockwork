@@ -34,6 +34,13 @@ Page {
             page: "InstalledAppsPage.qml",
             showWatchFaces: true,
         });
+
+        mainMenuModel.append({
+            icon: "camera-app-symbolic",
+            text: i18n.tr("Watch screenshots"),
+            page: "ScreenshotsPage.qml",
+            showWatchFaces: true,
+        });
     }
 
     Column {

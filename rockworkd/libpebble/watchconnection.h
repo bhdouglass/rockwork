@@ -64,7 +64,7 @@ public:
         EndpointAppManager = 6000, // Deprecated in 3.x
         EndpointAppFetch = 6001, // New in 3.x
         EndpointDataLogging = 6778,
-//        watchSCREENSHOT = 8000,
+        EndpointScreenshot = 8000,
 //        watchFILE_MANAGER = 8181,
 //        watchCORE_DUMP = 9000,
 //        watchAUDIO = 10000, // New in 3.x

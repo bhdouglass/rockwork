@@ -21,6 +21,7 @@ class BankManager;
 class JSKitManager;
 class BlobDB;
 class AppDownloader;
+class ScreenshotEndpoint;
 
 class Pebble : public QObject
 {
@@ -80,6 +81,8 @@ public slots:
     void requestConfigurationURL(const QUuid &uuid);
     void configurationClosed(const QUuid &uuid, const QString &result);
 
+    void requestScreenshot();
+
 private slots:
     void onPebbleConnected();
     void onPebbleDisconnected();
@@ -99,6 +102,7 @@ signals:
     void actionTriggered(const QString &actToken);
     void installedAppsChanged();
     void openURL(const QString &uuid, const QString &url);
+    void screenshotSaved(const QString &filename);
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);
@@ -123,6 +127,7 @@ private:
     BankManager *m_bankManager;
     BlobDB *m_blobDB;
     AppDownloader *m_appDownloader;
+    ScreenshotEndpoint *m_screenshotEndpoint;
 
     QString m_storagePath;
 };

@@ -35,6 +35,7 @@ public slots:
     void requestConfigurationURL(const QString &id);
     void configurationClosed(const QString &uuid, const QString &url);
     void launchApp(const QString &uuid);
+    void requestScreenshot();
 
 signals:
     void connectedChanged();

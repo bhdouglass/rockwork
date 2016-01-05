@@ -10,6 +10,7 @@ DBusPebble::DBusPebble(Pebble *pebble, QObject *parent):
     connect(pebble, &Pebble::pebbleDisconnected, this, &DBusPebble::Disconnected);
     connect(pebble, &Pebble::installedAppsChanged, this, &DBusPebble::InstalledAppsChanged);
     connect(pebble, SIGNAL(openURL(const QString&, const QString&)), this, SIGNAL(OpenURL(const QString&, const QString&)));
+    connect(pebble, &Pebble::screenshotSaved, this, &DBusPebble::ScreenshotSaved);
 }
 
 QString DBusPebble::Address() const
@@ -90,6 +91,11 @@ void DBusPebble::SetAppOrder(const QStringList &newList)
 void DBusPebble::LaunchApp(const QString &uuid)
 {
     m_pebble->launchApp(QUuid(uuid));
+}
+
+void DBusPebble::RequestScreenshot()
+{
+    m_pebble->requestScreenshot();
 }
 
 QString DBusPebble::SerialNumber() const

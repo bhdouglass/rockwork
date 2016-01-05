@@ -28,9 +28,9 @@ Column {
         }
     }
     Button {
-        text: "Move 5 -> 3"
+        text: "take screenshot"
         onClicked: {
-            pebble.moveApp(5, 3)
+            pebble.requestScreenshot();
         }
     }
 }

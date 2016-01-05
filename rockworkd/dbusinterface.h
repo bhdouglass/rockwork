@@ -19,6 +19,7 @@ signals:
     void Disconnected();
     void InstalledAppsChanged();
     void OpenURL(const QString &uuid, const QString &url);
+    void ScreenshotSaved(const QString &filename);
 
 public slots:
     QString Address() const;
@@ -35,6 +36,7 @@ public slots:
     void ConfigurationClosed(const QString &uuid, const QString &result);
     void SetAppOrder(const QStringList &newList);
     void LaunchApp(const QString &uuid);
+    void RequestScreenshot();
 
 private:
     Pebble *m_pebble;
