@@ -33,6 +33,8 @@ public:
     bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override;
 
     Q_INVOKABLE AppItem *get(int index) const;
+
+    Q_INVOKABLE void move(int from, int to);
 signals:
     void appsModelChanged();
     void showWatchAppsChanged();

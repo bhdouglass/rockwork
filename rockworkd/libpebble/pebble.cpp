@@ -215,6 +215,11 @@ QList<QUuid> Pebble::installedAppIds()
     return m_appManager->appUuids();
 }
 
+void Pebble::setAppOrder(const QList<QUuid> &newList)
+{
+    m_appManager->setAppOrder(newList);
+}
+
 AppInfo Pebble::appInfo(const QUuid &uuid)
 {
     return m_appManager->info(uuid);
@@ -222,8 +227,14 @@ AppInfo Pebble::appInfo(const QUuid &uuid)
 
 void Pebble::removeApp(const QUuid &uuid)
 {
+    qDebug() << "Should remove app:" << uuid;
     m_blobDB->removeApp(m_appManager->info(uuid));
     m_appManager->removeApp(uuid);
+}
+
+void Pebble::launchApp(const QUuid &uuid)
+{
+    m_appMsgManager->launchApp(uuid);
 }
 
 void Pebble::requestConfigurationURL(const QUuid &uuid) {

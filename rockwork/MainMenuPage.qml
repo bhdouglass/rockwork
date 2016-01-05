@@ -29,7 +29,7 @@ Page {
         });
 
         mainMenuModel.append({
-            icon: "stock_alarm-clock",
+            icon: "clock-app-symbolic",
             text: i18n.tr("Manage Watchfaces"),
             page: "InstalledAppsPage.qml",
             showWatchFaces: true,

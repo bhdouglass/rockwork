@@ -83,7 +83,7 @@ void AppStoreClient::fetchHome(Type type)
         foreach (const QVariant &entry, jsonDoc.toVariant().toMap().value("applications").toList()) {
             AppItem* item = parseAppItem(entry.toMap());
             foreach (const QString &collection, collections.keys()) {
-                if (collections.value(collection).contains(item->id())) {
+                if (collections.value(collection).contains(item->storeId())) {
                     item->setGroupId(collection);
                     break;
                 }
@@ -206,7 +206,7 @@ void AppStoreClient::fetchAppDetails(const QString &appId)
     QNetworkReply * reply = m_nam->get(request);
     connect(reply, &QNetworkReply::finished, [this, reply, appId]() {
         reply->deleteLater();
-        AppItem *item = m_model->findApp(appId);
+        AppItem *item = m_model->findByStoreId(appId);
         if (!item) {
             qWarning() << "Can't find item with id" << appId;
             return;
@@ -241,7 +241,7 @@ void AppStoreClient::fetched()
 
     foreach (const QVariant &entry, jsonDoc.toVariant().toMap().value("data").toList()) {
         AppItem *item = new AppItem();
-        item->setId(entry.toMap().value("id").toString());
+        item->setStoreId(entry.toMap().value("id").toString());
         item->setName(entry.toMap().value("title").toString());
         item->setIcon(entry.toMap().value("list_image").toMap().value("144x144").toString());
         m_model->insert(item);
@@ -251,7 +251,7 @@ void AppStoreClient::fetched()
 AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
 {
     AppItem *item = new AppItem();
-    item->setId(map.value("id").toString());
+    item->setStoreId(map.value("id").toString());
     item->setName(map.value("title").toString());
     item->setIcon(map.value("list_image").toMap().value("144x144").toString());
     item->setDescription(map.value("description").toString());

@@ -33,6 +33,8 @@ public slots:
     void RemoveApp(const QString &id);
     void ConfigurationURL(const QString &uuid);
     void ConfigurationClosed(const QString &uuid, const QString &result);
+    void SetAppOrder(const QStringList &newList);
+    void LaunchApp(const QString &uuid);
 
 private:
     Pebble *m_pebble;

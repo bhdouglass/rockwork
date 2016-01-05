@@ -93,3 +93,10 @@ AppItem* ApplicationsFilterModel::get(int index) const
     return m_appsModel->get(mapToSource(this->index(index, 0)).row());
 }
 
+void ApplicationsFilterModel::move(int from, int to)
+{
+    QModelIndex sourceFrom = mapToSource(index(from, 0));
+    QModelIndex sourceTo = mapToSource(index(to, 0));
+    m_appsModel->move(sourceFrom.row(), sourceTo.row());
+}
+

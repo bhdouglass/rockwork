@@ -59,6 +59,24 @@ void AppDownloader::appJsonFetched()
         return;
     }
 
+    QDir dir;
+    dir.mkpath(m_storagePath + storeId);
+
+    QString iconFile = appMap.value("list_image").toMap().value("144x144").toString();
+    QNetworkRequest request(iconFile);
+    QNetworkReply *imageReply = m_nam->get(request);
+    qDebug() << "fetching image" << iconFile;
+    connect(imageReply, &QNetworkReply::finished, [this, imageReply, storeId]() {
+        imageReply->deleteLater();
+        QString targetFile = m_storagePath + storeId + "/list_image.png";
+        qDebug() << "saving image to" << targetFile;
+        QFile f(targetFile);
+        if (f.open(QFile::WriteOnly)) {
+            f.write(imageReply->readAll());
+            f.close();
+        }
+    });
+
     fetchPackage(pbwFileUrl, storeId);
 }
 
@@ -77,8 +95,6 @@ void AppDownloader::packageFetched()
 
     QString storeId = reply->property("storeId").toString();
 
-    QDir dir;
-    dir.mkpath(m_storagePath + storeId);
     QFile f(m_storagePath + storeId + "/" + reply->request().url().fileName() + ".zip");
     if (!f.open(QFile::WriteOnly | QFile::Truncate)) {
         qWarning() << "Error opening file for writing";

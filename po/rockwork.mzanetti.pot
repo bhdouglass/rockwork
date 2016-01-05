@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-04 01:04+0100\n"
+"POT-Creation-Date: 2016-01-05 03:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,16 +57,32 @@ msgstr ""
 msgid "See all"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Watchfaces"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:157
+msgid "Launch"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:166
+msgid "Configure"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:176
+msgid "Delete"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:186
+msgid "Close"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:20

@@ -27,6 +27,7 @@ public:
     Q_DECLARE_FLAGS(Capabilities, Capability)
 
     AppInfo(const QString &path = QString());
+    AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const QString &vendor);
     ~AppInfo();
 
     QString path() const;
@@ -40,6 +41,7 @@ public:
     QString versionLabel() const;
     bool isWatchface() const;
     bool isJSKit() const;
+    bool isSystemApp() const;
     QHash<QString, int> appKeys() const;
     Capabilities capabilities() const;
     bool hasSettings() const;
@@ -65,6 +67,7 @@ private:
 
     bool m_isJsKit = false;
     bool m_isWatchface = false;
+    bool m_isSystemApp = false;
 };
 
 #endif // APPINFO_H

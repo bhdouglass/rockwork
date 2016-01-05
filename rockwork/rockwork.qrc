@@ -8,5 +8,7 @@
         <file>AppSettingsPage.qml</file>
         <file>AppStorePage.qml</file>
         <file>AppStoreDetailsPage.qml</file>
+        <file>InstalledAppDelegate.qml</file>
+        <file>SystemAppIcon.qml</file>
     </qresource>
 </RCC>

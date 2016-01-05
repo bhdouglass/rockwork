@@ -75,6 +75,16 @@ AppInfo::AppInfo(const QString &path):
     m_isJsKit = jsApp.exists();
 }
 
+AppInfo::AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const QString &vendor):
+    m_uuid(uuid),
+    m_shortName(name),
+    m_isWatchface(isWatchFace),
+    m_companyName(vendor),
+    m_isSystemApp(true)
+{
+
+}
+
 
 AppInfo::~AppInfo()
 {}
@@ -132,6 +142,11 @@ bool AppInfo::isWatchface() const
 bool AppInfo::isJSKit() const
 {
     return m_isJsKit;
+}
+
+bool AppInfo::isSystemApp() const
+{
+    return m_isSystemApp;
 }
 
 QHash<QString, int> AppInfo::appKeys() const

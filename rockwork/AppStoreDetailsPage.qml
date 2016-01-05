@@ -54,9 +54,9 @@ Page {
                 Button {
                     text: enabled ? i18n.tr("Install") : i18n.tr("Installed")
                     color: UbuntuColors.green
-                    enabled: !root.pebble.installedApps.contains(root.app.id)
+                    enabled: !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId)
                     onClicked: {
-                        root.pebble.installApp(root.app.id)
+                        root.pebble.installApp(root.app.storeId)
                     }
                 }
             }
@@ -119,7 +119,7 @@ Page {
                             anchors.centerIn: parent
                             spacing: units.gu(1)
                             Icon {
-                                name: root.app.isWatchFace ? "stock_alarm-clock" : "stock_application"
+                                name: root.app.isWatchFace ? "clock-app-symbolic" : "stock_application"
                                 height: parent.height
                                 width: height
                             }

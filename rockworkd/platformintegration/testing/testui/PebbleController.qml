@@ -27,5 +27,11 @@ Column {
            pebble.clearTimeline();
         }
     }
+    Button {
+        text: "Move 5 -> 3"
+        onClicked: {
+            pebble.moveApp(5, 3)
+        }
+    }
 }
 

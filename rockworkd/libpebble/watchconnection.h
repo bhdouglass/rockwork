@@ -70,6 +70,7 @@ public:
 //        watchAUDIO = 10000, // New in 3.x
         EndpointActionHandler = 11440,
         EndpointBlobDB = 45531, // New in 3.x
+        EndpointSorting = 0xabcd,
         EndpointPutBytes = 0xbeef
     };
 

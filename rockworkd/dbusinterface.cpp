@@ -55,6 +55,8 @@ QVariantList DBusPebble::InstalledApps() const
         app.insert("version", info.versionLabel());
         app.insert("uuid", info.uuid().toString());
         app.insert("hasSettings", info.hasSettings());
+        app.insert("icon", info.path() + "/list_image.png");
+        app.insert("systemApp", info.isSystemApp());
 
         list.append(app);
     }
@@ -74,6 +76,20 @@ void DBusPebble::ConfigurationURL(const QString &uuid)
 void DBusPebble::ConfigurationClosed(const QString &uuid, const QString &result)
 {
     m_pebble->configurationClosed(QUuid(uuid), result);
+}
+
+void DBusPebble::SetAppOrder(const QStringList &newList)
+{
+    QList<QUuid> uuidList;
+    foreach (const QString &id, newList) {
+        uuidList << QUuid(id);
+    }
+    m_pebble->setAppOrder(uuidList);
+}
+
+void DBusPebble::LaunchApp(const QString &uuid)
+{
+    m_pebble->launchApp(QUuid(uuid));
 }
 
 QString DBusPebble::SerialNumber() const

@@ -147,7 +147,7 @@ Page {
                                 name: "tick"
                                 implicitHeight: parent.height
                                 Layout.preferredWidth: height
-                                visible: root.pebble.installedApps.contains(model.id)
+                                visible: root.pebble.installedApps.contains(model.storeId) || root.pebble.installedWatchfaces.contains(model.storeId)
                             }
                         }
                     }
@@ -155,7 +155,7 @@ Page {
                 }
 
                 onClicked: {
-                    client.fetchAppDetails(model.id);
+                    client.fetchAppDetails(model.storeId);
                     pageStack.push(Qt.resolvedUrl("AppStoreDetailsPage.qml"), {app: appsFilterModel.get(index), pebble: root.pebble})
                 }
             }

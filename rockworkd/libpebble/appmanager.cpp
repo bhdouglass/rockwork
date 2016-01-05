@@ -1,5 +1,7 @@
 #include <QStandardPaths>
 #include <QDir>
+#include <QSettings>
+
 #include "appmanager.h"
 #include "pebble.h"
 
@@ -7,6 +9,10 @@
 #include "watchdatareader.h"
 #include "watchdatawriter.h"
 #include "uploadmanager.h"
+
+#include <libintl.h>
+
+#define SETTINGS_APP_UUID "07e0d9cb-8957-4bf7-9d42-35bf47caadfe"
 
 AppManager::AppManager(Pebble *pebble, WatchConnection *connection)
     : QObject(pebble),
@@ -31,7 +37,7 @@ QStringList AppManager::appPaths() const
 
 QList<QUuid> AppManager::appUuids() const
 {
-    return m_appsUuids.keys();
+    return m_appList;
 }
 
 //QList<QString> AppManager::appIds() const
@@ -41,7 +47,7 @@ QList<QUuid> AppManager::appUuids() const
 
 AppInfo AppManager::info(const QUuid &uuid) const
 {
-    return m_appsUuids.value(uuid);
+    return m_apps.value(uuid);
 }
 
 //AppInfo AppManager::info(const QString &id) const
@@ -51,10 +57,30 @@ AppInfo AppManager::info(const QUuid &uuid) const
 
 void AppManager::rescan()
 {
-    Q_FOREACH(const AppInfo &appInfo, m_appsUuids) {
-        m_appsUuids.remove(appInfo.uuid());
-//        m_appsIds.remove(appInfo.id());
-    }
+    m_appList.clear();
+    m_apps.clear();
+
+    AppInfo settingsApp(QUuid(SETTINGS_APP_UUID), false, gettext("Settings"), gettext("System app"));
+    m_appList.append(settingsApp.uuid());
+    m_apps.insert(settingsApp.uuid(), settingsApp);
+    AppInfo watchfaces(QUuid("18e443ce-38fd-47c8-84d5-6d0c775fbe55"), false, gettext("Watchfaces"), gettext("System app"));
+    m_appList.append(watchfaces.uuid());
+    m_apps.insert(watchfaces.uuid(), watchfaces);
+    AppInfo health(QUuid("36d8c6ed-4c83-4fa1-a9e2-8f12dc941f8c"), false, gettext("Health"), gettext("System app"));
+    m_appList.append(health.uuid());
+    m_apps.insert(health.uuid(), health);
+    AppInfo music(QUuid("1f03293d-47af-4f28-b960-f2b02a6dd757"), false, gettext("Music"), gettext("System app"));
+    m_appList.append(music.uuid());
+    m_apps.insert(music.uuid(), music);
+    AppInfo notifications(QUuid("b2cae818-10f8-46df-ad2b-98ad2254a3c1"), false, gettext("Notifications"), gettext("System app"));
+    m_appList.append(notifications.uuid());
+    m_apps.insert(notifications.uuid(), notifications);
+    AppInfo alarms(QUuid("67a32d95-ef69-46d4-a0b9-854cc62f97f9"), false, gettext("Alarms"), gettext("System app"));
+    m_appList.append(alarms.uuid());
+    m_apps.insert(alarms.uuid(), alarms);
+    AppInfo ticToc(QUuid("8f3c8686-31a1-4f5f-91f5-01600c9bdc59"), true, "Tic Toc", gettext("Default watchface"));
+    m_appList.append(ticToc.uuid());
+    m_apps.insert(ticToc.uuid(), ticToc);
 
     Q_FOREACH(const QString &path, appPaths()) {
         QDir dir(path);
@@ -71,6 +97,25 @@ void AppManager::rescan()
             }
         }
     }
+
+    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/settings.conf", QSettings::IniFormat);
+    QStringList storedList = settings.value("appList").toStringList();
+    // Run some sanity checks
+    if (storedList.count() != m_appList.count()) {
+        qWarning() << "Installed apps not matching order config.";
+        return;
+    }
+    foreach (const QUuid &uuid, m_appList) {
+        if (!storedList.contains(uuid.toString())) {
+            qWarning() << "Installed apps and stored config order cannot be matched.";
+            return;
+        }
+    }
+    // All seems fine, repopulate m_appList
+    m_appList.clear();
+    foreach (const QString &storedId, storedList) {
+        m_appList.append(QUuid(storedId));
+    }
 }
 
 void AppManager::handleAppFetchMessage(const QByteArray &data)
@@ -80,7 +125,7 @@ void AppManager::handleAppFetchMessage(const QByteArray &data)
     QUuid uuid = reader.readUuid();
     quint32 appFetchId = reader.read<quint32>();
 
-    bool haveApp = m_appsUuids.contains(uuid);
+    bool haveApp = m_apps.contains(uuid);
 
     AppFetchResponse response;
     if (haveApp) {
@@ -94,7 +139,7 @@ void AppManager::handleAppFetchMessage(const QByteArray &data)
         return;
     }
 
-    AppInfo appInfo = m_appsUuids.value(uuid);
+    AppInfo appInfo = m_apps.value(uuid);
 
     QString binaryFile = appInfo.file(AppInfo::FileTypeApplication, m_pebble->hardwarePlatform());
     quint32 crc = appInfo.crc(AppInfo::FileTypeApplication, m_pebble->hardwarePlatform());
@@ -121,7 +166,8 @@ void AppManager::handleAppFetchMessage(const QByteArray &data)
 
 void AppManager::insertAppInfo(const AppInfo &info)
 {
-    m_appsUuids.insert(info.uuid(), info);
+    m_appList.append(info.uuid());
+    m_apps.insert(info.uuid(), info);
 //    m_appsIds.insert(info.id(), info.uuid());
     emit appsChanged();
 }
@@ -138,10 +184,50 @@ QUuid AppManager::scanApp(const QString &path)
 
 void AppManager::removeApp(const QUuid &uuid)
 {
-    AppInfo info = m_appsUuids.take(uuid);
+    m_appList.removeAll(uuid);
+    AppInfo info = m_apps.take(uuid);
     QDir dir(info.path());
     dir.removeRecursively();
     emit appsChanged();
+}
+
+void AppManager::setAppOrder(const QList<QUuid> &newList)
+{
+    // run some sanity checks
+    if (newList.count() != m_appList.count()) {
+        qWarning() << "Number of apps in order list is not matching installed apps.";
+        return;
+    }
+    foreach (const QUuid &installedUuid, m_appList) {
+        if (!newList.contains(installedUuid)) {
+            qWarning() << "App ids in order list not matching with installed apps.";
+            return;
+        }
+    }
+    if (newList.first() != QUuid(SETTINGS_APP_UUID)) {
+        qWarning() << "Settings app must be the first app.";
+        return;
+    }
+
+    m_appList = newList;
+    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/settings.conf", QSettings::IniFormat);
+    QStringList tmp;
+    foreach (const QUuid &id, m_appList) {
+        tmp << id.toString();
+    }
+    settings.setValue("appList", tmp);
+    emit appsChanged();
+
+    QByteArray data;
+    WatchDataWriter writer(&data);
+    writer.write<quint8>(0x01);
+    writer.write<quint8>(m_appList.count());
+    foreach (const QUuid &uuid, m_appList) {
+        writer.writeUuid(uuid);
+    }
+
+    qDebug() << "writing" << data.toHex();
+    m_connection->writeToPebble(WatchConnection::EndpointSorting, data);
 }
 
 AppFetchResponse::AppFetchResponse(Status status):
