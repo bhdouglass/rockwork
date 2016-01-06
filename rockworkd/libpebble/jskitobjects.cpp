@@ -18,6 +18,7 @@ JSKitPebble::JSKitPebble(const AppInfo &info, JSKitManager *mgr, QObject *parent
 
 void JSKitPebble::addEventListener(const QString &type, QJSValue function)
 {
+    qDebug() << "Adding event listener for " << type;
     _callbacks[type].append(function);
 }
 
@@ -361,7 +362,7 @@ void JSKitXMLHttpRequest::send(const QJSValue &data)
     if (data.isUndefined() || data.isNull()) {
         // Do nothing, byteData is empty.
     } else if (data.isString()) {
-        byteData == data.toString().toUtf8();
+        byteData = data.toString().toUtf8();
     } else if (data.isObject()) {
         if (data.hasProperty("byteLength")) {
             // Looks like an ArrayView or an ArrayBufferView!

@@ -157,6 +157,8 @@ WatchConnection::Dict AppMsgManager::mapAppKeys(const QUuid &uuid, const QVarian
 
     WatchConnection::Dict d;
 
+    qDebug() << "Have appkeys:" << info.appKeys().keys();
+
     for (QVariantMap::const_iterator it = data.constBegin(); it != data.constEnd(); ++it) {
         if (info.appKeys().contains(it.key())) {
             d.insert(info.appKeys().value(it.key()), it.value());
@@ -186,8 +188,9 @@ QVariantMap AppMsgManager::mapAppKeys(const QUuid &uuid, const WatchConnection::
     QVariantMap data;
 
     for (WatchConnection::Dict::const_iterator it = dict.constBegin(); it != dict.constEnd(); ++it) {
-        if (info.appKeys().contains(QString::number(it.key()))) {
-            data.insert(QString::number(info.appKeys().value(QString::number(it.key()))), it.value());
+        qDebug() << "checking app key" << it.key() << info.appKeys().key(it.key());
+        if (info.appKeys().values().contains(it.key())) {
+            data.insert(info.appKeys().key(it.key()), it.value());
         } else {
             qWarning() << "Unknown appKey value" << it.key() << "for app with GUID" << uuid;
             data.insert(QString::number(it.key()), it.value());

@@ -40,6 +40,8 @@ Page {
             }
 
             onClicked: {
+                var p = pebbles.get(index);
+                print("opening pebble:", p.name, p.hardwarePlatform)
                 pageStack.push(Qt.resolvedUrl("MainMenuPage.qml"), {pebble: pebbles.get(index)})
             }
         }

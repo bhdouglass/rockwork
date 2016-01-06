@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-06 12:43+0100\n"
+"POT-Creation-Date: 2016-01-06 16:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,13 +124,13 @@ msgstr ""
 msgid "Disconnected"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:55
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble watch "
 "using the system settings."
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:62
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open system settings"
 msgstr ""
 

@@ -53,11 +53,14 @@ void JSKitManager::handleWebviewClosed(const QString &result)
 {
     if (_engine) {
         QJSValue eventObj = _engine->newObject();
-        eventObj.setProperty("response", _engine->toScriptValue(result));
+        QByteArray data = QByteArray::fromPercentEncoding(result.toUtf8());
+        eventObj.setProperty("response", _engine->toScriptValue(data));
 
-        qDebug() << "webview closed with the following result: " << result;
+        qDebug() << "Sending" << eventObj.property("response").toString();
+
 
         _jspebble->invokeCallbacks("webviewclosed", QJSValueList({eventObj}));
+//        _jspebble->invokeCallbacks("webviewclosed", eventObj);
     } else {
         qWarning() << "webview closed event, but JS engine is not running";
     }
@@ -159,12 +162,12 @@ void JSKitManager::startJsApp()
 
     QJSValue globalObj = _engine->globalObject();
 
-    globalObj.setProperty("Pebble", _engine->newQObject(_jspebble));
+    globalObj.setProperty("RealPebble", _engine->newQObject(_jspebble));
     globalObj.setProperty("console", _engine->newQObject(_jsconsole));
     globalObj.setProperty("localStorage", _engine->newQObject(_jsstorage));
 
     QJSValue navigatorObj = _engine->newObject();
-    navigatorObj.setProperty("geolocation", _engine->newQObject(_jsgeo));
+    navigatorObj.setProperty("RealGeolocation", _engine->newQObject(_jsgeo));
     navigatorObj.setProperty("language", _engine->toScriptValue(QLocale().name()));
     globalObj.setProperty("navigator", navigatorObj);
 
@@ -178,7 +181,10 @@ void JSKitManager::startJsApp()
                 function clearInterval(id) { Pebble.clearInterval(id); }\n\
                 function setTimeout(func, time) { return Pebble.setTimeout(func, time); }\n\
                 function clearTimeout(id) { Pebble.clearTimeout(id); }\n\
+                Pebble = {}; for (var key in RealPebble) {Pebble[key] = RealPebble[key];}\n\
+                navigator.geolocation = {}; for (var key in navigator.RealGeolocation) {navigator.geolocation[key] = navigator.RealGeolocation[key];}\n\
                 ");
+            qDebug() << result.toString();
     Q_ASSERT(!result.isError());
 
     // Polyfills...
@@ -191,7 +197,8 @@ void JSKitManager::startJsApp()
         qWarning() << "Error opening" << jsApp;
         return;
     }
-    _engine->evaluate(QString::fromUtf8(f.readAll()));
+    QJSValue ret = _engine->evaluate(QString::fromUtf8(f.readAll()));
+    qDebug() << "loaded script" << ret.toString();
 
     // Setup the message callback
     QUuid uuid = _curApp.uuid();
@@ -207,6 +214,7 @@ void JSKitManager::startJsApp()
     });
 
     // We try to invoke the callbacks even if script parsing resulted in error...
+    qDebug() << "calling ready!";
     _jspebble->invokeCallbacks("ready");
 
     if (m_configurationUuid == _curApp.uuid()) {
