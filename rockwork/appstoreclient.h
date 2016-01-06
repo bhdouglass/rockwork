@@ -42,12 +42,10 @@ signals:
 public slots:
     void fetchHome(Type type);
     void fetchLink(const QString &link);
-    void fetch(Type type, const QString &hardwarePlatform, int limit = 15, int offset = 0);
 
     void fetchAppDetails(const QString &appId);
 
-private slots:
-    void fetched();
+    void search(const QString &searchString, Type type);
 
 private:
     AppItem *parseAppItem(const QVariantMap &map);

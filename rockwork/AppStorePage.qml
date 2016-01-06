@@ -13,24 +13,74 @@ Page {
 
     property string link: ""
 
+    function fetchHome() {
+        if (showWatchApps) {
+            client.fetchHome(AppStoreClient.TypeWatchapp)
+        } else {
+            client.fetchHome(AppStoreClient.TypeWatchface)
+        }
+    }
+
+    head {
+        actions: [
+            Action {
+                iconName: "search"
+                onTriggered: {
+                    if (searchField.shown) {
+                        searchField.shown = false;
+                        root.fetchHome();
+                    } else {
+                        searchField.shown = true;
+                    }
+                }
+            }
+        ]
+    }
+
+    Component.onCompleted: {
+        if (root.link) {
+            client.fetchLink(link)
+        } else {
+            root.fetchHome()
+        }
+    }
+
     AppStoreClient {
         id: client
         hardwarePlatform: pebble.hardwarePlatform
-        Component.onCompleted: {
-            if (root.link) {
-                fetchLink(link)
-            } else {
-                if (showWatchApps) {
-                    fetchHome(AppStoreClient.TypeWatchapp)
-                } else {
-                    fetchHome(AppStoreClient.TypeWatchface)
+    }
+
+    Item {
+        id: searchField
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        anchors.topMargin: shown ? 0 : -height
+        Behavior on anchors.topMargin { UbuntuNumberAnimation {} }
+        opacity: shown ? 1 : 0
+        Behavior on opacity { UbuntuNumberAnimation {} }
+        height: units.gu(6)
+
+        property bool shown: false
+
+        TextField {
+            id: searchTextField
+            anchors.centerIn: parent
+            width: parent.width - units.gu(2)
+            onDisplayTextChanged: {
+                searchTimer.restart()
+            }
+
+            Timer {
+                id: searchTimer
+                interval: 300
+                onTriggered: {
+                    client.search(searchTextField.displayText, root.showWatchApps ? AppStoreClient.TypeWatchapp : AppStoreClient.TypeWatchface);
                 }
             }
         }
     }
 
     Item {
-        anchors.fill: parent
+        anchors { left: parent.left; top: searchField.bottom; right: parent.right; bottom: parent.bottom }
         ListView {
             anchors.fill: parent
             model: ApplicationsFilterModel {

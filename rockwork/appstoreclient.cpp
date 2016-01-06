@@ -10,6 +10,16 @@
 
 #include <libintl.h>
 
+/* Known params for pebble api
+    query.addQueryItem("offset", QString::number(offset));
+    query.addQueryItem("limit", QString::number(limit));
+    query.addQueryItem("image_ratio", "1"); // Not sure yet what this does
+    query.addQueryItem("filter_hardware", "true");
+    query.addQueryItem("firmware_version", "3");
+    query.addQueryItem("hardware", hardwarePlatform);
+    query.addQueryItem("platform", "all");
+*/
+
 AppStoreClient::AppStoreClient(QObject *parent):
     QObject(parent),
     m_nam(new QNetworkAccessManager(this)),
@@ -192,41 +202,6 @@ void AppStoreClient::fetchLink(const QString &link)
 
 }
 
-void AppStoreClient::fetch(Type type, const QString &hardwarePlatform, int limit, int offset)
-{
-    m_model->clear();
-
-    if (limit > 100) {
-        qWarning() << "Store API return items is limited to 100, can't fetch" << limit;
-        limit = 100;
-    }
-    QUrlQuery query;
-    query.addQueryItem("offset", QString::number(offset));
-    query.addQueryItem("limit", QString::number(limit));
-    query.addQueryItem("image_ratio", "1"); // Not sure yet what this does
-    query.addQueryItem("filter_hardware", "true");
-    query.addQueryItem("firmware_version", "3");
-    query.addQueryItem("hardware", hardwarePlatform);
-    query.addQueryItem("platform", "all");
-
-    QString url;
-    if (type == TypeWatchapp) {
-        url = "https://api2.getpebble.com/v2/apps/collection/all/watchapps-and-companions";
-    } else {
-        url = "https://api2.getpebble.com/v2/apps/collection/all/watchfaces";
-    }
-    QUrl storeUrl(url);
-    storeUrl.setQuery(query);
-
-    QNetworkRequest request(storeUrl);
-
-    QNetworkReply *reply = m_nam->get(request);
-    connect(reply, &QNetworkReply::finished, this, &AppStoreClient::fetched);
-
-    m_busy = true;
-    emit busyChanged();
-}
-
 void AppStoreClient::fetchAppDetails(const QString &appId)
 {
     QUrl url("https://api2.getpebble.com/v2/apps/id/" + appId);
@@ -256,30 +231,42 @@ void AppStoreClient::fetchAppDetails(const QString &appId)
     });
 }
 
-void AppStoreClient::fetched()
+void AppStoreClient::search(const QString &searchString, Type type)
 {
-    QNetworkReply *reply = static_cast<QNetworkReply*>(sender());
-    reply->deleteLater();
+    m_model->clear();
+    setBusy(true);
 
-    m_busy = false;
-    emit busyChanged();
-
-    QJsonParseError error;
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(reply->readAll(), &error);
-    if (error.error != QJsonParseError::NoError) {
-        qWarning() << "Store reply parse error!" << error.errorString();
-        return;
+    QUrl url("https://bujatnzd81-dsn.algolia.io/1/indexes/pebble-appstore-production");
+    QUrlQuery query;
+    query.addQueryItem("x-algolia-api-key", "8dbb11cdde0f4f9d7bf787e83ac955ed");
+    query.addQueryItem("x-algolia-application-id", "BUJATNZD81");
+    query.addQueryItem("query", searchString);
+    QStringList filters;
+    if (type == TypeWatchapp) {
+        filters.append("watchapp");
+    } else if (type == TypeWatchface) {
+        filters.append("watchface");
     }
+    filters.append(m_hardwarePlatform);
+    query.addQueryItem("tagFilters", filters.join(","));
+    url.setQuery(query);
 
-    qDebug() << jsonDoc.toJson();
+    QNetworkRequest request(url);
+    QNetworkReply *reply = m_nam->get(request);
+    connect(reply, &QNetworkReply::finished, [this, reply]() {
+        m_model->clear();
+        setBusy(false);
 
-    foreach (const QVariant &entry, jsonDoc.toVariant().toMap().value("data").toList()) {
-        AppItem *item = new AppItem();
-        item->setStoreId(entry.toMap().value("id").toString());
-        item->setName(entry.toMap().value("title").toString());
-        item->setIcon(entry.toMap().value("list_image").toMap().value("144x144").toString());
-        m_model->insert(item);
-    }
+        reply->deleteLater();
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(reply->readAll());
+
+        QVariantMap resultMap = jsonDoc.toVariant().toMap();
+        foreach (const QVariant &entry, resultMap.value("hits").toList()) {
+            AppItem *item = parseAppItem(entry.toMap());
+            m_model->insert(item);
+            qDebug() << "have item" << item->name() << item->icon();
+        }
+    });
 }
 
 AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
@@ -287,7 +274,15 @@ AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
     AppItem *item = new AppItem();
     item->setStoreId(map.value("id").toString());
     item->setName(map.value("title").toString());
-    item->setIcon(map.value("list_image").toMap().value("144x144").toString());
+    if (!map.value("list_image").toString().isEmpty()) {
+//        if (map.value("type").toString() == "watchface") {
+//            item->setIcon(map.value("icon_image").toString());
+//        } else {
+            item->setIcon(map.value("list_image").toString());
+//        }
+    } else {
+        item->setIcon(map.value("list_image").toMap().value("144x144").toString());
+    }
     item->setDescription(map.value("description").toString());
     item->setHearts(map.value("hearts").toInt());
     item->setCategory(map.value("category_name").toString());
