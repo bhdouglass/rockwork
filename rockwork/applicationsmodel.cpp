@@ -259,6 +259,11 @@ bool AppItem::hasSettings() const
     return m_hasSettings;
 }
 
+bool AppItem::companion() const
+{
+    return m_companion;
+}
+
 QString AppItem::category() const
 {
     return m_category;
@@ -325,6 +330,11 @@ void AppItem::setIsSystemApp(bool isSystemApp)
 void AppItem::setHasSettings(bool hasSettings)
 {
     m_hasSettings = hasSettings;
+}
+
+void AppItem::setCompanion(bool companion)
+{
+    m_companion = companion;
 }
 
 void AppItem::setCategory(const QString &category)

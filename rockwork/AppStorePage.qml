@@ -15,6 +15,7 @@ Page {
 
     AppStoreClient {
         id: client
+        hardwarePlatform: pebble.hardwarePlatform
         Component.onCompleted: {
             if (root.link) {
                 fetchLink(link)

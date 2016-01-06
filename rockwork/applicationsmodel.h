@@ -19,10 +19,11 @@ class AppItem: public QObject
     Q_PROPERTY(int hearts MEMBER m_hearts CONSTANT)
     Q_PROPERTY(QStringList screenshotImages MEMBER m_screenshotImages CONSTANT)
     Q_PROPERTY(QString headerImage READ headerImage NOTIFY headerImageChanged)
+    Q_PROPERTY(QString category MEMBER m_category CONSTANT)
     Q_PROPERTY(bool isWatchFace MEMBER m_isWatchFace NOTIFY isWatchFaceChanged)
     Q_PROPERTY(bool isSystemApp MEMBER m_isSystemApp CONSTANT)
     Q_PROPERTY(bool hasSettings MEMBER m_hasSettings CONSTANT)
-    Q_PROPERTY(QString category MEMBER m_category CONSTANT)
+    Q_PROPERTY(bool companion MEMBER m_companion CONSTANT)
 
     Q_PROPERTY(QString groupId MEMBER m_groupId CONSTANT)
 
@@ -43,6 +44,7 @@ public:
     bool isWatchFace() const;
     bool isSystemApp() const;
     bool hasSettings() const;
+    bool companion() const;
     QString category() const;
 
     QString groupId() const;
@@ -61,6 +63,7 @@ public:
     void setIsWatchFace(bool isWatchFace);
     void setIsSystemApp(bool isSystemApp);
     void setHasSettings(bool hasSettings);
+    void setCompanion(bool companion);
 
     // For grouping in lists, e.g. by collection
     void setGroupId(const QString &groupId);
@@ -86,6 +89,7 @@ private:
     bool m_isWatchFace = false;
     bool m_isSystemApp = false;
     bool m_hasSettings = false;
+    bool m_companion = false;
 
     QString m_groupId;
 

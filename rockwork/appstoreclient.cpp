@@ -33,6 +33,17 @@ void AppStoreClient::setLimit(int limit)
     emit limitChanged();
 }
 
+QString AppStoreClient::hardwarePlatform() const
+{
+    return m_hardwarePlatform;
+}
+
+void AppStoreClient::setHardwarePlatform(const QString &hardwarePlatform)
+{
+    m_hardwarePlatform = hardwarePlatform;
+    emit hardwarePlatformChanged();
+}
+
 bool AppStoreClient::busy() const
 {
     return m_busy;
@@ -45,6 +56,10 @@ void AppStoreClient::fetchHome(Type type)
 
     QUrlQuery query;
     query.addQueryItem("firmware_version", "3");
+    if (!m_hardwarePlatform.isEmpty()) {
+        query.addQueryItem("hardware", m_hardwarePlatform);
+        query.addQueryItem("filter_hardware", "true");
+    }
 
     QString url;
     if (type == TypeWatchapp) {
@@ -56,6 +71,7 @@ void AppStoreClient::fetchHome(Type type)
     storeUrl.setQuery(query);
     QNetworkRequest request(storeUrl);
 
+    qDebug() << "fetching home" << storeUrl.toString();
     QNetworkReply *reply = m_nam->get(request);
     connect(reply, &QNetworkReply::finished, [this, reply]() {
         QByteArray data = reply->readAll();
@@ -90,16 +106,17 @@ void AppStoreClient::fetchHome(Type type)
             }
             item->setCategory(categoryNames.value(entry.toMap().value("category_id").toString()));
 
-            qDebug() << "have entry" << item->name() << item->groupId();
+            qDebug() << "have entry" << item->name() << item->groupId() << item->companion();
 
-            if (item->groupId().isEmpty()) {
+            if (item->groupId().isEmpty() || item->companion()) {
                 // Skip items that we couldn't match to a collection
+                // Also skip apps that need a companion
                 delete item;
                 continue;
             }
             m_model->insert(item);
-            setBusy(false);
         }
+        setBusy(false);
     });
 
 
@@ -119,6 +136,10 @@ void AppStoreClient::fetchLink(const QString &link)
     int currentOffset = query.queryItemValue("offset").toInt();
     query.removeQueryItem("offset");
     query.addQueryItem("offset", QString::number(qMax(0, currentOffset - 1)));
+    if (!query.hasQueryItem("hardware")) {
+        query.addQueryItem("hardware", m_hardwarePlatform);
+        query.addQueryItem("filter_hardware", "true");
+    }
     storeUrl.setQuery(query);
     QNetworkRequest request(storeUrl);
     qDebug() << "fetching link" << request.url();
@@ -139,7 +160,12 @@ void AppStoreClient::fetchLink(const QString &link)
                 break;
             }
             AppItem *item = parseAppItem(entry.toMap());
-            m_model->insert(item);
+            if (item->companion()) {
+                // For now just skip items with companions
+                delete item;
+            } else {
+                m_model->insert(item);
+            }
         }
 
         if (resultMap.contains("links") && resultMap.value("links").toMap().contains("nextPage") &&
@@ -203,7 +229,14 @@ void AppStoreClient::fetch(Type type, const QString &hardwarePlatform, int limit
 
 void AppStoreClient::fetchAppDetails(const QString &appId)
 {
-    QNetworkRequest request(QUrl("https://api2.getpebble.com/v2/apps/id/" + appId));
+    QUrl url("https://api2.getpebble.com/v2/apps/id/" + appId);
+    QUrlQuery query;
+    if (!m_hardwarePlatform.isEmpty()) {
+        query.addQueryItem("hardware", m_hardwarePlatform);
+    }
+    url.setQuery(query);
+
+    QNetworkRequest request(url);
     QNetworkReply * reply = m_nam->get(request);
     connect(reply, &QNetworkReply::finished, [this, reply, appId]() {
         reply->deleteLater();
@@ -258,6 +291,7 @@ AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
     item->setDescription(map.value("description").toString());
     item->setHearts(map.value("hearts").toInt());
     item->setCategory(map.value("category_name").toString());
+    item->setCompanion(!map.value("companions").toMap().value("android").isNull() || !map.value("companions").toMap().value("ios").isNull());
     QStringList screenshotImages;
     foreach (const QVariant &screenshotItem, map.value("screenshot_images").toList()) {
         if (screenshotItem.toMap().count() > 0) {
