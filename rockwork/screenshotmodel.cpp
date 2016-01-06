@@ -11,6 +11,9 @@ ScreenshotModel::ScreenshotModel(QObject *parent):
 {
     m_path = QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first() + "/.local/share/rockworkd/screenshots/";
     QDir dir(m_path);
+    if (!dir.exists()) {
+        dir.mkpath(m_path);
+    }
     qDebug() << "searching dir" << dir.absolutePath() << dir.entryList(QStringList() << "*");
     foreach (const QFileInfo &fi, dir.entryInfoList({"*.jpg"})) {
         m_files.append(fi.fileName());
