@@ -78,8 +78,8 @@ AppInfo::AppInfo(const QString &path):
 AppInfo::AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const QString &vendor):
     m_uuid(uuid),
     m_shortName(name),
-    m_isWatchface(isWatchFace),
     m_companyName(vendor),
+    m_isWatchface(isWatchFace),
     m_isSystemApp(true)
 {
 

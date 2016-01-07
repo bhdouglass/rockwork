@@ -66,9 +66,11 @@ void AppManager::rescan()
     AppInfo watchfaces(QUuid("18e443ce-38fd-47c8-84d5-6d0c775fbe55"), false, gettext("Watchfaces"), gettext("System app"));
     m_appList.append(watchfaces.uuid());
     m_apps.insert(watchfaces.uuid(), watchfaces);
-    AppInfo health(QUuid("36d8c6ed-4c83-4fa1-a9e2-8f12dc941f8c"), false, gettext("Health"), gettext("System app"));
-    m_appList.append(health.uuid());
-    m_apps.insert(health.uuid(), health);
+    if (m_pebble->capabilities().testFlag(CapabilityHealth)) {
+        AppInfo health(QUuid("36d8c6ed-4c83-4fa1-a9e2-8f12dc941f8c"), false, gettext("Health"), gettext("System app"));
+        m_appList.append(health.uuid());
+        m_apps.insert(health.uuid(), health);
+    }
     AppInfo music(QUuid("1f03293d-47af-4f28-b960-f2b02a6dd757"), false, gettext("Music"), gettext("System app"));
     m_appList.append(music.uuid());
     m_apps.insert(music.uuid(), music);

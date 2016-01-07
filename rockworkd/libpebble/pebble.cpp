@@ -152,6 +152,11 @@ QString Pebble::serialNumber() const
     return m_serialNumber;
 }
 
+Capabilities Pebble::capabilities() const
+{
+    return m_capabilities;
+}
+
 bool Pebble::isUnfaithful() const
 {
     return m_isUnfaithful;
@@ -310,7 +315,11 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "Resource timestamp:" << QDateTime::fromTime_t(wd.read<quint32>());
     qDebug() << "Language" << wd.readFixedString(6);
     qDebug() << "Language version" << wd.read<quint16>();
-    qDebug() << "Capabilities" << wd.read<quint64>();
+    // Capabilities is 64 bits but QFlags can only do 32 bits. lets split it into 2 * 32.
+    // only 8 bits are used atm anyways.
+    m_capabilities = QFlag(wd.readLE<quint32>());
+    qDebug() << "Capabilities" << QString::number(m_capabilities, 16);
+    qDebug() << "Capabilities" << wd.readLE<quint32>();
     m_isUnfaithful = wd.read<quint8>();
     qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
@@ -331,7 +340,7 @@ void Pebble::phoneVersionAsked(const QByteArray &data)
 {
     qDebug() << "sending phone version" << data.toHex();
     unsigned int sessionCap = 0x80000000;
-    unsigned int remoteCap = 16 | 32 | WatchConnection::OSAndroid;
+    unsigned int remoteCap = 16 | 32 | OSAndroid;
 
     QByteArray res;
 

@@ -1,6 +1,8 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
+#include <QMetaType>
+
 enum HardwareRevision {
     HardwareRevisionUNKNOWN = 0,
     HardwareRevisionTINTIN_EV1 = 1,
@@ -22,6 +24,15 @@ enum HardwareRevision {
     HardwareRevisionSPALDING_BB2 = 0xFB
 };
 
+enum OS {
+     OSUnknown = 0,
+     OSiOS = 1,
+     OSAndroid = 2,
+     OSOSX = 3,
+     OSLinux = 4,
+     OSWindows = 5
+};
+
 enum HardwarePlatform {
     HardwarePlatformUnknown = 0,
     HardwarePlatformAplite,
@@ -41,6 +52,19 @@ enum CallStatus {
     CallStatusIncoming,
     CallStatusOutGoing
 };
+
+enum Capability {
+    CapabilityNone =                  0x0000000000000000,
+    CapabilityAppRunState =           0x0000000000000001,
+    CapabilityInfiniteLogDumping =    0x0000000000000002,
+    CapabilityUpdatedMusicProtocol =  0x0000000000000004,
+    CapabilityExtendedNotifications = 0x0000000000000008,
+    CapabilityLanguagePacks =         0x0000000000000010,
+    Capability8kAppMessages =         0x0000000000000020,
+    CapabilityHealth =                0x0000000000000040,
+    CapabilityVoice =                 0x0000000000000080
+};
+Q_DECLARE_FLAGS(Capabilities, Capability)
 
 #endif // ENUMS_H
 

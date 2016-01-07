@@ -54,6 +54,7 @@ public:
     HardwareRevision hardwareRevision() const;
     HardwarePlatform hardwarePlatform() const;
     QString serialNumber() const;
+    Capabilities capabilities() const;
     bool isUnfaithful() const;
 
 public slots:
@@ -113,8 +114,9 @@ private:
     QString m_softwareVersion;
     QString m_softwareCommitRevision;
     HardwareRevision m_hardwareRevision;
-    HardwarePlatform m_hardwarePlatform;
+    HardwarePlatform m_hardwarePlatform = HardwarePlatformUnknown;
     QString m_serialNumber;
+    Capabilities m_capabilities = CapabilityNone;
     bool m_isUnfaithful = false;
 
     WatchConnection *m_connection;
@@ -131,5 +133,28 @@ private:
 
     QString m_storagePath;
 };
+
+/*
+  Capabilities received from phone:
+  In order, starting at zero, in little-endian (unlike the rest of the messsage), the bits sent by the watch indicate support for:
+  - app run state,
+  - infinite log dumping,
+  - updated music protocol,
+  - extended notification service,
+  - language packs,
+  - 8k app messages,
+  - health,
+  - voice
+
+  The capability bits sent *to* the watch are, starting at zero:
+  - app run state,
+  - infinite log dumping,
+  - updated music service,
+  - extended notification service,
+  - (unused),
+  - 8k app messages,
+  - (unused),
+  - third-party voice
+  */
 
 #endif // PEBBLE_H

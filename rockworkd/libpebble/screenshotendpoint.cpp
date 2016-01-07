@@ -62,8 +62,8 @@ void ScreenshotEndpoint::handleScreenshotData(const QByteArray &data)
         switch (m_version) {
         case 1: {
             int rowBytes = m_width / 8;
-            for (int row = 0; row < m_height; row++) {
-                for (int col = 0; col < m_width; col++) {
+            for (quint32 row = 0; row < m_height; row++) {
+                for (quint32 col = 0; col < m_width; col++) {
                     char pixel = (m_accumulatedData.at(row * rowBytes + col / 8) >> (col % 8)) & 1;
                     output.append(pixel * 255);
                     output.append(pixel * 255);
@@ -73,8 +73,8 @@ void ScreenshotEndpoint::handleScreenshotData(const QByteArray &data)
             break;
         }
         case 2:
-            for (int row = 0; row < m_height; row++) {
-                for (int col = 0; col < m_width; col++) {
+            for (quint32 row = 0; row < m_height; row++) {
+                for (quint32 col = 0; col < m_width; col++) {
                     char pixel = m_accumulatedData.at(row * m_width + col);
                     output.append(((pixel >> 4) & 0b11) * 85);
                     output.append(((pixel >> 2) & 0b11) * 85);

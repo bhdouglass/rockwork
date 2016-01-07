@@ -74,15 +74,6 @@ public:
         EndpointPutBytes = 0xbeef
     };
 
-    enum OS {
-         OSUnknown = 0,
-         OSiOS = 1,
-         OSAndroid = 2,
-         OSOSX = 3,
-         OSLinux = 4,
-         OSWindows = 5
-    };
-
     typedef QMap<int, QVariant> Dict;
     enum DictItemType {
         DictItemTypeBytes,
@@ -127,9 +118,6 @@ signals:
 private:
     void scheduleReconnect();
     void reconnect();
-
-    void pebbleVersionReceived(const QByteArray &data);
-    void handleLauncherMessage(const QByteArray &data);
 
 private slots:
     void hostModeStateChanged(QBluetoothLocalDevice::HostMode state);
