@@ -294,9 +294,7 @@ AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
     item->setScreenshotImages(screenshotImages);
 
     // The search seems to return references to invalid icon images. if we detect that, we'll replace it with a screenshot
-//    qDebug() << "**" << item->icon() << map.value("screenshot_images").toSt;
     if (item->icon().contains("aOUhkV1R1uCqCVkKY5Dv") && !item->screenshotImages().isEmpty()) {
-        qDebug() << "setting screenie" << map;
         item->setIcon(item->screenshotImages().first());
     }
 

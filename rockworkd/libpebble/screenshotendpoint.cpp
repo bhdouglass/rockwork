@@ -92,7 +92,7 @@ void ScreenshotEndpoint::handleScreenshotData(const QByteArray &data)
         if (!dir.exists()) {
             dir.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/screenshots/");
         }
-        QString filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/screenshots/" + QDateTime::currentDateTime().toString("yyyymmddhhmmss") + ".jpg";
+        QString filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/screenshots/" + QDateTime::currentDateTime().toString("yyyyMMddHHmmss") + ".jpg";
         image.save(filename);
         emit screenshotSaved(filename);
     }

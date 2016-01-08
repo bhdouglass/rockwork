@@ -49,8 +49,6 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
 
     m_screenshotEndpoint = new ScreenshotEndpoint(m_connection, this);
     QObject::connect(m_screenshotEndpoint, &ScreenshotEndpoint::screenshotSaved, this, &Pebble::screenshotSaved);
-
-    m_appManager->rescan();
 }
 
 QBluetoothAddress Pebble::address() const
@@ -332,6 +330,8 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     } else {
         syncCalendar(Core::instance()->platform()->organizerItems());
     }
+
+    m_appManager->rescan();
 
     emit pebbleConnected();
 }
