@@ -275,11 +275,7 @@ AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
     item->setStoreId(map.value("id").toString());
     item->setName(map.value("title").toString());
     if (!map.value("list_image").toString().isEmpty()) {
-//        if (map.value("type").toString() == "watchface") {
-//            item->setIcon(map.value("icon_image").toString());
-//        } else {
-            item->setIcon(map.value("list_image").toString());
-//        }
+        item->setIcon(map.value("list_image").toString());
     } else {
         item->setIcon(map.value("list_image").toMap().value("144x144").toString());
     }
@@ -289,11 +285,20 @@ AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
     item->setCompanion(!map.value("companions").toMap().value("android").isNull() || !map.value("companions").toMap().value("ios").isNull());
     QStringList screenshotImages;
     foreach (const QVariant &screenshotItem, map.value("screenshot_images").toList()) {
-        if (screenshotItem.toMap().count() > 0) {
+        if (!screenshotItem.toString().isEmpty()) {
+            screenshotImages << screenshotItem.toString();
+        } else if (screenshotItem.toMap().count() > 0) {
             screenshotImages << screenshotItem.toMap().first().toString();
         }
     }
     item->setScreenshotImages(screenshotImages);
+
+    // The search seems to return references to invalid icon images. if we detect that, we'll replace it with a screenshot
+//    qDebug() << "**" << item->icon() << map.value("screenshot_images").toSt;
+    if (item->icon().contains("aOUhkV1R1uCqCVkKY5Dv") && !item->screenshotImages().isEmpty()) {
+        qDebug() << "setting screenie" << map;
+        item->setIcon(item->screenshotImages().first());
+    }
 
     return item;
 }

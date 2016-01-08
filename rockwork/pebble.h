@@ -11,7 +11,7 @@ class Pebble : public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name CONSTANT)
     Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged)
-    Q_PROPERTY(QString hardwarePlatform READ hardwarePlatform CONSTANT)
+    Q_PROPERTY(QString hardwarePlatform READ hardwarePlatform NOTIFY hardwarePlatformChanged)
     Q_PROPERTY(ApplicationsModel* installedApps READ installedApps CONSTANT)
     Q_PROPERTY(ApplicationsModel* installedWatchfaces READ installedWatchfaces CONSTANT)
 public:
@@ -32,13 +32,15 @@ public slots:
     void removeApp(const QString &uuid);
     void installApp(const QString &storeId);
     void moveApp(const QString &uuid, int toIndex);
-    void requestConfigurationURL(const QString &id);
+    void requestConfigurationURL(const QString &uuid);
     void configurationClosed(const QString &uuid, const QString &url);
     void launchApp(const QString &uuid);
     void requestScreenshot();
 
 signals:
     void connectedChanged();
+    void hardwarePlatformChanged();
+
     void openURL(const QString &uuid, const QString &url);
 
 private:

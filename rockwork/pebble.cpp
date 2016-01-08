@@ -72,9 +72,9 @@ void Pebble::launchApp(const QString &uuid)
     m_iface->call("LaunchApp", uuid);
 }
 
-void Pebble::requestConfigurationURL(const QString &id)
+void Pebble::requestConfigurationURL(const QString &uuid)
 {
-    m_iface->call("ConfigurationURL", id);
+    m_iface->call("ConfigurationURL", uuid);
 }
 
 void Pebble::removeApp(const QString &uuid)
@@ -107,7 +107,11 @@ void Pebble::dataChanged()
     m_name = fetchProperty("Name").toString();;
     m_address = fetchProperty("Address").toString();
     m_serialNumber = fetchProperty("SerialNumber").toString();
-    m_hardwarePlatform = fetchProperty("HardwarePlatform").toString();
+    QString hardwarePlatform = fetchProperty("HardwarePlatform").toString();
+    if (hardwarePlatform != m_hardwarePlatform) {
+        m_hardwarePlatform = hardwarePlatform;
+        emit hardwarePlatformChanged();
+    }
 
     bool connected = fetchProperty("IsConnected").toBool();
     if (connected != m_connected) {
@@ -120,6 +124,9 @@ void Pebble::pebbleConnected()
 {
     m_connected = true;
     emit connectedChanged();
+
+    dataChanged();
+    refreshApps();
 }
 
 void Pebble::pebbleDisconnected()
