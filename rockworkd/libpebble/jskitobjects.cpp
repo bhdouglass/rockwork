@@ -1,4 +1,3 @@
-#include <QStandardPaths>
 #include <QDesktopServices>
 #include <QUrl>
 #include <QAuthenticator>
@@ -260,8 +259,9 @@ void JSKitConsole::info(const QString &msg)
     qCDebug(l) << msg;
 }
 
-JSKitLocalStorage::JSKitLocalStorage(const QUuid &uuid, QObject *parent)
-    : QObject(parent), _storage(new QSettings(getStorageFileFor(uuid), QSettings::IniFormat, this))
+JSKitLocalStorage::JSKitLocalStorage(const QString &storagePath, const QUuid &uuid, QObject *parent):
+    QObject(parent),
+    _storage(new QSettings(getStorageFileFor(storagePath, uuid), QSettings::IniFormat, this))
 {
     _len = _storage->allKeys().size();
 }
@@ -309,14 +309,17 @@ void JSKitLocalStorage::checkLengthChanged()
     }
 }
 
-QString JSKitLocalStorage::getStorageFileFor(const QUuid &uuid)
+QString JSKitLocalStorage::getStorageFileFor(const QString &storageDir, const QUuid &uuid)
 {
-    QDir dataDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
-    dataDir.mkpath("js-storage");
+    QDir dataDir(storageDir + "/js-storage");
+    if (!dataDir.exists() && !dataDir.mkpath(dataDir.absolutePath())) {
+        qWarning() << "Error creating jskit storage dir";
+        return QString();
+    }
     QString fileName = uuid.toString();
     fileName.remove('{');
     fileName.remove('}');
-    return dataDir.absoluteFilePath("js-storage/" + fileName + ".ini");
+    return dataDir.absoluteFilePath(fileName + ".ini");
 }
 
 JSKitXMLHttpRequest::JSKitXMLHttpRequest(JSKitManager *mgr, QObject *parent)

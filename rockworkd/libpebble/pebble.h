@@ -35,10 +35,9 @@ class Pebble : public QObject
     Q_PROPERTY(QString serialNumber MEMBER m_serialNumber)
 
 public:
-    explicit Pebble(QObject *parent = 0);
+    explicit Pebble(const QBluetoothAddress &address, QObject *parent = 0);
 
     QBluetoothAddress address() const;
-    void setAddress(const QBluetoothAddress &address);
 
     QString name() const;
     void setName(const QString &name);
@@ -57,8 +56,13 @@ public:
     Capabilities capabilities() const;
     bool isUnfaithful() const;
 
+    QString storagePath() const;
+
 public slots:
+    QHash<QString, bool> notificationsFilter() const;
+    void setNotificationFilter(const QString &sourceId, bool enabled);
     void sendNotification(const Notification &notification);
+
     void setMusicMetadata(const MusicMetaData &metaData);
 
     void incomingCall(uint cookie, const QString &number, const QString &name);
@@ -83,6 +87,8 @@ public slots:
     void configurationClosed(const QUuid &uuid, const QString &result);
 
     void requestScreenshot();
+    QStringList screenshots() const;
+    void removeScreenshot(const QString &filename);
 
 private slots:
     void onPebbleConnected();
@@ -91,19 +97,22 @@ private slots:
     void phoneVersionAsked(const QByteArray &data);
     void logData(const QByteArray &data);
     void appDownloadFinished(const QString &id);
+    void muteNotificationSource(const QString &source);
 
     void resetPebble();
+    void syncApps();
 
 signals:
     void pebbleConnected();
     void pebbleDisconnected();
+    void notificationFilterChanged(const QString &sourceId, bool enabled);
     void musicControlPressed(MusicControlButton control);
     void hangupCall(uint cookie);
-    void muteNotificationSource(const QString &source);
     void actionTriggered(const QString &actToken);
     void installedAppsChanged();
     void openURL(const QString &uuid, const QString &url);
-    void screenshotSaved(const QString &filename);
+    void screenshotAdded(const QString &filename);
+    void screenshotRemoved(const QString &filename);
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);

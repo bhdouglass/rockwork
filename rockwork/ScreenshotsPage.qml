@@ -9,12 +9,17 @@ Page {
     id: root
 
     title: i18n.tr("Screenshots")
-    head {
-        locked: true
-        visible: !contentPeerPicker.visible
-    }
 
     property var pebble: null
+
+    head {
+        actions: [
+            Action {
+                iconName: "camera-app-symbolic"
+                onTriggered: root.pebble.requestScreenshot()
+            }
+        ]
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -32,9 +37,7 @@ Page {
             cellWidth: width / columns
             cellHeight: cellWidth
 
-            model: ScreenshotModel {
-                id: screenshotModel
-            }
+            model: root.pebble.screenshots
 
             displaced: Transition {
                 UbuntuNumberAnimation { properties: "x,y" }
@@ -47,30 +50,16 @@ Page {
                     anchors.fill: parent
                     anchors.margins: units.gu(.5)
                     fillMode: Image.PreserveAspectFit
-                    source: "file://" + model.absoluteFilename
+                    source: "file://" + model.filename
                 }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        PopupUtils.open(dialogComponent, root, {filename: model.filename, absoluteFilename: model.absoluteFilename})
+                        PopupUtils.open(dialogComponent, root, {filename: model.filename})
                     }
                 }
             }
         }
-
-        AbstractButton {
-            Layout.preferredHeight: units.gu(5)
-            Layout.preferredWidth: height
-            Layout.alignment: Qt.AlignHCenter
-            Icon {
-                anchors.fill: parent
-                name: "camera-app-symbolic"
-            }
-            onClicked: {
-                root.pebble.requestScreenshot()
-            }
-        }
-
     }
 
     Component {
@@ -80,13 +69,12 @@ Page {
             title: i18n.tr("Screenshot options")
 
             property string filename
-            property string absoluteFilename
 
             Button {
                 text: i18n.tr("Share")
                 color: UbuntuColors.blue
                 onClicked: {
-                    pageStack.push(pickerPageComponent, {handler: ContentHandler.Share, absoluteFilename: absoluteFilename })
+                    pageStack.push(pickerPageComponent, {handler: ContentHandler.Share, filename: filename })
                     PopupUtils.close(dialog)
                 }
             }
@@ -94,7 +82,7 @@ Page {
                 text: i18n.tr("Save")
                 color: UbuntuColors.green
                 onClicked: {
-                    pageStack.push(pickerPageComponent, {handler: ContentHandler.Destination, absoluteFilename: absoluteFilename })
+                    pageStack.push(pickerPageComponent, {handler: ContentHandler.Destination, filename: filename })
                     PopupUtils.close(dialog)
                 }
             }
@@ -103,7 +91,7 @@ Page {
                 text: i18n.tr("Delete")
                 color: UbuntuColors.red
                 onClicked: {
-                    screenshotModel.deleteFile(filename)
+                    root.pebble.removeScreenshot(filename)
                     PopupUtils.close(dialog)
                 }
             }
@@ -127,7 +115,7 @@ Page {
             }
 
             property alias handler: contentPeerPicker.handler
-            property string absoluteFilename
+            property string filename
 
             Component {
                 id: exportItemComponent
@@ -146,7 +134,7 @@ Page {
                     var transfer = peer.request();
                     var items = [];
                     var item = exportItemComponent.createObject();
-                    item.url = "file://" + pickerPage.absoluteFilename;
+                    item.url = "file://" + pickerPage.filename;
                     items.push(item)
                     transfer.items = items;
                     transfer.state = ContentTransfer.Charged;

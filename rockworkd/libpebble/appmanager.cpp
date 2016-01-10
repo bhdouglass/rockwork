@@ -1,4 +1,3 @@
-#include <QStandardPaths>
 #include <QDir>
 #include <QSettings>
 
@@ -19,20 +18,14 @@ AppManager::AppManager(Pebble *pebble, WatchConnection *connection)
       m_pebble(pebble),
       m_connection(connection)
 {
-    QDir dataDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
-    if (!dataDir.mkpath("apps")) {
-        qWarning() << "could not create apps dir" << dataDir.absoluteFilePath("apps");
+    QDir dataDir(m_pebble->storagePath() + "/apps/");
+    if (!dataDir.exists() && !dataDir.mkpath(dataDir.absolutePath())) {
+        qWarning() << "could not create apps dir" << dataDir.absolutePath();
     }
-    qDebug() << "install apps in" << dataDir.absoluteFilePath("apps");
+    qDebug() << "install apps in" << dataDir.absolutePath();
 
     m_connection->registerEndpointHandler(WatchConnection::EndpointAppFetch, this, "handleAppFetchMessage");
-}
-
-QStringList AppManager::appPaths() const
-{
-    return QStandardPaths::locateAll(QStandardPaths::DataLocation,
-                                     QLatin1String("apps"),
-                                     QStandardPaths::LocateDirectory);
+    m_connection->registerEndpointHandler(WatchConnection::EndpointSorting, this, "sortingReply");
 }
 
 QList<QUuid> AppManager::appUuids() const
@@ -84,32 +77,31 @@ void AppManager::rescan()
     m_appList.append(ticToc.uuid());
     m_apps.insert(ticToc.uuid(), ticToc);
 
-    Q_FOREACH(const QString &path, appPaths()) {
-        QDir dir(path);
-        qDebug() << "scanning dir" << dir.absolutePath();
-        QStringList entries = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable | QDir::Executable);
-        entries << dir.entryList(QStringList("*.pbw"), QDir::Files | QDir::Readable);
-        qDebug() << "scanning dir results" << entries;
-        Q_FOREACH(const QString &path, entries) {
-            QString appPath = dir.absoluteFilePath(path);
-            if (dir.exists(path + "/appinfo.json")) {
-                scanApp(appPath);
-            } else if (QFileInfo(appPath).isFile()) {
-                scanApp(appPath);
-            }
+    QDir dir(m_pebble->storagePath() + "/apps/");
+    qDebug() << "Scanning Apps dir" << dir.absolutePath();
+    Q_FOREACH(const QString &path, dir.entryList(QDir::Dirs | QDir::Readable)) {
+        QString appPath = dir.absoluteFilePath(path);
+        if (dir.exists(path + "/appinfo.json")) {
+            scanApp(appPath);
+        } else if (QFileInfo(appPath).isFile()) {
+            scanApp(appPath);
         }
     }
 
-    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/settings.conf", QSettings::IniFormat);
+    QSettings settings(m_pebble->storagePath() + "/apps.conf", QSettings::IniFormat);
     QStringList storedList = settings.value("appList").toStringList();
+    if (storedList.isEmpty()) {
+        // User did not manually sort the app list yet... We can stop here.
+        return;
+    }
     // Run some sanity checks
     if (storedList.count() != m_appList.count()) {
-        qWarning() << "Installed apps not matching order config.";
+        qWarning() << "Installed apps not matching order config. App sort order might be wrong.";
         return;
     }
     foreach (const QUuid &uuid, m_appList) {
         if (!storedList.contains(uuid.toString())) {
-            qWarning() << "Installed apps and stored config order cannot be matched.";
+            qWarning() << "Installed apps and stored config order cannot be matched. App sort order might be wrong.";
             return;
         }
     }
@@ -166,6 +158,11 @@ void AppManager::handleAppFetchMessage(const QByteArray &data)
     });
 }
 
+void AppManager::sortingReply(const QByteArray &data)
+{
+    qDebug() << "have sorting reply" << data.toHex();
+}
+
 void AppManager::insertAppInfo(const AppInfo &info)
 {
     m_appList.append(info.uuid());
@@ -212,7 +209,7 @@ void AppManager::setAppOrder(const QList<QUuid> &newList)
     }
 
     m_appList = newList;
-    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/settings.conf", QSettings::IniFormat);
+    QSettings settings(m_pebble->storagePath() + "/apps.conf", QSettings::IniFormat);
     QStringList tmp;
     foreach (const QUuid &id, m_appList) {
         tmp << id.toString();

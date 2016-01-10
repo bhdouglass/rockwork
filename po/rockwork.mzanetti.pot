@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-07 20:24+0100\n"
+"POT-Creation-Date: 2016-01-10 23:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgid "Configure"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:174
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:103
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
 msgstr ""
 
@@ -90,23 +90,33 @@ msgstr ""
 msgid "Manage notifications"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:26
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:27
 msgid "Manage Apps"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:33
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:35
 msgid "Manage Watchfaces"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:40
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:43
 msgid "Watch screenshots"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:7
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:70
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+msgid "Connected"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:70
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+msgid "Disconnected"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:26
+#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will appear as notifications keep coming. Selected "
 "notifications will be shown on your Pebble smartwatch."
@@ -114,14 +124,6 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
-msgstr ""
-
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
-msgid "Connected"
-msgstr ""
-
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
-msgid "Disconnected"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
@@ -138,22 +140,22 @@ msgstr ""
 msgid "Screenshots"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:80
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:86
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
 msgid "Share"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:94
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:111
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:135
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr ""

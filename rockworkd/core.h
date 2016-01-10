@@ -5,7 +5,6 @@
 #include <QTimer>
 
 class PebbleManager;
-class NotificationManager;
 class DBusInterface;
 class PlatformInterface;
 
@@ -15,7 +14,6 @@ class Core : public QObject
 public:
     static Core *instance();
 
-    NotificationManager* notificationManager();
     PebbleManager* pebbleManager();
     PlatformInterface* platform();
 
@@ -28,7 +26,6 @@ private slots:
 
 private:
     PebbleManager *m_pebbleManager;
-    NotificationManager *m_notificationManager;
     DBusInterface *m_dbusInterface;
     PlatformInterface *m_platform;
 };

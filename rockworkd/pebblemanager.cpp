@@ -1,7 +1,6 @@
 #include "pebblemanager.h"
 
 #include "core.h"
-#include "notificationmanager.h"
 
 #include "libpebble/platforminterface.h"
 
@@ -32,8 +31,7 @@ void PebbleManager::loadPebbles()
         QBluetoothAddress addr(addrString);
         Pebble *pebble = get(addr);
         if (!pebble) {
-            pebble = new Pebble(this);
-            pebble->setAddress(addr);
+            pebble = new Pebble(addr, this);
             pebble->setName(pairedPebbles.value(addrString));
             setupPebble(pebble);
             m_pebbles.append(pebble);
@@ -51,8 +49,8 @@ void PebbleManager::pebbleConnected()
 
 void PebbleManager::setupPebble(Pebble *pebble)
 {
-    connect(Core::instance()->notificationManager(), &NotificationManager::displayNotification, pebble, &Pebble::sendNotification);
-    connect(pebble, &Pebble::muteNotificationSource, Core::instance()->notificationManager(), &NotificationManager::muteSource);
+    connect(Core::instance()->platform(), &PlatformInterface::notificationReceived, pebble, &Pebble::sendNotification);
+
     connect(pebble, &Pebble::actionTriggered, Core::instance()->platform(), &PlatformInterface::actionTriggered);
 
     pebble->setMusicMetadata(Core::instance()->platform()->musicMetaData());

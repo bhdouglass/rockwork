@@ -15,10 +15,13 @@
 
 #include <QDateTime>
 #include <QStandardPaths>
+#include <QSettings>
 
-Pebble::Pebble(QObject *parent) : QObject(parent)
+Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
+    QObject(parent),
+    m_address(address)
 {
-    m_storagePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    m_storagePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/" + m_address.toString().replace(':', '_') + "/";
 
     m_connection = new WatchConnection(this);
     QObject::connect(m_connection, &WatchConnection::watchConnected, this, &Pebble::onPebbleConnected);
@@ -47,18 +50,14 @@ Pebble::Pebble(QObject *parent) : QObject(parent)
     m_appDownloader = new AppDownloader(m_storagePath, this);
     QObject::connect(m_appDownloader, &AppDownloader::downloadFinished, this, &Pebble::appDownloadFinished);
 
-    m_screenshotEndpoint = new ScreenshotEndpoint(m_connection, this);
-    QObject::connect(m_screenshotEndpoint, &ScreenshotEndpoint::screenshotSaved, this, &Pebble::screenshotSaved);
+    m_screenshotEndpoint = new ScreenshotEndpoint(this, m_connection, this);
+    QObject::connect(m_screenshotEndpoint, &ScreenshotEndpoint::screenshotAdded, this, &Pebble::screenshotAdded);
+    QObject::connect(m_screenshotEndpoint, &ScreenshotEndpoint::screenshotRemoved, this, &Pebble::screenshotRemoved);
 }
 
 QBluetoothAddress Pebble::address() const
 {
     return m_address;
-}
-
-void Pebble::setAddress(const QBluetoothAddress &address)
-{
-    m_address = address;
 }
 
 QString Pebble::name() const
@@ -160,9 +159,43 @@ bool Pebble::isUnfaithful() const
     return m_isUnfaithful;
 }
 
+QString Pebble::storagePath() const
+{
+    return m_storagePath;
+}
+
+QHash<QString, bool> Pebble::notificationsFilter() const
+{
+    QHash<QString, bool> ret;
+    QString settingsFile = m_storagePath + "/notifications.conf";
+    QSettings s(settingsFile, QSettings::IniFormat);
+    foreach (const QString &key, s.allKeys()) {
+        ret.insert(key, s.value(key).toBool());
+    }
+    return ret;
+}
+
+void Pebble::setNotificationFilter(const QString &sourceId, bool enabled)
+{
+    QString settingsFile = m_storagePath + "/notifications.conf";
+    QSettings s(settingsFile, QSettings::IniFormat);
+    if (!s.contains(sourceId) || s.value(sourceId).toBool() != enabled) {
+        s.setValue(sourceId, enabled);
+        emit notificationFilterChanged(sourceId, enabled);
+    }
+}
+
 void Pebble::sendNotification(const Notification &notification)
 {
-    qDebug() << "should send notification from:" << notification.sender() << "subject" << notification.subject() << "data" << notification.body();
+    if (!notificationsFilter().value(notification.sourceId(), true)) {
+        qDebug() << "Notifications for" << notification.sourceId() << "disabled.";
+        return;
+    }
+    // In case it wasn't there before, make sure to write it to the config now so it will appear in the config app.
+    setNotificationFilter(notification.sourceId(), true);
+
+    qDebug() << "Sending notification from:" << notification.sender() << "subject" << notification.subject() << "data" << notification.body();
+
     if (m_softwareVersion < "v3.0") {
         m_notificationEndpoint->sendLegacyNotification(notification);
     } else {
@@ -266,6 +299,16 @@ void Pebble::requestScreenshot()
     m_screenshotEndpoint->requestScreenshot();
 }
 
+QStringList Pebble::screenshots() const
+{
+    return m_screenshotEndpoint->screenshots();
+}
+
+void Pebble::removeScreenshot(const QString &filename)
+{
+    m_screenshotEndpoint->removeScreenshot(filename);
+}
+
 void Pebble::onPebbleConnected()
 {
     qDebug() << "Pebble connected:" << m_name;
@@ -324,16 +367,24 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     // This is useful for debugging
 //    m_isUnfaithful = true;
 
+    m_appManager->rescan();
+
+    QSettings version(m_storagePath + "/version.conf", QSettings::IniFormat);
+    if (version.value("version").toString() != QStringLiteral(VERSION)) {
+        m_isUnfaithful = true;
+    }
+
     if (m_isUnfaithful) {
-        qDebug() << "Pebble has been unfaithful. Clearing it up.";
+        qDebug() << "Pebble sync state unclear. Resetting Pebble watch.";
         resetPebble();
     } else {
         syncCalendar(Core::instance()->platform()->organizerItems());
+        syncApps();
     }
-
-    m_appManager->rescan();
+    version.setValue("version", QStringLiteral(VERSION));
 
     emit pebbleConnected();
+
 }
 
 void Pebble::phoneVersionAsked(const QByteArray &data)
@@ -387,15 +438,30 @@ void Pebble::appDownloadFinished(const QString &id)
         return;
     }
     m_blobDB->insertAppMetaData(m_appManager->info(uuid));
+}
 
+void Pebble::muteNotificationSource(const QString &source)
+{
+    setNotificationFilter(source, false);
 }
 
 void Pebble::resetPebble()
 {
     clearTimeline();
-    clearAppDB();
-    foreach (const QUuid &appUuid, m_appManager->appUuids()) {
-        m_blobDB->insertAppMetaData(m_appManager->info(appUuid));
-    }
     syncCalendar(Core::instance()->platform()->organizerItems());
+
+    clearAppDB();
+    syncApps();
+}
+
+void Pebble::syncApps()
+{
+    foreach (const QUuid &appUuid, m_appManager->appUuids()) {
+        if (!m_appManager->info(appUuid).isSystemApp()) {
+            qDebug() << "Inserting app" << m_appManager->info(appUuid).shortName() << "into BlobDB";
+            m_blobDB->insertAppMetaData(m_appManager->info(appUuid));
+        }
+    }
+    // make sure the order is synced too
+    m_appManager->setAppOrder(m_appManager->appUuids());
 }

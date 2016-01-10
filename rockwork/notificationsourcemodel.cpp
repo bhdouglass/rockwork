@@ -1,12 +1,10 @@
 #include "notificationsourcemodel.h"
 
 #include <QSettings>
-#include <QStandardPaths>
 #include <QDebug>
 
 NotificationSourceModel::NotificationSourceModel(QObject *parent) : QAbstractListModel(parent)
 {
-    loadSources();
 }
 
 int NotificationSourceModel::rowCount(const QModelIndex &parent) const
@@ -17,11 +15,12 @@ int NotificationSourceModel::rowCount(const QModelIndex &parent) const
 
 QVariant NotificationSourceModel::data(const QModelIndex &index, int role) const
 {
+    QString sourceId = m_sources.at(index.row());
     switch (role) {
     case RoleName:
-        return m_sources.keys().at(index.row());
+        return sourceId;
     case RoleEnabled:
-        return m_sources.values().at(index.row());
+        return m_sourceValues.value(sourceId);
     }
     return QVariant();
 }
@@ -34,29 +33,18 @@ QHash<int, QByteArray> NotificationSourceModel::roleNames() const
     return roles;
 }
 
-void NotificationSourceModel::setEnabled(int index, bool enabled)
+void NotificationSourceModel::insert(const QString &sourceId, bool enabled)
 {
-    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/notifications.conf";
-    qDebug() << "Settings file" << settingsFile;
-    QSettings settings(settingsFile, QSettings::IniFormat);
-    QString source = m_sources.keys().at(index);
-    m_sources[source] = enabled;
-    settings.setValue(source, enabled);
-    emit dataChanged(this->index(index), this->index(index));
-
-}
-
-void NotificationSourceModel::loadSources()
-{
-    QString settingsFile = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/rockwork.mzanetti/notifications.conf";
-    qDebug() << "Settings file" << settingsFile;
-    QSettings settings(settingsFile, QSettings::IniFormat);
-
-    beginResetModel();
-    m_sources.clear();
-    foreach (const QString &source, settings.allKeys()) {
-        m_sources.insert(source, settings.value(source).toBool());
+    qDebug() << "changed" << sourceId << enabled;
+    int idx = m_sources.indexOf(sourceId);
+    if (idx >= 0) {
+        m_sourceValues[sourceId] = enabled;
+        emit dataChanged(index(idx), index(idx), {RoleEnabled});
+    } else {
+        beginInsertRows(QModelIndex(), m_sources.count(), m_sources.count());
+        m_sources.append(sourceId);
+        m_sourceValues[sourceId] = enabled;
+        endInsertRows();
     }
-    endResetModel();
 }
 

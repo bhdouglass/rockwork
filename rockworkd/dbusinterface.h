@@ -17,9 +17,11 @@ public:
 signals:
     void Connected();
     void Disconnected();
+    void NotificationFilterChanged(const QString &sourceId, bool enabled);
     void InstalledAppsChanged();
     void OpenURL(const QString &uuid, const QString &url);
-    void ScreenshotSaved(const QString &filename);
+    void ScreenshotAdded(const QString &filename);
+    void ScreenshotRemoved(const QString &filename);
 
 public slots:
     QString Address() const;
@@ -27,6 +29,9 @@ public slots:
     QString SerialNumber() const;
     QString HardwarePlatform() const;
     bool IsConnected() const;
+
+    QVariantMap NotificationsFilter() const;
+    void SetNotificationFilter(const QString &sourceId, bool enabled);
 
     void InstallApp(const QString &id);
     QStringList InstalledAppIds() const;
@@ -37,6 +42,8 @@ public slots:
     void SetAppOrder(const QStringList &newList);
     void LaunchApp(const QString &uuid);
     void RequestScreenshot();
+    QStringList Screenshots() const;
+    void RemoveScreenshot(const QString &filename);
 
 private:
     Pebble *m_pebble;

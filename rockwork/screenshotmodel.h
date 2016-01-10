@@ -6,12 +6,10 @@
 class ScreenshotModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString path READ path CONSTANT)
 
 public:
     enum Role {
-        RoleFileName,
-        RoleAbsoluteFileName
+        RoleFileName
     };
 
     ScreenshotModel(QObject *parent = nullptr);
@@ -21,9 +19,11 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE void deleteFile(const QString &filename);
+    void clear();
+    void insert(const QString &filename);
+    void remove(const QString &filename);
+
 private:
-    QString m_path;
     QStringList m_files;
 };
 

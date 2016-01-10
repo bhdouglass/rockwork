@@ -8,7 +8,6 @@
 #include <QNetworkRequest>
 #include <QDir>
 #include <QFile>
-#include <QStandardPaths>
 #include <QJsonDocument>
 #include <quazip/quazipfile.h>
 #include <quazip/quazip.h>

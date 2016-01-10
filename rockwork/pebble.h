@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QDBusInterface>
 
+class NotificationSourceModel;
 class ApplicationsModel;
+class ScreenshotModel;
 
 class Pebble : public QObject
 {
@@ -12,8 +14,10 @@ class Pebble : public QObject
     Q_PROPERTY(QString name READ name CONSTANT)
     Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged)
     Q_PROPERTY(QString hardwarePlatform READ hardwarePlatform NOTIFY hardwarePlatformChanged)
+    Q_PROPERTY(NotificationSourceModel* notifications READ notifications CONSTANT)
     Q_PROPERTY(ApplicationsModel* installedApps READ installedApps CONSTANT)
     Q_PROPERTY(ApplicationsModel* installedWatchfaces READ installedWatchfaces CONSTANT)
+    Q_PROPERTY(ScreenshotModel* screenshots READ screenshots CONSTANT)
 public:
     explicit Pebble(const QDBusObjectPath &path, QObject *parent = 0);
 
@@ -25,10 +29,13 @@ public:
     QString hardwarePlatform() const;
     QString serialNumber() const;
 
+    NotificationSourceModel *notifications() const;
     ApplicationsModel* installedApps() const;
     ApplicationsModel* installedWatchfaces() const;
+    ScreenshotModel* screenshots() const;
 
 public slots:
+    void setNotificationFilter(const QString &sourceId, bool enabled);
     void removeApp(const QString &uuid);
     void installApp(const QString &storeId);
     void moveApp(const QString &uuid, int toIndex);
@@ -36,6 +43,7 @@ public slots:
     void configurationClosed(const QString &uuid, const QString &url);
     void launchApp(const QString &uuid);
     void requestScreenshot();
+    void removeScreenshot(const QString &filename);
 
 signals:
     void connectedChanged();
@@ -50,8 +58,13 @@ private slots:
     void dataChanged();
     void pebbleConnected();
     void pebbleDisconnected();
+    void notificationFilterChanged(const QString &sourceId, bool enabled);
+    void refreshNotifications();
     void refreshApps();
     void appsSorted();
+    void refreshScreenshots();
+    void screenshotAdded(const QString &filename);
+    void screenshotRemoved(const QString &filename);
 
 private:
     QDBusObjectPath m_path;
@@ -62,8 +75,10 @@ private:
     QString m_hardwarePlatform;
     QString m_serialNumber;
     QDBusInterface *m_iface;
+    NotificationSourceModel *m_notifications;
     ApplicationsModel *m_installedApps;
     ApplicationsModel *m_installedWatchfaces;
+    ScreenshotModel *m_screenshotModel;
 };
 
 #endif // PEBBLE_H

@@ -275,7 +275,7 @@ void AppMsgManager::handleAppLaunchMessage(const QByteArray &data)
 {
     QUuid uuid;
     if (!unpackAppLaunchMessage(data, &uuid)) {
-        qWarning() << "Failed to parser App Launch message";
+        qWarning() << "Failed to parse App Launch message";
         return;
     }
 

@@ -1,7 +1,6 @@
 #include "calendarevent.h"
 
 #include <QSettings>
-#include <QStandardPaths>
 #include <QFile>
 #include <QTimeZone>
 
@@ -141,9 +140,9 @@ bool CalendarEvent::operator==(const CalendarEvent &other) const
 
 }
 
-void CalendarEvent::saveToCache() const
+void CalendarEvent::saveToCache(const QString &cachePath) const
 {
-    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_uuid.toString(), QSettings::IniFormat);
+    QSettings s(cachePath + "/calendarevent-" + m_uuid.toString(), QSettings::IniFormat);
     s.setValue("id", m_id);
     s.setValue("uuid", m_uuid);
     s.setValue("title", m_title);
@@ -157,10 +156,10 @@ void CalendarEvent::saveToCache() const
     s.setValue("recurring", m_recurring);
 }
 
-void CalendarEvent::loadFromCache(const QString &uuid)
+void CalendarEvent::loadFromCache(const QString &cachePath, const QString &uuid)
 {
     m_uuid = uuid;
-    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_uuid.toString(), QSettings::IniFormat);
+    QSettings s(cachePath + "/calendarevent-" + m_uuid.toString(), QSettings::IniFormat);
     m_id = s.value("id").toString();
     m_title = s.value("title").toString();
     m_description = s.value("description").toString();
@@ -173,10 +172,8 @@ void CalendarEvent::loadFromCache(const QString &uuid)
     m_recurring = s.value("recurring").toBool();
 }
 
-void CalendarEvent::removeFromCache() const
+void CalendarEvent::removeFromCache(const QString &cachePath) const
 {
-    QSettings s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_uuid.toString(), QSettings::IniFormat);
-    s.remove("");
-    QFile::remove(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/calendarevent-" + m_uuid.toString());
+    QFile::remove(cachePath + "/calendarevent-" + m_uuid.toString());
 }
 

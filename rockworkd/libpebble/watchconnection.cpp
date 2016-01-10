@@ -174,8 +174,7 @@ void WatchConnection::readyRead()
     }
 
     QByteArray data = m_socket->read(headerLength + messageLength);
-//    qDebug() << "Have message for endpoint:" << endpoint;
-//    qDebug() << "Message data" << data.toHex();
+//    qDebug() << "Have message for endpoint:" << endpoint << "data:" << data.toHex();
 
     data = data.right(data.length() - 4);
 

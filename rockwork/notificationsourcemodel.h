@@ -19,16 +19,14 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE void setEnabled(int index, bool enabled);
-
-private slots:
-    void loadSources();
+    void insert(const QString &sourceId, bool enabled);
 
 signals:
     void countChanged();
 
 private:
-    QMap<QString, bool> m_sources;
+    QStringList m_sources;
+    QHash<QString, bool> m_sourceValues;
 
 };
 

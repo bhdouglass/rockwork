@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "watchconnection.h"
+class Pebble;
 
 class ScreenshotRequestPackage: public PebblePacket
 {
@@ -24,17 +25,22 @@ public:
         ResponseCodeAlreadyInProgress = 3
     };
 
-    explicit ScreenshotEndpoint(WatchConnection *connection, QObject *parent = 0);
+    explicit ScreenshotEndpoint(Pebble *pebble, WatchConnection *connection, QObject *parent = 0);
 
     void requestScreenshot();
+    void removeScreenshot(const QString &filename);
+
+    QStringList screenshots() const;
 
 signals:
-    void screenshotSaved(const QString &filename);
+    void screenshotAdded(const QString &filename);
+    void screenshotRemoved(const QString &filename);
 
 private slots:
     void handleScreenshotData(const QByteArray &data);
 
 private:
+    Pebble *m_pebble;
     WatchConnection *m_connection;
     quint32 m_waitingForMore = 0;
     quint32 m_version = 0;

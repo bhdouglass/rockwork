@@ -1,5 +1,7 @@
 #include "pebble.h"
+#include "notificationsourcemodel.h"
 #include "applicationsmodel.h"
+#include "screenshotmodel.h"
 
 #include <QDBusArgument>
 #include <QDebug>
@@ -9,17 +11,24 @@ Pebble::Pebble(const QDBusObjectPath &path, QObject *parent):
     m_path(path)
 {
     m_iface = new QDBusInterface("org.rockwork", path.path(), "org.rockwork.Pebble", QDBusConnection::sessionBus(), this);
+    m_notifications = new NotificationSourceModel(this);
     m_installedApps = new ApplicationsModel(this);
     connect(m_installedApps, &ApplicationsModel::appsSorted, this, &Pebble::appsSorted);
     m_installedWatchfaces = new ApplicationsModel(this);
+    m_screenshotModel = new ScreenshotModel(this);
 
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "Connected", this, SLOT(pebbleConnected()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "Disconnected", this, SLOT(pebbleDisconnected()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "InstalledAppsChanged", this, SLOT(refreshApps()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "OpenURL", this, SIGNAL(openURL(const QString&, const QString&)));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "NotificationFilterChanged", this, SLOT(notificationFilterChanged(const QString &, bool)));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "ScreenshotAdded", this, SLOT(screenshotAdded(const QString &)));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "ScreenshotRemoved", this, SLOT(screenshotRemoved(const QString &)));
 
     dataChanged();
     refreshApps();
+    refreshNotifications();
+    refreshScreenshots();
 }
 
 bool Pebble::connected() const
@@ -52,6 +61,11 @@ QString Pebble::serialNumber() const
     return m_serialNumber;
 }
 
+NotificationSourceModel *Pebble::notifications() const
+{
+    return m_notifications;
+}
+
 ApplicationsModel *Pebble::installedApps() const
 {
     return m_installedApps;
@@ -60,6 +74,11 @@ ApplicationsModel *Pebble::installedApps() const
 ApplicationsModel *Pebble::installedWatchfaces() const
 {
     return m_installedWatchfaces;
+}
+
+ScreenshotModel *Pebble::screenshots() const
+{
+    return m_screenshotModel;
 }
 
 void Pebble::configurationClosed(const QString &uuid, const QString &url)
@@ -127,12 +146,42 @@ void Pebble::pebbleConnected()
 
     dataChanged();
     refreshApps();
+    refreshNotifications();
+    refreshScreenshots();
 }
 
 void Pebble::pebbleDisconnected()
 {
     m_connected = false;
     emit connectedChanged();
+}
+
+void Pebble::notificationFilterChanged(const QString &sourceId, bool enabled)
+{
+    m_notifications->insert(sourceId, enabled);
+}
+
+void Pebble::refreshNotifications()
+{
+    QDBusMessage m = m_iface->call("NotificationsFilter");
+    if (m.type() == QDBusMessage::ErrorMessage || m.arguments().count() == 0) {
+        qWarning() << "Could not fetch notifications filter" << m.errorMessage();
+        return;
+    }
+
+    const QDBusArgument &arg = m.arguments().first().value<QDBusArgument>();
+
+    QVariantMap mapEntryVariant;
+    arg >> mapEntryVariant;
+
+    foreach (const QString &sourceId, mapEntryVariant.keys()) {
+        m_notifications->insert(sourceId, mapEntryVariant.value(sourceId).toBool());
+    }
+}
+
+void Pebble::setNotificationFilter(const QString &sourceId, bool enabled)
+{
+    m_iface->call("SetNotificationFilter", sourceId, enabled);
 }
 
 void Pebble::moveApp(const QString &uuid, int toIndex)
@@ -221,7 +270,33 @@ void Pebble::appsSorted()
     m_iface->call("SetAppOrder", newList);
 }
 
+void Pebble::refreshScreenshots()
+{
+    m_screenshotModel->clear();
+    QStringList screenshots = fetchProperty("Screenshots").toStringList();
+    foreach (const QString &filename, screenshots) {
+        m_screenshotModel->insert(filename);
+    }
+}
+
+void Pebble::screenshotAdded(const QString &filename)
+{
+    qDebug() << "screenshot added" << filename;
+    m_screenshotModel->insert(filename);
+}
+
+void Pebble::screenshotRemoved(const QString &filename)
+{
+    m_screenshotModel->remove(filename);
+}
+
 void Pebble::requestScreenshot()
 {
     m_iface->call("RequestScreenshot");
+}
+
+void Pebble::removeScreenshot(const QString &filename)
+{
+    qDebug() << "removing screenshot" << filename;
+    m_iface->call("RemoveScreenshot", filename);
 }

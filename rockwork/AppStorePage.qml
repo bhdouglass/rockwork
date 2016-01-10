@@ -167,6 +167,9 @@ Page {
                         Layout.fillHeight: true
                         Layout.preferredWidth: height
                         source: model.icon
+                        asynchronous: true
+                        sourceSize.width: width
+                        sourceSize.height: height
                     }
 
                     ColumnLayout {

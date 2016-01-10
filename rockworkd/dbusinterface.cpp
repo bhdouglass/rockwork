@@ -9,8 +9,10 @@ DBusPebble::DBusPebble(Pebble *pebble, QObject *parent):
     connect(pebble, &Pebble::pebbleConnected, this, &DBusPebble::Connected);
     connect(pebble, &Pebble::pebbleDisconnected, this, &DBusPebble::Disconnected);
     connect(pebble, &Pebble::installedAppsChanged, this, &DBusPebble::InstalledAppsChanged);
-    connect(pebble, SIGNAL(openURL(const QString&, const QString&)), this, SIGNAL(OpenURL(const QString&, const QString&)));
-    connect(pebble, &Pebble::screenshotSaved, this, &DBusPebble::ScreenshotSaved);
+    connect(pebble, &Pebble::openURL, this, &DBusPebble::OpenURL);
+    connect(pebble, &Pebble::notificationFilterChanged, this, &DBusPebble::NotificationFilterChanged);
+    connect(pebble, &Pebble::screenshotAdded, this, &DBusPebble::ScreenshotAdded);
+    connect(pebble, &Pebble::screenshotRemoved, this, &DBusPebble::ScreenshotRemoved);
 }
 
 QString DBusPebble::Address() const
@@ -26,6 +28,21 @@ QString DBusPebble::Name() const
 bool DBusPebble::IsConnected() const
 {
     return m_pebble->connected();
+}
+
+QVariantMap DBusPebble::NotificationsFilter() const
+{
+    QVariantMap ret;
+    QHash<QString, bool> filter = m_pebble->notificationsFilter();
+    foreach (const QString &sourceId, filter.keys()) {
+        ret.insert(sourceId, filter.value(sourceId));
+    }
+    return ret;
+}
+
+void DBusPebble::SetNotificationFilter(const QString &sourceId, bool enabled)
+{
+    m_pebble->setNotificationFilter(sourceId, enabled);
 }
 
 void DBusPebble::InstallApp(const QString &id)
@@ -98,6 +115,17 @@ void DBusPebble::RequestScreenshot()
     m_pebble->requestScreenshot();
 }
 
+QStringList DBusPebble::Screenshots() const
+{
+    return m_pebble->screenshots();
+}
+
+void DBusPebble::RemoveScreenshot(const QString &filename)
+{
+    qDebug() << "Should remove screenshot" << filename;
+    m_pebble->removeScreenshot(filename);
+}
+
 QString DBusPebble::SerialNumber() const
 {
     return m_pebble->serialNumber();
@@ -133,7 +161,7 @@ DBusInterface::DBusInterface(QObject *parent) :
 
 QString DBusInterface::Version()
 {
-    return QString::number(VERSION);
+    return QStringLiteral(VERSION);
 }
 
 QList<QDBusObjectPath> DBusInterface::ListWatches()

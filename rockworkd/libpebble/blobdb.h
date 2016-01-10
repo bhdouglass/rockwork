@@ -93,6 +93,8 @@ private:
 
     BlobCommand *m_currentCommand = nullptr;
     QList<BlobCommand*> m_commandQueue;
+
+    QString m_blobDBStoragePath;
 };
 
 #endif // BLOBDB_H

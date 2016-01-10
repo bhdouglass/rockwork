@@ -1,7 +1,6 @@
 #include "core.h"
 
 #include "pebblemanager.h"
-#include "notificationmanager.h"
 #include "dbusinterface.h"
 
 #include "platformintegration/ubuntu/ubuntuplatform.h"
@@ -21,11 +20,6 @@ Core *Core::instance()
     return s_instance;
 }
 
-NotificationManager *Core::notificationManager()
-{
-    return m_notificationManager;
-}
-
 PebbleManager *Core::pebbleManager()
 {
     return m_pebbleManager;
@@ -43,15 +37,12 @@ Core::Core(QObject *parent):
 
 void Core::init()
 {
-    m_notificationManager = new NotificationManager(this);
-
     // Platform integration
 #ifdef ENABLE_TESTING
     m_platform = new TestingPlatform(this);
 #else
     m_platform = new UbuntuPlatform(this);
 #endif
-    connect(m_platform, &PlatformInterface::notificationReceived, m_notificationManager, &NotificationManager::injectNotification);
 
     m_pebbleManager = new PebbleManager(this);
 

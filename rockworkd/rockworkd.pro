@@ -42,7 +42,6 @@ SOURCES += main.cpp \
     libpebble/bluez/freedesktop_properties.cpp \
     libpebble/bluez/device.cpp \
     core.cpp \
-    notificationmanager.cpp \
     pebblemanager.cpp \
     dbusinterface.cpp \
 # Platform integration part
@@ -82,7 +81,6 @@ HEADERS += \
     libpebble/bluez/freedesktop_properties.h \
     libpebble/bluez/device.h \
     core.h \
-    notificationmanager.h \
     pebblemanager.h \
     dbusinterface.h \
 # Platform integration part

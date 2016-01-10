@@ -155,7 +155,7 @@ void JSKitManager::startJsApp()
     _engine = new QJSEngine(this);
     _jspebble = new JSKitPebble(_curApp, this, _engine);
     _jsconsole = new JSKitConsole(_engine);
-    _jsstorage = new JSKitLocalStorage(_curApp.uuid(), _engine);
+    _jsstorage = new JSKitLocalStorage(m_pebble->storagePath(), _curApp.uuid(), _engine);
     _jsgeo = new JSKitGeolocation(this, _engine);
 
     qDebug() << "starting JS app" << _curApp.shortName();

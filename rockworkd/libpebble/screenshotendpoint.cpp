@@ -2,13 +2,15 @@
 
 #include "watchdatawriter.h"
 #include "watchdatareader.h"
+#include "pebble.h"
 
 #include <QImage>
-#include <QStandardPaths>
 #include <QDateTime>
 #include <QDir>
 
-ScreenshotEndpoint::ScreenshotEndpoint(WatchConnection *connection, QObject *parent) : QObject(parent),
+ScreenshotEndpoint::ScreenshotEndpoint(Pebble *pebble, WatchConnection *connection, QObject *parent):
+    QObject(parent),
+    m_pebble(pebble),
     m_connection(connection)
 {
     m_connection->registerEndpointHandler(WatchConnection::EndpointScreenshot, this, "handleScreenshotData");
@@ -18,6 +20,25 @@ void ScreenshotEndpoint::requestScreenshot()
 {
     ScreenshotRequestPackage package;
     m_connection->writeToPebble(WatchConnection::EndpointScreenshot, package.serialize());
+}
+
+void ScreenshotEndpoint::removeScreenshot(const QString &filename)
+{
+    QFile f(filename);
+    if (f.exists() && f.remove()) {
+        emit screenshotRemoved(filename);
+    }
+}
+
+QStringList ScreenshotEndpoint::screenshots() const
+{
+    QDir dir(m_pebble->storagePath() + "/screenshots/");
+    QStringList ret;
+    foreach (const QString &filename, dir.entryList(QDir::Files)) {
+        ret << m_pebble->storagePath() + "/screenshots/" + filename;
+    }
+
+    return ret;
 }
 
 void ScreenshotEndpoint::handleScreenshotData(const QByteArray &data)
@@ -88,13 +109,14 @@ void ScreenshotEndpoint::handleScreenshotData(const QByteArray &data)
         }
 
         QImage image = QImage((uchar*)output.data(), m_width, m_height, QImage::Format_RGB888);
-        QDir dir(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/screenshots/");
+        QDir dir(m_pebble->storagePath() + "/screenshots/");
         if (!dir.exists()) {
-            dir.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/screenshots/");
+            dir.mkpath(dir.absolutePath());
         }
-        QString filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/screenshots/" + QDateTime::currentDateTime().toString("yyyyMMddHHmmss") + ".jpg";
+        QString filename = dir.absolutePath() + "/" + QDateTime::currentDateTime().toString("yyyyMMddHHmmss") + ".jpg";
         image.save(filename);
-        emit screenshotSaved(filename);
+        qDebug() << "Screenshot saved to" << filename;
+        emit screenshotAdded(filename);
     }
 }
 

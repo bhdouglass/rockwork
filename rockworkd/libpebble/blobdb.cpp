@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QOrganizerRecurrenceRule>
 #include <QDir>
-#include <QStandardPaths>
+#include <QSettings>
 
 BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
     QObject(pebble),
@@ -22,11 +22,16 @@ BlobDB::BlobDB(Pebble *pebble, WatchConnection *connection):
         }
     });
 
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+    m_blobDBStoragePath = m_pebble->storagePath() + "/blobdb/";
+    QDir dir(m_blobDBStoragePath);
+    if (!dir.exists() && !dir.mkpath(m_blobDBStoragePath)) {
+        qWarning() << "Error creating blobdb storage dir.";
+        return;
+    }
     dir.setNameFilters({"calendarevent-*"});
     foreach (const QFileInfo &fi, dir.entryInfoList()) {
         CalendarEvent event;
-        event.loadFromCache(fi.fileName().right(QUuid().toString().length()));
+        event.loadFromCache(m_blobDBStoragePath, fi.fileName().right(QUuid().toString().length()));
 
         m_calendarEntries.append(event);
     }
@@ -216,7 +221,7 @@ void BlobDB::insertReminder()
 void BlobDB::clearTimeline()
 {
     foreach (CalendarEvent entry, m_calendarEntries) {
-        entry.removeFromCache();
+        entry.removeFromCache(m_blobDBStoragePath);
     }
     m_calendarEntries.clear();
     clear(BlobDB::BlobDBIdPin);
@@ -224,7 +229,7 @@ void BlobDB::clearTimeline()
 
 void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
 {
-    qDebug() << "starting contact sync for" << events.count() << "entries";
+    qDebug() << "BlobDB: Starting calendar sync for" << events.count() << "entries";
     QList<CalendarEvent> itemsToSync;
     QList<CalendarEvent> itemsToAdd;
     QList<CalendarEvent> itemsToDelete;
@@ -268,7 +273,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
     foreach (const CalendarEvent &event, itemsToDelete) {
         removeTimelinePin(event.uuid());
         m_calendarEntries.removeAll(event);
-        event.removeFromCache();
+        event.removeFromCache(m_blobDBStoragePath);
     }
 
     qDebug() << "adding" << itemsToAdd.count() << "timeline entries";
@@ -280,13 +285,15 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
         if (!event.guests().isEmpty()) fields.insert("Guests", event.guests().join(", "));
         insertTimelinePin(event.uuid(), TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
         m_calendarEntries.append(event);
-        event.saveToCache();
+        event.saveToCache(m_blobDBStoragePath);
     }
 }
 
 void BlobDB::clearApps()
 {
     clear(BlobDBId::BlobDBIdApp);
+    QSettings s(m_blobDBStoragePath + "/appsyncstate.conf", QSettings::IniFormat);
+    s.remove("");
 }
 
 void BlobDB::insertAppMetaData(const AppInfo &info)
@@ -294,6 +301,13 @@ void BlobDB::insertAppMetaData(const AppInfo &info)
     if (!m_pebble->connected()) {
         return;
     }
+
+    QSettings s(m_blobDBStoragePath + "/appsyncstate.conf", QSettings::IniFormat);
+    if (s.value(info.uuid().toString(), false).toBool()) {
+        qWarning() << "App already in DB. Not syncing again";
+        return;
+    }
+
     AppMetadata metaData = appInfoToMetadata(info, m_pebble->hardwarePlatform());
 
     BlobCommand *cmd = new BlobCommand();
@@ -311,6 +325,8 @@ void BlobDB::insertAppMetaData(const AppInfo &info)
 void BlobDB::removeApp(const AppInfo &info)
 {
     remove(BlobDBId::BlobDBIdApp, info.uuid());
+    QSettings s(m_blobDBStoragePath + "/appsyncstate.conf", QSettings::IniFormat);
+    s.remove(info.uuid().toString());
 }
 
 void BlobDB::insert(BlobDBId database, const TimelineItem &item)
@@ -362,9 +378,17 @@ void BlobDB::blobCommandReply(const QByteArray &data)
     WatchDataReader reader(data);
     quint16 token = reader.readLE<quint16>();
     quint8 status = reader.read<quint8>();
-    if (status != 0x01) {
+    if (m_currentCommand->m_token != token) {
+        qWarning() << "Received reply for unexpected token";
+    } else if (status != 0x01) {
         qWarning() << "Blob Command failed:" << status;
+    } else { // All is well
+        if (m_currentCommand->m_database == BlobDBIdApp && m_currentCommand->m_command == OperationInsert) {
+            QSettings s(m_blobDBStoragePath + "/appsyncstate.conf", QSettings::IniFormat);
+            s.setValue(QUuid::fromRfc4122(m_currentCommand->m_key).toString(), true);
+        }
     }
+
     if (m_currentCommand && token == m_currentCommand->m_token) {
         delete m_currentCommand;
         m_currentCommand = nullptr;
@@ -436,7 +460,6 @@ void BlobDB::sendNext()
         return;
     }
     m_currentCommand = m_commandQueue.takeFirst();
-    qDebug() << "+++ sending blobdb command to watch" << m_currentCommand->serialize().toHex();
     m_connection->writeToPebble(WatchConnection::EndpointBlobDB, m_currentCommand->serialize());
 }
 

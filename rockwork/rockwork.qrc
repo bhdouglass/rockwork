@@ -11,5 +11,7 @@
         <file>InstalledAppDelegate.qml</file>
         <file>SystemAppIcon.qml</file>
         <file>ScreenshotsPage.qml</file>
+        <file>snowywhite.svg</file>
+        <file>snowywhite.png</file>
     </qresource>
 </RCC>

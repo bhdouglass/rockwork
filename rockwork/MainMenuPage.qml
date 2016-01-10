@@ -19,6 +19,7 @@ Page {
             icon: "stock_notification",
             text: i18n.tr("Manage notifications"),
             page: "NotificationsPage.qml",
+            color: "blue"
         });
 
         mainMenuModel.append({
@@ -26,6 +27,7 @@ Page {
             text: i18n.tr("Manage Apps"),
             page: "InstalledAppsPage.qml",
             showWatchApps: true,
+            color: UbuntuColors.green
         });
 
         mainMenuModel.append({
@@ -33,6 +35,7 @@ Page {
             text: i18n.tr("Manage Watchfaces"),
             page: "InstalledAppsPage.qml",
             showWatchFaces: true,
+            color: "black"
         });
 
         mainMenuModel.append({
@@ -40,40 +43,74 @@ Page {
             text: i18n.tr("Watch screenshots"),
             page: "ScreenshotsPage.qml",
             showWatchFaces: true,
+            color: "gold"
         });
     }
 
-    Column {
+    GridLayout {
         anchors.fill: parent
+        columns: parent.width > parent.head ? 2 : 1
 
-        Repeater {
-            model: mainMenuModel
-            delegate: ListItem {
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.margins: units.gu(1)
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Image {
+                Layout.preferredWidth: implicitWidth
+                Layout.fillHeight: true
+                source: "snowywhite.png"
+                fillMode: Image.PreserveAspectFit
 
-                    Icon {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: height
-                        implicitHeight: parent.height
-                        implicitWidth: height
-                        name: model.icon
-                    }
-
-                    Label {
-                        text: model.text
-                        Layout.fillWidth: true
-                    }
+            }
+            ColumnLayout {
+                Layout.fillWidth: true
+                Label {
+                    text: root.pebble.name
                 }
+                Label {
+                    text: root.pebble.connected ? i18n.tr("Connected") : i18n.tr("Disconnected")
+                }
+            }
+        }
 
-                onClicked: {
-                    var options = {};
-                    options["pebble"] = root.pebble
-                    var modelItem = mainMenuModel.get(index)
-                    options["showWatchApps"] = modelItem.showWatchApps
-                    options["showWatchFaces"] = modelItem.showWatchFaces
-                    pageStack.push(Qt.resolvedUrl(model.page), options)
+
+        Column {
+            Layout.fillWidth: true
+            Layout.preferredHeight: childrenRect.height
+            Repeater {
+                model: mainMenuModel
+                delegate: ListItem {
+
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.margins: units.gu(1)
+
+                        UbuntuShape {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: height
+                            backgroundColor: model.color
+                            Icon {
+                                anchors.fill: parent
+                                anchors.margins: units.gu(.5)
+                                name: model.icon
+                                color: "white"
+                            }
+                        }
+
+
+                        Label {
+                            text: model.text
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    onClicked: {
+                        var options = {};
+                        options["pebble"] = root.pebble
+                        var modelItem = mainMenuModel.get(index)
+                        options["showWatchApps"] = modelItem.showWatchApps
+                        options["showWatchFaces"] = modelItem.showWatchFaces
+                        pageStack.push(Qt.resolvedUrl(model.page), options)
+                    }
                 }
             }
         }

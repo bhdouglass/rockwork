@@ -18,12 +18,15 @@ MainView {
         serviceName: "rockworkd"
         Component.onCompleted: {
             if (!serviceController.serviceFileInstalled) {
+                print("Service file not installed. Installing now.")
                 serviceController.installServiceFile();
             }
             if (!serviceController.serviceRunning) {
+                print("Service not running. Starting now.")
                 serviceController.startService();
             }
             if (pebbles.version !== version) {
+                print("Service file version (", version, ") is not equal running service version (", pebbles.version, "). Restarting service.")
                 serviceController.restartService();
             }
         }
@@ -31,10 +34,20 @@ MainView {
 
     Pebbles {
         id: pebbles
+        onCountChanged: loadStack()
+    }
+
+    function loadStack() {
+        pageStack.clear()
+        if (pebbles.count == 1) {
+            pageStack.push(Qt.resolvedUrl("MainMenuPage.qml"), {pebble: pebbles.get(0)})
+        } else {
+            pageStack.push(Qt.resolvedUrl("PebblesPage.qml"))
+        }
     }
 
     PageStack {
         id: pageStack
-        Component.onCompleted: push(Qt.resolvedUrl("PebblesPage.qml"));
+        Component.onCompleted: loadStack();
     }
 }

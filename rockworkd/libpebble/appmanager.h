@@ -42,7 +42,6 @@ public:
 
     explicit AppManager(Pebble *pebble, WatchConnection *connection);
 
-    QStringList appPaths() const;
     QList<QUuid> appUuids() const;
 
     AppInfo info(const QUuid &uuid) const;
@@ -58,7 +57,9 @@ public:
 public slots:
     void rescan();
 
+private slots:
     void handleAppFetchMessage(const QByteArray &data);
+    void sortingReply(const QByteArray &data);
 
 signals:
     void appsChanged();

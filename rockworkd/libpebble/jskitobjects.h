@@ -73,7 +73,7 @@ class JSKitLocalStorage : public QObject
     Q_PROPERTY(int length READ length NOTIFY lengthChanged)
 
 public:
-    explicit JSKitLocalStorage(const QUuid &uuid, QObject *parent=0);
+    explicit JSKitLocalStorage(const QString &storagePath, const QUuid &uuid, QObject *parent=0);
 
     int length() const;
 
@@ -88,7 +88,7 @@ signals:
 
 private:
     void checkLengthChanged();
-    static QString getStorageFileFor(const QUuid &uuid);
+    static QString getStorageFileFor(const QString &storageDir, const QUuid &uuid);
 
 private:
     QSettings *_storage;

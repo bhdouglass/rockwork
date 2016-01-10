@@ -4,7 +4,10 @@ import Ubuntu.Components 1.3
 import RockWork 1.0
 
 Page {
+    id: root
     title: i18n.tr("Notifications")
+
+    property var pebble: null
 
     ColumnLayout {
         anchors.fill: parent
@@ -32,9 +35,7 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
-            model: NotificationSourceModel {
-                id: notificationSourceModel
-            }
+            model: root.pebble.notifications
 
             delegate: ListItem {
                 RowLayout {
@@ -48,8 +49,8 @@ Page {
 
                     Switch {
                         checked: model.enabled
-                        onCheckedChanged: {
-                            notificationSourceModel.setEnabled(index, checked)
+                        onClicked: {
+                            root.pebble.setNotificationFilter(model.name, checked)
                         }
                     }
                 }
