@@ -60,7 +60,7 @@ public:
         EndpointNotification = 3000,
 //        watchEXTENSIBLE_NOTIFS = 3010, // Deprecated in 3.x
 //        watchRESOURCE = 4000,
-//        watchFACTORY_SETTINGS = 5001,
+        EndpointFactorySettings = 5001,
         EndpointAppManager = 6000, // Deprecated in 3.x
         EndpointAppFetch = 6001, // New in 3.x
         EndpointDataLogging = 6778,

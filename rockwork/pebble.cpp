@@ -61,6 +61,11 @@ QString Pebble::serialNumber() const
     return m_serialNumber;
 }
 
+int Pebble::model() const
+{
+    return m_model;
+}
+
 NotificationSourceModel *Pebble::notifications() const
 {
     return m_notifications;
@@ -123,7 +128,7 @@ QVariant Pebble::fetchProperty(const QString &propertyName)
 void Pebble::dataChanged()
 {
     qDebug() << "data changed";
-    m_name = fetchProperty("Name").toString();;
+    m_name = fetchProperty("Name").toString();
     m_address = fetchProperty("Address").toString();
     m_serialNumber = fetchProperty("SerialNumber").toString();
     QString hardwarePlatform = fetchProperty("HardwarePlatform").toString();
@@ -131,6 +136,9 @@ void Pebble::dataChanged()
         m_hardwarePlatform = hardwarePlatform;
         emit hardwarePlatformChanged();
     }
+    m_model = fetchProperty("Model").toInt();
+    qDebug() << "model is" << m_model;
+    emit modelChanged();
 
     bool connected = fetchProperty("IsConnected").toBool();
     if (connected != m_connected) {

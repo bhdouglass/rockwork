@@ -40,6 +40,31 @@ enum HardwarePlatform {
     HardwarePlatformChalk
 };
 
+enum Model {
+    ModelUnknown = 0,
+    ModelTintinBlack = 1,
+    ModelTintinWhite = 2,
+    ModelTintinRed = 3,
+    ModelTintinOrange = 4,
+    ModelTintinGrey = 5,
+    ModelBiancaSilver = 6,
+    ModelBiancaBlack = 7,
+    ModelTintinBlue = 8,
+    ModelTintinGreen = 9,
+    ModelTintinPink = 10,
+    ModelSnowyWhite = 11,
+    ModelSnowyBlack = 12,
+    ModelSnowyRed = 13,
+    ModelBobbySilver = 14,
+    ModelBobbyBlack = 15,
+    ModelBobbyGold = 16,
+    ModelSpalding14Silver = 17,
+    ModelSpalding14Black = 18,
+    ModelSpalding20Silver = 19,
+    ModelSpalding20Black = 20,
+    ModelSpalding14RoseGold = 21
+};
+
 enum MusicControlButton {
     MusicControlPlayPause,
     MusicControlSkipBack,

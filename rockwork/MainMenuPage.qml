@@ -40,7 +40,7 @@ Page {
 
         mainMenuModel.append({
             icon: "camera-app-symbolic",
-            text: i18n.tr("Watch screenshots"),
+            text: i18n.tr("Screenshots"),
             page: "ScreenshotsPage.qml",
             showWatchFaces: true,
             color: "gold"
@@ -49,25 +49,121 @@ Page {
 
     GridLayout {
         anchors.fill: parent
-        columns: parent.width > parent.head ? 2 : 1
+        columns: parent.width > parent.hight ? 2 : 1
 
-        RowLayout {
+        Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Image {
-                Layout.preferredWidth: implicitWidth
-                Layout.fillHeight: true
-                source: "snowywhite.png"
-                fillMode: Image.PreserveAspectFit
+            Layout.maximumHeight: units.gu(30)
 
-            }
-            ColumnLayout {
-                Layout.fillWidth: true
-                Label {
-                    text: root.pebble.name
+            RowLayout {
+                anchors.fill: parent
+                anchors.margins: units.gu(1)
+                spacing: units.gu(1)
+
+                Image {
+                    Layout.preferredWidth: implicitWidth * height / implicitHeight
+                    Layout.fillHeight: true
+
+                    ListModel {
+                        id: modelModel
+                        ListElement { image: 'artwork/tintin-black.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/tintin-white.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/tintin-red.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/tintin-orange.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/tintin-grey.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/bianca-silver.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/bianca-black.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/tintin-blue.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/tintin-green.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/tintin-pink.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/snowy-white.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/snowy-black.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/snowy-red.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/bobby-silver.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/bobby-black.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/bobby-gold.png'; shape: "rectangle" }
+                        ListElement { image: 'artwork/spalding-14mm-silver.png'; shape: "round" }
+                        ListElement { image: 'artwork/spalding-14mm-black.png'; shape: "round" }
+                        ListElement { image: 'artwork/spalding-20mm-silver.png'; shape: "round" }
+                        ListElement { image: 'artwork/spalding-20mm-black.png'; shape: "round" }
+                        ListElement { image: 'artwork/spalding-14mm-rose-gold.png'; shape: "round" }
+
+
+                    }
+
+                    source:  modelModel.get(root.pebble.model - 1).image
+                    fillMode: Image.PreserveAspectFit
+
+                    Item {
+                        id: watchFace
+                        height: parent.height * (modelModel.get(root.pebble.model - 1).shape === "rectangle" ? .5 : .515)
+                        width: height * (modelModel.get(root.pebble.model - 1).shape === "rectangle" ? .85 : 1)
+                        anchors.centerIn: parent
+                        anchors.horizontalCenterOffset: units.dp(1)
+                        anchors.verticalCenterOffset: units.dp(modelModel.get(root.pebble.model - 1).shape === "rectangle" ? 0 : 1)
+
+                        Image {
+                            id: image
+                            anchors.fill: parent
+                            source: "file://" + root.pebble.screenshots.latestScreenshot
+                            visible: false
+                        }
+
+                        Component.onCompleted: {
+                            if (!root.pebble.screenshots.latestScreenshot) {
+                                root.pebble.requestScreenshot();
+                            }
+                        }
+
+                        Rectangle {
+                            id: textItem
+                            anchors.fill: parent
+                            layer.enabled: true
+                            radius: modelModel.get(root.pebble.model - 1).shape === "rectangle" ? units.gu(.5) : height / 2
+                            // This item should be used as the 'mask'
+                            layer.samplerName: "maskSource"
+                            layer.effect: ShaderEffect {
+                                property var colorSource: image;
+                                fragmentShader: "
+                                    uniform lowp sampler2D colorSource;
+                                    uniform lowp sampler2D maskSource;
+                                    uniform lowp float qt_Opacity;
+                                    varying highp vec2 qt_TexCoord0;
+                                    void main() {
+                                        gl_FragColor =
+                                            texture2D(colorSource, qt_TexCoord0)
+                                            * texture2D(maskSource, qt_TexCoord0).a
+                                            * qt_Opacity;
+                                    }
+                                "
+                            }
+                        }
+                    }
                 }
-                Label {
-                    text: root.pebble.connected ? i18n.tr("Connected") : i18n.tr("Disconnected")
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: units.gu(2)
+                    Rectangle {
+                        height: units.gu(10)
+                        width: height
+                        radius: height / 2
+                        color: root.pebble.connected ? UbuntuColors.green : UbuntuColors.red
+                        Layout.alignment: Qt.AlignHCenter
+
+                        Icon {
+                            anchors.fill: parent
+                            anchors.margins: units.gu(2)
+                            color: "white"
+                            name: root.pebble.connected ? "tick" : "dialog-error-symbolic"
+                        }
+                    }
+
+                    Label {
+                        text: root.pebble.connected ? i18n.tr("Connected") : i18n.tr("Disconnected")
+                        Layout.fillWidth: true
+                        horizontalAlignment: Text.AlignHCenter
+                    }
                 }
             }
         }

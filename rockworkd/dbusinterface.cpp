@@ -146,6 +146,11 @@ QString DBusPebble::HardwarePlatform() const
     return "unknown";
 }
 
+int DBusPebble::Model() const
+{
+    return m_pebble->model();
+}
+
 DBusInterface::DBusInterface(QObject *parent) :
     QObject(parent)
 {

@@ -2,6 +2,7 @@
 #include "watchconnection.h"
 #include "notificationendpoint.h"
 #include "watchdatareader.h"
+#include "watchdatawriter.h"
 #include "musicendpoint.h"
 #include "phonecallendpoint.h"
 #include "appmanager.h"
@@ -30,6 +31,7 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     m_connection->registerEndpointHandler(WatchConnection::EndpointVersion, this, "pebbleVersionReceived");
     m_connection->registerEndpointHandler(WatchConnection::EndpointPhoneVersion, this, "phoneVersionAsked");
     m_connection->registerEndpointHandler(WatchConnection::EndpointDataLogging, this, "logData");
+    m_connection->registerEndpointHandler(WatchConnection::EndpointFactorySettings, this, "factorySettingsReceived");
 
     m_notificationEndpoint = new NotificationEndpoint(this, m_connection);
     m_musicEndpoint = new MusicEndpoint(this, m_connection);
@@ -105,6 +107,11 @@ QString Pebble::softwareCommitRevision() const
 HardwareRevision Pebble::hardwareRevision() const
 {
     return m_hardwareRevision;
+}
+
+Model Pebble::model() const
+{
+    return m_model;
 }
 
 void Pebble::setHardwareRevision(HardwareRevision hardwareRevision)
@@ -312,8 +319,15 @@ void Pebble::removeScreenshot(const QString &filename)
 void Pebble::onPebbleConnected()
 {
     qDebug() << "Pebble connected:" << m_name;
+    QByteArray data;
+    WatchDataWriter w(&data);
+    w.write<quint8>(0); // Command fetch
+    QString message = "mfg_color";
+    w.writeLE<quint8>(message.length());
+    w.writeFixedString(message.length(), message);
+    m_connection->writeToPebble(WatchConnection::EndpointFactorySettings, data);
+
     m_connection->writeToPebble(WatchConnection::EndpointVersion, QByteArray(1, 0));
-    emit pebbleConnected();
 }
 
 void Pebble::onPebbleDisconnected()
@@ -351,7 +365,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "hardwareRevision" << wd.readFixedString(9);
     m_serialNumber = wd.readFixedString(12);
     qDebug() << "serialnumber" << m_serialNumber;
-    qDebug() << "BT address" << wd.readBytes(6);
+    qDebug() << "BT address" << wd.readBytes(6).toHex();
     qDebug() << "CRC:" << wd.read<quint32>();
     qDebug() << "Resource timestamp:" << QDateTime::fromTime_t(wd.read<quint32>());
     qDebug() << "Language" << wd.readFixedString(6);
@@ -385,6 +399,21 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
 
     emit pebbleConnected();
 
+}
+
+void Pebble::factorySettingsReceived(const QByteArray &data)
+{
+    qDebug() << "have factory settings" << data.toHex();
+
+    WatchDataReader reader(data);
+    quint8 status = reader.read<quint8>();
+    quint8 len = reader.read<quint8>();
+
+    if (status != 0x01 && len != 0x04) {
+        qWarning() << "Unexpected data reading factory settings";
+        return;
+    }
+    m_model = (Model)reader.read<quint32>();
 }
 
 void Pebble::phoneVersionAsked(const QByteArray &data)

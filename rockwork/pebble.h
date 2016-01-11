@@ -14,6 +14,7 @@ class Pebble : public QObject
     Q_PROPERTY(QString name READ name CONSTANT)
     Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged)
     Q_PROPERTY(QString hardwarePlatform READ hardwarePlatform NOTIFY hardwarePlatformChanged)
+    Q_PROPERTY(int model READ model NOTIFY modelChanged)
     Q_PROPERTY(NotificationSourceModel* notifications READ notifications CONSTANT)
     Q_PROPERTY(ApplicationsModel* installedApps READ installedApps CONSTANT)
     Q_PROPERTY(ApplicationsModel* installedWatchfaces READ installedWatchfaces CONSTANT)
@@ -28,6 +29,7 @@ public:
     QString name() const;
     QString hardwarePlatform() const;
     QString serialNumber() const;
+    int model() const;
 
     NotificationSourceModel *notifications() const;
     ApplicationsModel* installedApps() const;
@@ -48,6 +50,7 @@ public slots:
 signals:
     void connectedChanged();
     void hardwarePlatformChanged();
+    void modelChanged();
 
     void openURL(const QString &uuid, const QString &url);
 
@@ -74,6 +77,7 @@ private:
     QString m_name;
     QString m_hardwarePlatform;
     QString m_serialNumber;
+    int m_model = 0;
     QDBusInterface *m_iface;
     NotificationSourceModel *m_notifications;
     ApplicationsModel *m_installedApps;

@@ -72,7 +72,7 @@ uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QSt
     QStringList hiddenNotifications = {"indicator-sound", "indicator-network"};
     if (!hiddenNotifications.contains(app_name)) {
         if (hints.contains("x-canonical-secondary-icon") && hints.value("x-canonical-secondary-icon").toString() == "incoming-call") {
-            qDebug() << "Have a phone call notification. Ignoring it...";
+            qDebug() << "Have a phone call notification. Ignoring it..." << app_name << app_icon;
         } else {
             qDebug() << "Notification received" << app_name << replaces_id << app_icon << summary << body << actions << hints << expire_timeout;
             Notification n(app_name);

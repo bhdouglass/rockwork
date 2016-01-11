@@ -28,6 +28,7 @@ public slots:
     QString Name() const;
     QString SerialNumber() const;
     QString HardwarePlatform() const;
+    int Model() const;
     bool IsConnected() const;
 
     QVariantMap NotificationsFilter() const;

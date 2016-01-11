@@ -29,6 +29,19 @@ QHash<int, QByteArray> ScreenshotModel::roleNames() const
     return roles;
 }
 
+QString ScreenshotModel::get(int index) const
+{
+    if (index >= 0 && index < m_files.count()) {
+        return m_files.at(index);
+    }
+    return QString();
+}
+
+QString ScreenshotModel::latestScreenshot() const
+{
+    return get(0);
+}
+
 void ScreenshotModel::clear()
 {
     beginResetModel();
@@ -43,6 +56,7 @@ void ScreenshotModel::insert(const QString &filename)
         beginInsertRows(QModelIndex(), 0, 0);
         m_files.prepend(filename);
         endInsertRows();
+        emit latestScreenshotChanged();
     }
 }
 

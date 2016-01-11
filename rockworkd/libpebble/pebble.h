@@ -30,6 +30,7 @@ class Pebble : public QObject
     Q_PROPERTY(QBluetoothAddress address MEMBER m_address)
     Q_PROPERTY(QString name MEMBER m_name)
     Q_PROPERTY(HardwareRevision HardwareRevision READ hardwareRevision)
+    Q_PROPERTY(Model model READ model)
     Q_PROPERTY(HardwarePlatform hardwarePlatform MEMBER m_hardwarePlatform)
     Q_PROPERTY(QString softwareVersion MEMBER m_softwareVersion)
     Q_PROPERTY(QString serialNumber MEMBER m_serialNumber)
@@ -51,6 +52,7 @@ public:
     QString softwareVersion() const;
     QString softwareCommitRevision() const;
     HardwareRevision hardwareRevision() const;
+    Model model() const;
     HardwarePlatform hardwarePlatform() const;
     QString serialNumber() const;
     Capabilities capabilities() const;
@@ -94,6 +96,7 @@ private slots:
     void onPebbleConnected();
     void onPebbleDisconnected();
     void pebbleVersionReceived(const QByteArray &data);
+    void factorySettingsReceived(const QByteArray &data);
     void phoneVersionAsked(const QByteArray &data);
     void logData(const QByteArray &data);
     void appDownloadFinished(const QString &id);
@@ -124,6 +127,7 @@ private:
     QString m_softwareCommitRevision;
     HardwareRevision m_hardwareRevision;
     HardwarePlatform m_hardwarePlatform = HardwarePlatformUnknown;
+    Model m_model = ModelUnknown;
     QString m_serialNumber;
     Capabilities m_capabilities = CapabilityNone;
     bool m_isUnfaithful = false;
