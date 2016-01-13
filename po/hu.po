@@ -7,16 +7,186 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-21 03:34+0100\n"
-"PO-Revision-Date: 2015-12-21 19:10+0000\n"
+"POT-Creation-Date: 2016-01-12 01:03+0100\n"
+"PO-Revision-Date: 2016-01-12 07:44+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-01-12 05:49+0000\n"
-"X-Generator: Launchpad (build 17881)\n"
+"X-Launchpad-Export-Date: 2016-01-13 06:00+0000\n"
+"X-Generator: Launchpad (build 17886)\n"
 
-#: /home/micha/Develop/upebble/upebble/Main.qml:39
+#: rockwork/AppSettingsPage.qml:13
+msgid "App Settings"
+msgstr "Alkalmazás beállítások"
+
+#: rockwork/appstoreclient.cpp:194
+msgid "Previous"
+msgstr "Előző"
+
+#: rockwork/appstoreclient.cpp:197
+msgid "Next"
+msgstr "Következő"
+
+#: rockwork/AppStoreDetailsPage.qml:8
+msgid "App details"
+msgstr "Alkalmazás részletei"
+
+#: rockwork/AppStoreDetailsPage.qml:56
+msgid "Install"
+msgstr "Telepítés"
+
+#: rockwork/AppStoreDetailsPage.qml:56
+msgid "Installed"
+msgstr "Telepítve"
+
+#: rockwork/AppStoreDetailsPage.qml:169
+msgid "Description"
+msgstr "Leírás"
+
+#: rockwork/AppStoreDetailsPage.qml:192
+msgid "Developer"
+msgstr "Fejlesztő"
+
+#: rockwork/AppStoreDetailsPage.qml:200
+msgid "Version"
+msgstr "Verzió"
+
+#: rockwork/AppStorePage.qml:8
+msgid "Add new watchapp"
+msgstr "Új alkalmazás hozzáadása"
+
+#: rockwork/AppStorePage.qml:8
+msgid "Add new watchface"
+msgstr "Új számlap hozzáadása"
+
+#: rockwork/AppStorePage.qml:119
+msgid "See all"
+msgstr "Összes"
+
+#: rockworkd/libpebble/appmanager.cpp:56
+msgid "Settings"
+msgstr "Beállítások"
+
+#: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
+#: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
+#: rockworkd/libpebble/appmanager.cpp:70 rockworkd/libpebble/appmanager.cpp:73
+msgid "System app"
+msgstr "Rendszeralkalmazás"
+
+#: rockworkd/libpebble/appmanager.cpp:59 rockwork/InstalledAppsPage.qml:9
+msgid "Watchfaces"
+msgstr "Számlapok"
+
+#: rockworkd/libpebble/appmanager.cpp:63
+msgid "Health"
+msgstr "Állapot"
+
+#: rockworkd/libpebble/appmanager.cpp:67
+msgid "Music"
+msgstr "Zene"
+
+#: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
 msgid "Notifications"
 msgstr "Értesítések"
+
+#: rockworkd/libpebble/appmanager.cpp:73
+msgid "Alarms"
+msgstr "Riasztások"
+
+#: rockworkd/libpebble/appmanager.cpp:76
+msgid "Default watchface"
+msgstr "Alapértelmezett számlap"
+
+#: rockwork/InstalledAppsPage.qml:9
+msgid "Apps & Watchfaces"
+msgstr "Alkalmazások és számlapok"
+
+#: rockwork/InstalledAppsPage.qml:9
+msgid "Apps"
+msgstr "Alkalmazások"
+
+#: rockwork/InstalledAppsPage.qml:155
+msgid "Launch"
+msgstr "Indítás"
+
+#: rockwork/InstalledAppsPage.qml:164
+msgid "Configure"
+msgstr "Beállítások"
+
+#: rockwork/InstalledAppsPage.qml:174 rockwork/ScreenshotsPage.qml:91
+msgid "Delete"
+msgstr "Törlés"
+
+#: rockwork/InstalledAppsPage.qml:184
+msgid "Close"
+msgstr "Bezárás"
+
+#: rockwork/MainMenuPage.qml:20
+msgid "Manage notifications"
+msgstr "Értesítések kezelése"
+
+#: rockwork/MainMenuPage.qml:27
+msgid "Manage Apps"
+msgstr "Alkalmazások kezelése"
+
+#: rockwork/MainMenuPage.qml:35
+msgid "Manage Watchfaces"
+msgstr "Számlapok kezelése"
+
+#: rockwork/MainMenuPage.qml:43 rockwork/ScreenshotsPage.qml:11
+msgid "Screenshots"
+msgstr "Képernyőképek"
+
+#: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
+msgid "Connected"
+msgstr "Kapcsolódva"
+
+#: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
+msgid "Disconnected"
+msgstr "Leválasztva"
+
+#: rockwork/NotificationsPage.qml:29
+msgid ""
+"Entries here will appear as notifications keep coming. Selected "
+"notifications will be shown on your Pebble smartwatch."
+msgstr ""
+"Az itt látható bejegyzések értesítésként érkeznek . A kiválasztott "
+"értesítések meg fognak jelenni a Pebble okosóráján."
+
+#: rockwork/PebblesPage.qml:6
+msgid "Manage Pebble Watches"
+msgstr "Pebble órák kezelése"
+
+#: rockwork/PebblesPage.qml:57
+msgid ""
+"No Pebble smartwatches configured yet. Please connect your Pebble watch "
+"using the system settings."
+msgstr ""
+"Nem található Pebble okosóra. Kérjük először a Rendszerbeállítások alatt "
+"csatlakoztassa az eszközt."
+
+#: rockwork/PebblesPage.qml:64
+msgid "Open system settings"
+msgstr "Rendszerbeállítások megnyitása"
+
+#: rockwork/ScreenshotsPage.qml:69
+msgid "Screenshot options"
+msgstr "Képernyőkép-beállítások"
+
+#: rockwork/ScreenshotsPage.qml:74
+msgid "Share"
+msgstr "Megosztás"
+
+#: rockwork/ScreenshotsPage.qml:82
+msgid "Save"
+msgstr "Mentés"
+
+#: rockwork/ScreenshotsPage.qml:99
+msgid "Cancel"
+msgstr "Mégse"
+
+#: rockwork/ScreenshotsPage.qml:123
+msgid "Pebble screenshot"
+msgstr "Pebble képernyőkép"

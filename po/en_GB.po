@@ -1,16 +1,16 @@
-# French translation for upebble
-# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
-# This file is distributed under the same license as the upebble package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+# English (United Kingdom) translation for rockwork
+# Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
+# This file is distributed under the same license as the rockwork package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: upebble\n"
+"Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-01-12 01:03+0100\n"
-"PO-Revision-Date: 2016-01-06 19:28+0000\n"
-"Last-Translator: Anne <anneonyme017@gmail.com>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2016-01-12 19:28+0000\n"
+"Last-Translator: Alan Pope  <alan@ubuntu.com>\n"
+"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,27 +19,27 @@ msgstr ""
 
 #: rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
-msgstr "Paramètres de l'application"
+msgstr "App Settings"
 
 #: rockwork/appstoreclient.cpp:194
 msgid "Previous"
-msgstr ""
+msgstr "Previous"
 
 #: rockwork/appstoreclient.cpp:197
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: rockwork/AppStoreDetailsPage.qml:8
 msgid "App details"
-msgstr "Détails de l'application"
+msgstr "App details"
 
 #: rockwork/AppStoreDetailsPage.qml:56
 msgid "Install"
-msgstr "Installer"
+msgstr "Install"
 
 #: rockwork/AppStoreDetailsPage.qml:56
 msgid "Installed"
-msgstr "Installées"
+msgstr "Installed"
 
 #: rockwork/AppStoreDetailsPage.qml:169
 msgid "Description"
@@ -47,7 +47,7 @@ msgstr "Description"
 
 #: rockwork/AppStoreDetailsPage.qml:192
 msgid "Developer"
-msgstr "Développeur"
+msgstr "Developer"
 
 #: rockwork/AppStoreDetailsPage.qml:200
 msgid "Version"
@@ -55,37 +55,37 @@ msgstr "Version"
 
 #: rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
-msgstr "Ajouter une nouvelle application pour montre"
+msgstr "Add new watchapp"
 
 #: rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
-msgstr "Ajouter un nouveau thème de montre"
+msgstr "Add new watchface"
 
 #: rockwork/AppStorePage.qml:119
 msgid "See all"
-msgstr "Tout voir"
+msgstr "See all"
 
 #: rockworkd/libpebble/appmanager.cpp:56
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
 #: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
 #: rockworkd/libpebble/appmanager.cpp:70 rockworkd/libpebble/appmanager.cpp:73
 msgid "System app"
-msgstr ""
+msgstr "System app"
 
 #: rockworkd/libpebble/appmanager.cpp:59 rockwork/InstalledAppsPage.qml:9
 msgid "Watchfaces"
-msgstr "Thèmes de montre"
+msgstr "Watchfaces"
 
 #: rockworkd/libpebble/appmanager.cpp:63
 msgid "Health"
-msgstr ""
+msgstr "Health"
 
 #: rockworkd/libpebble/appmanager.cpp:67
 msgid "Music"
-msgstr ""
+msgstr "Music"
 
 #: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
 msgid "Notifications"
@@ -93,101 +93,96 @@ msgstr "Notifications"
 
 #: rockworkd/libpebble/appmanager.cpp:73
 msgid "Alarms"
-msgstr ""
+msgstr "Alarms"
 
 #: rockworkd/libpebble/appmanager.cpp:76
 msgid "Default watchface"
-msgstr ""
+msgstr "Default watchface"
 
 #: rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
-msgstr "Applications & thèmes de montre"
+msgstr "Apps & Watchfaces"
 
 #: rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
-msgstr "Applications"
+msgstr "Apps"
 
 #: rockwork/InstalledAppsPage.qml:155
 msgid "Launch"
-msgstr "Lancer"
+msgstr "Launch"
 
 #: rockwork/InstalledAppsPage.qml:164
 msgid "Configure"
-msgstr "Configurer"
+msgstr "Configure"
 
 #: rockwork/InstalledAppsPage.qml:174 rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
-msgstr "Supprimer"
+msgstr "Delete"
 
 #: rockwork/InstalledAppsPage.qml:184
 msgid "Close"
-msgstr "Fermer"
+msgstr "Close"
 
 #: rockwork/MainMenuPage.qml:20
 msgid "Manage notifications"
-msgstr "Gérer les notifications"
+msgstr "Manage notifications"
 
 #: rockwork/MainMenuPage.qml:27
 msgid "Manage Apps"
-msgstr "Gérer les applications"
+msgstr "Manage Apps"
 
 #: rockwork/MainMenuPage.qml:35
 msgid "Manage Watchfaces"
-msgstr "Gérer les thèmes de montre"
+msgstr "Manage Watchfaces"
 
 #: rockwork/MainMenuPage.qml:43 rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
-msgstr "Captures d'écran"
+msgstr "Screenshots"
 
 #: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
 msgid "Connected"
-msgstr "Connectée"
+msgstr "Connected"
 
 #: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
 msgid "Disconnected"
-msgstr "Déconnectée"
+msgstr "Disconnected"
 
 #: rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will appear as notifications keep coming. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
-"Les entrées apparaîtront ici tant que les notifications continueront "
-"d'arriver. Les notifications sélectionnées seront affichées sur votre montre "
-"connectée Peeble."
 
 #: rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
-msgstr "Gérer les montres Pebble"
+msgstr "Manage Pebble Watches"
 
 #: rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble watch "
 "using the system settings."
 msgstr ""
-"Aucune montre connectée Pebble n'a encore été configurée. Veuillez connecter "
-"votre montre Pebble en utilisant les paramètres du système."
 
 #: rockwork/PebblesPage.qml:64
 msgid "Open system settings"
-msgstr "Ouvrir les paramètres du système"
+msgstr "Open system settings"
 
 #: rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
-msgstr "Options de capture d'écran"
+msgstr "Screenshot options"
 
 #: rockwork/ScreenshotsPage.qml:74
 msgid "Share"
-msgstr "Partager"
+msgstr "Share"
 
 #: rockwork/ScreenshotsPage.qml:82
 msgid "Save"
-msgstr "Enregistrer"
+msgstr "Save"
 
 #: rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Cancel"
 
 #: rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
-msgstr "Capture d'écran de Pebble"
+msgstr "Pebble screenshot"
