@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-01-12 01:03+0100\n"
-"PO-Revision-Date: 2016-01-09 20:21+0000\n"
-"Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
+"PO-Revision-Date: 2016-01-15 14:12+0000\n"
+"Last-Translator: Vitor Loureiro <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-01-13 06:00+0000\n"
+"X-Launchpad-Export-Date: 2016-01-16 05:55+0000\n"
 "X-Generator: Launchpad (build 17886)\n"
 
 #: rockwork/AppSettingsPage.qml:13
@@ -23,11 +23,11 @@ msgstr "Definições"
 
 #: rockwork/appstoreclient.cpp:194
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: rockwork/appstoreclient.cpp:197
 msgid "Next"
-msgstr ""
+msgstr "Seguinte"
 
 #: rockwork/AppStoreDetailsPage.qml:8
 msgid "App details"
@@ -67,7 +67,7 @@ msgstr "Ver todos"
 
 #: rockworkd/libpebble/appmanager.cpp:56
 msgid "Settings"
-msgstr ""
+msgstr "Definições"
 
 #: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
 #: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
@@ -81,11 +81,11 @@ msgstr "Watchfaces"
 
 #: rockworkd/libpebble/appmanager.cpp:63
 msgid "Health"
-msgstr ""
+msgstr "Saúde"
 
 #: rockworkd/libpebble/appmanager.cpp:67
 msgid "Music"
-msgstr ""
+msgstr "Música"
 
 #: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
 msgid "Notifications"
@@ -93,7 +93,7 @@ msgstr "Notificações"
 
 #: rockworkd/libpebble/appmanager.cpp:73
 msgid "Alarms"
-msgstr ""
+msgstr "Alarmes"
 
 #: rockworkd/libpebble/appmanager.cpp:76
 msgid "Default watchface"
