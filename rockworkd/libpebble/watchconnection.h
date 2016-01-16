@@ -45,7 +45,7 @@ public:
         EndpointTime = 11,
         EndpointVersion = 16,
         EndpointPhoneVersion = 17,
-//        watchSYSTEM_MESSAGE = 18,
+        EndpointSystemMessage = 18,
         EndpointMusicControl = 32,
         EndpointPhoneControl = 33,
         EndpointApplicationMessage = 48,
@@ -72,6 +72,17 @@ public:
         EndpointBlobDB = 45531, // New in 3.x
         EndpointSorting = 0xabcd,
         EndpointPutBytes = 0xbeef
+    };
+
+    enum SystemMessage {
+        SystemMessageFirmwareAvailable = 0,
+        SystemMessageFirmwareStart = 1,
+        SystemMessageFirmwareComplete = 2,
+        SystemMessageFirmwareFail = 3,
+        SystemMessageFirmwareUpToDate = 4,
+        SystemMessageFirmwareOutOfDate = 5,
+        SystemMessageBluetoothStartDiscoverable = 6,
+        SystemMessageBluetoothEndDiscoverable = 7
     };
 
     typedef QMap<int, QVariant> Dict;
@@ -107,6 +118,7 @@ public:
     QByteArray buildMessageData(uint lead, QStringList data);
 
     void writeToPebble(Endpoint endpoint, const QByteArray &data);
+    void systemMessage(SystemMessage msg);
 
     bool registerEndpointHandler(Endpoint endpoint, QObject *handler, const QString &method);
 

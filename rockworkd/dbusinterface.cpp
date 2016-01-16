@@ -13,6 +13,8 @@ DBusPebble::DBusPebble(Pebble *pebble, QObject *parent):
     connect(pebble, &Pebble::notificationFilterChanged, this, &DBusPebble::NotificationFilterChanged);
     connect(pebble, &Pebble::screenshotAdded, this, &DBusPebble::ScreenshotAdded);
     connect(pebble, &Pebble::screenshotRemoved, this, &DBusPebble::ScreenshotRemoved);
+    connect(pebble, &Pebble::updateAvailableChanged, this, &DBusPebble::FirmwareUpgradeAvailableChanged);
+    connect(pebble, &Pebble::upgradingFirmwareChanged, this, &DBusPebble::UpgradingFirmwareChanged);
 }
 
 QString DBusPebble::Address() const
@@ -28,6 +30,26 @@ QString DBusPebble::Name() const
 bool DBusPebble::IsConnected() const
 {
     return m_pebble->connected();
+}
+
+bool DBusPebble::Recovery() const
+{
+    return m_pebble->recovery();
+}
+
+bool DBusPebble::FirmwareUpgradeAvailable() const
+{
+    return m_pebble->firmwareUpdateAvailable();
+}
+
+QString DBusPebble::FirmwareReleaseNotes() const
+{
+    return m_pebble->firmwareReleaseNotes();
+}
+
+QString DBusPebble::CandidateFirmwareVersion() const
+{
+    return m_pebble->candidateFirmwareVersion();
 }
 
 QVariantMap DBusPebble::NotificationsFilter() const
@@ -126,6 +148,16 @@ void DBusPebble::RemoveScreenshot(const QString &filename)
     m_pebble->removeScreenshot(filename);
 }
 
+void DBusPebble::PerformFirmwareUpgrade()
+{
+    m_pebble->upgradeFirmware();
+}
+
+bool DBusPebble::UpgradingFirmware() const
+{
+    return m_pebble->upgradingFirmware();
+}
+
 QString DBusPebble::SerialNumber() const
 {
     return m_pebble->serialNumber();
@@ -146,6 +178,11 @@ QString DBusPebble::HardwarePlatform() const
     return "unknown";
 }
 
+QString DBusPebble::SoftwareVersion() const
+{
+    return m_pebble->softwareVersion();
+}
+
 int DBusPebble::Model() const
 {
     return m_pebble->model();
@@ -157,11 +194,14 @@ DBusInterface::DBusInterface(QObject *parent) :
     QDBusConnection::sessionBus().registerService("org.rockwork");
     QDBusConnection::sessionBus().registerObject("/org/rockwork/Manager", this, QDBusConnection::ExportScriptableSlots|QDBusConnection::ExportScriptableSignals);
 
+    qDebug() << "pebble manager has:" << Core::instance()->pebbleManager()->pebbles().count() << Core::instance()->pebbleManager();
     foreach (Pebble *pebble, Core::instance()->pebbleManager()->pebbles()) {
         pebbleAdded(pebble);
     }
 
-    connect(Core::instance()->pebbleManager(), &PebbleManager::pebbleAdded, this, [this](){emit PebblesChanged();});
+    qDebug() << "connecting dbus iface";
+    connect(Core::instance()->pebbleManager(), &PebbleManager::pebbleAdded, this, &DBusInterface::pebbleAdded);
+    connect(Core::instance()->pebbleManager(), &PebbleManager::pebbleRemoved, this, &DBusInterface::pebbleRemoved);
 }
 
 QString DBusInterface::Version()
@@ -180,12 +220,26 @@ QList<QDBusObjectPath> DBusInterface::ListWatches()
 
 void DBusInterface::pebbleAdded(Pebble *pebble)
 {
+    qDebug() << "pebble added";
     QString address = pebble->address().toString().replace(":", "_");
     if (m_dbusPebbles.contains(address)) {
         return;
     }
 
+    qDebug() << "registering dbus iface";
     DBusPebble *dbusPebble = new DBusPebble(pebble, this);
     m_dbusPebbles.insert(address, dbusPebble);
     QDBusConnection::sessionBus().registerObject("/org/rockwork/" + address, dbusPebble, QDBusConnection::ExportAllContents);
+
+    emit PebblesChanged();
+}
+
+void DBusInterface::pebbleRemoved(Pebble *pebble)
+{
+    QString address = pebble->address().toString().replace(":", "_");
+
+    QDBusConnection::sessionBus().unregisterObject("/org/rockwork/" + address);
+    m_dbusPebbles.remove(address);
+
+    emit PebblesChanged();
 }

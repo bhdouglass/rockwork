@@ -19,6 +19,13 @@ class Pebble : public QObject
     Q_PROPERTY(ApplicationsModel* installedApps READ installedApps CONSTANT)
     Q_PROPERTY(ApplicationsModel* installedWatchfaces READ installedWatchfaces CONSTANT)
     Q_PROPERTY(ScreenshotModel* screenshots READ screenshots CONSTANT)
+    Q_PROPERTY(bool recovery READ recovery NOTIFY connectedChanged)
+    Q_PROPERTY(QString softwareVersion READ softwareVersion NOTIFY connectedChanged)
+    Q_PROPERTY(bool firmwareUpgradeAvailable READ firmwareUpgradeAvailable NOTIFY firmwareUpgradeAvailableChanged)
+    Q_PROPERTY(QString firmwareReleaseNotes READ firmwareReleaseNotes NOTIFY firmwareUpgradeAvailableChanged)
+    Q_PROPERTY(QString candidateVersion READ candidateVersion NOTIFY firmwareUpgradeAvailableChanged)
+    Q_PROPERTY(bool upgradingFirmware READ upgradingFirmware NOTIFY upgradingFirmwareChanged)
+
 public:
     explicit Pebble(const QDBusObjectPath &path, QObject *parent = 0);
 
@@ -29,12 +36,19 @@ public:
     QString name() const;
     QString hardwarePlatform() const;
     QString serialNumber() const;
+    QString softwareVersion() const;
     int model() const;
+    bool recovery() const;
+    bool upgradingFirmware() const;
 
     NotificationSourceModel *notifications() const;
     ApplicationsModel* installedApps() const;
     ApplicationsModel* installedWatchfaces() const;
     ScreenshotModel* screenshots() const;
+
+    bool firmwareUpgradeAvailable() const;
+    QString firmwareReleaseNotes() const;
+    QString candidateVersion() const;
 
 public slots:
     void setNotificationFilter(const QString &sourceId, bool enabled);
@@ -46,11 +60,14 @@ public slots:
     void launchApp(const QString &uuid);
     void requestScreenshot();
     void removeScreenshot(const QString &filename);
+    void performFirmwareUpgrade();
 
 signals:
     void connectedChanged();
     void hardwarePlatformChanged();
     void modelChanged();
+    void firmwareUpgradeAvailableChanged();
+    void upgradingFirmwareChanged();
 
     void openURL(const QString &uuid, const QString &url);
 
@@ -68,6 +85,7 @@ private slots:
     void refreshScreenshots();
     void screenshotAdded(const QString &filename);
     void screenshotRemoved(const QString &filename);
+    void refreshFirmwareUpdateInfo();
 
 private:
     QDBusObjectPath m_path;
@@ -77,12 +95,19 @@ private:
     QString m_name;
     QString m_hardwarePlatform;
     QString m_serialNumber;
+    QString m_softwareVersion;
+    bool m_recovery = false;
     int m_model = 0;
     QDBusInterface *m_iface;
     NotificationSourceModel *m_notifications;
     ApplicationsModel *m_installedApps;
     ApplicationsModel *m_installedWatchfaces;
     ScreenshotModel *m_screenshotModel;
+
+    bool m_firmwareUpgradeAvailable = false;
+    QString m_firmwareReleaseNotes;
+    QString m_candidateVersion;
+    bool m_upgradingFirmware = false;
 };
 
 #endif // PEBBLE_H

@@ -185,6 +185,11 @@ void AppManager::removeApp(const QUuid &uuid)
 {
     m_appList.removeAll(uuid);
     AppInfo info = m_apps.take(uuid);
+    if (!info.isValid() || info.path().isEmpty()) {
+        qWarning() << "App UUID not found. not removing";
+        return;
+
+    }
     QDir dir(info.path());
     dir.removeRecursively();
     emit appsChanged();

@@ -22,14 +22,23 @@ signals:
     void OpenURL(const QString &uuid, const QString &url);
     void ScreenshotAdded(const QString &filename);
     void ScreenshotRemoved(const QString &filename);
+    void FirmwareUpgradeAvailableChanged();
+    void UpgradingFirmwareChanged();
 
 public slots:
     QString Address() const;
     QString Name() const;
     QString SerialNumber() const;
     QString HardwarePlatform() const;
+    QString SoftwareVersion() const;
     int Model() const;
     bool IsConnected() const;
+    bool Recovery() const;
+    bool FirmwareUpgradeAvailable() const;
+    QString CandidateFirmwareVersion() const;
+    QString FirmwareReleaseNotes() const;
+    void PerformFirmwareUpgrade();
+    bool UpgradingFirmware() const;
 
     QVariantMap NotificationsFilter() const;
     void SetNotificationFilter(const QString &sourceId, bool enabled);
@@ -68,6 +77,7 @@ signals:
 
 private slots:
     void pebbleAdded(Pebble *pebble);
+    void pebbleRemoved(Pebble *pebble);
 
 private:
     QHash<QString, DBusPebble*> m_dbusPebbles;

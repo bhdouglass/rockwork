@@ -17,6 +17,7 @@ public:
 
 signals:
     void pebbleAdded(Pebble *pebble);
+    void pebbleRemoved(Pebble *pebble);
 
 private slots:
     void loadPebbles();

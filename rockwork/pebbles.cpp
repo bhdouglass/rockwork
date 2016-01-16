@@ -92,6 +92,7 @@ int Pebbles::find(const QString &address) const
 
 void Pebbles::refresh()
 {
+    qDebug() << "pebbles changed";
     QDBusInterface iface(ROCKWORK_SERVICE, ROCKWORK_MANAGER_PATH, ROCKWORK_MANAGER_INTERFACE);
     if (!iface.isValid()) {
         qWarning() << "Could not connect to rockworkd.";
@@ -107,6 +108,7 @@ void Pebbles::refresh()
         return;
     }
     QDBusArgument arg = reply.arguments().first().value<QDBusArgument>();
+    QStringList availableList;
     arg.beginArray();
     while (!arg.atEnd()) {
         QDBusObjectPath p;
@@ -119,10 +121,33 @@ void Pebbles::refresh()
             endInsertRows();
             emit countChanged();
         }
-
+        availableList << p.path();
         std::sort(m_pebbles.begin(), m_pebbles.end(), Pebbles::sortPebbles);
     }
     arg.endArray();
+
+    QList<Pebble*> toRemove;
+    foreach (Pebble *pebble, m_pebbles) {
+        bool found = false;
+        foreach (const QString &path, availableList) {
+            if (path == pebble->path().path()) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            toRemove << pebble;
+        }
+    }
+
+    while (!toRemove.isEmpty()) {
+        Pebble *pebble = toRemove.takeFirst();
+        int idx = m_pebbles.indexOf(pebble);
+        beginRemoveRows(QModelIndex(), idx, idx);
+        m_pebbles.takeAt(idx)->deleteLater();
+        endRemoveRows();
+        emit countChanged();
+    }
 }
 
 bool Pebbles::sortPebbles(Pebble *a, Pebble *b)

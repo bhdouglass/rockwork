@@ -54,14 +54,14 @@ Page {
         visible: pebbles.count === 0
 
         Label {
-            text: i18n.tr("No Pebble smartwatches configured yet. Please connect your Pebble watch using the system settings.")
+            text: i18n.tr("No Pebble smartwatches configured yet. Please connect your Pebble smartwatch using System Settings.")
             fontSize: "large"
             width: parent.width
             wrapMode: Text.WordWrap
         }
 
         Button {
-            text: i18n.tr("Open system settings")
+            text: i18n.tr("Open System Settings")
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: Qt.openUrlExternally("settings://system/bluetooth")
         }

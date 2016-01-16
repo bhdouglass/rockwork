@@ -35,5 +35,7 @@
         <file>artwork/tintin-pink.png</file>
         <file>artwork/tintin-red.png</file>
         <file>artwork/tintin-white.png</file>
+        <file>PebbleModels.qml</file>
+        <file>FirmwareUpgradePage.qml</file>
     </qresource>
 </RCC>

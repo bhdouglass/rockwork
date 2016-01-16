@@ -8,7 +8,6 @@ TestingPlatform::TestingPlatform(QObject *parent):
     PlatformInterface(parent)
 {
     m_view = new QQuickView();
-    qDebug() << "showing view";
     m_view->rootContext()->setContextProperty("handler", this);
     qmlRegisterUncreatableType<Pebble>("PebbleTest", 1, 0, "Pebble", "Dont");
     m_view->setSource(QUrl("qrc:///testui/Main.qml"));

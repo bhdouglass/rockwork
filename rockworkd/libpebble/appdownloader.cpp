@@ -2,6 +2,7 @@
 #include "watchconnection.h"
 #include "watchdatareader.h"
 #include "watchdatawriter.h"
+#include "zipextractor.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -9,8 +10,6 @@
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
-#include <quazip/quazipfile.h>
-#include <quazip/quazip.h>
 
 AppDownloader::AppDownloader(const QString &storagePath, QObject *parent) :
     QObject(parent),
@@ -103,41 +102,11 @@ void AppDownloader::packageFetched()
     f.flush();
     f.close();
 
-    unpackArchive(storeId, reply->request().url().fileName());
-}
+    QString zipName = m_storagePath + storeId + "/" + reply->request().url().fileName() + ".zip";
 
-void AppDownloader::unpackArchive(const QString &storeId, const QString &filename)
-{
-    QString zipName = m_storagePath + storeId + "/" + filename + ".zip";
-
-    QuaZip zipFile(zipName);
-    zipFile.setZipName(m_storagePath + storeId + "/" + filename + ".zip");
-    qDebug() << "created zip file";
-    if (!zipFile.open(QuaZip::mdUnzip)) {
-        qWarning() << "Failed to open zip file" << zipFile.getZipName();
+    if (!ZipExtractor::unpackArchive(zipName, m_storagePath + storeId)) {
+        qWarning() << "Error unpacking App zip file";
         return;
-    }
-
-    foreach (const QuaZipFileInfo &fi, zipFile.getFileInfoList()) {
-        QuaZipFile f(zipName, fi.name);
-        if (!f.open(QFile::ReadOnly)) {
-            qWarning() << "could not extract file" << fi.name;
-            continue;
-        }
-        qDebug() << "Inflating:" << fi.name;
-        QFileInfo dirInfo(m_storagePath + storeId + "/" + fi.name);
-        if (!dirInfo.absoluteDir().exists()) {
-            dirInfo.absoluteDir().mkpath(dirInfo.absolutePath());
-        }
-        QFile of(m_storagePath + storeId + "/" + fi.name);
-        if (!of.open(QFile::WriteOnly | QFile::Truncate)) {
-            qWarning() << "Could not open output file for writing" << fi.name;
-            f.close();
-            continue;
-        }
-        of.write(f.readAll());
-        f.close();
-        of.close();
     }
 
     emit downloadFinished(storeId);

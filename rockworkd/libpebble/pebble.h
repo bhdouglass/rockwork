@@ -22,6 +22,7 @@ class JSKitManager;
 class BlobDB;
 class AppDownloader;
 class ScreenshotEndpoint;
+class FirmwareDownloader;
 
 class Pebble : public QObject
 {
@@ -57,6 +58,7 @@ public:
     QString serialNumber() const;
     Capabilities capabilities() const;
     bool isUnfaithful() const;
+    bool recovery() const;
 
     QString storagePath() const;
 
@@ -92,6 +94,12 @@ public slots:
     QStringList screenshots() const;
     void removeScreenshot(const QString &filename);
 
+    bool firmwareUpdateAvailable() const;
+    QString candidateFirmwareVersion() const;
+    QString firmwareReleaseNotes() const;
+    void upgradeFirmware() const;
+    bool upgradingFirmware() const;
+
 private slots:
     void onPebbleConnected();
     void onPebbleDisconnected();
@@ -104,6 +112,9 @@ private slots:
 
     void resetPebble();
     void syncApps();
+    void syncTime();
+
+    void slotUpdateAvailableChanged();
 
 signals:
     void pebbleConnected();
@@ -116,6 +127,8 @@ signals:
     void openURL(const QString &uuid, const QString &url);
     void screenshotAdded(const QString &filename);
     void screenshotRemoved(const QString &filename);
+    void updateAvailableChanged();
+    void upgradingFirmwareChanged();
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);
@@ -131,6 +144,7 @@ private:
     QString m_serialNumber;
     Capabilities m_capabilities = CapabilityNone;
     bool m_isUnfaithful = false;
+    bool m_recovery = false;
 
     WatchConnection *m_connection;
     NotificationEndpoint *m_notificationEndpoint;
@@ -143,6 +157,7 @@ private:
     BlobDB *m_blobDB;
     AppDownloader *m_appDownloader;
     ScreenshotEndpoint *m_screenshotEndpoint;
+    FirmwareDownloader *m_firmwareDownloader;
 
     QString m_storagePath;
 };

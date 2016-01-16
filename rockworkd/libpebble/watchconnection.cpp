@@ -34,10 +34,10 @@ void WatchConnection::scheduleReconnect()
 {
     if (m_connectionAttempts == 0) {
         reconnect();
-    } else if (m_connectionAttempts < 5) {
+    } else if (m_connectionAttempts < 25) {
         qDebug() << "Attempting to reconnect in 10 seconds";
         m_reconnectTimer.start(1000 * 10);
-    } else if (m_connectionAttempts < 15) {
+    } else if (m_connectionAttempts < 35) {
         qDebug() << "Attempting to reconnect in 1 minute";
         m_reconnectTimer.start(1000 * 60);
     } else {
@@ -109,6 +109,14 @@ void WatchConnection::writeToPebble(Endpoint endpoint, const QByteArray &data)
 
     //qDebug() << "Writing:" << msg.toHex();
     m_socket->write(msg);
+}
+
+void WatchConnection::systemMessage(WatchConnection::SystemMessage msg)
+{
+    QByteArray data;
+    data.append((char)0);
+    data.append((char)msg);
+    writeToPebble(EndpointSystemMessage, data);
 }
 
 bool WatchConnection::registerEndpointHandler(WatchConnection::Endpoint endpoint, QObject *handler, const QString &method)

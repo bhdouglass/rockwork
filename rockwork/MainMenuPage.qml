@@ -15,6 +15,19 @@ Page {
     }
 
     Component.onCompleted: {
+        populateMainMenu();
+    }
+
+    Connections {
+        target: root.pebble
+        onFirmwareUpgradeAvailableChanged: {
+            populateMainMenu();
+        }
+    }
+
+    function populateMainMenu() {
+        mainMenuModel.clear();
+
         mainMenuModel.append({
             icon: "stock_notification",
             text: i18n.tr("Manage notifications"),
@@ -45,11 +58,25 @@ Page {
             showWatchFaces: true,
             color: "gold"
         });
+
+        if (root.pebble.firmwareUpgradeAvailable) {
+            mainMenuModel.append({
+                icon: "preferences-system-updates-symbolic",
+                text: i18n.tr("Firmware upgrade"),
+                page: "FirmwareUpgradePage.qml",
+                color: "red"
+            });
+        }
+
+    }
+
+    PebbleModels {
+        id: modelModel
     }
 
     GridLayout {
         anchors.fill: parent
-        columns: parent.width > parent.hight ? 2 : 1
+        columns: parent.width > parent.height ? 2 : 1
 
         Item {
             Layout.fillWidth: true
@@ -61,95 +88,76 @@ Page {
                 anchors.margins: units.gu(1)
                 spacing: units.gu(1)
 
-                Image {
-                    Layout.preferredWidth: implicitWidth * height / implicitHeight
+                Item {
+                    Layout.alignment: Qt.AlignHCenter
                     Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: watchImage.width
+                    Image {
+                        id: watchImage
+                        width: implicitWidth * height / implicitHeight
+                        height: parent.height
+                        anchors.horizontalCenter: parent.horizontalCenter
 
-                    ListModel {
-                        id: modelModel
-                        ListElement { image: 'artwork/tintin-black.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/tintin-white.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/tintin-red.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/tintin-orange.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/tintin-grey.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/bianca-silver.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/bianca-black.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/tintin-blue.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/tintin-green.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/tintin-pink.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/snowy-white.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/snowy-black.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/snowy-red.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/bobby-silver.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/bobby-black.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/bobby-gold.png'; shape: "rectangle" }
-                        ListElement { image: 'artwork/spalding-14mm-silver.png'; shape: "round" }
-                        ListElement { image: 'artwork/spalding-14mm-black.png'; shape: "round" }
-                        ListElement { image: 'artwork/spalding-20mm-silver.png'; shape: "round" }
-                        ListElement { image: 'artwork/spalding-20mm-black.png'; shape: "round" }
-                        ListElement { image: 'artwork/spalding-14mm-rose-gold.png'; shape: "round" }
+                        source:  modelModel.get(root.pebble.model - 1).image
+                        fillMode: Image.PreserveAspectFit
 
+                        Item {
+                            id: watchFace
+                            height: parent.height * (modelModel.get(root.pebble.model - 1).shape === "rectangle" ? .5 : .515)
+                            width: height * (modelModel.get(root.pebble.model - 1).shape === "rectangle" ? .85 : 1)
+                            anchors.centerIn: parent
+                            anchors.horizontalCenterOffset: units.dp(1)
+                            anchors.verticalCenterOffset: units.dp(modelModel.get(root.pebble.model - 1).shape === "rectangle" ? 0 : 1)
 
-                    }
-
-                    source:  modelModel.get(root.pebble.model - 1).image
-                    fillMode: Image.PreserveAspectFit
-
-                    Item {
-                        id: watchFace
-                        height: parent.height * (modelModel.get(root.pebble.model - 1).shape === "rectangle" ? .5 : .515)
-                        width: height * (modelModel.get(root.pebble.model - 1).shape === "rectangle" ? .85 : 1)
-                        anchors.centerIn: parent
-                        anchors.horizontalCenterOffset: units.dp(1)
-                        anchors.verticalCenterOffset: units.dp(modelModel.get(root.pebble.model - 1).shape === "rectangle" ? 0 : 1)
-
-                        Image {
-                            id: image
-                            anchors.fill: parent
-                            source: "file://" + root.pebble.screenshots.latestScreenshot
-                            visible: false
-                        }
-
-                        Component.onCompleted: {
-                            if (!root.pebble.screenshots.latestScreenshot) {
-                                root.pebble.requestScreenshot();
+                            Image {
+                                id: image
+                                anchors.fill: parent
+                                source: "file://" + root.pebble.screenshots.latestScreenshot
+                                visible: false
                             }
-                        }
 
-                        Rectangle {
-                            id: textItem
-                            anchors.fill: parent
-                            layer.enabled: true
-                            radius: modelModel.get(root.pebble.model - 1).shape === "rectangle" ? units.gu(.5) : height / 2
-                            // This item should be used as the 'mask'
-                            layer.samplerName: "maskSource"
-                            layer.effect: ShaderEffect {
-                                property var colorSource: image;
-                                fragmentShader: "
-                                    uniform lowp sampler2D colorSource;
-                                    uniform lowp sampler2D maskSource;
-                                    uniform lowp float qt_Opacity;
-                                    varying highp vec2 qt_TexCoord0;
-                                    void main() {
-                                        gl_FragColor =
-                                            texture2D(colorSource, qt_TexCoord0)
-                                            * texture2D(maskSource, qt_TexCoord0).a
-                                            * qt_Opacity;
-                                    }
-                                "
+                            Component.onCompleted: {
+                                if (!root.pebble.screenshots.latestScreenshot) {
+                                    root.pebble.requestScreenshot();
+                                }
+                            }
+
+                            Rectangle {
+                                id: textItem
+                                anchors.fill: parent
+                                layer.enabled: true
+                                radius: modelModel.get(root.pebble.model - 1).shape === "rectangle" ? units.gu(.5) : height / 2
+                                // This item should be used as the 'mask'
+                                layer.samplerName: "maskSource"
+                                layer.effect: ShaderEffect {
+                                    property var colorSource: image;
+                                    fragmentShader: "
+                                        uniform lowp sampler2D colorSource;
+                                        uniform lowp sampler2D maskSource;
+                                        uniform lowp float qt_Opacity;
+                                        varying highp vec2 qt_TexCoord0;
+                                        void main() {
+                                            gl_FragColor =
+                                                texture2D(colorSource, qt_TexCoord0)
+                                                * texture2D(maskSource, qt_TexCoord0).a
+                                                * qt_Opacity;
+                                        }
+                                    "
+                                }
                             }
                         }
                     }
                 }
                 ColumnLayout {
                     Layout.fillWidth: true
+                    Layout.fillHeight: true
                     spacing: units.gu(2)
                     Rectangle {
                         height: units.gu(10)
                         width: height
                         radius: height / 2
                         color: root.pebble.connected ? UbuntuColors.green : UbuntuColors.red
-                        Layout.alignment: Qt.AlignHCenter
 
                         Icon {
                             anchors.fill: parent
@@ -162,7 +170,6 @@ Page {
                     Label {
                         text: root.pebble.connected ? i18n.tr("Connected") : i18n.tr("Disconnected")
                         Layout.fillWidth: true
-                        horizontalAlignment: Text.AlignHCenter
                     }
                 }
             }
@@ -172,8 +179,76 @@ Page {
         Column {
             Layout.fillWidth: true
             Layout.preferredHeight: childrenRect.height
+            spacing: menuRepeater.count > 0 ? 0 : units.gu(2)
+            Label {
+                text: i18n.tr("Your Pebble smartwatch is disconnected. Please make sure it is powered on, within range and it is paired properly in the Bluetooth System Settings.")
+                width: parent.width - units.gu(4)
+                anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: Text.WordWrap
+                visible: !root.pebble.connected
+                fontSize: "large"
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Button {
+                text: i18n.tr("Open System Settings")
+                visible: !root.pebble.connected
+                onClicked: Qt.openUrlExternally("settings://system/bluetooth")
+                color: UbuntuColors.orange
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Label {
+                text: i18n.tr("Your Pebble smartwatch is in factory mode and needs to be initialized.")
+                width: parent.width - units.gu(4)
+                anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: Text.WordWrap
+                visible: root.pebble.connected && root.pebble.recovery && !root.pebble.upgradingFirmware
+                fontSize: "large"
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Button {
+                text: i18n.tr("Initialize Pebble")
+                onClicked: root.pebble.performFirmwareUpgrade();
+                visible: root.pebble.connected && root.pebble.recovery && !root.pebble.upgradingFirmware
+                color: UbuntuColors.orange
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Rectangle {
+                id: upgradeIcon
+                height: units.gu(10)
+                width: height
+                radius: width / 2
+                color: UbuntuColors.orange
+                anchors.horizontalCenter: parent.horizontalCenter
+                Icon {
+                    anchors.fill: parent
+                    anchors.margins: units.gu(1)
+                    name: "preferences-system-updates-symbolic"
+                    color: "white"
+                }
+
+                RotationAnimation on rotation {
+                    duration: 2000
+                    loops: Animation.Infinite
+                    from: 0
+                    to: 360
+                    running: upgradeIcon.visible
+                }
+                visible: root.pebble.connected && root.pebble.upgradingFirmware
+            }
+
+            Label {
+                text: i18n.tr("Upgrading...")
+                fontSize: "large"
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: root.pebble.connected && root.pebble.upgradingFirmware
+            }
+
             Repeater {
-                model: mainMenuModel
+                id: menuRepeater
+                model: root.pebble.connected && !root.pebble.recovery && !root.pebble.upgradingFirmware ? mainMenuModel : null
                 delegate: ListItem {
 
                     RowLayout {

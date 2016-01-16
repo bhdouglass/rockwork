@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-12 01:03+0100\n"
+"POT-Creation-Date: 2016-01-16 22:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,27 +29,27 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:8
+#: rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:56
+#: rockwork/AppStoreDetailsPage.qml:57
 msgid "Install"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:56
+#: rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:169
+#: rockwork/AppStoreDetailsPage.qml:204
 msgid "Description"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:192
+#: rockwork/AppStoreDetailsPage.qml:227
 msgid "Developer"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:200
+#: rockwork/AppStoreDetailsPage.qml:235
 msgid "Version"
 msgstr ""
 
@@ -99,6 +99,39 @@ msgstr ""
 msgid "Default watchface"
 msgstr ""
 
+#: rockwork/FirmwareUpgradePage.qml:6 rockwork/MainMenuPage.qml:65
+msgid "Firmware upgrade"
+msgstr ""
+
+#: rockwork/FirmwareUpgradePage.qml:16
+msgid "A new firmware upgrade is available for your Pebble smarwatch."
+msgstr ""
+
+#: rockwork/FirmwareUpgradePage.qml:23
+#, qt-format
+msgid "Currently installed firmware: %1"
+msgstr ""
+
+#: rockwork/FirmwareUpgradePage.qml:29
+#, qt-format
+msgid "Candidate firmware version: %1"
+msgstr ""
+
+#: rockwork/FirmwareUpgradePage.qml:35
+#, qt-format
+msgid "Release Notes: %1"
+msgstr ""
+
+#: rockwork/FirmwareUpgradePage.qml:41
+msgid "Important:"
+msgstr ""
+
+#: rockwork/FirmwareUpgradePage.qml:41
+msgid ""
+"This update will also upgrade recovery data. Make sure your Pebble "
+"smartwarch is connected to a power adapter."
+msgstr ""
+
 #: rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
 msgstr ""
@@ -123,33 +156,55 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:20
+#: rockwork/MainMenuPage.qml:33
 msgid "Manage notifications"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:27
+#: rockwork/MainMenuPage.qml:40
 msgid "Manage Apps"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:35
+#: rockwork/MainMenuPage.qml:48
 msgid "Manage Watchfaces"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:43 rockwork/ScreenshotsPage.qml:11
+#: rockwork/MainMenuPage.qml:56 rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
+#: rockwork/MainMenuPage.qml:171 rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
+#: rockwork/MainMenuPage.qml:171 rockwork/PebblesPage.qml:36
 msgid "Disconnected"
+msgstr ""
+
+#: rockwork/MainMenuPage.qml:184
+msgid ""
+"Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
+"within range and it is paired properly in the Bluetooth System Settings."
+msgstr ""
+
+#: rockwork/MainMenuPage.qml:194 rockwork/PebblesPage.qml:64
+msgid "Open System Settings"
+msgstr ""
+
+#: rockwork/MainMenuPage.qml:202
+msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgstr ""
+
+#: rockwork/MainMenuPage.qml:211
+msgid "Initialize Pebble"
+msgstr ""
+
+#: rockwork/MainMenuPage.qml:243
+msgid "Upgrading..."
 msgstr ""
 
 #: rockwork/NotificationsPage.qml:29
 msgid ""
-"Entries here will appear as notifications keep coming. Selected "
+"Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
 
@@ -159,12 +214,8 @@ msgstr ""
 
 #: rockwork/PebblesPage.qml:57
 msgid ""
-"No Pebble smartwatches configured yet. Please connect your Pebble watch "
-"using the system settings."
-msgstr ""
-
-#: rockwork/PebblesPage.qml:64
-msgid "Open system settings"
+"No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
+"using System Settings."
 msgstr ""
 
 #: rockwork/ScreenshotsPage.qml:69

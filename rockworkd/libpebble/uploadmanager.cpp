@@ -79,7 +79,7 @@ uint UploadManager::uploadFirmwareBinary(bool recovery, const QString &filename,
 
 uint UploadManager::uploadFirmwareResources(const QString &filename, quint32 crc, SuccessCallback successCallback, ErrorCallback errorCallback, ProgressCallback progressCallback)
 {
-    return upload(WatchConnection::UploadTypeResources, 0, 0, filename, -1, crc, successCallback, errorCallback, progressCallback);
+    return upload(WatchConnection::UploadTypeSystemResources, 0, 0, filename, -1, crc, successCallback, errorCallback, progressCallback);
 }
 
 uint UploadManager::uploadAppWorker(quint32 appInstallId, const QString &filename, quint32 crc, UploadManager::SuccessCallback successCallback, UploadManager::ErrorCallback errorCallback, UploadManager::ProgressCallback progressCallback)
@@ -161,7 +161,7 @@ void UploadManager::startNextUpload()
                          << ", size:" << upload.remaining
                          << ", type:" << upload.type
                          << ", slot:" << upload.index
-                         << ", crc:" << qPrintable(QString("0x%1").arg(upload.crc, 0, 16))
+                         << ", crc:" << upload.crc
                          << ", filename:" << upload.filename;
 
     qDebug() << msg.toHex();

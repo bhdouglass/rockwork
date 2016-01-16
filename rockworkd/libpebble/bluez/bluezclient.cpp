@@ -1,6 +1,5 @@
 #include "bluezclient.h"
 #include "dbus-shared.h"
-#include "device.h"
 
 #include <QDBusConnection>
 #include <QDBusReply>
@@ -27,7 +26,6 @@ BluezClient::BluezClient(QObject *parent):
             InterfaceList ifaces = objectList.value(path);
             if (ifaces.contains(BLUEZ_DEVICE_IFACE)) {
                 QString candidatePath = path.path();
-                qDebug() << "have device" << candidatePath;
 
                 auto properties = ifaces.value(BLUEZ_DEVICE_IFACE);
                 addDevice(path, properties);
@@ -36,71 +34,29 @@ BluezClient::BluezClient(QObject *parent):
     }
 }
 
-QHash<QString, QString> BluezClient::pairedPebbles() const
+QList<Device> BluezClient::pairedPebbles() const
 {
+    QList<Device> ret;
     if (m_bluezManager.isValid()) {
-        return m_devices;
-    }
-
-    // Try with bluez 4
-    QHash<QString, QString> result;
-
-    QDBusConnection system = QDBusConnection::systemBus();
-
-    QDBusReply<QList<QDBusObjectPath> > listAdaptersReply = system.call(
-                QDBusMessage::createMethodCall("org.bluez", "/", "org.bluez.Manager",
-                                               "ListAdapters"));
-    if (!listAdaptersReply.isValid()) {
-        qWarning() << listAdaptersReply.error().message();
-        return result;
-    }
-
-    QList<QDBusObjectPath> adapters = listAdaptersReply.value();
-
-    if (adapters.isEmpty()) {
-        qWarning() << "No BT adapters found";
-        return result;
-    }
-
-    QDBusReply<QVariantMap> adapterPropertiesReply = system.call(
-                QDBusMessage::createMethodCall("org.bluez", adapters[0].path(), "org.bluez.Adapter",
-                                               "GetProperties"));
-    if (!adapterPropertiesReply.isValid()) {
-        qWarning() << adapterPropertiesReply.error().message();
-        return result;
-    }
-
-    QList<QDBusObjectPath> devices;
-    adapterPropertiesReply.value()["Devices"].value<QDBusArgument>() >> devices;
-
-    foreach (QDBusObjectPath path, devices) {
-        QDBusReply<QVariantMap> devicePropertiesReply = system.call(
-                    QDBusMessage::createMethodCall("org.bluez", path.path(), "org.bluez.Device",
-                                                   "GetProperties"));
-        if (!devicePropertiesReply.isValid()) {
-            qCritical() << devicePropertiesReply.error().message();
-            continue;
-        }
-
-        const QVariantMap &dict = devicePropertiesReply.value();
-
-        QString name = dict["Name"].toString();
-        if (name.startsWith("Pebble Time")) {
-            qDebug() << "Found Pebble:" << name;
-            result.insert(dict["Address"].toString(), name);
+        foreach (const Device &dev, m_devices) {
+            ret << dev;
         }
     }
-    return result;
+    return ret;
 }
 
 void BluezClient::addDevice(const QDBusObjectPath &path, const QVariantMap &properties)
 {
     QString address = properties.value("Address").toString();
     QString name = properties.value("Name").toString();
-    qDebug() << "Adding device" << address << name;
     if (name.startsWith("Pebble") && !name.startsWith("Pebble Time LE") && !m_devices.contains(address)) {
         qDebug() << "Found new Pebble:" << address << name;
-        m_devices.insert(address, name);
+        Device device;
+        device.address = QBluetoothAddress(address);
+        device.name = name;
+        device.path = path.path();
+        m_devices.insert(path.path(), device);
+        qDebug() << "emitting added";
         emit devicesChanged();
     }
 }
@@ -114,18 +70,15 @@ void BluezClient::slotInterfacesAdded(const QDBusObjectPath &path, InterfaceList
     }
 }
 
-void BluezClient::slotDevicePairingDone(bool success)
+void BluezClient::slotInterfacesRemoved(const QDBusObjectPath &path, const QStringList &ifaces)
 {
-    qDebug() << "pairing done" << success;
-    if (!success) {
+    qDebug() << "interfaces removed" << path.path() << ifaces;
+    if (!ifaces.contains(BLUEZ_DEVICE_IFACE)) {
         return;
     }
-
-    Device *device = static_cast<Device*>(sender());
-    device->deleteLater();
-
-    if (!m_devices.contains(device->getAddress())) {
-        m_devices.insert(device->getAddress(), device->getName());
+    if (m_devices.contains(path.path())) {
+        m_devices.take(path.path());
+        qDebug() << "removing dev";
         emit devicesChanged();
     }
 }

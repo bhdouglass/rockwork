@@ -11,6 +11,13 @@
 #include "bluez_adapter1.h"
 #include "bluez_agentmanager1.h"
 
+class Device {
+public:
+    QBluetoothAddress address;
+    QString name;
+    QString path;
+};
+
 class BluezClient: public QObject
 {
     Q_OBJECT
@@ -19,13 +26,13 @@ public:
     BluezClient(QObject *parent = 0);
 
 
-    QHash<QString, QString> pairedPebbles() const;
+    QList<Device> pairedPebbles() const;
 
 private slots:
     void addDevice(const QDBusObjectPath &path, const QVariantMap &properties);
 
     void slotInterfacesAdded(const QDBusObjectPath&path, InterfaceList ifaces);
-    void slotDevicePairingDone(bool success);
+    void slotInterfacesRemoved(const QDBusObjectPath&path, const QStringList &ifaces);
 
 signals:
     void devicesChanged();
@@ -37,7 +44,8 @@ private:
     BluezAdapter1 *m_bluezAdapter = nullptr;
     FreeDesktopProperties *m_bluezAdapterProperties = nullptr;
 
-    QHash<QString, QString> m_devices;
+
+    QHash<QString, Device> m_devices;
 };
 
 #endif // BLUEZCLIENT_H

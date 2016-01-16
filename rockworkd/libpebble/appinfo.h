@@ -7,19 +7,11 @@
 #include <QLoggingCategory>
 
 #include "enums.h"
+#include "bundle.h"
 
-class AppInfo
+class AppInfo: public Bundle
 {
 public:
-    enum FileType {
-        FileTypeAppInfo,
-        FileTypeJsApp,
-        FileTypeManifest,
-        FileTypeApplication,
-        FileTypeResources,
-        FileTypeWorker
-    };
-
     enum Capability {
         Location = 1 << 0,
         Configurable = 1 << 2
@@ -30,7 +22,6 @@ public:
     AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const QString &vendor);
     ~AppInfo();
 
-    QString path() const;
     bool isValid() const;
     QUuid uuid() const;
     QString storeId() const;
@@ -46,15 +37,7 @@ public:
     Capabilities capabilities() const;
     bool hasSettings() const;
 
-    bool hasMenuIcon() const;
-    QImage getMenuIconImage(HardwarePlatform hardwarePlatform) const;
-
-    QString file(FileType type, HardwarePlatform hardwarePlatform) const;
-    quint32 crc(FileType type, HardwarePlatform hardwarePlatform) const;
-
 private:
-    QString m_path;
-
     QUuid m_uuid;
     QString m_storeId;
     QString m_shortName;

@@ -26,20 +26,43 @@ QList<Pebble *> PebbleManager::pebbles() const
 
 void PebbleManager::loadPebbles()
 {
-    QHash<QString, QString> pairedPebbles = m_bluezClient->pairedPebbles();
-    foreach (const QString &addrString, pairedPebbles.keys()) {
-        QBluetoothAddress addr(addrString);
-        Pebble *pebble = get(addr);
+    QList<Device> pairedPebbles = m_bluezClient->pairedPebbles();
+    foreach (const Device &device, pairedPebbles) {
+        qDebug() << "loading pebble" << device.address.toString();
+        Pebble *pebble = get(device.address);
         if (!pebble) {
-            pebble = new Pebble(addr, this);
-            pebble->setName(pairedPebbles.value(addrString));
+            qDebug() << "creating new pebble";
+            pebble = new Pebble(device.address, this);
+            pebble->setName(device.name);
             setupPebble(pebble);
             m_pebbles.append(pebble);
+            qDebug() << "have pebbles:" << m_pebbles.count() << this;
             emit pebbleAdded(pebble);
         }
         if (!pebble->connected()) {
             pebble->connect();
         }
+    }
+    QList<Pebble*> pebblesToRemove;
+    foreach (Pebble *pebble, m_pebbles) {
+        bool found = false;
+        foreach (const Device &dev, pairedPebbles) {
+            if (dev.address == pebble->address()) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            pebblesToRemove << pebble;
+        }
+    }
+
+    while (!pebblesToRemove.isEmpty()) {
+        Pebble *pebble = pebblesToRemove.takeFirst();
+        qDebug() << "Removing pebble" << pebble->address();
+        m_pebbles.removeOne(pebble);
+        emit pebbleRemoved(pebble);
+        pebble->deleteLater();
     }
 }
 

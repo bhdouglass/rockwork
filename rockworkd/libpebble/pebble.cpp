@@ -11,6 +11,7 @@
 #include "blobdb.h"
 #include "appdownloader.h"
 #include "screenshotendpoint.h"
+#include "firmwaredownloader.h"
 #include "core.h"
 #include "platforminterface.h"
 
@@ -55,6 +56,14 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     m_screenshotEndpoint = new ScreenshotEndpoint(this, m_connection, this);
     QObject::connect(m_screenshotEndpoint, &ScreenshotEndpoint::screenshotAdded, this, &Pebble::screenshotAdded);
     QObject::connect(m_screenshotEndpoint, &ScreenshotEndpoint::screenshotRemoved, this, &Pebble::screenshotRemoved);
+
+    m_firmwareDownloader = new FirmwareDownloader(this, m_connection);
+    QObject::connect(m_firmwareDownloader, &FirmwareDownloader::updateAvailableChanged, this, &Pebble::slotUpdateAvailableChanged);
+    QObject::connect(m_firmwareDownloader, &FirmwareDownloader::upgradingChanged, this, &Pebble::upgradingFirmwareChanged);
+
+    QSettings s(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
+    m_model = (Model)s.value("watchModel", (int)ModelUnknown).toInt();
+
 }
 
 QBluetoothAddress Pebble::address() const
@@ -164,6 +173,16 @@ Capabilities Pebble::capabilities() const
 bool Pebble::isUnfaithful() const
 {
     return m_isUnfaithful;
+}
+
+bool Pebble::recovery() const
+{
+    return m_recovery;
+}
+
+bool Pebble::upgradingFirmware() const
+{
+    return m_firmwareDownloader->upgrading();
 }
 
 QString Pebble::storagePath() const
@@ -316,6 +335,26 @@ void Pebble::removeScreenshot(const QString &filename)
     m_screenshotEndpoint->removeScreenshot(filename);
 }
 
+bool Pebble::firmwareUpdateAvailable() const
+{
+    return m_firmwareDownloader->updateAvailable();
+}
+
+QString Pebble::candidateFirmwareVersion() const
+{
+    return m_firmwareDownloader->candidateVersion();
+}
+
+QString Pebble::firmwareReleaseNotes() const
+{
+    return m_firmwareDownloader->releaseNotes();
+}
+
+void Pebble::upgradeFirmware() const
+{
+    m_firmwareDownloader->performUpgrade();
+}
+
 void Pebble::onPebbleConnected()
 {
     qDebug() << "Pebble connected:" << m_name;
@@ -348,7 +387,8 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     m_softwareCommitRevision = wd.readFixedString(8);
     qDebug() << "Software Version commit:" << m_softwareCommitRevision;
 
-    qDebug() << "Recovery:" << wd.read<quint8>();
+    m_recovery = wd.read<quint8>();
+    qDebug() << "Recovery:" << m_recovery;
     HardwareRevision rev = (HardwareRevision)wd.read<quint8>();
     setHardwareRevision(rev);
     qDebug() << "HW Revision:" << rev;
@@ -381,22 +421,27 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     // This is useful for debugging
 //    m_isUnfaithful = true;
 
-    m_appManager->rescan();
+    if (!m_recovery) {
+        m_appManager->rescan();
 
-    QSettings version(m_storagePath + "/version.conf", QSettings::IniFormat);
-    if (version.value("version").toString() != QStringLiteral(VERSION)) {
-        m_isUnfaithful = true;
+        QSettings version(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
+        if (version.value("syncedWithVersion").toString() != QStringLiteral(VERSION)) {
+            m_isUnfaithful = true;
+        }
+
+        if (m_isUnfaithful) {
+            qDebug() << "Pebble sync state unclear. Resetting Pebble watch.";
+            resetPebble();
+        } else {
+            syncCalendar(Core::instance()->platform()->organizerItems());
+            syncApps();
+        }
+        version.setValue("syncedWithVersion", QStringLiteral(VERSION));
+
+        syncTime();
     }
 
-    if (m_isUnfaithful) {
-        qDebug() << "Pebble sync state unclear. Resetting Pebble watch.";
-        resetPebble();
-    } else {
-        syncCalendar(Core::instance()->platform()->organizerItems());
-        syncApps();
-    }
-    version.setValue("version", QStringLiteral(VERSION));
-
+    m_firmwareDownloader->checkForNewFirmware();
     emit pebbleConnected();
 
 }
@@ -414,6 +459,8 @@ void Pebble::factorySettingsReceived(const QByteArray &data)
         return;
     }
     m_model = (Model)reader.read<quint32>();
+    QSettings s(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
+    s.setValue("watchModel", m_model);
 }
 
 void Pebble::phoneVersionAsked(const QByteArray &data)
@@ -494,3 +541,31 @@ void Pebble::syncApps()
     // make sure the order is synced too
     m_appManager->setAppOrder(m_appManager->appUuids());
 }
+
+void Pebble::syncTime()
+{
+    QByteArray res;
+    QDateTime UTC(QDateTime::currentDateTimeUtc());
+    QDateTime local(UTC.toLocalTime());
+    local.setTimeSpec(Qt::UTC);
+    int offset = UTC.secsTo(local);
+    uint val = (local.toMSecsSinceEpoch() + offset) / 1000;
+
+    res.append(0x02); //SET_TIME_REQ
+    res.append((char)((val >> 24) & 0xff));
+    res.append((char)((val >> 16) & 0xff));
+    res.append((char)((val >> 8) & 0xff));
+    res.append((char)(val & 0xff));
+    m_connection->writeToPebble(WatchConnection::EndpointTime, res);
+}
+
+void Pebble::slotUpdateAvailableChanged()
+{
+    qDebug() << "update available" << m_firmwareDownloader->updateAvailable() << m_firmwareDownloader->candidateVersion();
+
+//    if (m_recovery) {
+//        m_firmwareDownloader->performUpgrade();
+//    }
+    emit updateAvailableChanged();
+}
+

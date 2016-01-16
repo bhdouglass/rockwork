@@ -24,11 +24,14 @@ Pebble::Pebble(const QDBusObjectPath &path, QObject *parent):
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "NotificationFilterChanged", this, SLOT(notificationFilterChanged(const QString &, bool)));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "ScreenshotAdded", this, SLOT(screenshotAdded(const QString &)));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "ScreenshotRemoved", this, SLOT(screenshotRemoved(const QString &)));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "FirmwareUpgradeAvailableChanged", this, SLOT(refreshFirmwareUpdateInfo()));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "UpgradingFirmwareChanged", this, SIGNAL(refreshFirmwareUpdateInfo()));
 
     dataChanged();
     refreshApps();
     refreshNotifications();
     refreshScreenshots();
+    refreshFirmwareUpdateInfo();
 }
 
 bool Pebble::connected() const
@@ -61,9 +64,25 @@ QString Pebble::serialNumber() const
     return m_serialNumber;
 }
 
+QString Pebble::softwareVersion() const
+{
+    return m_softwareVersion;
+}
+
 int Pebble::model() const
 {
     return m_model;
+}
+
+bool Pebble::recovery() const
+{
+    return m_recovery;
+}
+
+bool Pebble::upgradingFirmware() const
+{
+    qDebug() << "upgrading firmware" << m_upgradingFirmware;
+    return m_upgradingFirmware;
 }
 
 NotificationSourceModel *Pebble::notifications() const
@@ -84,6 +103,21 @@ ApplicationsModel *Pebble::installedWatchfaces() const
 ScreenshotModel *Pebble::screenshots() const
 {
     return m_screenshotModel;
+}
+
+bool Pebble::firmwareUpgradeAvailable() const
+{
+    return m_firmwareUpgradeAvailable;
+}
+
+QString Pebble::firmwareReleaseNotes() const
+{
+    return m_firmwareReleaseNotes;
+}
+
+QString Pebble::candidateVersion() const
+{
+    return m_candidateVersion;
 }
 
 void Pebble::configurationClosed(const QString &uuid, const QString &url)
@@ -131,12 +165,15 @@ void Pebble::dataChanged()
     m_name = fetchProperty("Name").toString();
     m_address = fetchProperty("Address").toString();
     m_serialNumber = fetchProperty("SerialNumber").toString();
+    m_serialNumber = fetchProperty("SerialNumber").toString();
     QString hardwarePlatform = fetchProperty("HardwarePlatform").toString();
     if (hardwarePlatform != m_hardwarePlatform) {
         m_hardwarePlatform = hardwarePlatform;
         emit hardwarePlatformChanged();
     }
+    m_softwareVersion = fetchProperty("SoftwareVersion").toString();
     m_model = fetchProperty("Model").toInt();
+    m_recovery = fetchProperty("Recovery").toBool();
     qDebug() << "model is" << m_model;
     emit modelChanged();
 
@@ -149,10 +186,11 @@ void Pebble::dataChanged()
 
 void Pebble::pebbleConnected()
 {
+
+    dataChanged();
     m_connected = true;
     emit connectedChanged();
 
-    dataChanged();
     refreshApps();
     refreshNotifications();
     refreshScreenshots();
@@ -298,6 +336,28 @@ void Pebble::screenshotRemoved(const QString &filename)
     m_screenshotModel->remove(filename);
 }
 
+void Pebble::refreshFirmwareUpdateInfo()
+{
+    bool firmwareUpgradeAvailable = fetchProperty("FirmwareUpgradeAvailable").toBool();
+    if (firmwareUpgradeAvailable && !m_firmwareUpgradeAvailable) {
+        m_firmwareUpgradeAvailable = true;
+        m_firmwareReleaseNotes = fetchProperty("FirmwareReleaseNotes").toString();
+        m_candidateVersion = fetchProperty("CandidateFirmwareVersion").toString();
+        qDebug() << "firmare upgrade" << m_firmwareUpgradeAvailable << m_firmwareReleaseNotes << m_candidateVersion;
+        emit firmwareUpgradeAvailableChanged();
+    } else if (!firmwareUpgradeAvailable && m_firmwareUpgradeAvailable) {
+        m_firmwareUpgradeAvailable = false;
+        m_firmwareReleaseNotes.clear();;
+        m_candidateVersion.clear();
+        emit firmwareUpgradeAvailableChanged();
+    }
+    bool upgradingFirmware = fetchProperty("UpgradingFirmware").toBool();
+    if (m_upgradingFirmware != upgradingFirmware) {
+        m_upgradingFirmware = upgradingFirmware;
+        emit upgradingFirmwareChanged();
+    }
+}
+
 void Pebble::requestScreenshot()
 {
     m_iface->call("RequestScreenshot");
@@ -307,4 +367,9 @@ void Pebble::removeScreenshot(const QString &filename)
 {
     qDebug() << "removing screenshot" << filename;
     m_iface->call("RemoveScreenshot", filename);
+}
+
+void Pebble::performFirmwareUpgrade()
+{
+    m_iface->call("PerformFirmwareUpgrade");
 }

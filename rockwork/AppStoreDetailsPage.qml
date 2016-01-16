@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3
+import QtGraphicalEffects 1.0
 
 Page {
     id: root
@@ -72,6 +73,7 @@ Page {
 
                     onClicked: {
                         root.pebble.installApp(root.app.storeId)
+                        installButton.enabled = false
                     }
                 }
             }
@@ -149,18 +151,51 @@ Page {
                     anchors { left: parent.left; right: parent.right; margins: units.gu(1) }
                     spacing: units.gu(1)
 
+                    PebbleModels {
+                        id: modelModel
+                    }
+
+
                     ListView {
-                        Layout.preferredHeight: units.gu(10)
+                        Layout.preferredHeight: units.gu(20)
                         Layout.fillWidth: true
                         orientation: ListView.Horizontal
                         spacing: units.gu(1)
 
                         model: root.app.screenshotImages
                         delegate: Image {
-                            height: units.gu(10)
-                            width: height
+                            height: units.gu(20)
+                            width: units.gu(10)
+                            fillMode: Image.PreserveAspectFit
                             source: modelData
                         }
+
+                        Image {
+                            id: watchImage
+                            // ssw : ssh = w : h
+                            height: parent.height
+                            width: height * sourceSize.width / sourceSize.height
+                            fillMode: Image.PreserveAspectFit
+                            anchors.centerIn: parent
+                            source:  modelModel.get(root.pebble.model - 1).image
+                            visible: false
+                        }
+
+                        OpacityMask {
+                            anchors.fill: watchImage
+                            source: watchImage
+                            maskSource: maskRect
+                        }
+
+                        Rectangle {
+                            color: "blue"
+                            id: maskRect
+                            anchors.fill: watchImage
+                            anchors.margins: units.gu(5)
+                            radius: modelModel.get(root.pebble.model - 1).shape === "rectangle" ? units.gu(.5) : height / 2
+//                            visible: false
+                        }
+
                     }
 
                     Label {
