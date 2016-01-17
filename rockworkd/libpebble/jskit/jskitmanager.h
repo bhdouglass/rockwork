@@ -3,20 +3,24 @@
 
 #include <QJSEngine>
 #include <QPointer>
-#include "appmanager.h"
-#include "watchconnection.h"
-#include "pebble.h"
-#include "appmsgmanager.h"
-//#include "settings.h"
+#include <QLoggingCategory>
+
+#include "../appmanager.h"
+#include "../watchconnection.h"
+#include "../pebble.h"
+#include "../appmsgmanager.h"
+
+#include "jskitconsole.h"
+#include "jskitgeolocation.h"
+#include "jskitlocalstorage.h"
+#include "jskittimer.h"
 
 class JSKitPebble;
-class JSKitConsole;
-class JSKitLocalStorage;
-class JSKitGeolocation;
 
 class JSKitManager : public QObject
 {
     Q_OBJECT
+    QLoggingCategory l;
 
 public:
     explicit JSKitManager(Pebble *pebble, WatchConnection *connection, AppManager *apps, AppMsgManager *appmsg, QObject *parent = 0);
@@ -51,14 +55,15 @@ private:
 
     Pebble *m_pebble;
     WatchConnection *m_connection;
-    AppManager *_apps;
-    AppMsgManager *_appmsg;
-    AppInfo _curApp;
-    QJSEngine *_engine;
-    QPointer<JSKitPebble> _jspebble;
-    QPointer<JSKitConsole> _jsconsole;
-    QPointer<JSKitLocalStorage> _jsstorage;
-    QPointer<JSKitGeolocation> _jsgeo;
+    AppManager *m_apps;
+    AppMsgManager *m_appmsg;
+    AppInfo m_curApp;
+    QJSEngine *m_engine;
+    QPointer<JSKitPebble> m_jspebble;
+    QPointer<JSKitConsole> m_jsconsole;
+    QPointer<JSKitLocalStorage> m_jsstorage;
+    QPointer<JSKitGeolocation> m_jsgeo;
+    QPointer<JSKitTimer> m_jstimer;
     QUuid m_configurationUuid;
 };
 

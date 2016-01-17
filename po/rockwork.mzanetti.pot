@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the rockwork package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: rockwork\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-12 01:03+0100\n"
+"POT-Creation-Date: 2016-01-17 05:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,172 +17,142 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: rockwork/AppSettingsPage.qml:13
+#: /development/rockwork/jskit/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
 msgstr ""
 
-#: rockwork/appstoreclient.cpp:194
-msgid "Previous"
-msgstr ""
-
-#: rockwork/appstoreclient.cpp:197
-msgid "Next"
-msgstr ""
-
-#: rockwork/AppStoreDetailsPage.qml:8
+#: /development/rockwork/jskit/rockwork/AppStoreDetailsPage.qml:8
 msgid "App details"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:56
+#: /development/rockwork/jskit/rockwork/AppStoreDetailsPage.qml:56
 msgid "Install"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:56
+#: /development/rockwork/jskit/rockwork/AppStoreDetailsPage.qml:56
 msgid "Installed"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:169
+#: /development/rockwork/jskit/rockwork/AppStoreDetailsPage.qml:169
 msgid "Description"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:192
+#: /development/rockwork/jskit/rockwork/AppStoreDetailsPage.qml:192
 msgid "Developer"
 msgstr ""
 
-#: rockwork/AppStoreDetailsPage.qml:200
+#: /development/rockwork/jskit/rockwork/AppStoreDetailsPage.qml:200
 msgid "Version"
 msgstr ""
 
-#: rockwork/AppStorePage.qml:8
+#: /development/rockwork/jskit/rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
 msgstr ""
 
-#: rockwork/AppStorePage.qml:8
+#: /development/rockwork/jskit/rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
 msgstr ""
 
-#: rockwork/AppStorePage.qml:119
+#: /development/rockwork/jskit/rockwork/AppStorePage.qml:119
 msgid "See all"
 msgstr ""
 
-#: rockworkd/libpebble/appmanager.cpp:56
-msgid "Settings"
-msgstr ""
-
-#: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
-#: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
-#: rockworkd/libpebble/appmanager.cpp:70 rockworkd/libpebble/appmanager.cpp:73
-msgid "System app"
-msgstr ""
-
-#: rockworkd/libpebble/appmanager.cpp:59 rockwork/InstalledAppsPage.qml:9
-msgid "Watchfaces"
-msgstr ""
-
-#: rockworkd/libpebble/appmanager.cpp:63
-msgid "Health"
-msgstr ""
-
-#: rockworkd/libpebble/appmanager.cpp:67
-msgid "Music"
-msgstr ""
-
-#: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
-msgid "Notifications"
-msgstr ""
-
-#: rockworkd/libpebble/appmanager.cpp:73
-msgid "Alarms"
-msgstr ""
-
-#: rockworkd/libpebble/appmanager.cpp:76
-msgid "Default watchface"
-msgstr ""
-
-#: rockwork/InstalledAppsPage.qml:9
+#: /development/rockwork/jskit/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
 msgstr ""
 
-#: rockwork/InstalledAppsPage.qml:9
+#: /development/rockwork/jskit/rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
 msgstr ""
 
-#: rockwork/InstalledAppsPage.qml:155
+#: /development/rockwork/jskit/rockwork/InstalledAppsPage.qml:9
+msgid "Watchfaces"
+msgstr ""
+
+#: /development/rockwork/jskit/rockwork/InstalledAppsPage.qml:155
 msgid "Launch"
 msgstr ""
 
-#: rockwork/InstalledAppsPage.qml:164
+#: /development/rockwork/jskit/rockwork/InstalledAppsPage.qml:164
 msgid "Configure"
 msgstr ""
 
-#: rockwork/InstalledAppsPage.qml:174 rockwork/ScreenshotsPage.qml:91
+#: /development/rockwork/jskit/rockwork/InstalledAppsPage.qml:174
+#: /development/rockwork/jskit/rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
 msgstr ""
 
-#: rockwork/InstalledAppsPage.qml:184
+#: /development/rockwork/jskit/rockwork/InstalledAppsPage.qml:184
 msgid "Close"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:20
+#: /development/rockwork/jskit/rockwork/MainMenuPage.qml:20
 msgid "Manage notifications"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:27
+#: /development/rockwork/jskit/rockwork/MainMenuPage.qml:27
 msgid "Manage Apps"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:35
+#: /development/rockwork/jskit/rockwork/MainMenuPage.qml:35
 msgid "Manage Watchfaces"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:43 rockwork/ScreenshotsPage.qml:11
+#: /development/rockwork/jskit/rockwork/MainMenuPage.qml:43
+#: /development/rockwork/jskit/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
+#: /development/rockwork/jskit/rockwork/MainMenuPage.qml:163
+#: /development/rockwork/jskit/rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
+#: /development/rockwork/jskit/rockwork/MainMenuPage.qml:163
+#: /development/rockwork/jskit/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr ""
 
-#: rockwork/NotificationsPage.qml:29
+#: /development/rockwork/jskit/rockwork/NotificationsPage.qml:8
+msgid "Notifications"
+msgstr ""
+
+#: /development/rockwork/jskit/rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will appear as notifications keep coming. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
 
-#: rockwork/PebblesPage.qml:6
+#: /development/rockwork/jskit/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
 msgstr ""
 
-#: rockwork/PebblesPage.qml:57
+#: /development/rockwork/jskit/rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble watch "
 "using the system settings."
 msgstr ""
 
-#: rockwork/PebblesPage.qml:64
+#: /development/rockwork/jskit/rockwork/PebblesPage.qml:64
 msgid "Open system settings"
 msgstr ""
 
-#: rockwork/ScreenshotsPage.qml:69
+#: /development/rockwork/jskit/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
 msgstr ""
 
-#: rockwork/ScreenshotsPage.qml:74
+#: /development/rockwork/jskit/rockwork/ScreenshotsPage.qml:74
 msgid "Share"
 msgstr ""
 
-#: rockwork/ScreenshotsPage.qml:82
+#: /development/rockwork/jskit/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
 msgstr ""
 
-#: rockwork/ScreenshotsPage.qml:99
+#: /development/rockwork/jskit/rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
 msgstr ""
 
-#: rockwork/ScreenshotsPage.qml:123
+#: /development/rockwork/jskit/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr ""

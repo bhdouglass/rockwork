@@ -7,7 +7,7 @@
 #include "phonecallendpoint.h"
 #include "appmanager.h"
 #include "appmsgmanager.h"
-#include "jskitmanager.h"
+#include "jskit/jskitmanager.h"
 #include "blobdb.h"
 #include "appdownloader.h"
 #include "screenshotendpoint.h"

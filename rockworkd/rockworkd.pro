@@ -28,8 +28,13 @@ SOURCES += main.cpp \
     libpebble/musicendpoint.cpp \
     libpebble/phonecallendpoint.cpp \
     libpebble/musicmetadata.cpp \
-    libpebble/jskitmanager.cpp \
-    libpebble/jskitobjects.cpp \
+    libpebble/jskit/jskitmanager.cpp \
+    libpebble/jskit/jskitconsole.cpp \
+    libpebble/jskit/jskitgeolocation.cpp \
+    libpebble/jskit/jskitlocalstorage.cpp \
+    libpebble/jskit/jskitpebble.cpp \
+    libpebble/jskit/jskitxmlhttprequest.cpp \
+    libpebble/jskit/jskittimer.cpp \
     libpebble/appinfo.cpp \
     libpebble/appmanager.cpp \
     libpebble/appmsgmanager.cpp \
@@ -67,8 +72,13 @@ HEADERS += \
     libpebble/musicmetadata.h \
     libpebble/phonecallendpoint.h \
     libpebble/platforminterface.h \
-    libpebble/jskitmanager.h \
-    libpebble/jskitobjects.h \
+    libpebble/jskit/jskitmanager.h \
+    libpebble/jskit/jskitconsole.h \
+    libpebble/jskit/jskitgeolocation.h \
+    libpebble/jskit/jskitlocalstorage.h \
+    libpebble/jskit/jskitpebble.h \
+    libpebble/jskit/jskitxmlhttprequest.h \
+    libpebble/jskit/jskittimer.h \
     libpebble/appinfo.h \
     libpebble/appmanager.h \
     libpebble/appmsgmanager.h \
@@ -121,4 +131,4 @@ QMAKE_POST_LINK = sed -i s/@VERSION@/$$VERSION/g $$OUT_PWD/../manifest.json || e
 #QMAKE_POST_LINK = echo $$OUT_PWD/../manifest.json > /tmp/huhu;
 
 RESOURCES += \
-    libpebble/jsfiles.qrc
+    libpebble/jskit/jsfiles.qrc
