@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-01-12 01:03+0100\n"
-"PO-Revision-Date: 2016-01-06 19:28+0000\n"
+"PO-Revision-Date: 2016-01-18 19:09+0000\n"
 "Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-01-13 06:00+0000\n"
+"X-Launchpad-Export-Date: 2016-01-19 06:09+0000\n"
 "X-Generator: Launchpad (build 17886)\n"
 
 #: rockwork/AppSettingsPage.qml:13
@@ -23,11 +23,11 @@ msgstr "Paramètres de l'application"
 
 #: rockwork/appstoreclient.cpp:194
 msgid "Previous"
-msgstr ""
+msgstr "Précédent"
 
 #: rockwork/appstoreclient.cpp:197
 msgid "Next"
-msgstr ""
+msgstr "Suivant"
 
 #: rockwork/AppStoreDetailsPage.qml:8
 msgid "App details"
@@ -67,13 +67,13 @@ msgstr "Tout voir"
 
 #: rockworkd/libpebble/appmanager.cpp:56
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
 #: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
 #: rockworkd/libpebble/appmanager.cpp:70 rockworkd/libpebble/appmanager.cpp:73
 msgid "System app"
-msgstr ""
+msgstr "Application système"
 
 #: rockworkd/libpebble/appmanager.cpp:59 rockwork/InstalledAppsPage.qml:9
 msgid "Watchfaces"
@@ -81,11 +81,11 @@ msgstr "Thèmes de montre"
 
 #: rockworkd/libpebble/appmanager.cpp:63
 msgid "Health"
-msgstr ""
+msgstr "Santé"
 
 #: rockworkd/libpebble/appmanager.cpp:67
 msgid "Music"
-msgstr ""
+msgstr "Musique"
 
 #: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
 msgid "Notifications"
@@ -93,11 +93,11 @@ msgstr "Notifications"
 
 #: rockworkd/libpebble/appmanager.cpp:73
 msgid "Alarms"
-msgstr ""
+msgstr "Alarmes"
 
 #: rockworkd/libpebble/appmanager.cpp:76
 msgid "Default watchface"
-msgstr ""
+msgstr "Thème de montre par défaut"
 
 #: rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
