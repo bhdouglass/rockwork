@@ -49,6 +49,7 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     m_blobDB = new BlobDB(this, m_connection);
     QObject::connect(m_blobDB, &BlobDB::muteSource, this, &Pebble::muteNotificationSource);
     QObject::connect(m_blobDB, &BlobDB::actionTriggered, this, &Pebble::actionTriggered);
+    QObject::connect(m_blobDB, &BlobDB::appInserted, this, &Pebble::appInstalled);
 
     m_appDownloader = new AppDownloader(m_storagePath, this);
     QObject::connect(m_appDownloader, &AppDownloader::downloadFinished, this, &Pebble::appDownloadFinished);
@@ -514,6 +515,13 @@ void Pebble::appDownloadFinished(const QString &id)
         return;
     }
     m_blobDB->insertAppMetaData(m_appManager->info(uuid));
+    m_pendingInstallations.append(uuid);
+}
+
+void Pebble::appInstalled(const QUuid &uuid) {
+    if (m_pendingInstallations.contains(uuid)) {
+        m_appMsgManager->launchApp(uuid);
+    }
 }
 
 void Pebble::muteNotificationSource(const QString &source)

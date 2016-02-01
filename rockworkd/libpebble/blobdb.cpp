@@ -299,6 +299,7 @@ void BlobDB::clearApps()
 void BlobDB::insertAppMetaData(const AppInfo &info)
 {
     if (!m_pebble->connected()) {
+        qWarning() << "Pebble is not connected. Cannot install app";
         return;
     }
 
@@ -385,7 +386,9 @@ void BlobDB::blobCommandReply(const QByteArray &data)
     } else { // All is well
         if (m_currentCommand->m_database == BlobDBIdApp && m_currentCommand->m_command == OperationInsert) {
             QSettings s(m_blobDBStoragePath + "/appsyncstate.conf", QSettings::IniFormat);
-            s.setValue(QUuid::fromRfc4122(m_currentCommand->m_key).toString(), true);
+            QUuid appUuid = QUuid::fromRfc4122(m_currentCommand->m_key);
+            s.setValue(appUuid.toString(), true);
+            emit appInserted(appUuid);
         }
     }
 

@@ -54,9 +54,10 @@ Page {
 
                 Button {
                     id: installButton
-                    text: enabled ? i18n.tr("Install") : i18n.tr("Installed")
+                    text: enabled ? i18n.tr("Install") : (installing ? i18n.tr("Installing...") : i18n.tr("Installed"))
                     color: UbuntuColors.green
-                    enabled: !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId)
+                    enabled: !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId) && !installing
+                    property bool installing: false
                     Connections {
                         target: root.pebble.installedApps
                         onChanged: {
@@ -73,7 +74,7 @@ Page {
 
                     onClicked: {
                         root.pebble.installApp(root.app.storeId)
-                        installButton.enabled = false
+                        installButton.installing = true
                     }
                 }
             }
@@ -156,20 +157,33 @@ Page {
                     }
 
 
-                    ListView {
+                    Item {
+                        id: screenshotsItem
                         Layout.preferredHeight: units.gu(20)
                         Layout.fillWidth: true
-                        orientation: ListView.Horizontal
-                        spacing: units.gu(1)
 
-                        model: root.app.screenshotImages
-                        delegate: Image {
-                            height: units.gu(20)
-                            width: units.gu(10)
-                            fillMode: Image.PreserveAspectFit
-                            source: modelData
+                        property bool isRound: modelModel.get(root.pebble.model - 1).shape === "round"
+
+                        ListView {
+                            id: screenshotsListView
+                            anchors.centerIn: parent
+                            width: parent.width
+                            height: screenshotsItem.isRound ? units.gu(10) : units.gu(9.5)
+                            orientation: ListView.Horizontal
+                            spacing: units.gu(1)
+                            snapMode: ListView.SnapToItem
+                            preferredHighlightBegin: (screenshotsListView.width - height * .95) / 2
+                            preferredHighlightEnd: (screenshotsListView.width + height * .95) / 2
+                            highlightRangeMode: ListView.StrictlyEnforceRange
+
+                            model: root.app.screenshotImages
+                            delegate: Image {
+                                height: screenshotsListView.height
+                                width: height * 0.95
+                                fillMode: Image.PreserveAspectFit
+                                source: modelData
+                            }
                         }
-
                         Image {
                             id: watchImage
                             // ssw : ssh = w : h
@@ -178,22 +192,38 @@ Page {
                             fillMode: Image.PreserveAspectFit
                             anchors.centerIn: parent
                             source:  modelModel.get(root.pebble.model - 1).image
-                            visible: false
+                            Rectangle {
+                                anchors.centerIn: parent
+                                height: units.gu(10)
+                                width: height
+                                color: "black"
+                                radius: screenshotsItem.isRound ? height / 2 : 0
+                            }
                         }
 
                         OpacityMask {
-                            anchors.fill: watchImage
-                            source: watchImage
+                            anchors.fill: screenshotsListView
+                            source: screenshotsListView
                             maskSource: maskRect
                         }
 
                         Rectangle {
-                            color: "blue"
                             id: maskRect
-                            anchors.fill: watchImage
-                            anchors.margins: units.gu(5)
-                            radius: modelModel.get(root.pebble.model - 1).shape === "rectangle" ? units.gu(.5) : height / 2
-//                            visible: false
+                            anchors.fill: screenshotsListView
+                            color: "transparent"
+                            visible: false
+
+                            Rectangle {
+                                color: "blue"
+                                anchors.centerIn: parent
+                                height: screenshotsListView.height
+                                width: screenshotsItem.isRound ? height : height * 0.9
+                                radius: screenshotsItem.isRound ? height / 2 : units.gu(.5)
+//                                anchors.fill: watchImage
+//                                anchors.margins: units.gu(5)
+//                                radius: modelModel.get(root.pebble.model - 1).shape === "rectangle" ? units.gu(.5) : height / 2
+//                                visible: false
+                            }
                         }
 
                     }

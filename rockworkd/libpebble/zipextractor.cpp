@@ -28,7 +28,7 @@ bool ZipExtractor::unpackArchive(const QString &archiveFilename, const QString &
         }
         qDebug() << "Inflating:" << fi.name;
         QFileInfo dirInfo(targetDir + "/" + fi.name);
-        if (!dirInfo.absoluteDir().exists() && dirInfo.absoluteDir().mkpath(dirInfo.absolutePath())) {
+        if (!dirInfo.absoluteDir().exists() && !dirInfo.absoluteDir().mkpath(dirInfo.absolutePath())) {
             qWarning() << "Error creating target dir" << dirInfo.absoluteDir();
             return false;
         }

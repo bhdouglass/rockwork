@@ -108,6 +108,7 @@ private slots:
     void phoneVersionAsked(const QByteArray &data);
     void logData(const QByteArray &data);
     void appDownloadFinished(const QString &id);
+    void appInstalled(const QUuid &uuid);
     void muteNotificationSource(const QString &source);
 
     void resetPebble();
@@ -160,6 +161,7 @@ private:
     FirmwareDownloader *m_firmwareDownloader;
 
     QString m_storagePath;
+    QList<QUuid> m_pendingInstallations;
 };
 
 /*
