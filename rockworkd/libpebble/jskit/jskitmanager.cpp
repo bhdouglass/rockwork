@@ -62,6 +62,8 @@ void JSKitManager::handleWebviewClosed(const QString &result)
 
         qCDebug(l) << "Sending" << eventObj.property("response").toString();
         m_jspebble->invokeCallbacks("webviewclosed", QJSValueList({eventObj}));
+
+        loadJsFile(":/cacheLocalStorage.js");
     } else {
         qCWarning(l) << "webview closed event, but JS engine is not running";
     }
@@ -111,6 +113,8 @@ void JSKitManager::handleAppMessage(const QUuid &uuid, const QVariantMap &msg)
             eventObj.setProperty("payload", m_engine->toScriptValue(msg));
 
             m_jspebble->invokeCallbacks("appmessage", QJSValueList({eventObj}));
+
+            loadJsFile(":/cacheLocalStorage.js");
         }
         else {
             qCDebug(l) << "but engine is stopped";
@@ -152,9 +156,10 @@ void JSKitManager::startJsApp()
     m_engine = new QJSEngine(this);
     m_jspebble = new JSKitPebble(m_curApp, this, m_engine);
     m_jsconsole = new JSKitConsole(m_engine);
-    m_jsstorage = new JSKitLocalStorage(m_pebble->storagePath(), m_curApp.uuid(), m_engine);
+    m_jsstorage = new JSKitLocalStorage(m_engine, m_pebble->storagePath(), m_curApp.uuid());
     m_jsgeo = new JSKitGeolocation(m_engine);
     m_jstimer = new JSKitTimer(m_engine);
+    m_jsperformance = new JSKitPerformance(m_engine);
 
     qCDebug(l) << "starting JS app" << m_curApp.shortName();
 
@@ -166,6 +171,7 @@ void JSKitManager::startJsApp()
     jskitObj.setProperty("localstorage", m_engine->newQObject(m_jsstorage));
     jskitObj.setProperty("geolocation", m_engine->newQObject(m_jsgeo));
     jskitObj.setProperty("timer", m_engine->newQObject(m_jstimer));
+    jskitObj.setProperty("performance", m_engine->newQObject(m_jsperformance));
     globalObj.setProperty("_jskit", jskitObj);
 
     QJSValue navigatorObj = m_engine->newObject();
@@ -207,6 +213,8 @@ void JSKitManager::startJsApp()
     // We try to invoke the callbacks even if script parsing resulted in error...
     m_jspebble->invokeCallbacks("ready");
 
+    loadJsFile(":/cacheLocalStorage.js");
+
     if (m_configurationUuid == m_curApp.uuid()) {
         qCDebug(l) << "going to launch config for" << m_configurationUuid;
         showConfiguration();
@@ -219,6 +227,8 @@ void JSKitManager::stopJsApp()
 {
     qCDebug(l) << "stop js app" << m_curApp.uuid();
     if (!m_engine) return; // Nothing to do!
+
+    loadJsFile(":/cacheLocalStorage.js");
 
     if (!m_curApp.uuid().isNull()) {
         m_appmsg->clearMessageHandler(m_curApp.uuid());

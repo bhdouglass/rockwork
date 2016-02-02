@@ -1,9 +1,8 @@
-#include <cstdarg>
 #include <QDebug>
 
 #include "jskitconsole.h"
 
-JSKitConsole::JSKitConsole(QObject *parent) : 
+JSKitConsole::JSKitConsole(QObject *parent) :
     QObject(parent),
     l(metaObject()->className())
 {

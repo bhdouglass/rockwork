@@ -174,6 +174,139 @@ QString JSKitPebble::getWatchToken() const
     return hash;
 }
 
+QJSValue JSKitPebble::getActiveWatchInfo() const
+{
+    QJSValue watchInfo = m_mgr->m_engine->newObject();
+
+    switch (m_mgr->m_pebble->hardwarePlatform()) {
+    case HardwarePlatformBasalt:
+        watchInfo.setProperty("platform", "basalt");
+        break;
+
+    case HardwarePlatformChalk:
+        watchInfo.setProperty("platform", "chalk");
+        break;
+
+    default:
+        watchInfo.setProperty("platform", "aplite");
+        break;
+    }
+
+    switch (m_mgr->m_pebble->model()) {
+    case ModelTintinWhite:
+        watchInfo.setProperty("model", "pebble_white");
+        break;
+
+    case ModelTintinRed:
+        watchInfo.setProperty("model", "pebble_red");
+        break;
+
+    case ModelTintinOrange:
+        watchInfo.setProperty("model", "pebble_orange");
+        break;
+
+    case ModelTintinGrey:
+        watchInfo.setProperty("model", "pebble_grey");
+        break;
+
+    case ModelBiancaSilver:
+        watchInfo.setProperty("model", "pebble_steel_silver");
+        break;
+
+    case ModelBiancaBlack:
+        watchInfo.setProperty("model", "pebble_steel_black");
+        break;
+
+    case ModelTintinBlue:
+        watchInfo.setProperty("model", "pebble_blue");
+        break;
+
+    case ModelTintinGreen:
+        watchInfo.setProperty("model", "pebble_green");
+        break;
+
+    case ModelTintinPink:
+        watchInfo.setProperty("model", "pebble_pink");
+        break;
+
+    case ModelSnowyWhite:
+        watchInfo.setProperty("model", "pebble_time_white");
+        break;
+
+    case ModelSnowyBlack:
+        watchInfo.setProperty("model", "pebble_time_black");
+        break;
+
+    case ModelSnowyRed:
+        watchInfo.setProperty("model", "pebble_time_read");
+        break;
+
+    case ModelBobbySilver:
+        watchInfo.setProperty("model", "pebble_time_steel_silver");
+        break;
+
+    case ModelBobbyBlack:
+        watchInfo.setProperty("model", "pebble_time_steel_black");
+        break;
+
+    case ModelBobbyGold:
+        watchInfo.setProperty("model", "pebble_time_steel_gold");
+        break;
+
+    case ModelSpalding14Silver:
+        watchInfo.setProperty("model", "pebble_time_round_silver_14mm");
+        break;
+
+    case ModelSpalding14Black:
+        watchInfo.setProperty("model", "pebble_time_round_black_14mm");
+        break;
+
+    case ModelSpalding20Silver:
+        watchInfo.setProperty("model", "pebble_time_round_silver_20mm");
+        break;
+
+    case ModelSpalding20Black:
+        watchInfo.setProperty("model", "pebble_time_round_black_20mm");
+        break;
+
+    case ModelSpalding14RoseGold:
+        watchInfo.setProperty("model", "pebble_time_round_rose_gold_14mm");
+        break;
+
+    default:
+        watchInfo.setProperty("model", "pebble_black");
+        break;
+    }
+
+    watchInfo.setProperty("language", m_mgr->m_pebble->language());
+
+    QJSValue firmware = m_mgr->m_engine->newObject();
+    QString version = m_mgr->m_pebble->softwareVersion().remove("v");
+    QStringList versionParts = version.split(".");
+
+    if (versionParts.count() >= 1) {
+        firmware.setProperty("major", versionParts[0].toInt());
+    }
+
+    if (versionParts.count() >= 2) {
+        firmware.setProperty("minor", versionParts[1].toInt());
+    }
+
+    if (versionParts.count() >= 3) {
+        if (versionParts[2].contains("-")) {
+            QStringList patchParts = version.split("-");
+            firmware.setProperty("patch", patchParts[0].toInt());
+            firmware.setProperty("suffix", patchParts[1]);
+        } else {
+            firmware.setProperty("patch", versionParts[2].toInt());
+            firmware.setProperty("suffix", "");
+        }
+    }
+
+    watchInfo.setProperty("firmware", firmware);
+    return watchInfo;
+}
+
 void JSKitPebble::openURL(const QUrl &url)
 {
     emit m_mgr->openURL(m_appInfo.uuid().toString(), url.toString());

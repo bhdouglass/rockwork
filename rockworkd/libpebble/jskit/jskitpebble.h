@@ -27,6 +27,7 @@ public:
 
     Q_INVOKABLE QString getAccountToken() const;
     Q_INVOKABLE QString getWatchToken() const;
+    Q_INVOKABLE QJSValue getActiveWatchInfo() const;
 
     Q_INVOKABLE void openURL(const QUrl &url);
 

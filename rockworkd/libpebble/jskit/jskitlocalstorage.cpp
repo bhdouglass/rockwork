@@ -4,8 +4,9 @@
 
 #include "jskitlocalstorage.h"
 
-JSKitLocalStorage::JSKitLocalStorage(const QString &storagePath, const QUuid &uuid, QObject *parent):
-    QObject(parent),
+JSKitLocalStorage::JSKitLocalStorage(QJSEngine *engine, const QString &storagePath, const QUuid &uuid):
+    QObject(engine),
+    m_engine(engine),
     m_storage(new QSettings(getStorageFileFor(storagePath, uuid), QSettings::IniFormat, this))
 {
 }
@@ -15,9 +16,9 @@ int JSKitLocalStorage::length() const
     return m_storage->allKeys().size();
 }
 
-QJSValue JSKitLocalStorage::getItem(const QString &key) const
+QJSValue JSKitLocalStorage::getItem(const QJSValue &key) const
 {
-    QVariant value = m_storage->value(key);
+    QVariant value = m_storage->value(key.toString());
 
     if (value.isValid()) {
         return QJSValue(value.toString());
@@ -26,14 +27,20 @@ QJSValue JSKitLocalStorage::getItem(const QString &key) const
     }
 }
 
-void JSKitLocalStorage::setItem(const QString &key, const QString &value)
+bool JSKitLocalStorage::setItem(const QJSValue &key, const QJSValue &value)
 {
-    m_storage->setValue(key, QVariant::fromValue(value));
+    m_storage->setValue(key.toString(), QVariant::fromValue(value.toString()));
+    return true;
 }
 
-void JSKitLocalStorage::removeItem(const QString &key)
+bool JSKitLocalStorage::removeItem(const QJSValue &key)
 {
-    m_storage->remove(key);
+    if (m_storage->contains(key.toString())) {
+        m_storage->remove(key.toString());
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void JSKitLocalStorage::clear()
@@ -43,14 +50,56 @@ void JSKitLocalStorage::clear()
 
 QJSValue JSKitLocalStorage::key(int index)
 {
-    QStringList keys = m_storage->allKeys();
+    QStringList allKeys = m_storage->allKeys();
     QJSValue key(QJSValue::NullValue);
 
-    if (keys.size() > index) {
-        key = QJSValue(keys[index]);
+    if (allKeys.size() > index) {
+        key = QJSValue(allKeys[index]);
     }
 
     return key;
+}
+
+QJSValue JSKitLocalStorage::get(const QJSValue &proxy, const QJSValue &key) const
+{
+    Q_UNUSED(proxy);
+    return getItem(key);
+}
+
+bool JSKitLocalStorage::set(const QJSValue &proxy, const QJSValue &key, const QJSValue &value)
+{
+    Q_UNUSED(proxy);
+    return setItem(key, value);
+}
+
+bool JSKitLocalStorage::has(const QJSValue &proxy, const QJSValue &key)
+{
+    Q_UNUSED(proxy);
+    return m_storage->contains(key.toString());
+}
+
+bool JSKitLocalStorage::deleteProperty(const QJSValue &proxy, const QJSValue &key)
+{
+    Q_UNUSED(proxy);
+    return removeItem(key);
+}
+
+QJSValue JSKitLocalStorage::keys(const QJSValue &proxy)
+{
+    Q_UNUSED(proxy);
+
+    QStringList allKeys = m_storage->allKeys();
+    QJSValue keyArray = m_engine->newArray(allKeys.size());
+    for (int i = 0; i < allKeys.size(); i++) {
+        keyArray.setProperty(i, allKeys[i]);
+    }
+
+    return keyArray;
+}
+
+QJSValue JSKitLocalStorage::enumerate()
+{
+    return keys(0);
 }
 
 QString JSKitLocalStorage::getStorageFileFor(const QString &storageDir, const QUuid &uuid)

@@ -14,6 +14,7 @@
 #include "jskitgeolocation.h"
 #include "jskitlocalstorage.h"
 #include "jskittimer.h"
+#include "jskitperformance.h"
 
 class JSKitPebble;
 
@@ -64,6 +65,7 @@ private:
     QPointer<JSKitLocalStorage> m_jsstorage;
     QPointer<JSKitGeolocation> m_jsgeo;
     QPointer<JSKitTimer> m_jstimer;
+    QPointer<JSKitPerformance> m_jsperformance;
     QUuid m_configurationUuid;
 };
 

@@ -35,6 +35,7 @@ SOURCES += main.cpp \
     libpebble/jskit/jskitpebble.cpp \
     libpebble/jskit/jskitxmlhttprequest.cpp \
     libpebble/jskit/jskittimer.cpp \
+    libpebble/jskit/jskitperformance.cpp \
     libpebble/appinfo.cpp \
     libpebble/appmanager.cpp \
     libpebble/appmsgmanager.cpp \
@@ -79,6 +80,7 @@ HEADERS += \
     libpebble/jskit/jskitpebble.h \
     libpebble/jskit/jskitxmlhttprequest.h \
     libpebble/jskit/jskittimer.h \
+    libpebble/jskit/jskitperformance.h \
     libpebble/appinfo.h \
     libpebble/appmanager.h \
     libpebble/appmsgmanager.h \

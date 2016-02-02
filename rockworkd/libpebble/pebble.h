@@ -34,6 +34,7 @@ class Pebble : public QObject
     Q_PROPERTY(HardwarePlatform hardwarePlatform MEMBER m_hardwarePlatform)
     Q_PROPERTY(QString softwareVersion MEMBER m_softwareVersion)
     Q_PROPERTY(QString serialNumber MEMBER m_serialNumber)
+    Q_PROPERTY(QString language MEMBER m_language)
 
 public:
     explicit Pebble(const QBluetoothAddress &address, QObject *parent = 0);
@@ -55,6 +56,7 @@ public:
     Model model() const;
     HardwarePlatform hardwarePlatform() const;
     QString serialNumber() const;
+    QString language() const;
     Capabilities capabilities() const;
     bool isUnfaithful() const;
 
@@ -129,6 +131,7 @@ private:
     HardwarePlatform m_hardwarePlatform = HardwarePlatformUnknown;
     Model m_model = ModelUnknown;
     QString m_serialNumber;
+    QString m_language;
     Capabilities m_capabilities = CapabilityNone;
     bool m_isUnfaithful = false;
 
