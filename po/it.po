@@ -1,0 +1,192 @@
+# Italian translation for upebble
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
+# This file is distributed under the same license as the upebble package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: upebble\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2016-01-12 01:03+0100\n"
+"PO-Revision-Date: 2016-01-17 21:05+0000\n"
+"Last-Translator: Emanuele Faraone <emanueleant03@gmail.com>\n"
+"Language-Team: Italian <it@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-01-18 05:56+0000\n"
+"X-Generator: Launchpad (build 17886)\n"
+
+#: rockwork/AppSettingsPage.qml:13
+msgid "App Settings"
+msgstr "Impostazioni dell' applicazione"
+
+#: rockwork/appstoreclient.cpp:194
+msgid "Previous"
+msgstr "Precedente"
+
+#: rockwork/appstoreclient.cpp:197
+msgid "Next"
+msgstr "Prossimo"
+
+#: rockwork/AppStoreDetailsPage.qml:8
+msgid "App details"
+msgstr "Dettagli sull'app"
+
+#: rockwork/AppStoreDetailsPage.qml:56
+msgid "Install"
+msgstr "Installa"
+
+#: rockwork/AppStoreDetailsPage.qml:56
+msgid "Installed"
+msgstr "Installato"
+
+#: rockwork/AppStoreDetailsPage.qml:169
+msgid "Description"
+msgstr "Descrizione"
+
+#: rockwork/AppStoreDetailsPage.qml:192
+msgid "Developer"
+msgstr "Sviluppatore"
+
+#: rockwork/AppStoreDetailsPage.qml:200
+msgid "Version"
+msgstr "Versione"
+
+#: rockwork/AppStorePage.qml:8
+msgid "Add new watchapp"
+msgstr "Aggiungi una nuova watchapp"
+
+#: rockwork/AppStorePage.qml:8
+msgid "Add new watchface"
+msgstr "Aggiungi una nuova watchapp"
+
+#: rockwork/AppStorePage.qml:119
+msgid "See all"
+msgstr "Mostra tutto"
+
+#: rockworkd/libpebble/appmanager.cpp:56
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
+#: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
+#: rockworkd/libpebble/appmanager.cpp:70 rockworkd/libpebble/appmanager.cpp:73
+msgid "System app"
+msgstr "Impostazioni di sistema"
+
+#: rockworkd/libpebble/appmanager.cpp:59 rockwork/InstalledAppsPage.qml:9
+msgid "Watchfaces"
+msgstr "Watchfaces"
+
+#: rockworkd/libpebble/appmanager.cpp:63
+msgid "Health"
+msgstr "Salute"
+
+#: rockworkd/libpebble/appmanager.cpp:67
+msgid "Music"
+msgstr "Musica"
+
+#: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
+msgid "Notifications"
+msgstr "Notifiche"
+
+#: rockworkd/libpebble/appmanager.cpp:73
+msgid "Alarms"
+msgstr "Avvisi"
+
+#: rockworkd/libpebble/appmanager.cpp:76
+msgid "Default watchface"
+msgstr "Watchfaces di default"
+
+#: rockwork/InstalledAppsPage.qml:9
+msgid "Apps & Watchfaces"
+msgstr "Apps & Watchfaces"
+
+#: rockwork/InstalledAppsPage.qml:9
+msgid "Apps"
+msgstr "App"
+
+#: rockwork/InstalledAppsPage.qml:155
+msgid "Launch"
+msgstr "Avvia"
+
+#: rockwork/InstalledAppsPage.qml:164
+msgid "Configure"
+msgstr "Configura"
+
+#: rockwork/InstalledAppsPage.qml:174 rockwork/ScreenshotsPage.qml:91
+msgid "Delete"
+msgstr "Elimina"
+
+#: rockwork/InstalledAppsPage.qml:184
+msgid "Close"
+msgstr "Chiudi"
+
+#: rockwork/MainMenuPage.qml:20
+msgid "Manage notifications"
+msgstr "Gestisci le notifiche"
+
+#: rockwork/MainMenuPage.qml:27
+msgid "Manage Apps"
+msgstr "Gestisci le applicazioni"
+
+#: rockwork/MainMenuPage.qml:35
+msgid "Manage Watchfaces"
+msgstr "Gestisci le Watchfaces"
+
+#: rockwork/MainMenuPage.qml:43 rockwork/ScreenshotsPage.qml:11
+msgid "Screenshots"
+msgstr "Screenshots"
+
+#: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
+msgid "Connected"
+msgstr "Connesso"
+
+#: rockwork/MainMenuPage.qml:163 rockwork/PebblesPage.qml:36
+msgid "Disconnected"
+msgstr "Disconnesso"
+
+#: rockwork/NotificationsPage.qml:29
+msgid ""
+"Entries here will appear as notifications keep coming. Selected "
+"notifications will be shown on your Pebble smartwatch."
+msgstr ""
+"Le voci apparinranno qui quando arriveranno delle notifiche. Le notifiche "
+"selezionate verranno visualizzate sul vostro Pebble."
+
+#: rockwork/PebblesPage.qml:6
+msgid "Manage Pebble Watches"
+msgstr "Gestisci le Whatchfaces Pebble"
+
+#: rockwork/PebblesPage.qml:57
+msgid ""
+"No Pebble smartwatches configured yet. Please connect your Pebble watch "
+"using the system settings."
+msgstr ""
+"Nessuno Smartwhatch Pebble é stato configurato. Connetti il tuo Orologio "
+"Pebble usando le impostazioni."
+
+#: rockwork/PebblesPage.qml:64
+msgid "Open system settings"
+msgstr "Apri le impostazioni di sistema"
+
+#: rockwork/ScreenshotsPage.qml:69
+msgid "Screenshot options"
+msgstr "Opzioni sugli Screenshot"
+
+#: rockwork/ScreenshotsPage.qml:74
+msgid "Share"
+msgstr "Condividi"
+
+#: rockwork/ScreenshotsPage.qml:82
+msgid "Save"
+msgstr "Salva"
+
+#: rockwork/ScreenshotsPage.qml:99
+msgid "Cancel"
+msgstr "Cancella"
+
+#: rockwork/ScreenshotsPage.qml:123
+msgid "Pebble screenshot"
+msgstr "Screenshot Pebble"
