@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-02 06:03+0000\n"
+"X-Launchpad-Export-Date: 2016-02-03 06:09+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -214,44 +214,3 @@ msgstr "Abbrechen"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Pebble Bildschirmfoto"
-
-#~ msgid "Previous"
-#~ msgstr "Zurück"
-
-#~ msgid "Next"
-#~ msgstr "Weiter"
-
-#~ msgid "Music"
-#~ msgstr "Musik"
-
-#~ msgid "Health"
-#~ msgstr "Gesundheit"
-
-#~ msgid "Default watchface"
-#~ msgstr "Standard Ziffernblatt"
-
-#~ msgid "Alarms"
-#~ msgstr "Wecker"
-
-#~ msgid "Settings"
-#~ msgstr "Einstellungen"
-
-#~ msgid "System app"
-#~ msgstr "Systemapplikation"
-
-#~ msgid ""
-#~ "Entries here will appear as notifications keep coming. Selected "
-#~ "notifications will be shown on your Pebble smartwatch."
-#~ msgstr ""
-#~ "Hier werden Einträge auftauchen sobald neue Benachrichtigungen erscheinen. "
-#~ "Ausgewählte Benachrichtigungen werden auf Ihrer Pebble Smartwatch angezeigt."
-
-#~ msgid ""
-#~ "No Pebble smartwatches configured yet. Please connect your Pebble watch "
-#~ "using the system settings."
-#~ msgstr ""
-#~ "Keine Pebble Smartwatch eingerichtet. Bitte verbinden Sie Ihre Pebble Uhr "
-#~ "über die Systemeinstellungen."
-
-#~ msgid "Open system settings"
-#~ msgstr "Systemeinstellungen öffnen"

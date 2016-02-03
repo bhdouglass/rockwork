@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-02 00:58+0100\n"
-"PO-Revision-Date: 2016-01-26 15:29+0000\n"
+"PO-Revision-Date: 2016-02-02 15:03+0000\n"
 "Last-Translator: Vitor Loureiro <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-02 06:03+0000\n"
+"X-Launchpad-Export-Date: 2016-02-03 06:09+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -31,7 +31,7 @@ msgstr "Instalar"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
-msgstr ""
+msgstr "A instalar..."
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
@@ -64,7 +64,7 @@ msgstr "Ver todos"
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:65
 msgid "Firmware upgrade"
-msgstr ""
+msgstr "Atualização do firmware"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smarwatch."
@@ -73,7 +73,7 @@ msgstr ""
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
-msgstr ""
+msgstr "Firmware instalado atualmente: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
@@ -87,13 +87,15 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
-msgstr ""
+msgstr "Importante:"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
 msgstr ""
+"Esta atualização também irá atualizar os dados de recuperação . Verifique se "
+"o seu smartwarch Pebble está conectado a um adaptador de energia."
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
@@ -166,14 +168,15 @@ msgstr ""
 msgid ""
 "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
+"O seu smartwatch Pebble está no modo de fábrica e precisa ser inicializado."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:211
 msgid "Initialize Pebble"
-msgstr ""
+msgstr "Inicializar o Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:243
 msgid "Upgrading..."
-msgstr ""
+msgstr "A actualizar..."
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
@@ -214,44 +217,3 @@ msgstr "Cancelar"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Capturas de ecrã Pebble"
-
-#~ msgid "Open system settings"
-#~ msgstr "Abrir definições"
-
-#~ msgid ""
-#~ "No Pebble smartwatches configured yet. Please connect your Pebble watch "
-#~ "using the system settings."
-#~ msgstr ""
-#~ "Sem smartwatches Pebble configurados ainda. Por favor, ligue o seu relógio "
-#~ "Pebble usando as definições."
-
-#~ msgid ""
-#~ "Entries here will appear as notifications keep coming. Selected "
-#~ "notifications will be shown on your Pebble smartwatch."
-#~ msgstr ""
-#~ "Aqui as entradas vão aparecer como notificações. As notificações "
-#~ "selecionadas serão mostradas no seu smartwacth Pebble."
-
-#~ msgid "Music"
-#~ msgstr "Música"
-
-#~ msgid "Health"
-#~ msgstr "Saúde"
-
-#~ msgid "Alarms"
-#~ msgstr "Alarmes"
-
-#~ msgid "Previous"
-#~ msgstr "Anterior"
-
-#~ msgid "Next"
-#~ msgstr "Seguinte"
-
-#~ msgid "Settings"
-#~ msgstr "Definições"
-
-#~ msgid "Default watchface"
-#~ msgstr "Watchface por defeito"
-
-#~ msgid "System app"
-#~ msgstr "Aplicação de Sistema"

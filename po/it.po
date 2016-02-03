@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-02 00:58+0100\n"
-"PO-Revision-Date: 2016-02-02 06:02+0000\n"
+"PO-Revision-Date: 2016-02-02 06:06+0000\n"
 "Last-Translator: Emanuele Antonio Faraone <emanueleant03@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-02 06:03+0000\n"
+"X-Launchpad-Export-Date: 2016-02-03 06:09+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -158,6 +158,9 @@ msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
+"Il tuo Pebble è disconnesso. Controlla che sia acceso,che non sia lontano e "
+"controlla se è accoppiato con questo smartphone nelle impostazioni del "
+"Bluetooth ."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:194
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
@@ -168,14 +171,15 @@ msgstr "Impostazioni aperte"
 msgid ""
 "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
+"Il tuo Pebble è in modalitá di fabbrica e sta per essere inizializzato"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:211
 msgid "Initialize Pebble"
-msgstr ""
+msgstr "Inizializza il Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:243
 msgid "Upgrading..."
-msgstr ""
+msgstr "Aggiornamento in corso..."
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
@@ -186,6 +190,8 @@ msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
+"Scrivi quali notifiche dovranno apparire nel telefono. Quelle selezionate "
+"appariranno nel Pebble ."
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
@@ -196,6 +202,8 @@ msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
 msgstr ""
+"Nessuno Smartwhatch Pebble connesso. Connetti il tuo Pebble usando le "
+"impostazioni."
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
@@ -216,44 +224,3 @@ msgstr "Cancella"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Screenshot Pebble"
-
-#~ msgid "Previous"
-#~ msgstr "Precedente"
-
-#~ msgid "Next"
-#~ msgstr "Prossimo"
-
-#~ msgid "Music"
-#~ msgstr "Musica"
-
-#~ msgid "Health"
-#~ msgstr "Salute"
-
-#~ msgid "Default watchface"
-#~ msgstr "Watchfaces di default"
-
-#~ msgid "Alarms"
-#~ msgstr "Avvisi"
-
-#~ msgid "Settings"
-#~ msgstr "Impostazioni"
-
-#~ msgid "System app"
-#~ msgstr "Impostazioni di sistema"
-
-#~ msgid ""
-#~ "No Pebble smartwatches configured yet. Please connect your Pebble watch "
-#~ "using the system settings."
-#~ msgstr ""
-#~ "Nessuno Smartwhatch Pebble é stato configurato. Connetti il tuo Orologio "
-#~ "Pebble usando le impostazioni."
-
-#~ msgid "Open system settings"
-#~ msgstr "Apri le impostazioni di sistema"
-
-#~ msgid ""
-#~ "Entries here will appear as notifications keep coming. Selected "
-#~ "notifications will be shown on your Pebble smartwatch."
-#~ msgstr ""
-#~ "Le voci apparinranno qui quando arriveranno delle notifiche. Le notifiche "
-#~ "selezionate verranno visualizzate sul vostro Pebble."

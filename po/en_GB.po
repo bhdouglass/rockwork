@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-02 06:04+0000\n"
+"X-Launchpad-Export-Date: 2016-02-03 06:09+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -214,44 +214,3 @@ msgstr "Cancel"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Pebble screenshot"
-
-#~ msgid "Previous"
-#~ msgstr "Previous"
-
-#~ msgid "Next"
-#~ msgstr "Next"
-
-#~ msgid "Music"
-#~ msgstr "Music"
-
-#~ msgid "Health"
-#~ msgstr "Health"
-
-#~ msgid "Default watchface"
-#~ msgstr "Default watchface"
-
-#~ msgid "Alarms"
-#~ msgstr "Alarms"
-
-#~ msgid "Settings"
-#~ msgstr "Settings"
-
-#~ msgid "System app"
-#~ msgstr "System app"
-
-#~ msgid "Open system settings"
-#~ msgstr "Open system settings"
-
-#~ msgid ""
-#~ "Entries here will appear as notifications keep coming. Selected "
-#~ "notifications will be shown on your Pebble smartwatch."
-#~ msgstr ""
-#~ "Entries here will appear as notifications keep coming. Selected "
-#~ "notifications will be shown on your Pebble smartwatch."
-
-#~ msgid ""
-#~ "No Pebble smartwatches configured yet. Please connect your Pebble watch "
-#~ "using the system settings."
-#~ msgstr ""
-#~ "No Pebble smartwatches configured yet. Please connect your Pebble watch "
-#~ "using the system settings."

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-02 06:03+0000\n"
+"X-Launchpad-Export-Date: 2016-02-03 06:09+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -214,45 +214,3 @@ msgstr "Annuler"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Capture d'écran de Pebble"
-
-#~ msgid ""
-#~ "Entries here will appear as notifications keep coming. Selected "
-#~ "notifications will be shown on your Pebble smartwatch."
-#~ msgstr ""
-#~ "Les entrées apparaîtront ici tant que les notifications continueront "
-#~ "d'arriver. Les notifications sélectionnées seront affichées sur votre montre "
-#~ "connectée Peeble."
-
-#~ msgid ""
-#~ "No Pebble smartwatches configured yet. Please connect your Pebble watch "
-#~ "using the system settings."
-#~ msgstr ""
-#~ "Aucune montre connectée Pebble n'a encore été configurée. Veuillez connecter "
-#~ "votre montre Pebble en utilisant les paramètres du système."
-
-#~ msgid "Open system settings"
-#~ msgstr "Ouvrir les paramètres du système"
-
-#~ msgid "Music"
-#~ msgstr "Musique"
-
-#~ msgid "Health"
-#~ msgstr "Santé"
-
-#~ msgid "Alarms"
-#~ msgstr "Alarmes"
-
-#~ msgid "Previous"
-#~ msgstr "Précédent"
-
-#~ msgid "Next"
-#~ msgstr "Suivant"
-
-#~ msgid "Settings"
-#~ msgstr "Paramètres"
-
-#~ msgid "System app"
-#~ msgstr "Application système"
-
-#~ msgid "Default watchface"
-#~ msgstr "Thème de montre par défaut"

@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-02 00:58+0100\n"
-"PO-Revision-Date: 2016-01-13 15:21+0000\n"
+"PO-Revision-Date: 2016-02-02 23:01+0000\n"
 "Last-Translator: Aitzol Berasategi <aitzol76@gmail.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-02 06:03+0000\n"
+"X-Launchpad-Export-Date: 2016-02-03 06:09+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -31,7 +31,7 @@ msgstr "Instalatu"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
-msgstr ""
+msgstr "Instalatzen..."
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
@@ -64,16 +64,17 @@ msgstr "Guztiak ikusi"
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:65
 msgid "Firmware upgrade"
-msgstr ""
+msgstr "Firmware eguneraketa"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smarwatch."
 msgstr ""
+"Firmware eguneraketa bat dago eskuragarri zure Pebble smartwatch-earentzat."
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
-msgstr ""
+msgstr "Unean instalaturiko firmwarea: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
@@ -83,17 +84,19 @@ msgstr ""
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
-msgstr ""
+msgstr "Bertsio oharrak: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
-msgstr ""
+msgstr "Garrantzitsua:"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
 msgstr ""
+"Eguneraketa honek berreskuratze datuak ere berrituko ditu. Ziurtatu zure "
+"Pebble smartwatch-ea argindar egokitzaile bati konektaturik egotea."
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
@@ -156,24 +159,29 @@ msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
+"Zure Pebble smartwatch-ea deskonektaturik dago. Mesedez ziurtatu pizturik "
+"dagoela, irismen muga barruan dagoela eta ongi parekaturik aurkitzen dela "
+"sistemako Bluetooth ezarpenetan."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:194
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
-msgstr ""
+msgstr "Sistema Ezarpenak Ireki"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:202
 msgid ""
 "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
+"Zure Pebble smartwatch-ea fabrika moduan  aurkitzen da eta beharrezkoa du "
+"berrezartzea."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:211
 msgid "Initialize Pebble"
-msgstr ""
+msgstr "Pebble-a berrezarri"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:243
 msgid "Upgrading..."
-msgstr ""
+msgstr "Eguneratzen..."
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
@@ -184,6 +192,8 @@ msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
+"Hemengo aukerak  telefonoan jakinarazpenak agertu ahala gehituko dira. "
+"Aukeraturiko jakinarazpenak zure Pebble smartwatchean agertuko dira."
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
@@ -194,6 +204,8 @@ msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
 msgstr ""
+"Oraindik ez dago Pebble smartwatch-erik konfiguraturik. Mesedez konektatu "
+"zure Pebble smartwatch-a Sistema Ezarpenak erabiliz."
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
@@ -214,44 +226,3 @@ msgstr "Utzi"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Pebble pantaila-argazkia"
-
-#~ msgid "Previous"
-#~ msgstr "Aurrekoa"
-
-#~ msgid "Next"
-#~ msgstr "Hurrengoa"
-
-#~ msgid "Music"
-#~ msgstr "Musika"
-
-#~ msgid "Health"
-#~ msgstr "Osasuna"
-
-#~ msgid "Default watchface"
-#~ msgstr "Watchface lehenetsia"
-
-#~ msgid "Alarms"
-#~ msgstr "Alarmak"
-
-#~ msgid "Settings"
-#~ msgstr "Ezarpenak"
-
-#~ msgid "System app"
-#~ msgstr "Sistema aplikazioa"
-
-#~ msgid ""
-#~ "No Pebble smartwatches configured yet. Please connect your Pebble watch "
-#~ "using the system settings."
-#~ msgstr ""
-#~ "Oraindik ez da Pebble ordularirik konfiguratu. Mesedez konekta ezazu zure "
-#~ "Pebble ordularia sistema ezarpenak erabiliz."
-
-#~ msgid "Open system settings"
-#~ msgstr "Sistema ezarpenak ireki"
-
-#~ msgid ""
-#~ "Entries here will appear as notifications keep coming. Selected "
-#~ "notifications will be shown on your Pebble smartwatch."
-#~ msgstr ""
-#~ "Jakinarazpen aukera berriak sortzen doazen moduan joango dira gehitzen. "
-#~ "Hautatutako jakinarazpenak zure Pebble ordularian ikusiko dira."

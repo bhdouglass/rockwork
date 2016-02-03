@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-02 00:58+0100\n"
-"PO-Revision-Date: 2016-01-12 07:44+0000\n"
+"PO-Revision-Date: 2016-02-02 09:30+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-02 06:03+0000\n"
+"X-Launchpad-Export-Date: 2016-02-03 06:09+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -31,7 +31,7 @@ msgstr "Telepítés"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
-msgstr ""
+msgstr "Telepítés…"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
@@ -64,36 +64,38 @@ msgstr "Összes"
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:65
 msgid "Firmware upgrade"
-msgstr ""
+msgstr "Firmware frissítés"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smarwatch."
-msgstr ""
+msgstr "Egy új firmware frissítés érhető el a Pebble okosórájához"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
-msgstr ""
+msgstr "Jelenleg telepített firmware: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
-msgstr ""
+msgstr "Telepítendő firmware: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
-msgstr ""
+msgstr "Kiadási megjegyzések: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
-msgstr ""
+msgstr "Fontos:"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
 msgstr ""
+"Ez a frissítés a helyreállítási adatokat is felülírja, ezért mindenképp "
+"csatlakoztassa a töltőhöz a Pebble okosóráját."
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
@@ -156,24 +158,27 @@ msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
+"A Pebble okosórája nem található. Győződjön meg róla, hogy be van kapcsolva, "
+"hatótávon belül van és megfelelően párosította a Rendszerbeállítások "
+"Bluetooth menüpontja alatt."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:194
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
-msgstr ""
+msgstr "Rendszerbeállítások megnyitása"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:202
 msgid ""
 "Your Pebble smartwatch is in factory mode and needs to be initialized."
-msgstr ""
+msgstr "Az Pebble okosórája gyári állapotban van és inicializálni kell."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:211
 msgid "Initialize Pebble"
-msgstr ""
+msgstr "Pebble inicializálása"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:243
 msgid "Upgrading..."
-msgstr ""
+msgstr "Frissítés…"
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
@@ -184,6 +189,8 @@ msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
+"Az itt megadott bejegyzések esetén az értesítések nem csak a telefonján, "
+"hanem a Pebble okosóráján is meg fognak jelenni."
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
@@ -194,6 +201,8 @@ msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
 msgstr ""
+"Nincs bekonfigurált Pebble okosóra. Csatlakoztassa az órát a "
+"Rendszerbeállítások alatt."
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
@@ -214,44 +223,3 @@ msgstr "Mégse"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Pebble képernyőkép"
-
-#~ msgid "Open system settings"
-#~ msgstr "Rendszerbeállítások megnyitása"
-
-#~ msgid ""
-#~ "No Pebble smartwatches configured yet. Please connect your Pebble watch "
-#~ "using the system settings."
-#~ msgstr ""
-#~ "Nem található Pebble okosóra. Kérjük először a Rendszerbeállítások alatt "
-#~ "csatlakoztassa az eszközt."
-
-#~ msgid ""
-#~ "Entries here will appear as notifications keep coming. Selected "
-#~ "notifications will be shown on your Pebble smartwatch."
-#~ msgstr ""
-#~ "Az itt látható bejegyzések értesítésként érkeznek . A kiválasztott "
-#~ "értesítések meg fognak jelenni a Pebble okosóráján."
-
-#~ msgid "Music"
-#~ msgstr "Zene"
-
-#~ msgid "Health"
-#~ msgstr "Állapot"
-
-#~ msgid "Default watchface"
-#~ msgstr "Alapértelmezett számlap"
-
-#~ msgid "Alarms"
-#~ msgstr "Riasztások"
-
-#~ msgid "Previous"
-#~ msgstr "Előző"
-
-#~ msgid "Next"
-#~ msgstr "Következő"
-
-#~ msgid "Settings"
-#~ msgstr "Beállítások"
-
-#~ msgid "System app"
-#~ msgstr "Rendszeralkalmazás"
