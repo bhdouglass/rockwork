@@ -33,5 +33,12 @@ Column {
             pebble.requestScreenshot();
         }
     }
+
+    Button {
+        text: "dump logs"
+        onClicked: {
+            pebble.dumpLogs();
+        }
+    }
 }
 

@@ -12,6 +12,7 @@
 #include "appdownloader.h"
 #include "screenshotendpoint.h"
 #include "firmwaredownloader.h"
+#include "watchlogendpoint.h"
 #include "core.h"
 #include "platforminterface.h"
 
@@ -61,6 +62,8 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     m_firmwareDownloader = new FirmwareDownloader(this, m_connection);
     QObject::connect(m_firmwareDownloader, &FirmwareDownloader::updateAvailableChanged, this, &Pebble::slotUpdateAvailableChanged);
     QObject::connect(m_firmwareDownloader, &FirmwareDownloader::upgradingChanged, this, &Pebble::upgradingFirmwareChanged);
+
+    m_logEndpoint = new WatchLogEndpoint(this, m_connection);
 
     QSettings s(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
     m_model = (Model)s.value("watchModel", (int)ModelUnknown).toInt();
@@ -184,6 +187,11 @@ bool Pebble::recovery() const
 bool Pebble::upgradingFirmware() const
 {
     return m_firmwareDownloader->upgrading();
+}
+
+void Pebble::dumpLogs() const
+{
+    m_logEndpoint->fetchLogs();
 }
 
 QString Pebble::storagePath() const

@@ -23,6 +23,7 @@ class BlobDB;
 class AppDownloader;
 class ScreenshotEndpoint;
 class FirmwareDownloader;
+class WatchLogEndpoint;
 
 class Pebble : public QObject
 {
@@ -100,6 +101,8 @@ public slots:
     void upgradeFirmware() const;
     bool upgradingFirmware() const;
 
+    void dumpLogs() const;
+
 private slots:
     void onPebbleConnected();
     void onPebbleDisconnected();
@@ -159,6 +162,7 @@ private:
     AppDownloader *m_appDownloader;
     ScreenshotEndpoint *m_screenshotEndpoint;
     FirmwareDownloader *m_firmwareDownloader;
+    WatchLogEndpoint *m_logEndpoint;
 
     QString m_storagePath;
     QList<QUuid> m_pendingInstallations;

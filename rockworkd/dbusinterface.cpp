@@ -188,6 +188,11 @@ int DBusPebble::Model() const
     return m_pebble->model();
 }
 
+void DBusPebble::DumpLogs() const
+{
+    m_pebble->dumpLogs();
+}
+
 DBusInterface::DBusInterface(QObject *parent) :
     QObject(parent)
 {

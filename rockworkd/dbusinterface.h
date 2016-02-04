@@ -54,6 +54,7 @@ public slots:
     void RequestScreenshot();
     QStringList Screenshots() const;
     void RemoveScreenshot(const QString &filename);
+    void DumpLogs() const;
 
 private:
     Pebble *m_pebble;

@@ -41,7 +41,7 @@ class WatchConnection : public QObject
 public:
 
     enum Endpoint {
-        EndpointZero = 0, // We get that sometimes... nut sure yet what it is...
+        EndpointUnknownEndpoint = 0,
         EndpointTime = 11,
         EndpointVersion = 16,
         EndpointPhoneVersion = 17,
@@ -51,12 +51,12 @@ public:
         EndpointApplicationMessage = 48,
         EndpointLauncher = 49,
         EndpointAppLaunch = 52,
-//        watchLOGS = 2000,
-//        watchPING = 2001,
-//        watchLOG_DUMP = 2002,
-//        watchRESET = 2003,
-//        watchAPP = 2004,
-//        watchAPP_LOGS = 2006,
+        EndpointWatchLogs = 2000,
+//        EndpointWatchPing = 2001,
+        EndpointLogDump = 2002,
+//        EndpointWatchReset = 2003,
+//        EndpointWatchApp = 2004,
+//        EndpointAppLogs = 2006,
         EndpointNotification = 3000,
 //        watchEXTENSIBLE_NOTIFS = 3010, // Deprecated in 3.x
 //        watchRESOURCE = 4000,
