@@ -23,17 +23,7 @@ UbuntuPlatform::UbuntuPlatform(QObject *parent):
     m_iface->call("AddMatch", "interface='org.freedesktop.Notifications',member='CloseNotification',type='method_call',eavesdrop='true'");
 
     // Music
-    QDBusConnectionInterface *iface = QDBusConnection::sessionBus().interface();
-    const QStringList &services = iface->registeredServiceNames();
-    foreach (QString service, services) {
-        if (service.startsWith("org.mpris.MediaPlayer2.")) {
-            qDebug() << "have mpris service" << service;
-            m_mprisService = service;
-            fetchMusicMetadata();
-            QDBusConnection::sessionBus().connect(m_mprisService, "/org/mpris/MediaPlayer2", "", "PropertiesChanged", this, SLOT(mediaPropertiesChanged(QString,QVariantMap,QStringList)));
-            break;
-        }
-    }
+    setupMusicService();
     m_volumeActionGroup.setBusType(DBusEnums::SessionBus);
     m_volumeActionGroup.setBusName("com.canonical.indicator.sound");
     m_volumeActionGroup.setObjectPath("/com/canonical/indicator/sound");
@@ -74,7 +64,7 @@ uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QSt
         if (hints.contains("x-canonical-secondary-icon") && hints.value("x-canonical-secondary-icon").toString() == "incoming-call") {
             qDebug() << "Have a phone call notification. Ignoring it..." << app_name << app_icon;
         } else {
-            qDebug() << "Notification received" << app_name << replaces_id << app_icon << summary << body << actions << hints << expire_timeout;
+            qDebug() << "Notification received" << app_name << app_icon << actions << hints << expire_timeout;
             Notification n(app_name);
             if (app_name.contains("twitter")) {
                 n.setType(Notification::NotificationTypeTwitter);
@@ -118,8 +108,31 @@ uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QSt
     return 0;
 }
 
+void UbuntuPlatform::setupMusicService()
+{
+    if (!m_mprisService.isEmpty()) {
+        disconnect(this, SLOT(mediaPropertiesChanged(QString,QVariantMap,QStringList)));
+    }
+
+    QDBusConnectionInterface *iface = QDBusConnection::sessionBus().interface();
+    const QStringList &services = iface->registeredServiceNames();
+    foreach (QString service, services) {
+        if (service.startsWith("org.mpris.MediaPlayer2.")) {
+            qDebug() << "have mpris service" << service;
+            m_mprisService = service;
+            fetchMusicMetadata();
+            QDBusConnection::sessionBus().connect(m_mprisService, "/org/mpris/MediaPlayer2", "", "PropertiesChanged", this, SLOT(mediaPropertiesChanged(QString,QVariantMap,QStringList)));
+            break;
+        }
+    }
+}
+
 void UbuntuPlatform::sendMusicControlCommand(MusicControlButton controlButton)
 {
+    if (m_mprisService.isEmpty()) {
+        setupMusicService();
+    }
+
     QString method;
     switch (controlButton) {
     case MusicControlPlayPause:

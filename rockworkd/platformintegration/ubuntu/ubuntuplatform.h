@@ -40,6 +40,7 @@ public slots:
 
 
 private slots:
+    void setupMusicService();
     void fetchMusicMetadata();
     void fetchMusicMetadataFinished(QDBusPendingCallWatcher *watcher);
     void mediaPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps);
