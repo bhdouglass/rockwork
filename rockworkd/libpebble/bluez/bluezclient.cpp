@@ -49,7 +49,7 @@ void BluezClient::addDevice(const QDBusObjectPath &path, const QVariantMap &prop
 {
     QString address = properties.value("Address").toString();
     QString name = properties.value("Name").toString();
-    if (name.startsWith("Pebble") && !name.startsWith("Pebble Time LE") && !m_devices.contains(address)) {
+    if (name.startsWith("Pebble") && !name.startsWith("Pebble Time LE") && !name.startsWith("Pebble-LE") && !m_devices.contains(address)) {
         qDebug() << "Found new Pebble:" << address << name;
         Device device;
         device.address = QBluetoothAddress(address);
