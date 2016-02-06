@@ -7,209 +7,179 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-02 01:07+0100\n"
-"PO-Revision-Date: 2016-01-18 19:09+0000\n"
-"Last-Translator: Anne <anneonyme017@gmail.com>\n"
+"POT-Creation-Date: 2016-02-02 00:58+0100\n"
+"PO-Revision-Date: 2016-02-03 19:49+0000\n"
+"Last-Translator: Jean-Marc <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-01-19 06:09+0000\n"
-"X-Generator: Launchpad (build 17886)\n"
+"X-Launchpad-Export-Date: 2016-02-04 06:34+0000\n"
+"X-Generator: Launchpad (build 17908)\n"
 
-#: rockwork/AppSettingsPage.qml:13
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
 msgstr "Paramètres de l'application"
 
-#: rockwork/appstoreclient.cpp:194
-msgid "Previous"
-msgstr "Précédent"
-
-#: rockwork/appstoreclient.cpp:197
-msgid "Next"
-msgstr "Suivant"
-
-#: rockwork/AppStoreDetailsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
 msgstr "Détails de l'application"
 
-#: rockwork/AppStoreDetailsPage.qml:57
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Install"
 msgstr "Installer"
 
-#: rockwork/AppStoreDetailsPage.qml:57
-#, fuzzy
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
-msgstr "Installer"
+msgstr "Installation..."
 
-#: rockwork/AppStoreDetailsPage.qml:57
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
 msgstr "Installées"
 
-#: rockwork/AppStoreDetailsPage.qml:234
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:234
 msgid "Description"
 msgstr "Description"
 
-#: rockwork/AppStoreDetailsPage.qml:257
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:257
 msgid "Developer"
 msgstr "Développeur"
 
-#: rockwork/AppStoreDetailsPage.qml:265
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:265
 msgid "Version"
 msgstr "Version"
 
-#: rockwork/AppStorePage.qml:8
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
 msgstr "Ajouter une nouvelle application pour montre"
 
-#: rockwork/AppStorePage.qml:8
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
 msgstr "Ajouter un nouveau thème de montre"
 
-#: rockwork/AppStorePage.qml:119
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:119
 msgid "See all"
 msgstr "Tout voir"
 
-#: rockworkd/libpebble/appmanager.cpp:56
-msgid "Settings"
-msgstr "Paramètres"
-
-#: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
-#: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
-#: rockworkd/libpebble/appmanager.cpp:70 rockworkd/libpebble/appmanager.cpp:73
-msgid "System app"
-msgstr "Application système"
-
-#: rockworkd/libpebble/appmanager.cpp:59 rockwork/InstalledAppsPage.qml:9
-msgid "Watchfaces"
-msgstr "Thèmes de montre"
-
-#: rockworkd/libpebble/appmanager.cpp:63
-msgid "Health"
-msgstr "Santé"
-
-#: rockworkd/libpebble/appmanager.cpp:67
-msgid "Music"
-msgstr "Musique"
-
-#: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
-msgid "Notifications"
-msgstr "Notifications"
-
-#: rockworkd/libpebble/appmanager.cpp:73
-msgid "Alarms"
-msgstr "Alarmes"
-
-#: rockworkd/libpebble/appmanager.cpp:76
-msgid "Default watchface"
-msgstr "Thème de montre par défaut"
-
-#: rockwork/FirmwareUpgradePage.qml:6 rockwork/MainMenuPage.qml:65
+#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:65
 msgid "Firmware upgrade"
-msgstr ""
+msgstr "Mise à niveau du micrologiciel"
 
-#: rockwork/FirmwareUpgradePage.qml:16
+#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smarwatch."
 msgstr ""
 
-#: rockwork/FirmwareUpgradePage.qml:23
+#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
-msgstr ""
+msgstr "Micrologiciel actuellement installé : %1"
 
-#: rockwork/FirmwareUpgradePage.qml:29
+#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
 msgstr ""
 
-#: rockwork/FirmwareUpgradePage.qml:35
+#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
-msgstr ""
+msgstr "Notes de version : %1"
 
-#: rockwork/FirmwareUpgradePage.qml:41
+#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
-msgstr ""
+msgstr "Important :"
 
-#: rockwork/FirmwareUpgradePage.qml:41
+#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
 msgstr ""
 
-#: rockwork/InstalledAppsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
 msgstr "Applications & thèmes de montre"
 
-#: rockwork/InstalledAppsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
 msgstr "Applications"
 
-#: rockwork/InstalledAppsPage.qml:155
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+msgid "Watchfaces"
+msgstr "Thèmes de montre"
+
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:155
 msgid "Launch"
 msgstr "Lancer"
 
-#: rockwork/InstalledAppsPage.qml:164
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:164
 msgid "Configure"
 msgstr "Configurer"
 
-#: rockwork/InstalledAppsPage.qml:174 rockwork/ScreenshotsPage.qml:91
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:174
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
 msgstr "Supprimer"
 
-#: rockwork/InstalledAppsPage.qml:184
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:184
 msgid "Close"
 msgstr "Fermer"
 
-#: rockwork/MainMenuPage.qml:33
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:33
 msgid "Manage notifications"
 msgstr "Gérer les notifications"
 
-#: rockwork/MainMenuPage.qml:40
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:40
 msgid "Manage Apps"
 msgstr "Gérer les applications"
 
-#: rockwork/MainMenuPage.qml:48
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:48
 msgid "Manage Watchfaces"
 msgstr "Gérer les thèmes de montre"
 
-#: rockwork/MainMenuPage.qml:56 rockwork/ScreenshotsPage.qml:11
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:56
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr "Captures d'écran"
 
-#: rockwork/MainMenuPage.qml:171 rockwork/PebblesPage.qml:36
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:171
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr "Connectée"
 
-#: rockwork/MainMenuPage.qml:171 rockwork/PebblesPage.qml:36
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:171
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr "Déconnectée"
 
-#: rockwork/MainMenuPage.qml:184
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:184
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:194 rockwork/PebblesPage.qml:64
-#, fuzzy
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:194
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
-msgstr "Ouvrir les paramètres du système"
+msgstr "Ouvrir les paramètres système"
 
-#: rockwork/MainMenuPage.qml:202
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:202
 msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 
-#: rockwork/MainMenuPage.qml:211
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:211
 msgid "Initialize Pebble"
-msgstr ""
+msgstr "Initialiser Pebble"
 
-#: rockwork/MainMenuPage.qml:243
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:243
 msgid "Upgrading..."
-msgstr ""
+msgstr "Mise à niveau..."
 
-#: rockwork/NotificationsPage.qml:29
+#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
+msgid "Notifications"
+msgstr "Notifications"
+
+#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
 #, fuzzy
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
@@ -219,11 +189,11 @@ msgstr ""
 "d'arriver. Les notifications sélectionnées seront affichées sur votre montre "
 "connectée Peeble."
 
-#: rockwork/PebblesPage.qml:6
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
 msgstr "Gérer les montres Pebble"
 
-#: rockwork/PebblesPage.qml:57
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
 #, fuzzy
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
@@ -232,22 +202,22 @@ msgstr ""
 "Aucune montre connectée Pebble n'a encore été configurée. Veuillez connecter "
 "votre montre Pebble en utilisant les paramètres du système."
 
-#: rockwork/ScreenshotsPage.qml:69
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
 msgstr "Options de capture d'écran"
 
-#: rockwork/ScreenshotsPage.qml:74
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
 msgid "Share"
 msgstr "Partager"
 
-#: rockwork/ScreenshotsPage.qml:82
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
 msgstr "Enregistrer"
 
-#: rockwork/ScreenshotsPage.qml:99
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
 msgstr "Annuler"
 
-#: rockwork/ScreenshotsPage.qml:123
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Capture d'écran de Pebble"
