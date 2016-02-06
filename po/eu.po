@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-02 00:58+0100\n"
+"POT-Creation-Date: 2016-02-02 01:07+0100\n"
 "PO-Revision-Date: 2016-02-03 22:34+0000\n"
 "Last-Translator: Aitzol Berasategi <aitzol76@gmail.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
@@ -18,80 +18,123 @@ msgstr ""
 "X-Launchpad-Export-Date: 2016-02-04 06:34+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
+#: rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
 msgstr "Aplikazioaren ezarpenak"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
+#: rockwork/appstoreclient.cpp:194
+msgid "Previous"
+msgstr ""
+
+#: rockwork/appstoreclient.cpp:197
+msgid "Next"
+msgstr ""
+
+#: rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
 msgstr "Aplikazioaren xehetasunak"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: rockwork/AppStoreDetailsPage.qml:57
 msgid "Install"
 msgstr "Instalatu"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
 msgstr "Instalatzen..."
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
 msgstr "Instalatuta"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:234
+#: rockwork/AppStoreDetailsPage.qml:234
 msgid "Description"
 msgstr "Deskribapena"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:257
+#: rockwork/AppStoreDetailsPage.qml:257
 msgid "Developer"
 msgstr "Garatzailea"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:265
+#: rockwork/AppStoreDetailsPage.qml:265
 msgid "Version"
 msgstr "Bertsioa"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
+#: rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
 msgstr "Watchapp berria gehitu"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
+#: rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
 msgstr "Watchface berria gehitu"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:119
+#: rockwork/AppStorePage.qml:119
 msgid "See all"
 msgstr "Guztiak ikusi"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:65
+#: rockworkd/libpebble/appmanager.cpp:56
+#, fuzzy
+msgid "Settings"
+msgstr "Aplikazioaren ezarpenak"
+
+#: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
+#: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
+#: rockworkd/libpebble/appmanager.cpp:70 rockworkd/libpebble/appmanager.cpp:73
+msgid "System app"
+msgstr ""
+
+#: rockworkd/libpebble/appmanager.cpp:59 rockwork/InstalledAppsPage.qml:9
+msgid "Watchfaces"
+msgstr "Watchface-ak"
+
+#: rockworkd/libpebble/appmanager.cpp:63
+msgid "Health"
+msgstr ""
+
+#: rockworkd/libpebble/appmanager.cpp:67
+msgid "Music"
+msgstr ""
+
+#: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
+msgid "Notifications"
+msgstr "Jakinarazpenak"
+
+#: rockworkd/libpebble/appmanager.cpp:73
+msgid "Alarms"
+msgstr ""
+
+#: rockworkd/libpebble/appmanager.cpp:76
+#, fuzzy
+msgid "Default watchface"
+msgstr "Watchface berria gehitu"
+
+#: rockwork/FirmwareUpgradePage.qml:6 rockwork/MainMenuPage.qml:65
 msgid "Firmware upgrade"
 msgstr "Firmware eguneraketa"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
+#: rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smarwatch."
 msgstr ""
 "Firmware eguneraketa bat dago eskuragarri zure Pebble smartwatch-earentzat."
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
+#: rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
 msgstr "Unean instalaturiko firmwarea: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
+#: rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
 msgstr "Firmware bertsio hautagaia: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
+#: rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
 msgstr "Bertsio oharrak: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
+#: rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
 msgstr "Garrantzitsua:"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
+#: rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
@@ -99,63 +142,55 @@ msgstr ""
 "Eguneraketa honek berreskuratze datuak ere berrituko ditu. Ziurtatu zure "
 "Pebble smartwatch-ea argindar egokitzaile bati konektaturik egotea."
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
 msgstr "Aplikazio eta Watchface-ak"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
 msgstr "Aplikazioak"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
-msgid "Watchfaces"
-msgstr "Watchface-ak"
-
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:155
+#: rockwork/InstalledAppsPage.qml:155
 msgid "Launch"
 msgstr "Abiarazi"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:164
+#: rockwork/InstalledAppsPage.qml:164
 msgid "Configure"
 msgstr "Konfiguratu"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:174
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
+#: rockwork/InstalledAppsPage.qml:174 rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:184
+#: rockwork/InstalledAppsPage.qml:184
 msgid "Close"
 msgstr "Itxi"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:33
+#: rockwork/MainMenuPage.qml:33
 msgid "Manage notifications"
 msgstr "Jakinarazpenak kudeatu"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:40
+#: rockwork/MainMenuPage.qml:40
 msgid "Manage Apps"
 msgstr "Aplikazioak kudeatu"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:48
+#: rockwork/MainMenuPage.qml:48
 msgid "Manage Watchfaces"
 msgstr "Watchface-ak kudeatu"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:56
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
+#: rockwork/MainMenuPage.qml:56 rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr "Pantaila-argazkiak"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:171
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+#: rockwork/MainMenuPage.qml:171 rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr "Konektatuta"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:171
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+#: rockwork/MainMenuPage.qml:171 rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr "Deskonektatuta"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:184
+#: rockwork/MainMenuPage.qml:184
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
@@ -164,30 +199,25 @@ msgstr ""
 "dagoela, irismen muga barruan dagoela eta ongi parekaturik aurkitzen dela "
 "sistemako Bluetooth ezarpenetan."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:194
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
+#: rockwork/MainMenuPage.qml:194 rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
 msgstr "Sistema Ezarpenak Ireki"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:202
+#: rockwork/MainMenuPage.qml:202
 msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Zure Pebble smartwatch-ea fabrika moduan  aurkitzen da eta beharrezkoa du "
 "berrezartzea."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:211
+#: rockwork/MainMenuPage.qml:211
 msgid "Initialize Pebble"
 msgstr "Pebble-a berrezarri"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:243
+#: rockwork/MainMenuPage.qml:243
 msgid "Upgrading..."
 msgstr "Eguneratzen..."
 
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
-msgid "Notifications"
-msgstr "Jakinarazpenak"
-
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
+#: rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
@@ -195,11 +225,11 @@ msgstr ""
 "Hemengo aukerak  telefonoan jakinarazpenak agertu ahala gehituko dira. "
 "Aukeraturiko jakinarazpenak zure Pebble smartwatchean agertuko dira."
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
+#: rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
 msgstr "Pebble ordulariak kudeatu"
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
+#: rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
@@ -207,22 +237,22 @@ msgstr ""
 "Oraindik ez dago Pebble smartwatch-erik konfiguraturik. Mesedez konektatu "
 "zure Pebble smartwatch-a Sistema Ezarpenak erabiliz."
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
+#: rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
 msgstr "Pantaila-argazkien aukerak"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
+#: rockwork/ScreenshotsPage.qml:74
 msgid "Share"
 msgstr "Partekatu"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
+#: rockwork/ScreenshotsPage.qml:82
 msgid "Save"
 msgstr "Gorde"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
+#: rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
 msgstr "Utzi"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
+#: rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Pebble pantaila-argazkia"

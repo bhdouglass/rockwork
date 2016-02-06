@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-02 00:58+0100\n"
+"POT-Creation-Date: 2016-02-02 01:07+0100\n"
 "PO-Revision-Date: 2016-02-02 09:30+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -18,79 +18,122 @@ msgstr ""
 "X-Launchpad-Export-Date: 2016-02-03 06:09+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
+#: rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
 msgstr "Alkalmazás beállítások"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
+#: rockwork/appstoreclient.cpp:194
+msgid "Previous"
+msgstr ""
+
+#: rockwork/appstoreclient.cpp:197
+msgid "Next"
+msgstr ""
+
+#: rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
 msgstr "Alkalmazás részletei"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: rockwork/AppStoreDetailsPage.qml:57
 msgid "Install"
 msgstr "Telepítés"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
 msgstr "Telepítés…"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
 msgstr "Telepítve"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:234
+#: rockwork/AppStoreDetailsPage.qml:234
 msgid "Description"
 msgstr "Leírás"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:257
+#: rockwork/AppStoreDetailsPage.qml:257
 msgid "Developer"
 msgstr "Fejlesztő"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:265
+#: rockwork/AppStoreDetailsPage.qml:265
 msgid "Version"
 msgstr "Verzió"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
+#: rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
 msgstr "Új alkalmazás hozzáadása"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
+#: rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
 msgstr "Új számlap hozzáadása"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:119
+#: rockwork/AppStorePage.qml:119
 msgid "See all"
 msgstr "Összes"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:65
+#: rockworkd/libpebble/appmanager.cpp:56
+#, fuzzy
+msgid "Settings"
+msgstr "Alkalmazás beállítások"
+
+#: rockworkd/libpebble/appmanager.cpp:56 rockworkd/libpebble/appmanager.cpp:59
+#: rockworkd/libpebble/appmanager.cpp:63 rockworkd/libpebble/appmanager.cpp:67
+#: rockworkd/libpebble/appmanager.cpp:70 rockworkd/libpebble/appmanager.cpp:73
+msgid "System app"
+msgstr ""
+
+#: rockworkd/libpebble/appmanager.cpp:59 rockwork/InstalledAppsPage.qml:9
+msgid "Watchfaces"
+msgstr "Számlapok"
+
+#: rockworkd/libpebble/appmanager.cpp:63
+msgid "Health"
+msgstr ""
+
+#: rockworkd/libpebble/appmanager.cpp:67
+msgid "Music"
+msgstr ""
+
+#: rockworkd/libpebble/appmanager.cpp:70 rockwork/NotificationsPage.qml:8
+msgid "Notifications"
+msgstr "Értesítések"
+
+#: rockworkd/libpebble/appmanager.cpp:73
+msgid "Alarms"
+msgstr ""
+
+#: rockworkd/libpebble/appmanager.cpp:76
+#, fuzzy
+msgid "Default watchface"
+msgstr "Új számlap hozzáadása"
+
+#: rockwork/FirmwareUpgradePage.qml:6 rockwork/MainMenuPage.qml:65
 msgid "Firmware upgrade"
 msgstr "Firmware frissítés"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
+#: rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smarwatch."
 msgstr "Egy új firmware frissítés érhető el a Pebble okosórájához"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
+#: rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
 msgstr "Jelenleg telepített firmware: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
+#: rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
 msgstr "Telepítendő firmware: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
+#: rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
 msgstr "Kiadási megjegyzések: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
+#: rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
 msgstr "Fontos:"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
+#: rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
@@ -98,63 +141,55 @@ msgstr ""
 "Ez a frissítés a helyreállítási adatokat is felülírja, ezért mindenképp "
 "csatlakoztassa a töltőhöz a Pebble okosóráját."
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
 msgstr "Alkalmazások és számlapok"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
 msgstr "Alkalmazások"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
-msgid "Watchfaces"
-msgstr "Számlapok"
-
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:155
+#: rockwork/InstalledAppsPage.qml:155
 msgid "Launch"
 msgstr "Indítás"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:164
+#: rockwork/InstalledAppsPage.qml:164
 msgid "Configure"
 msgstr "Beállítások"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:174
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
+#: rockwork/InstalledAppsPage.qml:174 rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
 msgstr "Törlés"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:184
+#: rockwork/InstalledAppsPage.qml:184
 msgid "Close"
 msgstr "Bezárás"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:33
+#: rockwork/MainMenuPage.qml:33
 msgid "Manage notifications"
 msgstr "Értesítések kezelése"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:40
+#: rockwork/MainMenuPage.qml:40
 msgid "Manage Apps"
 msgstr "Alkalmazások kezelése"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:48
+#: rockwork/MainMenuPage.qml:48
 msgid "Manage Watchfaces"
 msgstr "Számlapok kezelése"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:56
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
+#: rockwork/MainMenuPage.qml:56 rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr "Képernyőképek"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:171
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+#: rockwork/MainMenuPage.qml:171 rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr "Kapcsolódva"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:171
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+#: rockwork/MainMenuPage.qml:171 rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr "Leválasztva"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:184
+#: rockwork/MainMenuPage.qml:184
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
@@ -163,28 +198,23 @@ msgstr ""
 "hatótávon belül van és megfelelően párosította a Rendszerbeállítások "
 "Bluetooth menüpontja alatt."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:194
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
+#: rockwork/MainMenuPage.qml:194 rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
 msgstr "Rendszerbeállítások megnyitása"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:202
+#: rockwork/MainMenuPage.qml:202
 msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr "Az Pebble okosórája gyári állapotban van és inicializálni kell."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:211
+#: rockwork/MainMenuPage.qml:211
 msgid "Initialize Pebble"
 msgstr "Pebble inicializálása"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:243
+#: rockwork/MainMenuPage.qml:243
 msgid "Upgrading..."
 msgstr "Frissítés…"
 
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
-msgid "Notifications"
-msgstr "Értesítések"
-
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
+#: rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
@@ -192,11 +222,11 @@ msgstr ""
 "Az itt megadott bejegyzések esetén az értesítések nem csak a telefonján, "
 "hanem a Pebble okosóráján is meg fognak jelenni."
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
+#: rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
 msgstr "Pebble órák kezelése"
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
+#: rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
@@ -204,22 +234,22 @@ msgstr ""
 "Nincs bekonfigurált Pebble okosóra. Csatlakoztassa az órát a "
 "Rendszerbeállítások alatt."
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
+#: rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
 msgstr "Képernyőkép-beállítások"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
+#: rockwork/ScreenshotsPage.qml:74
 msgid "Share"
 msgstr "Megosztás"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
+#: rockwork/ScreenshotsPage.qml:82
 msgid "Save"
 msgstr "Mentés"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
+#: rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
 msgstr "Mégse"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:123
+#: rockwork/ScreenshotsPage.qml:123
 msgid "Pebble screenshot"
 msgstr "Pebble képernyőkép"

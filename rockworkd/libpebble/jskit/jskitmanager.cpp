@@ -1,5 +1,6 @@
 #include <QFile>
 #include <QDir>
+#include <QUrl>
 
 #include "jskitmanager.h"
 #include "jskitpebble.h"
@@ -57,8 +58,7 @@ void JSKitManager::handleWebviewClosed(const QString &result)
 {
     if (m_engine) {
         QJSValue eventObj = m_engine->newObject();
-        QByteArray data = QByteArray::fromPercentEncoding(result.toUtf8());
-        eventObj.setProperty("response", m_engine->toScriptValue(data));
+        eventObj.setProperty("response", QUrl::fromPercentEncoding(result.toUtf8()));
 
         qCDebug(l) << "Sending" << eventObj.property("response").toString();
         m_jspebble->invokeCallbacks("webviewclosed", QJSValueList({eventObj}));
