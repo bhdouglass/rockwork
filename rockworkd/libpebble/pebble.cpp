@@ -7,7 +7,7 @@
 #include "phonecallendpoint.h"
 #include "appmanager.h"
 #include "appmsgmanager.h"
-#include "jskitmanager.h"
+#include "jskit/jskitmanager.h"
 #include "blobdb.h"
 #include "appdownloader.h"
 #include "screenshotendpoint.h"
@@ -176,6 +176,11 @@ HardwarePlatform Pebble::hardwarePlatform() const
 QString Pebble::serialNumber() const
 {
     return m_serialNumber;
+}
+
+QString Pebble::language() const
+{
+    return m_language;
 }
 
 Capabilities Pebble::capabilities() const
@@ -447,7 +452,8 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "BT address" << wd.readBytes(6).toHex();
     qDebug() << "CRC:" << wd.read<quint32>();
     qDebug() << "Resource timestamp:" << QDateTime::fromTime_t(wd.read<quint32>());
-    qDebug() << "Language" << wd.readFixedString(6);
+    m_language = wd.readFixedString(6);
+    qDebug() << "Language" << m_language;
     qDebug() << "Language version" << wd.read<quint16>();
     // Capabilities is 64 bits but QFlags can only do 32 bits. lets split it into 2 * 32.
     // only 8 bits are used atm anyways.
