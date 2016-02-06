@@ -1,5 +1,5 @@
 #include "firmwaredownloader.h"
-#include "zipextractor.h"
+#include "ziphelper.h"
 #include "pebble.h"
 #include "watchconnection.h"
 #include "uploadmanager.h"
@@ -104,7 +104,7 @@ void FirmwareDownloader::performUpgrade()
         f.write(data);
         f.close();
 
-        if (!ZipExtractor::unpackArchive(f.fileName(), path)) {
+        if (!ZipHelper::unpackArchive(f.fileName(), path)) {
             qWarning() << "Error unpacking firmware archive";
             m_upgradeInProgress = false;
             emit upgradingChanged();

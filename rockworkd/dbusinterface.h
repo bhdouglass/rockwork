@@ -24,6 +24,7 @@ signals:
     void ScreenshotRemoved(const QString &filename);
     void FirmwareUpgradeAvailableChanged();
     void UpgradingFirmwareChanged();
+    void LogsDumped(bool success);
 
 public slots:
     QString Address() const;
@@ -54,7 +55,7 @@ public slots:
     void RequestScreenshot();
     QStringList Screenshots() const;
     void RemoveScreenshot(const QString &filename);
-    void DumpLogs() const;
+    void DumpLogs(const QString &archiveName) const;
 
 private:
     Pebble *m_pebble;

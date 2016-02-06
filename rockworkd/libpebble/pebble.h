@@ -101,7 +101,7 @@ public slots:
     void upgradeFirmware() const;
     bool upgradingFirmware() const;
 
-    void dumpLogs() const;
+    void dumpLogs(const QString &archiveName) const;
 
 private slots:
     void onPebbleConnected();
@@ -133,6 +133,7 @@ signals:
     void screenshotRemoved(const QString &filename);
     void updateAvailableChanged();
     void upgradingFirmwareChanged();
+    void logsDumped(bool success);
 
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);

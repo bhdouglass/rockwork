@@ -37,5 +37,9 @@
         <file>artwork/tintin-white.png</file>
         <file>PebbleModels.qml</file>
         <file>FirmwareUpgradePage.qml</file>
+        <file>InfoPage.qml</file>
+        <file>artwork/rockwork.svg</file>
+        <file>DeveloperToolsPage.qml</file>
+        <file>ContentPeerPickerPage.qml</file>
     </qresource>
 </RCC>

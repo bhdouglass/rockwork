@@ -15,7 +15,7 @@ public:
 
     quint32 cookie() const { return m_cookie; }
     QDateTime timestamp() const { return m_timestamp; }
-    quint8 level() const { return m_level; }
+    QChar level() const { return m_level; }
     quint8 length() const { return m_length; }
     quint16 line() const { return m_line; }
     QString filename() const { return m_filename; }
@@ -25,7 +25,7 @@ public:
 private:
     quint32 m_cookie;
     QDateTime m_timestamp;
-    quint8 m_level;
+    QChar m_level;
     quint8 m_length;
     quint16 m_line;
     QString m_filename;
@@ -45,14 +45,22 @@ public:
 
     explicit WatchLogEndpoint(Pebble *pebble, WatchConnection *connection);
 
-    void fetchLogs();
+    void fetchLogs(const QString &targetArchive);
+
 signals:
+    void logsFetched(bool success);
 
 private slots:
+    void fetchForEpoch(quint8 epoch);
     void logMessageReceived(const QByteArray &data);
+    void packLogs();
 
 private:
+    Pebble *m_pebble;
     WatchConnection *m_connection;
+    quint8 m_currentEpoch = 0;
+    QFile m_currentFile;
+    QString m_targetArchive;
 };
 
 class RequestLogPacket: public PebblePacket

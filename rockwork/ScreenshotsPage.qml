@@ -74,7 +74,7 @@ Page {
                 text: i18n.tr("Share")
                 color: UbuntuColors.blue
                 onClicked: {
-                    pageStack.push(pickerPageComponent, {handler: ContentHandler.Share, filename: filename })
+                    pageStack.push(Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("Pebble screenshot"), handler: ContentHandler.Share, contentType: ContentType.Pictures, filename: filename })
                     PopupUtils.close(dialog)
                 }
             }
@@ -82,7 +82,7 @@ Page {
                 text: i18n.tr("Save")
                 color: UbuntuColors.green
                 onClicked: {
-                    pageStack.push(pickerPageComponent, {handler: ContentHandler.Destination, filename: filename })
+                    pageStack.push(Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("Pebble screenshot"),handler: ContentHandler.Destination, contentType: ContentType.Pictures, filename: filename })
                     PopupUtils.close(dialog)
                 }
             }
@@ -103,46 +103,5 @@ Page {
             }
         }
     }
-
-    Component {
-        id: pickerPageComponent
-
-        Page {
-            id: pickerPage
-            head {
-                locked: true
-                visible: false
-            }
-
-            property alias handler: contentPeerPicker.handler
-            property string filename
-
-            Component {
-                id: exportItemComponent
-                ContentItem {
-                    name: i18n.tr("Pebble screenshot")
-                }
-            }
-            ContentPeerPicker {
-                id: contentPeerPicker
-                anchors.fill: parent
-                contentType: ContentType.Pictures
-
-                onCancelPressed: pageStack.pop()
-
-                onPeerSelected: {
-                    var transfer = peer.request();
-                    var items = [];
-                    var item = exportItemComponent.createObject();
-                    item.url = "file://" + pickerPage.filename;
-                    items.push(item)
-                    transfer.items = items;
-                    transfer.state = ContentTransfer.Charged;
-                    pageStack.pop();
-                }
-            }
-        }
-    }
-
 }
 

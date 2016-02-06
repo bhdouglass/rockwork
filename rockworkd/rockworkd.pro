@@ -57,8 +57,8 @@ SOURCES += main.cpp \
     libpebble/screenshotendpoint.cpp \
     libpebble/firmwaredownloader.cpp \
     libpebble/bundle.cpp \
-    libpebble/zipextractor.cpp \
-    libpebble/watchlogendpoint.cpp
+    libpebble/watchlogendpoint.cpp \
+    libpebble/ziphelper.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -100,8 +100,8 @@ HEADERS += \
     libpebble/screenshotendpoint.h \
     libpebble/firmwaredownloader.h \
     libpebble/bundle.h \
-    libpebble/zipextractor.h \
-    libpebble/watchlogendpoint.h
+    libpebble/watchlogendpoint.h \
+    libpebble/ziphelper.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

@@ -61,6 +61,7 @@ public slots:
     void requestScreenshot();
     void removeScreenshot(const QString &filename);
     void performFirmwareUpgrade();
+    void dumpLogs(const QString &filename);
 
 signals:
     void connectedChanged();
@@ -68,6 +69,7 @@ signals:
     void modelChanged();
     void firmwareUpgradeAvailableChanged();
     void upgradingFirmwareChanged();
+    void logsDumped(bool success);
 
     void openURL(const QString &uuid, const QString &url);
 

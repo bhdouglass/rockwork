@@ -15,6 +15,7 @@ DBusPebble::DBusPebble(Pebble *pebble, QObject *parent):
     connect(pebble, &Pebble::screenshotRemoved, this, &DBusPebble::ScreenshotRemoved);
     connect(pebble, &Pebble::updateAvailableChanged, this, &DBusPebble::FirmwareUpgradeAvailableChanged);
     connect(pebble, &Pebble::upgradingFirmwareChanged, this, &DBusPebble::UpgradingFirmwareChanged);
+    connect(pebble, &Pebble::logsDumped, this, &DBusPebble::LogsDumped);
 }
 
 QString DBusPebble::Address() const
@@ -188,9 +189,10 @@ int DBusPebble::Model() const
     return m_pebble->model();
 }
 
-void DBusPebble::DumpLogs() const
+void DBusPebble::DumpLogs(const QString &archiveName) const
 {
-    m_pebble->dumpLogs();
+    qDebug() << "dumplogs" << archiveName;
+    m_pebble->dumpLogs(archiveName);
 }
 
 DBusInterface::DBusInterface(QObject *parent) :

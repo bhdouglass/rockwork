@@ -2,7 +2,7 @@
 #include "watchconnection.h"
 #include "watchdatareader.h"
 #include "watchdatawriter.h"
-#include "zipextractor.h"
+#include "ziphelper.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -104,7 +104,7 @@ void AppDownloader::packageFetched()
 
     QString zipName = m_storagePath + storeId + "/" + reply->request().url().fileName() + ".zip";
 
-    if (!ZipExtractor::unpackArchive(zipName, m_storagePath + storeId)) {
+    if (!ZipHelper::unpackArchive(zipName, m_storagePath + storeId)) {
         qWarning() << "Error unpacking App zip file";
         return;
     }

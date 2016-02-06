@@ -68,4 +68,5 @@ DISTFILES += \
     PebblesPage.qml \
     AppStorePage.qml \
     AppStoreDetailsPage.qml \
-    PebbleModels.qml
+    PebbleModels.qml \
+    InfoPage.qml

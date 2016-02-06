@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 
     QQuickView view;
     view.engine()->rootContext()->setContextProperty("version", QStringLiteral(VERSION));
+    view.engine()->rootContext()->setContextProperty("homePath", QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
     view.setSource(QUrl(QStringLiteral("qrc:///Main.qml")));
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.show();

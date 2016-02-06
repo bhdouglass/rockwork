@@ -8,6 +8,25 @@ Page {
 
     property var pebble: null
 
+    head {
+        actions: [
+            Action {
+                iconName: "info"
+                text: i18n.tr("Info")
+                onTriggered: {
+                    pageStack.push(Qt.resolvedUrl("InfoPage.qml"))
+                }
+            },
+            Action {
+                iconName: "settings"
+                text: i18n.tr("Developer tools")
+                onTriggered: {
+                    pageStack.push(Qt.resolvedUrl("DeveloperToolsPage.qml"), {pebble: root.pebble})
+                }
+            }
+        ]
+    }
+
     //Creating the menu list this way to allow the text field to be translatable (http://askubuntu.com/a/476331)
     ListModel {
         id: mainMenuModel
@@ -49,14 +68,6 @@ Page {
             page: "InstalledAppsPage.qml",
             showWatchFaces: true,
             color: "black"
-        });
-
-        mainMenuModel.append({
-            icon: "camera-app-symbolic",
-            text: i18n.tr("Screenshots"),
-            page: "ScreenshotsPage.qml",
-            showWatchFaces: true,
-            color: "gold"
         });
 
         if (root.pebble.firmwareUpgradeAvailable) {

@@ -64,6 +64,7 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     QObject::connect(m_firmwareDownloader, &FirmwareDownloader::upgradingChanged, this, &Pebble::upgradingFirmwareChanged);
 
     m_logEndpoint = new WatchLogEndpoint(this, m_connection);
+    QObject::connect(m_logEndpoint, &WatchLogEndpoint::logsFetched, this, &Pebble::logsDumped);
 
     QSettings s(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
     m_model = (Model)s.value("watchModel", (int)ModelUnknown).toInt();
@@ -189,9 +190,9 @@ bool Pebble::upgradingFirmware() const
     return m_firmwareDownloader->upgrading();
 }
 
-void Pebble::dumpLogs() const
+void Pebble::dumpLogs(const QString &archiveName) const
 {
-    m_logEndpoint->fetchLogs();
+    m_logEndpoint->fetchLogs(archiveName);
 }
 
 QString Pebble::storagePath() const
@@ -428,7 +429,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
     // This is useful for debugging
-//    m_isUnfaithful = true;
+    m_isUnfaithful = true;
 
     if (!m_recovery) {
         m_appManager->rescan();

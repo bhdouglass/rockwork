@@ -26,6 +26,7 @@ Pebble::Pebble(const QDBusObjectPath &path, QObject *parent):
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "ScreenshotRemoved", this, SLOT(screenshotRemoved(const QString &)));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "FirmwareUpgradeAvailableChanged", this, SLOT(refreshFirmwareUpdateInfo()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "UpgradingFirmwareChanged", this, SIGNAL(refreshFirmwareUpdateInfo()));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "LogsDumped", this, SIGNAL(logsDumped(bool)));
 
     dataChanged();
     refreshApps();
@@ -372,4 +373,9 @@ void Pebble::removeScreenshot(const QString &filename)
 void Pebble::performFirmwareUpgrade()
 {
     m_iface->call("PerformFirmwareUpgrade");
+}
+
+void Pebble::dumpLogs(const QString &filename)
+{
+    m_iface->call("DumpLogs", filename);
 }
