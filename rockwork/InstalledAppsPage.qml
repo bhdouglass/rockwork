@@ -21,6 +21,18 @@ Page {
         ]
     }
 
+    function configureApp(uuid) {
+        // The health app is special :/
+        if (uuid == "{36d8c6ed-4c83-4fa1-a9e2-8f12dc941f8c}") {
+            var popup = PopupUtils.open(Qt.resolvedUrl("HealthSettingsDialog.qml"), root, {healthParams: pebble.healthParams});
+            popup.accepted.connect(function() {
+                pebble.healthParams = popup.healthParams
+            })
+        } else {
+            pebble.requestConfigurationURL(uuid);
+        }
+    }
+
     Item {
         anchors.fill: parent
         ListView {
@@ -45,7 +57,7 @@ Page {
                     pebble.removeApp(model.uuid)
                 }
                 onConfigureApp: {
-                    pebble.requestConfigurationURL(model.uuid);
+                    root.configureApp(model.uuid)
                 }
                 onClicked: {
                     PopupUtils.open(dialogComponent, root, {app: listView.model.get(index)})
@@ -165,7 +177,7 @@ Page {
                 color: UbuntuColors.blue
                 visible: app.hasSettings
                 onClicked: {
-                    pebble.requestConfigurationURL(app.uuid);
+                    root.configureApp(app.uuid);
                     PopupUtils.close(dialog);
                 }
             }

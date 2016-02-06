@@ -60,7 +60,7 @@ void AppManager::rescan()
     m_appList.append(watchfaces.uuid());
     m_apps.insert(watchfaces.uuid(), watchfaces);
     if (m_pebble->capabilities().testFlag(CapabilityHealth)) {
-        AppInfo health(QUuid("36d8c6ed-4c83-4fa1-a9e2-8f12dc941f8c"), false, gettext("Health"), gettext("System app"));
+        AppInfo health(QUuid("36d8c6ed-4c83-4fa1-a9e2-8f12dc941f8c"), false, gettext("Health"), gettext("System app"), true);
         m_appList.append(health.uuid());
         m_apps.insert(health.uuid(), health);
     }

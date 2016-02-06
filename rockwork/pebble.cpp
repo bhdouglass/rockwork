@@ -121,6 +121,28 @@ QString Pebble::candidateVersion() const
     return m_candidateVersion;
 }
 
+QVariantMap Pebble::healthParams() const
+{
+    QDBusMessage m = m_iface->call("HealthParams");
+    if (m.type() == QDBusMessage::ErrorMessage || m.arguments().count() == 0) {
+        qWarning() << "Could not fetch health params" << m.errorMessage();
+        return QVariantMap();
+    }
+
+    const QDBusArgument &arg = m.arguments().first().value<QDBusArgument>();
+
+    QVariantMap mapEntryVariant;
+    arg >> mapEntryVariant;
+
+    qDebug() << "have health params" << mapEntryVariant;
+    return mapEntryVariant;
+}
+
+void Pebble::setHealthParams(const QVariantMap &healthParams)
+{
+    m_iface->call("SetHealthParams", healthParams);
+}
+
 void Pebble::configurationClosed(const QString &uuid, const QString &url)
 {
     m_iface->call("ConfigurationClosed", uuid, url.mid(17));

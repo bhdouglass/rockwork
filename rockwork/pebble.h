@@ -25,6 +25,7 @@ class Pebble : public QObject
     Q_PROPERTY(QString firmwareReleaseNotes READ firmwareReleaseNotes NOTIFY firmwareUpgradeAvailableChanged)
     Q_PROPERTY(QString candidateVersion READ candidateVersion NOTIFY firmwareUpgradeAvailableChanged)
     Q_PROPERTY(bool upgradingFirmware READ upgradingFirmware NOTIFY upgradingFirmwareChanged)
+    Q_PROPERTY(QVariantMap healthParams READ healthParams WRITE setHealthParams NOTIFY healthParamsChanged)
 
 public:
     explicit Pebble(const QDBusObjectPath &path, QObject *parent = 0);
@@ -50,6 +51,9 @@ public:
     QString firmwareReleaseNotes() const;
     QString candidateVersion() const;
 
+    QVariantMap healthParams() const;
+    void setHealthParams(const QVariantMap &healthParams);
+
 public slots:
     void setNotificationFilter(const QString &sourceId, bool enabled);
     void removeApp(const QString &uuid);
@@ -70,6 +74,7 @@ signals:
     void firmwareUpgradeAvailableChanged();
     void upgradingFirmwareChanged();
     void logsDumped(bool success);
+    void healthParamsChanged();
 
     void openURL(const QString &uuid, const QString &url);
 

@@ -13,13 +13,14 @@ class AppInfo: public Bundle
 {
 public:
     enum Capability {
+        None = 0,
         Location = 1 << 0,
         Configurable = 1 << 2
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 
     AppInfo(const QString &path = QString());
-    AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const QString &vendor);
+    AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const QString &vendor, bool hasSettings = false);
     ~AppInfo();
 
     bool isValid() const;

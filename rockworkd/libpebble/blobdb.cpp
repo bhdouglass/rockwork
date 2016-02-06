@@ -1,6 +1,7 @@
 #include "blobdb.h"
 #include "watchconnection.h"
 #include "watchdatareader.h"
+#include "watchdatawriter.h"
 
 #include <QDebug>
 #include <QOrganizerRecurrenceRule>
@@ -370,6 +371,21 @@ void BlobDB::clear(BlobDB::BlobDBId database)
     cmd->m_token = generateToken();
     cmd->m_database = database;
 
+    m_commandQueue.append(cmd);
+    sendNext();
+}
+
+void BlobDB::setHealthParams(const HealthParams &healthParams)
+{
+    BlobCommand *cmd = new BlobCommand();
+    cmd->m_command = BlobDB::OperationInsert;
+    cmd->m_token = generateToken();
+    cmd->m_database = BlobDBIdAppSettings;
+
+    cmd->m_key = "activityPreferences";
+    cmd->m_value = healthParams.serialize();
+
+    qDebug() << "Setting health params. Enabled:" << healthParams.enabled() << cmd->serialize().toHex();
     m_commandQueue.append(cmd);
     sendNext();
 }

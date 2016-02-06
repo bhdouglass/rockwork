@@ -5,6 +5,7 @@
 #include "notification.h"
 #include "calendarevent.h"
 #include "appinfo.h"
+#include "healthparams.h"
 
 #include <QObject>
 #include <QBluetoothAddress>
@@ -101,6 +102,9 @@ public slots:
     void upgradeFirmware() const;
     bool upgradingFirmware() const;
 
+    void setHealthParams(const HealthParams &healthParams);
+    HealthParams healthParams() const;
+
     void dumpLogs(const QString &archiveName) const;
 
 private slots:
@@ -167,6 +171,8 @@ private:
 
     QString m_storagePath;
     QList<QUuid> m_pendingInstallations;
+
+    HealthParams m_healthParams;
 };
 
 /*

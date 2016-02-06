@@ -66,9 +66,17 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     m_logEndpoint = new WatchLogEndpoint(this, m_connection);
     QObject::connect(m_logEndpoint, &WatchLogEndpoint::logsFetched, this, &Pebble::logsDumped);
 
-    QSettings s(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
-    m_model = (Model)s.value("watchModel", (int)ModelUnknown).toInt();
+    QSettings watchInfo(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
+    m_model = (Model)watchInfo.value("watchModel", (int)ModelUnknown).toInt();
 
+    QSettings healthSettings(m_storagePath + "/healthsettings.conf", QSettings::IniFormat);
+    m_healthParams.setEnabled(healthSettings.value("enabled").toBool());
+    m_healthParams.setAge(healthSettings.value("age").toUInt());
+    m_healthParams.setHeight(healthSettings.value("height").toInt());
+    m_healthParams.setGender((HealthParams::Gender)healthSettings.value("gender").toInt());
+    m_healthParams.setWeight(healthSettings.value("weight").toInt());
+    m_healthParams.setMoreActive(healthSettings.value("moreActive").toBool());
+    m_healthParams.setSleepMore(healthSettings.value("sleepMore").toBool());
 }
 
 QBluetoothAddress Pebble::address() const
@@ -188,6 +196,27 @@ bool Pebble::recovery() const
 bool Pebble::upgradingFirmware() const
 {
     return m_firmwareDownloader->upgrading();
+}
+
+void Pebble::setHealthParams(const HealthParams &healthParams)
+{
+    m_healthParams = healthParams;
+    m_blobDB->setHealthParams(healthParams);
+
+    QSettings healthSettings(m_storagePath + "/healthsettings.conf", QSettings::IniFormat);
+    healthSettings.setValue("enabled", m_healthParams.enabled());
+    healthSettings.setValue("age", m_healthParams.age());
+    healthSettings.setValue("height", m_healthParams.height());
+    healthSettings.setValue("gender", m_healthParams.gender());
+    healthSettings.setValue("weight", m_healthParams.weight());
+    healthSettings.setValue("moreActive", m_healthParams.moreActive());
+    healthSettings.setValue("sleepMore", m_healthParams.sleepMore());
+
+}
+
+HealthParams Pebble::healthParams() const
+{
+    return m_healthParams;
 }
 
 void Pebble::dumpLogs(const QString &archiveName) const
@@ -429,7 +458,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
     // This is useful for debugging
-    m_isUnfaithful = true;
+    //m_isUnfaithful = true;
 
     if (!m_recovery) {
         m_appManager->rescan();
@@ -445,6 +474,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
         } else {
             syncCalendar(Core::instance()->platform()->organizerItems());
             syncApps();
+            m_blobDB->setHealthParams(m_healthParams);
         }
         version.setValue("syncedWithVersion", QStringLiteral(VERSION));
 

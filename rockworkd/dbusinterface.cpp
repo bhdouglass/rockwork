@@ -195,6 +195,32 @@ void DBusPebble::DumpLogs(const QString &archiveName) const
     m_pebble->dumpLogs(archiveName);
 }
 
+QVariantMap DBusPebble::HealthParams() const
+{
+    QVariantMap map;
+    map.insert("enabled", m_pebble->healthParams().enabled());
+    map.insert("age", m_pebble->healthParams().age());
+    map.insert("gender", m_pebble->healthParams().gender() == HealthParams::GenderFemale ? "female" : "male");
+    map.insert("height", m_pebble->healthParams().height());
+    map.insert("moreActive", m_pebble->healthParams().moreActive());
+    map.insert("sleepMore", m_pebble->healthParams().sleepMore());
+    map.insert("weight", m_pebble->healthParams().weight());
+    return map;
+}
+
+void DBusPebble::SetHealthParams(const QVariantMap &healthParams)
+{
+    ::HealthParams params;
+    params.setEnabled(healthParams.value("enabled").toBool());
+    params.setAge(healthParams.value("age").toInt());
+    params.setGender(healthParams.value("gender").toString() == "female" ? HealthParams::GenderFemale : HealthParams::GenderMale);
+    params.setHeight(healthParams.value("height").toInt());
+    params.setWeight(healthParams.value("weight").toInt());
+    params.setMoreActive(healthParams.value("moreActive").toBool());
+    params.setSleepMore(healthParams.value("sleepMore").toBool());
+    m_pebble->setHealthParams(params);
+}
+
 DBusInterface::DBusInterface(QObject *parent) :
     QObject(parent)
 {

@@ -4,6 +4,7 @@
 #include "watchconnection.h"
 #include "pebble.h"
 #include "timelineitem.h"
+#include "healthparams.h"
 #include "appmetadata.h"
 
 #include <QObject>
@@ -22,7 +23,8 @@ public:
         BlobDBIdPin = 1,
         BlobDBIdApp = 2,
         BlobDBIdReminder = 3,
-        BlobDBIdNotification = 4
+        BlobDBIdNotification = 4,
+        BlobDBIdAppSettings = 7
 
     };
     enum Operation {
@@ -53,6 +55,8 @@ public:
     void insert(BlobDBId database, const TimelineItem &item);
     void remove(BlobDBId database, const QUuid &uuid);
     void clear(BlobDBId database);
+
+    void setHealthParams(const HealthParams &healthParams);
 
 private slots:
     void blobCommandReply(const QByteArray &data);
@@ -91,6 +95,8 @@ private:
 
     QList<CalendarEvent> m_calendarEntries;
     CalendarEvent findCalendarEvent(const QString &id);
+
+    HealthParams m_healthParams;
 
     BlobCommand *m_currentCommand = nullptr;
     QList<BlobCommand*> m_commandQueue;

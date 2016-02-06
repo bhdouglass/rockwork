@@ -41,5 +41,6 @@
         <file>artwork/rockwork.svg</file>
         <file>DeveloperToolsPage.qml</file>
         <file>ContentPeerPickerPage.qml</file>
+        <file>HealthSettingsDialog.qml</file>
     </qresource>
 </RCC>

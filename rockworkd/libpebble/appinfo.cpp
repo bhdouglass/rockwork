@@ -75,12 +75,13 @@ AppInfo::AppInfo(const QString &path):
     m_isJsKit = jsApp.exists();
 }
 
-AppInfo::AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const QString &vendor):
+AppInfo::AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const QString &vendor, bool hasSettings):
     m_uuid(uuid),
     m_shortName(name),
     m_companyName(vendor),
     m_isWatchface(isWatchFace),
-    m_isSystemApp(true)
+    m_isSystemApp(true),
+    m_capabilities(hasSettings ? Configurable : None)
 {
 
 }
