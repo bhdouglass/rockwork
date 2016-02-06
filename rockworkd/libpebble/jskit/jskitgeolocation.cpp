@@ -32,7 +32,7 @@ void JSKitGeolocation::handleError(QGeoPositionInfoSource::Error error)
 
     if (m_watchers.empty()) {
         qCWarning(l) << "got position error but no one is watching";
-        m_source->stopUpdates();
+        stopAndRemove();
     }
     else {
         QJSValue obj;
@@ -61,7 +61,7 @@ void JSKitGeolocation::handlePosition(const QGeoPositionInfo &pos)
 
     if (m_watchers.empty()) {
         qCWarning(l) << "got position update but no one is watching";
-        m_source->stopUpdates();
+        stopAndRemove();
     }
     else {
         QJSValue obj = buildPositionObject(pos);
@@ -85,7 +85,7 @@ void JSKitGeolocation::handleTimeout()
 
     if (m_watchers.empty()) {
         qCWarning(l) << "got position timeout but no one is watching";
-        m_source->stopUpdates();
+        stopAndRemove();
     }
     else {
         QJSValue obj = buildPositionErrorObject(TIMEOUT, "timeout");
@@ -143,6 +143,10 @@ void JSKitGeolocation::updateTimeouts()
     if (once_timeout >= 0) {
         qCDebug(l) << "requesting single location update with timeout" << once_timeout;
         m_source->requestUpdate(once_timeout);
+    }
+
+    if (once_timeout == 0 && updates_timeout == 0) {
+        stopAndRemove();
     }
 }
 
@@ -283,5 +287,16 @@ void JSKitGeolocation::invokeCallback(QJSValue callback, QJSValue event)
         }
     } else {
         qCWarning(l) << "callback is not callable";
+    }
+}
+
+void JSKitGeolocation::stopAndRemove()
+{
+    if (m_source) {
+        qCDebug(l) << "removing source";
+
+        m_source->stopUpdates();
+        m_source->deleteLater();
+        m_source = 0;
     }
 }

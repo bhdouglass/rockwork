@@ -42,6 +42,7 @@ private:
     QJSValue buildPositionErrorObject(PositionError error, const QString &message = QString());
     QJSValue buildPositionErrorObject(const QGeoPositionInfoSource::Error error);
     void invokeCallback(QJSValue callback, QJSValue event);
+    void stopAndRemove();
 
 private:
     QJSEngine *m_engine;
