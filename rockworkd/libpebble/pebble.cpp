@@ -464,7 +464,8 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
     // This is useful for debugging
-    //m_isUnfaithful = true;
+
+    m_isUnfaithful = true;
 
     if (!m_recovery) {
         m_appManager->rescan();
