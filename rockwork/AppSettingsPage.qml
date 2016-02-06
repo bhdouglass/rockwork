@@ -42,10 +42,6 @@ Page {
                 request.action = Oxide.NavigationRequest.ActionReject;
                 pageStack.pop();
             }
-            else {
-                Qt.openUrlExternally(url);
-                request.action = Oxide.NavigationRequest.ActionReject;
-            }
         }
 
         Component.onCompleted: {
