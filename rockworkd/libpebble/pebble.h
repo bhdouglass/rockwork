@@ -71,16 +71,9 @@ public slots:
     void setNotificationFilter(const QString &sourceId, bool enabled);
     void sendNotification(const Notification &notification);
 
-    void setMusicMetadata(const MusicMetaData &metaData);
-
-    void incomingCall(uint cookie, const QString &number, const QString &name);
-    void callStarted(uint cookie);
-    void callEnded(uint cookie, bool missed);
-
     void clearTimeline();
-    void syncCalendar(const QList<CalendarEvent> items);
-
-    void insertReminder();
+    void setCalendarSyncEnabled(bool enabled);
+    bool calendarSyncEnabled() const;
 
     void clearAppDB();
     void installApp(const QString &id);
@@ -126,6 +119,7 @@ private slots:
     void resetPebble();
     void syncApps();
     void syncTime();
+    void syncCalendar(const QList<CalendarEvent> &items);
 
     void slotUpdateAvailableChanged();
 
@@ -134,8 +128,6 @@ signals:
     void pebbleDisconnected();
     void notificationFilterChanged(const QString &sourceId, bool enabled);
     void musicControlPressed(MusicControlButton control);
-    void hangupCall(uint cookie);
-    void actionTriggered(const QString &actToken);
     void installedAppsChanged();
     void openURL(const QString &uuid, const QString &url);
     void screenshotAdded(const QString &filename);
@@ -144,6 +136,9 @@ signals:
     void upgradingFirmwareChanged();
     void logsDumped(bool success);
 
+    void calendarSyncEnabledChanged();
+    void imperialUnitsChanged();
+    void healtParamsChanged();
 private:
     void setHardwareRevision(HardwareRevision hardwareRevision);
 
@@ -178,6 +173,7 @@ private:
     QString m_storagePath;
     QList<QUuid> m_pendingInstallations;
 
+    bool m_calendarSyncEnabled = true;
     HealthParams m_healthParams;
     bool m_imperialUnits = false;
 };

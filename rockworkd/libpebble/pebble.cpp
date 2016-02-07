@@ -37,21 +37,32 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     m_connection->registerEndpointHandler(WatchConnection::EndpointFactorySettings, this, "factorySettingsReceived");
 
     m_notificationEndpoint = new NotificationEndpoint(this, m_connection);
+    QObject::connect(Core::instance()->platform(), &PlatformInterface::notificationReceived, this, &Pebble::sendNotification);
+
     m_musicEndpoint = new MusicEndpoint(this, m_connection);
+    m_musicEndpoint->setMusicMetadata(Core::instance()->platform()->musicMetaData());
+    QObject::connect(m_musicEndpoint, &MusicEndpoint::musicControlPressed, Core::instance()->platform(), &PlatformInterface::sendMusicControlCommand);
+    QObject::connect(Core::instance()->platform(), &PlatformInterface::musicMetadataChanged, m_musicEndpoint, &MusicEndpoint::setMusicMetadata);
+
     m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
-    QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, this, &Pebble::hangupCall);
+    QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, Core::instance()->platform(), &PlatformInterface::hangupCall);
+    QObject::connect(Core::instance()->platform(), &PlatformInterface::incomingCall, m_phoneCallEndpoint, &PhoneCallEndpoint::incomingCall);
+    QObject::connect(Core::instance()->platform(), &PlatformInterface::callStarted, m_phoneCallEndpoint, &PhoneCallEndpoint::callStarted);
+    QObject::connect(Core::instance()->platform(), &PlatformInterface::callEnded, m_phoneCallEndpoint, &PhoneCallEndpoint::callEnded);
 
     m_appManager = new AppManager(this, m_connection);
     QObject::connect(m_appManager, &AppManager::appsChanged, this, &Pebble::installedAppsChanged);
     QObject::connect(m_appManager, &AppManager::idMismatchDetected, this, &Pebble::resetPebble);
+
     m_appMsgManager = new AppMsgManager(this, m_appManager, m_connection);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
     QObject::connect(m_jskitManager, SIGNAL(openURL(const QString&, const QString&)), this, SIGNAL(openURL(const QString&, const QString&)));
 
     m_blobDB = new BlobDB(this, m_connection);
     QObject::connect(m_blobDB, &BlobDB::muteSource, this, &Pebble::muteNotificationSource);
-    QObject::connect(m_blobDB, &BlobDB::actionTriggered, this, &Pebble::actionTriggered);
+    QObject::connect(m_blobDB, &BlobDB::actionTriggered, Core::instance()->platform(), &PlatformInterface::actionTriggered);
     QObject::connect(m_blobDB, &BlobDB::appInserted, this, &Pebble::appInstalled);
+    QObject::connect(Core::instance()->platform(), &PlatformInterface::organizerItemsChanged, this, &Pebble::syncCalendar);
 
     m_appDownloader = new AppDownloader(m_storagePath, this);
     QObject::connect(m_appDownloader, &AppDownloader::downloadFinished, this, &Pebble::appDownloadFinished);
@@ -83,6 +94,10 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
 
     settings.beginGroup("unitsDistance");
     m_imperialUnits = settings.value("imperialUnits", false).toBool();
+    settings.endGroup();
+
+    settings.beginGroup("calendar");
+    m_calendarSyncEnabled = settings.value("calendarSyncEnabled", true).toBool();
     settings.endGroup();
 }
 
@@ -214,6 +229,7 @@ void Pebble::setHealthParams(const HealthParams &healthParams)
 {
     m_healthParams = healthParams;
     m_blobDB->setHealthParams(healthParams);
+    emit healtParamsChanged();
 
     QSettings healthSettings(m_storagePath + "/appsettings.conf", QSettings::IniFormat);
     healthSettings.beginGroup("activityParams");
@@ -236,6 +252,7 @@ void Pebble::setImperialUnits(bool imperial)
 {
     m_imperialUnits = imperial;
     m_blobDB->setUnits(imperial);
+    emit imperialUnitsChanged();
 
     QSettings settings(m_storagePath + "/appsettings.conf", QSettings::IniFormat);
     settings.beginGroup("unitsDistance");
@@ -296,34 +313,9 @@ void Pebble::sendNotification(const Notification &notification)
     }
 }
 
-void Pebble::setMusicMetadata(const MusicMetaData &metaData)
-{
-    m_musicEndpoint->setMusicMetadata(metaData);
-}
-
-void Pebble::insertReminder()
-{
-    m_blobDB->insertReminder();
-}
-
 void Pebble::clearAppDB()
 {
     m_blobDB->clearApps();
-}
-
-void Pebble::incomingCall(uint cookie, const QString &number, const QString &name)
-{
-    m_phoneCallEndpoint->incomingCall(cookie, number, name);
-}
-
-void Pebble::callStarted(uint cookie)
-{
-    m_phoneCallEndpoint->callStarted(cookie);
-}
-
-void Pebble::callEnded(uint cookie, bool missed)
-{
-    m_phoneCallEndpoint->callEnded(cookie, missed);
 }
 
 void Pebble::clearTimeline()
@@ -331,9 +323,34 @@ void Pebble::clearTimeline()
     m_blobDB->clearTimeline();
 }
 
-void Pebble::syncCalendar(const QList<CalendarEvent> items)
+void Pebble::setCalendarSyncEnabled(bool enabled)
 {
-    if (connected()) {
+    if (m_calendarSyncEnabled == enabled) {
+        return;
+    }
+    m_calendarSyncEnabled = enabled;
+    emit calendarSyncEnabledChanged();
+
+    if (!m_calendarSyncEnabled) {
+        m_blobDB->clearTimeline();
+    } else {
+        syncCalendar(Core::instance()->platform()->organizerItems());
+    }
+
+    QSettings settings(m_storagePath + "/appsettings.conf", QSettings::IniFormat);
+    settings.beginGroup("calendar");
+    settings.setValue("calendarSyncEnabled", m_calendarSyncEnabled);
+    settings.endGroup();
+}
+
+bool Pebble::calendarSyncEnabled() const
+{
+    return m_calendarSyncEnabled;
+}
+
+void Pebble::syncCalendar(const QList<CalendarEvent> &items)
+{
+    if (connected() && m_calendarSyncEnabled) {
         m_blobDB->syncCalendar(items);
     }
 }

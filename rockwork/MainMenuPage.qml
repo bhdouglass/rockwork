@@ -18,7 +18,7 @@ Page {
                 }
             },
             Action {
-                iconName: "settings"
+                iconName: "ubuntu-sdk-symbolic"
                 text: i18n.tr("Developer tools")
                 onTriggered: {
                     pageStack.push(Qt.resolvedUrl("DeveloperToolsPage.qml"), {pebble: root.pebble})

@@ -72,20 +72,6 @@ void PebbleManager::pebbleConnected()
 
 void PebbleManager::setupPebble(Pebble *pebble)
 {
-    connect(Core::instance()->platform(), &PlatformInterface::notificationReceived, pebble, &Pebble::sendNotification);
-
-    connect(pebble, &Pebble::actionTriggered, Core::instance()->platform(), &PlatformInterface::actionTriggered);
-
-    pebble->setMusicMetadata(Core::instance()->platform()->musicMetaData());
-    connect(pebble, &Pebble::musicControlPressed, Core::instance()->platform(), &PlatformInterface::sendMusicControlCommand);
-    connect(Core::instance()->platform(), &PlatformInterface::musicMetadataChanged, pebble, &Pebble::setMusicMetadata);
-
-    connect(Core::instance()->platform(), &PlatformInterface::incomingCall, pebble, &Pebble::incomingCall);
-    connect(Core::instance()->platform(), &PlatformInterface::callStarted, pebble, &Pebble::callStarted);
-    connect(Core::instance()->platform(), &PlatformInterface::callEnded, pebble, &Pebble::callEnded);
-    connect(pebble, &Pebble::hangupCall, Core::instance()->platform(), &PlatformInterface::hangupCall);
-
-    connect(Core::instance()->platform(), &PlatformInterface::organizerItemsChanged, pebble, &Pebble::syncCalendar);
 
 #ifdef ENABLE_TESTING
     qmlRegisterUncreatableType<Pebble>("PebbleTest", 1, 0, "Pebble", "Dont");

@@ -26,6 +26,10 @@ signals:
     void UpgradingFirmwareChanged();
     void LogsDumped(bool success);
 
+    void HealthParamsChanged();
+    void ImperialUnitsChanged();
+    void CalendarSyncEnabledChanged();
+
 public slots:
     QString Address() const;
     QString Name() const;
@@ -62,6 +66,9 @@ public slots:
 
     bool ImperialUnits() const;
     void SetImperialUnits(bool imperialUnits);
+
+    bool CalendarSyncEnabled() const;
+    void SetCalendarSyncEnabled(bool enabled);
 
 private:
     Pebble *m_pebble;

@@ -16,6 +16,9 @@ DBusPebble::DBusPebble(Pebble *pebble, QObject *parent):
     connect(pebble, &Pebble::updateAvailableChanged, this, &DBusPebble::FirmwareUpgradeAvailableChanged);
     connect(pebble, &Pebble::upgradingFirmwareChanged, this, &DBusPebble::UpgradingFirmwareChanged);
     connect(pebble, &Pebble::logsDumped, this, &DBusPebble::LogsDumped);
+    connect(pebble, &Pebble::healtParamsChanged, this, &DBusPebble::HealthParamsChanged);
+    connect(pebble, &Pebble::imperialUnitsChanged, this, &DBusPebble::ImperialUnitsChanged);
+    connect(pebble, &Pebble::calendarSyncEnabledChanged, this, &DBusPebble::CalendarSyncEnabledChanged);
 }
 
 QString DBusPebble::Address() const
@@ -230,6 +233,16 @@ void DBusPebble::SetImperialUnits(bool imperialUnits)
 {
     qDebug() << "setting imperial units" << imperialUnits;
     m_pebble->setImperialUnits(imperialUnits);
+}
+
+bool DBusPebble::CalendarSyncEnabled() const
+{
+    return m_pebble->calendarSyncEnabled();
+}
+
+void DBusPebble::SetCalendarSyncEnabled(bool enabled)
+{
+    m_pebble->setCalendarSyncEnabled(enabled);
 }
 
 

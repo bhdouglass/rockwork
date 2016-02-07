@@ -24,6 +24,7 @@ public:
 
     explicit PhoneCallEndpoint(Pebble *pebble, WatchConnection *connection);
 
+public slots:
     void incomingCall(uint cookie, const QString &number, const QString &name);
     void callStarted(uint cookie);
     void callEnded(uint cookie, bool missed);
@@ -31,7 +32,6 @@ public:
 signals:
     void hangupCall(uint cookie);
 
-public slots:
 
 private:
     void phoneControl(char act, uint cookie, QStringList datas);

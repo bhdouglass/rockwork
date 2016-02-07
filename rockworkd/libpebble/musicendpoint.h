@@ -2,6 +2,7 @@
 #define MUSICENDPOINT_H
 
 #include "musicmetadata.h"
+#include "enums.h"
 
 #include <QObject>
 
@@ -14,10 +15,14 @@ class MusicEndpoint : public QObject
 public:
     explicit MusicEndpoint(Pebble *pebble, WatchConnection *connection);
 
+public slots:
     void setMusicMetadata(const MusicMetaData &metaData);
 
 private slots:
     void handleMessage(const QByteArray &data);
+
+signals:
+    void musicControlPressed(MusicControlButton button);
 
 private:
     void writeMetadata();

@@ -27,6 +27,9 @@ Pebble::Pebble(const QDBusObjectPath &path, QObject *parent):
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "FirmwareUpgradeAvailableChanged", this, SLOT(refreshFirmwareUpdateInfo()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "UpgradingFirmwareChanged", this, SIGNAL(refreshFirmwareUpdateInfo()));
     QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "LogsDumped", this, SIGNAL(logsDumped(bool)));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "HealthParamsChanged", this, SIGNAL(healthParamsChanged()));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "ImperialUnitsChanged", this, SIGNAL(imperialUnitsChanged()));
+    QDBusConnection::sessionBus().connect("org.rockwork", path.path(), "org.rockwork.Pebble", "CalendarSyncEnabledChanged", this, SIGNAL(calendarSyncEnabledChanged()));
 
     dataChanged();
     refreshApps();
@@ -141,7 +144,6 @@ QVariantMap Pebble::healthParams() const
 void Pebble::setHealthParams(const QVariantMap &healthParams)
 {
     m_iface->call("SetHealthParams", healthParams);
-    emit healthParamsChanged();
 }
 
 bool Pebble::imperialUnits() const
@@ -153,7 +155,16 @@ void Pebble::setImperialUnits(bool imperialUnits)
 {
     qDebug() << "setting im units" << imperialUnits;
     m_iface->call("SetImperialUnits", imperialUnits);
-    emit imperialUnitsChanged();
+}
+
+bool Pebble::calendarSyncEnabled() const
+{
+    return fetchProperty("CalendarSyncEnabled").toBool();
+}
+
+void Pebble::setCalendarSyncEnabled(bool enabled)
+{
+    m_iface->call("SetCalendarSyncEnabled", enabled);
 }
 
 void Pebble::configurationClosed(const QString &uuid, const QString &url)

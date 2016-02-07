@@ -58,6 +58,6 @@ void MusicEndpoint::handleMessage(const QByteArray &data)
         qWarning() << "Unhandled music control button pressed:" << data.toHex();
         return;
     }
-    emit m_pebble->musicControlPressed(controlButton);
+    emit musicControlPressed(controlButton);
 }
 

@@ -27,6 +27,7 @@ class Pebble : public QObject
     Q_PROPERTY(bool upgradingFirmware READ upgradingFirmware NOTIFY upgradingFirmwareChanged)
     Q_PROPERTY(QVariantMap healthParams READ healthParams WRITE setHealthParams NOTIFY healthParamsChanged)
     Q_PROPERTY(bool imperialUnits READ imperialUnits WRITE setImperialUnits NOTIFY imperialUnitsChanged)
+    Q_PROPERTY(bool calendarSyncEnabled READ calendarSyncEnabled WRITE setCalendarSyncEnabled NOTIFY calendarSyncEnabledChanged)
 
 public:
     explicit Pebble(const QDBusObjectPath &path, QObject *parent = 0);
@@ -58,6 +59,9 @@ public:
     bool imperialUnits() const;
     void setImperialUnits(bool imperialUnits);
 
+    bool calendarSyncEnabled() const;
+    void setCalendarSyncEnabled(bool enabled);
+
 public slots:
     void setNotificationFilter(const QString &sourceId, bool enabled);
     void removeApp(const QString &uuid);
@@ -80,6 +84,7 @@ signals:
     void logsDumped(bool success);
     void healthParamsChanged();
     void imperialUnitsChanged();
+    void calendarSyncEnabledChanged();
 
     void openURL(const QString &uuid, const QString &url);
 

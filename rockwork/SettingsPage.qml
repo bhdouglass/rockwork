@@ -51,6 +51,26 @@ Page {
         }
         ThinDivider {}
 
+        Label {
+            text: i18n.tr("Calendar")
+            Layout.fillWidth: true
+            font.bold: true
+        }
+        RowLayout {
+            Layout.fillWidth: true
+            Label {
+                text: i18n.tr("Sync calendar to timeline")
+                Layout.fillWidth: true
+            }
+            Switch {
+                checked: root.pebble.calendarSyncEnabled
+                onClicked: {
+                    root.pebble.calendarSyncEnabled = checked;
+                }
+            }
+        }
+        ThinDivider {}
+
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
