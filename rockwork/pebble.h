@@ -26,6 +26,7 @@ class Pebble : public QObject
     Q_PROPERTY(QString candidateVersion READ candidateVersion NOTIFY firmwareUpgradeAvailableChanged)
     Q_PROPERTY(bool upgradingFirmware READ upgradingFirmware NOTIFY upgradingFirmwareChanged)
     Q_PROPERTY(QVariantMap healthParams READ healthParams WRITE setHealthParams NOTIFY healthParamsChanged)
+    Q_PROPERTY(bool imperialUnits READ imperialUnits WRITE setImperialUnits NOTIFY imperialUnitsChanged)
 
 public:
     explicit Pebble(const QDBusObjectPath &path, QObject *parent = 0);
@@ -54,6 +55,9 @@ public:
     QVariantMap healthParams() const;
     void setHealthParams(const QVariantMap &healthParams);
 
+    bool imperialUnits() const;
+    void setImperialUnits(bool imperialUnits);
+
 public slots:
     void setNotificationFilter(const QString &sourceId, bool enabled);
     void removeApp(const QString &uuid);
@@ -75,11 +79,12 @@ signals:
     void upgradingFirmwareChanged();
     void logsDumped(bool success);
     void healthParamsChanged();
+    void imperialUnitsChanged();
 
     void openURL(const QString &uuid, const QString &url);
 
 private:
-    QVariant fetchProperty(const QString &propertyName);
+    QVariant fetchProperty(const QString &propertyName) const;
 
 private slots:
     void dataChanged();

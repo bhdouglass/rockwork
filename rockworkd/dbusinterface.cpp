@@ -221,6 +221,18 @@ void DBusPebble::SetHealthParams(const QVariantMap &healthParams)
     m_pebble->setHealthParams(params);
 }
 
+bool DBusPebble::ImperialUnits() const
+{
+    return m_pebble->imperialUnits();
+}
+
+void DBusPebble::SetImperialUnits(bool imperialUnits)
+{
+    qDebug() << "setting imperial units" << imperialUnits;
+    m_pebble->setImperialUnits(imperialUnits);
+}
+
+
 DBusInterface::DBusInterface(QObject *parent) :
     QObject(parent)
 {

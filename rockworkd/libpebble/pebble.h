@@ -107,6 +107,9 @@ public slots:
     void setHealthParams(const HealthParams &healthParams);
     HealthParams healthParams() const;
 
+    void setImperialUnits(bool imperial);
+    bool imperialUnits() const;
+
     void dumpLogs(const QString &archiveName) const;
 
 private slots:
@@ -176,6 +179,7 @@ private:
     QList<QUuid> m_pendingInstallations;
 
     HealthParams m_healthParams;
+    bool m_imperialUnits = false;
 };
 
 /*

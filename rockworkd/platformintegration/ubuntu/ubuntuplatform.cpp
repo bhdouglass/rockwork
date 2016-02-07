@@ -58,6 +58,7 @@ QDBusInterface *UbuntuPlatform::interface() const
 
 uint UbuntuPlatform::Notify(const QString &app_name, uint replaces_id, const QString &app_icon, const QString &summary, const QString &body, const QStringList &actions, const QVariantHash &hints, int expire_timeout)
 {
+    Q_UNUSED(replaces_id)
     // Lets directly suppress volume change notifications, network password entries and phone call snap decisions here
     QStringList hiddenNotifications = {"indicator-sound", "indicator-network"};
     if (!hiddenNotifications.contains(app_name)) {

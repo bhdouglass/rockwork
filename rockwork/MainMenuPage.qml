@@ -70,6 +70,14 @@ Page {
             color: "black"
         });
 
+        mainMenuModel.append({
+            icon: "settings",
+            text: i18n.tr("Settings"),
+            page: "SettingsPage.qml",
+            showWatchFaces: true,
+            color: "gold"
+        });
+
         if (root.pebble.firmwareUpgradeAvailable) {
             mainMenuModel.append({
                 icon: "preferences-system-updates-symbolic",

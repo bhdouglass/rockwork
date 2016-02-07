@@ -79,9 +79,9 @@ AppInfo::AppInfo(const QUuid &uuid, bool isWatchFace, const QString &name, const
     m_uuid(uuid),
     m_shortName(name),
     m_companyName(vendor),
+    m_capabilities(hasSettings ? Configurable : None),
     m_isWatchface(isWatchFace),
-    m_isSystemApp(true),
-    m_capabilities(hasSettings ? Configurable : None)
+    m_isSystemApp(true)
 {
 
 }

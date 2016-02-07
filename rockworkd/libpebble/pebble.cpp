@@ -70,14 +70,20 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     QSettings watchInfo(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
     m_model = (Model)watchInfo.value("watchModel", (int)ModelUnknown).toInt();
 
-    QSettings healthSettings(m_storagePath + "/healthsettings.conf", QSettings::IniFormat);
-    m_healthParams.setEnabled(healthSettings.value("enabled").toBool());
-    m_healthParams.setAge(healthSettings.value("age").toUInt());
-    m_healthParams.setHeight(healthSettings.value("height").toInt());
-    m_healthParams.setGender((HealthParams::Gender)healthSettings.value("gender").toInt());
-    m_healthParams.setWeight(healthSettings.value("weight").toInt());
-    m_healthParams.setMoreActive(healthSettings.value("moreActive").toBool());
-    m_healthParams.setSleepMore(healthSettings.value("sleepMore").toBool());
+    QSettings settings(m_storagePath + "/appsettings.conf", QSettings::IniFormat);
+    settings.beginGroup("activityParams");
+    m_healthParams.setEnabled(settings.value("enabled").toBool());
+    m_healthParams.setAge(settings.value("age").toUInt());
+    m_healthParams.setHeight(settings.value("height").toInt());
+    m_healthParams.setGender((HealthParams::Gender)settings.value("gender").toInt());
+    m_healthParams.setWeight(settings.value("weight").toInt());
+    m_healthParams.setMoreActive(settings.value("moreActive").toBool());
+    m_healthParams.setSleepMore(settings.value("sleepMore").toBool());
+    settings.endGroup();
+
+    settings.beginGroup("unitsDistance");
+    m_imperialUnits = settings.value("imperialUnits", false).toBool();
+    settings.endGroup();
 }
 
 QBluetoothAddress Pebble::address() const
@@ -209,7 +215,8 @@ void Pebble::setHealthParams(const HealthParams &healthParams)
     m_healthParams = healthParams;
     m_blobDB->setHealthParams(healthParams);
 
-    QSettings healthSettings(m_storagePath + "/healthsettings.conf", QSettings::IniFormat);
+    QSettings healthSettings(m_storagePath + "/appsettings.conf", QSettings::IniFormat);
+    healthSettings.beginGroup("activityParams");
     healthSettings.setValue("enabled", m_healthParams.enabled());
     healthSettings.setValue("age", m_healthParams.age());
     healthSettings.setValue("height", m_healthParams.height());
@@ -223,6 +230,21 @@ void Pebble::setHealthParams(const HealthParams &healthParams)
 HealthParams Pebble::healthParams() const
 {
     return m_healthParams;
+}
+
+void Pebble::setImperialUnits(bool imperial)
+{
+    m_imperialUnits = imperial;
+    m_blobDB->setUnits(imperial);
+
+    QSettings settings(m_storagePath + "/appsettings.conf", QSettings::IniFormat);
+    settings.beginGroup("unitsDistance");
+    settings.setValue("enabled", m_imperialUnits);
+}
+
+bool Pebble::imperialUnits() const
+{
+    return m_imperialUnits;
 }
 
 void Pebble::dumpLogs(const QString &archiveName) const
@@ -482,6 +504,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
             syncCalendar(Core::instance()->platform()->organizerItems());
             syncApps();
             m_blobDB->setHealthParams(m_healthParams);
+            m_blobDB->setUnits(m_imperialUnits);
         }
         version.setValue("syncedWithVersion", QStringLiteral(VERSION));
 

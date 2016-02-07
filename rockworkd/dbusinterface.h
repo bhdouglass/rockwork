@@ -60,6 +60,9 @@ public slots:
     QVariantMap HealthParams() const;
     void SetHealthParams(const QVariantMap &healthParams);
 
+    bool ImperialUnits() const;
+    void SetImperialUnits(bool imperialUnits);
+
 private:
     Pebble *m_pebble;
 };

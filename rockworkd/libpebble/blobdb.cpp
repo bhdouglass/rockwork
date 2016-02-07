@@ -390,6 +390,21 @@ void BlobDB::setHealthParams(const HealthParams &healthParams)
     sendNext();
 }
 
+void BlobDB::setUnits(bool imperial)
+{
+    BlobCommand *cmd = new BlobCommand();
+    cmd->m_command = BlobDB::OperationInsert;
+    cmd->m_token = generateToken();
+    cmd->m_database = BlobDBIdAppSettings;
+
+    cmd->m_key = "unitsDistance";
+    WatchDataWriter writer(&cmd->m_value);
+    writer.write<quint8>(imperial ? 0x01 : 0x00);
+
+    m_commandQueue.append(cmd);
+    sendNext();
+}
+
 void BlobDB::blobCommandReply(const QByteArray &data)
 {
     WatchDataReader reader(data);

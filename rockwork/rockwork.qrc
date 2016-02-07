@@ -42,5 +42,6 @@
         <file>DeveloperToolsPage.qml</file>
         <file>ContentPeerPickerPage.qml</file>
         <file>HealthSettingsDialog.qml</file>
+        <file>SettingsPage.qml</file>
     </qresource>
 </RCC>

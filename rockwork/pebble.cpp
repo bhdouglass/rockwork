@@ -141,6 +141,19 @@ QVariantMap Pebble::healthParams() const
 void Pebble::setHealthParams(const QVariantMap &healthParams)
 {
     m_iface->call("SetHealthParams", healthParams);
+    emit healthParamsChanged();
+}
+
+bool Pebble::imperialUnits() const
+{
+    return fetchProperty("ImperialUnits").toBool();
+}
+
+void Pebble::setImperialUnits(bool imperialUnits)
+{
+    qDebug() << "setting im units" << imperialUnits;
+    m_iface->call("SetImperialUnits", imperialUnits);
+    emit imperialUnitsChanged();
 }
 
 void Pebble::configurationClosed(const QString &uuid, const QString &url)
@@ -170,7 +183,7 @@ void Pebble::installApp(const QString &storeId)
     m_iface->call("InstallApp", storeId);
 }
 
-QVariant Pebble::fetchProperty(const QString &propertyName)
+QVariant Pebble::fetchProperty(const QString &propertyName) const
 {
     QDBusMessage m = m_iface->call(propertyName);
     if (m.type() != QDBusMessage::ErrorMessage && m.arguments().count() == 1) {

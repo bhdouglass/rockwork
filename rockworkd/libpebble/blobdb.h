@@ -57,6 +57,7 @@ public:
     void clear(BlobDBId database);
 
     void setHealthParams(const HealthParams &healthParams);
+    void setUnits(bool imperial);
 
 private slots:
     void blobCommandReply(const QByteArray &data);
