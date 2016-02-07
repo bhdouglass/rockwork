@@ -19,6 +19,7 @@
 #include <QDateTime>
 #include <QStandardPaths>
 #include <QSettings>
+#include <QTimeZone>
 
 Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     QObject(parent),
@@ -464,7 +465,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
     // This is useful for debugging
-//    m_isUnfaithful = true;
+    //m_isUnfaithful = true;
 
     if (!m_recovery) {
         m_appManager->rescan();
@@ -597,28 +598,40 @@ void Pebble::syncApps()
 
 void Pebble::syncTime()
 {
-    QByteArray res;
-    QDateTime UTC(QDateTime::currentDateTimeUtc());
-    QDateTime local(UTC.toLocalTime());
-    local.setTimeSpec(Qt::UTC);
-    int offset = UTC.secsTo(local);
-    uint val = (local.toMSecsSinceEpoch() + offset) / 1000;
-
-    res.append(0x02); //SET_TIME_REQ
-    res.append((char)((val >> 24) & 0xff));
-    res.append((char)((val >> 16) & 0xff));
-    res.append((char)((val >> 8) & 0xff));
-    res.append((char)(val & 0xff));
-    m_connection->writeToPebble(WatchConnection::EndpointTime, res);
+    TimeMessage msg(TimeMessage::TimeOperationSetUTC);
+    qDebug() << "Syncing Time" << QDateTime::currentDateTime() << msg.serialize().toHex();
+    m_connection->writeToPebble(WatchConnection::EndpointTime, msg.serialize());
 }
 
 void Pebble::slotUpdateAvailableChanged()
 {
     qDebug() << "update available" << m_firmwareDownloader->updateAvailable() << m_firmwareDownloader->candidateVersion();
 
-//    if (m_recovery) {
-//        m_firmwareDownloader->performUpgrade();
-//    }
     emit updateAvailableChanged();
 }
 
+
+TimeMessage::TimeMessage(TimeMessage::TimeOperation operation) :
+    m_operation(operation)
+{
+
+}
+QByteArray TimeMessage::serialize() const
+{
+    QByteArray ret;
+    WatchDataWriter writer(&ret);
+    writer.write<quint8>(m_operation);
+    switch (m_operation) {
+    case TimeOperationSetLocaltime:
+        writer.writeLE<quint32>(QDateTime::currentMSecsSinceEpoch() / 1000);
+        break;
+    case TimeOperationSetUTC:
+        writer.write<quint32>(QDateTime::currentDateTime().toMSecsSinceEpoch() / 1000);
+        writer.write<qint16>(QDateTime::currentDateTime().offsetFromUtc() / 60);
+        writer.writePascalString(QDateTime::currentDateTime().timeZone().displayName(QTimeZone::StandardTime));
+        break;
+    default:
+        ;
+    }
+    return ret;
+}

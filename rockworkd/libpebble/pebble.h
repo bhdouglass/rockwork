@@ -201,4 +201,23 @@ private:
   - third-party voice
   */
 
+
+
+class TimeMessage: public PebblePacket
+{
+public:
+    enum TimeOperation {
+        TimeOperationGetRequest = 0x00,
+        TimeOperationGetResponse = 0x01,
+        TimeOperationSetLocaltime = 0x02,
+        TimeOperationSetUTC = 0x03
+    };
+    TimeMessage(TimeOperation operation);
+
+    QByteArray serialize() const override;
+
+private:
+    TimeOperation m_operation = TimeOperationGetRequest;
+};
+
 #endif // PEBBLE_H

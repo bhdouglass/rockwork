@@ -54,21 +54,22 @@ Page {
 
                 Button {
                     id: installButton
-                    text: enabled ? i18n.tr("Install") : (installing ? i18n.tr("Installing...") : i18n.tr("Installed"))
+                    text: enabled ? i18n.tr("Install") : (installing && !installed ? i18n.tr("Installing...") : i18n.tr("Installed"))
                     color: UbuntuColors.green
-                    enabled: !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId) && !installing
+                    enabled: !installed && !installing
                     property bool installing: false
+                    property bool installed: root.pebble.installedApps.contains(root.app.storeId) || root.pebble.installedWatchfaces.contains(root.app.storeId)
                     Connections {
                         target: root.pebble.installedApps
                         onChanged: {
-                            installButton.enabled = !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId)
+                            installButton.installed = root.pebble.installedApps.contains(root.app.storeId) || root.pebble.installedWatchfaces.contains(root.app.storeId)
                         }
                     }
 
                     Connections {
                         target: root.pebble.installedWatchfaces
                         onChanged: {
-                            installButton.enabled = !root.pebble.installedApps.contains(root.app.storeId) && !root.pebble.installedWatchfaces.contains(root.app.storeId)
+                            installButton.installed = root.pebble.installedApps.contains(root.app.storeId) || root.pebble.installedWatchfaces.contains(root.app.storeId)
                         }
                     }
 

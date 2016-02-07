@@ -28,6 +28,12 @@ void WatchDataWriter::writeCString(const QString &s)
     _buf->append('\0');
 }
 
+void WatchDataWriter::writePascalString(const QString &s)
+{
+    _buf->append(s.length());
+    _buf->append(s.toLatin1());
+}
+
 void WatchDataWriter::writeUuid(const QUuid &uuid)
 {
     writeBytes(16, uuid.toRfc4122());

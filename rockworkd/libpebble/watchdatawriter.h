@@ -25,6 +25,8 @@ public:
 
     void writeCString(const QString &s);
 
+    void writePascalString(const QString &s);
+
     void writeUuid(const QUuid &uuid);
 
     void writeDict(const QMap<int, QVariant> &d);
