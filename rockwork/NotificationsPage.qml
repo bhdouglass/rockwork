@@ -22,7 +22,7 @@ Page {
                 anchors {
                     left: parent.left
                     right: parent.right
-                    margins: units.gu(1)
+                    margins: units.gu(2)
                 }
 
                 wrapMode: Text.WordWrap
@@ -38,17 +38,45 @@ Page {
             model: root.pebble.notifications
 
             delegate: ListItem {
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.margins: units.gu(1)
+                ListItemLayout {
+                    title.text: model.name
 
-                    Label {
-                        text: model.name
-                        Layout.fillWidth: true
+                    UbuntuShape {
+                        SlotsLayout.position: SlotsLayout.Leading;
+                        height: units.gu(5)
+                        width: height
+                        backgroundColor: {
+                            // Add some hacks for known icons
+                            switch (model.icon) {
+                            case "calendar":
+                                return UbuntuColors.orange;
+                            case "settings":
+                                return "grey";
+                            case "dialog-question-symbolic":
+                                return UbuntuColors.red;
+                            case "alarm-clock":
+                                return UbuntuColors.purple;
+                            case "gpm-battery-050":
+                                return UbuntuColors.green;
+                            }
+                            return "black"
+                        }
+                        source: Image {
+                            height: parent.height
+                            width: parent.width
+                            source: model.icon.indexOf("/") === 0 ? "file://" + model.icon : ""
+                        }
+                        Icon {
+                            anchors.fill: parent
+                            anchors.margins: units.gu(.5)
+                            name: model.icon.indexOf("/") !== 0 ? model.icon : ""
+                            color: "white"
+                        }
                     }
 
                     Switch {
                         checked: model.enabled
+                        SlotsLayout.position: SlotsLayout.Trailing;
                         onClicked: {
                             root.pebble.setNotificationFilter(model.name, checked)
                         }

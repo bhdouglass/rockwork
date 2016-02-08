@@ -3,6 +3,19 @@
 
 #include <QAbstractListModel>
 
+class NotificationSourceItem
+{
+public:
+    QString m_id;
+    QString m_displayName;
+    QString m_icon;
+    bool m_enabled = false;
+
+    bool operator ==(const NotificationSourceItem &other) {
+        return m_id == other.m_id;
+    }
+};
+
 class NotificationSourceModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -10,7 +23,8 @@ class NotificationSourceModel : public QAbstractListModel
 public:
     enum Roles {
         RoleName,
-        RoleEnabled
+        RoleEnabled,
+        RoleIcon
     };
 
     explicit NotificationSourceModel(QObject *parent = 0);
@@ -25,9 +39,10 @@ signals:
     void countChanged();
 
 private:
-    QStringList m_sources;
-    QHash<QString, bool> m_sourceValues;
+    NotificationSourceItem fromDesktopFile(const QString &sourceId);
 
+private:
+    QList<NotificationSourceItem> m_sources;
 };
 
 #endif // NOTIFICATIONSOURCEMODEL_H
