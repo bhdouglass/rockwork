@@ -163,7 +163,7 @@ Page {
                         Layout.preferredHeight: units.gu(20)
                         Layout.fillWidth: true
 
-                        property bool isRound: modelModel.get(root.pebble.model - 1).shape === "round"
+                        property bool isRound: modelModel.get(root.pebble.model).shape === "round"
 
                         ListView {
                             id: screenshotsListView
@@ -192,7 +192,7 @@ Page {
                             width: height * sourceSize.width / sourceSize.height
                             fillMode: Image.PreserveAspectFit
                             anchors.centerIn: parent
-                            source:  modelModel.get(root.pebble.model - 1).image
+                            source:  modelModel.get(root.pebble.model).image
                             Rectangle {
                                 anchors.centerIn: parent
                                 height: units.gu(10)
@@ -222,7 +222,7 @@ Page {
                                 radius: screenshotsItem.isRound ? height / 2 : units.gu(.5)
 //                                anchors.fill: watchImage
 //                                anchors.margins: units.gu(5)
-//                                radius: modelModel.get(root.pebble.model - 1).shape === "rectangle" ? units.gu(.5) : height / 2
+//                                radius: modelModel.get(root.pebble.model).shape === "rectangle" ? units.gu(.5) : height / 2
 //                                visible: false
                             }
                         }

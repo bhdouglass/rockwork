@@ -118,7 +118,7 @@ Page {
                         height: parent.height
                         anchors.horizontalCenter: parent.horizontalCenter
 
-                        source:  modelModel.get(root.pebble.model - 1).image
+                        source:  modelModel.get(root.pebble.model).image
                         fillMode: Image.PreserveAspectFit
 
                         Item {

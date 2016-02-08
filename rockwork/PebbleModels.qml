@@ -2,6 +2,7 @@ import QtQuick 2.4
 
 ListModel {
     id: modelModel
+    ListElement { image: 'artwork/tintin-black.png'; shape: "rectangle" } // Fallback for Unknown
     ListElement { image: 'artwork/tintin-black.png'; shape: "rectangle" }
     ListElement { image: 'artwork/tintin-white.png'; shape: "rectangle" }
     ListElement { image: 'artwork/tintin-red.png'; shape: "rectangle" }
