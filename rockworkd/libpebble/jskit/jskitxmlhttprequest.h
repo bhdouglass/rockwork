@@ -34,7 +34,7 @@ public:
     };
     Q_ENUMS(ReadyStates)
 
-    Q_INVOKABLE void open(const QString &method, const QString &url, bool async = false, const QString &username = QString(), const QString &password = QString());
+    Q_INVOKABLE void open(const QString &method, const QString &url, bool async = true, const QString &username = QString(), const QString &password = QString());
     Q_INVOKABLE void setRequestHeader(const QString &header, const QString &value);
     Q_INVOKABLE void send(const QJSValue &data = QJSValue(QJSValue::NullValue));
     Q_INVOKABLE void abort();
@@ -76,6 +76,7 @@ private:
     QJSEngine *m_engine;
     QNetworkAccessManager *m_net;
     QString m_verb;
+    bool m_async = true;
     uint m_timeout;
     QString m_username;
     QString m_password;
