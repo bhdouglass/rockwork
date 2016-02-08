@@ -1,5 +1,6 @@
 #include <QBuffer>
 #include <QAuthenticator>
+#include <QEventLoop>
 
 #include "jskitxmlhttprequest.h"
 #include "jskitmanager.h"
@@ -27,9 +28,9 @@ void JSKitXMLHttpRequest::open(const QString &method, const QString &url, bool a
     m_password = password;
     m_request = QNetworkRequest(QUrl(url));
     m_verb = method;
-    Q_UNUSED(async);
+    m_async = async;
 
-    qCDebug(l) << "opened to URL" << m_request.url().toString();
+    qCDebug(l) << "opened to URL" << m_request.url().toString() << "Async:" << async;
 }
 
 void JSKitXMLHttpRequest::setRequestHeader(const QString &header, const QString &value)
@@ -94,6 +95,17 @@ void JSKitXMLHttpRequest::send(const QJSValue &data)
     if (buffer) {
         // So that it gets deleted alongside the reply object.
         buffer->setParent(m_reply);
+    }
+
+    if (!m_async) {
+        QEventLoop loop; //Hacky way to get QNetworkReply be synchronous
+
+        connect(m_reply, &QNetworkReply::finished,
+                &loop, &QEventLoop::quit);
+        connect(m_reply, static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
+                &loop, &QEventLoop::quit);
+
+        loop.exec();
     }
 }
 
