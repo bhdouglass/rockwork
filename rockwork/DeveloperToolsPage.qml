@@ -37,12 +37,13 @@ Page {
             dialog: sendLogsComponent,
             color: UbuntuColors.red
         });
-//        devMenuModel.append({
-//            icon: "stock_application",
-//            text: i18n.tr("Sideload package"),
-//            page: "ScreenshotsPage.qml",
-//            color: UbuntuColors.blue
-//        });
+        devMenuModel.append({
+            icon: "stock_application",
+            text: i18n.tr("Install app or watchface from file"),
+            page: "ImportPackagePage.qml",
+            dialog: null,
+            color: UbuntuColors.blue
+        });
 
     }
 
@@ -81,7 +82,6 @@ Page {
                     if (model.page) {
                         pageStack.push(Qt.resolvedUrl(model.page), {pebble: root.pebble})
                     }
-                    print("bla")
                     if (model.dialog) {
                         PopupUtils.open(model.dialog)
                     }
@@ -152,5 +152,6 @@ Page {
             }
         }
     }
+
 }
 

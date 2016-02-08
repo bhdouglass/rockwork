@@ -194,6 +194,11 @@ void Pebble::installApp(const QString &storeId)
     m_iface->call("InstallApp", storeId);
 }
 
+void Pebble::sideloadApp(const QString &packageFile)
+{
+    m_iface->call("SideloadApp", packageFile);
+}
+
 QVariant Pebble::fetchProperty(const QString &propertyName) const
 {
     QDBusMessage m = m_iface->call(propertyName);

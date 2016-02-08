@@ -77,6 +77,11 @@ void DBusPebble::InstallApp(const QString &id)
     m_pebble->installApp(id);
 }
 
+void DBusPebble::SideloadApp(const QString &packageFile)
+{
+    m_pebble->sideloadApp(packageFile);
+}
+
 QStringList DBusPebble::InstalledAppIds() const
 {
     QStringList ret;

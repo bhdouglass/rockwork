@@ -15,7 +15,9 @@
 #include "watchlogendpoint.h"
 #include "core.h"
 #include "platforminterface.h"
+#include "ziphelper.h"
 
+#include "QDir"
 #include <QDateTime>
 #include <QStandardPaths>
 #include <QSettings>
@@ -358,6 +360,34 @@ void Pebble::syncCalendar(const QList<CalendarEvent> &items)
 void Pebble::installApp(const QString &id)
 {
     m_appDownloader->downloadApp(id);
+}
+
+void Pebble::sideloadApp(const QString &packageFile)
+{
+    QString targetFile = packageFile;
+    targetFile.remove("file://");
+
+    QString id;
+    int i = 0;
+    do {
+        QDir dir(m_storagePath + "/apps/sideload" + QString::number(i));
+        if (!dir.exists()) {
+            if (!dir.mkpath(dir.absolutePath())) {
+                qWarning() << "Error creating dir for unpacking. Cannot install package" << packageFile;
+                return;
+            }
+            id = "sideload" + QString::number(i);
+        }
+        i++;
+    } while (id.isEmpty());
+
+    if (!ZipHelper::unpackArchive(targetFile, m_storagePath + "/apps/" + id)) {
+        qWarning() << "Error unpacking App zip file" << targetFile << "to" << m_storagePath + "/apps/" + id;
+        return;
+    }
+
+    qDebug() << "Sideload package unpacked.";
+    appDownloadFinished(id);
 }
 
 QList<QUuid> Pebble::installedAppIds()

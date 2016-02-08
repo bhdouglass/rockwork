@@ -12,7 +12,7 @@ Page {
         actions: [
             Action {
                 iconName: "info"
-                text: i18n.tr("Info")
+                text: i18n.tr("About")
                 onTriggered: {
                     pageStack.push(Qt.resolvedUrl("InfoPage.qml"))
                 }

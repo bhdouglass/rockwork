@@ -43,5 +43,6 @@
         <file>ContentPeerPickerPage.qml</file>
         <file>HealthSettingsDialog.qml</file>
         <file>SettingsPage.qml</file>
+        <file>ImportPackagePage.qml</file>
     </qresource>
 </RCC>

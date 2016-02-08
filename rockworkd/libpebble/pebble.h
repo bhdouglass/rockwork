@@ -77,6 +77,7 @@ public slots:
 
     void clearAppDB();
     void installApp(const QString &id);
+    void sideloadApp(const QString &packageFile);
     QList<QUuid> installedAppIds();
     void setAppOrder(const QList<QUuid> &newList);
     AppInfo appInfo(const QUuid &uuid);

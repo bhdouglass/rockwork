@@ -49,6 +49,7 @@ public slots:
     void SetNotificationFilter(const QString &sourceId, bool enabled);
 
     void InstallApp(const QString &id);
+    void SideloadApp(const QString &packageFile);
     QStringList InstalledAppIds() const;
     QVariantList InstalledApps() const;
     void RemoveApp(const QString &id);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 16:16+0100\n"
+"POT-Creation-Date: 2016-02-08 19:08+0100\n"
 "PO-Revision-Date: 2016-02-03 19:49+0000\n"
 "Last-Translator: Jean-Marc <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -75,6 +75,10 @@ msgstr "Captures d'écran"
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:35
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:102
 msgid "Report problem"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:42
+msgid "Install app or watchface from file"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:109
@@ -178,6 +182,10 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
+#: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
+msgid "Import watchapp or watchface"
+msgstr ""
+
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
 #, fuzzy, qt-format
 msgid "Version %1"
@@ -231,7 +239,7 @@ msgid "Close"
 msgstr "Fermer"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
-msgid "Info"
+msgid "About"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
