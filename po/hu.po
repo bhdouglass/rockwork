@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 19:08+0100\n"
+"POT-Creation-Date: 2016-02-09 00:05+0100\n"
 "PO-Revision-Date: 2016-02-02 09:30+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -58,7 +58,7 @@ msgstr "Új alkalmazás hozzáadása"
 msgid "Add new watchface"
 msgstr "Új számlap hozzáadása"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:119
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:125
 msgid "See all"
 msgstr "Összes"
 

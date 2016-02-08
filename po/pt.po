@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 19:08+0100\n"
+"POT-Creation-Date: 2016-02-09 00:05+0100\n"
 "PO-Revision-Date: 2016-02-05 15:12+0000\n"
 "Last-Translator: Vitor Loureiro <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
@@ -58,7 +58,7 @@ msgstr "Adicionar nova watchapp"
 msgid "Add new watchface"
 msgstr "Adicionar nova watchface"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:119
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:125
 msgid "See all"
 msgstr "Ver todos"
 

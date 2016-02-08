@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 19:08+0100\n"
+"POT-Creation-Date: 2016-02-09 00:05+0100\n"
 "PO-Revision-Date: 2016-01-23 13:33+0000\n"
 "Last-Translator: Eugene Marshal <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -59,7 +59,7 @@ msgstr "Добавить приложение"
 msgid "Add new watchface"
 msgstr "Добавить циферблат"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:119
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:125
 msgid "See all"
 msgstr "См. все"
 

@@ -60,6 +60,11 @@ Page {
         height: units.gu(6)
 
         property bool shown: false
+        onShownChanged: {
+            if (shown) {
+                searchTextField.focus = true;
+            }
+        }
 
         TextField {
             id: searchTextField
@@ -107,6 +112,7 @@ Page {
                         text: client.model.groupName(section)
                         fontSize: "large"
 //                        font.weight: Font.DemiBold
+                        elide: Text.ElideRight
                         Layout.fillWidth: true
                     }
                     AbstractButton {
@@ -163,13 +169,13 @@ Page {
                     anchors.margins: units.gu(1)
                     spacing: units.gu(1)
 
-                    Image {
+                    AnimatedImage {
                         Layout.fillHeight: true
                         Layout.preferredWidth: height
                         source: model.icon
                         asynchronous: true
-                        sourceSize.width: width
-                        sourceSize.height: height
+//                        sourceSize.width: width
+//                        sourceSize.height: height
                     }
 
                     ColumnLayout {

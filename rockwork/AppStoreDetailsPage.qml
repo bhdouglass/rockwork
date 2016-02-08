@@ -178,7 +178,7 @@ Page {
                             highlightRangeMode: ListView.StrictlyEnforceRange
 
                             model: root.app.screenshotImages
-                            delegate: Image {
+                            delegate: AnimatedImage {
                                 height: screenshotsListView.height
                                 width: height * 0.95
                                 fillMode: Image.PreserveAspectFit

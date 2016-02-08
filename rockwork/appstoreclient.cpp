@@ -252,6 +252,7 @@ void AppStoreClient::search(const QString &searchString, Type type)
     url.setQuery(query);
 
     QNetworkRequest request(url);
+    qDebug() << "Search query:" << url;
     QNetworkReply *reply = m_nam->get(request);
     connect(reply, &QNetworkReply::finished, [this, reply]() {
         m_model->clear();
@@ -264,8 +265,9 @@ void AppStoreClient::search(const QString &searchString, Type type)
         foreach (const QVariant &entry, resultMap.value("hits").toList()) {
             AppItem *item = parseAppItem(entry.toMap());
             m_model->insert(item);
-            qDebug() << "have item" << item->name() << item->icon();
+//            qDebug() << "have item" << item->name() << item->icon();
         }
+        qDebug() << "Found" << m_model->rowCount() << "items";
     });
 }
 
@@ -283,8 +285,19 @@ AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
     item->setHearts(map.value("hearts").toInt());
     item->setCategory(map.value("category_name").toString());
     item->setCompanion(!map.value("companions").toMap().value("android").isNull() || !map.value("companions").toMap().value("ios").isNull());
+
+    QVariantList screenshotsList = map.value("screenshot_images").toList();
+    // try to get more hardware specific screenshots. The store search keeps them in a subgroup.
+    if (map.contains("asset_collections")) {
+        foreach (const QVariant &assetCollection, map.value("asset_collections").toList()) {
+            if (assetCollection.toMap().value("hardware_platform").toString() == m_hardwarePlatform) {
+                screenshotsList = assetCollection.toMap().value("screenshots").toList();
+                break;
+            }
+        }
+    }
     QStringList screenshotImages;
-    foreach (const QVariant &screenshotItem, map.value("screenshot_images").toList()) {
+    foreach (const QVariant &screenshotItem, screenshotsList) {
         if (!screenshotItem.toString().isEmpty()) {
             screenshotImages << screenshotItem.toString();
         } else if (screenshotItem.toMap().count() > 0) {
@@ -292,6 +305,7 @@ AppItem* AppStoreClient::parseAppItem(const QVariantMap &map)
         }
     }
     item->setScreenshotImages(screenshotImages);
+//    qDebug() << "setting screenshot images" << item->screenshotImages();
 
     // The search seems to return references to invalid icon images. if we detect that, we'll replace it with a screenshot
     if (item->icon().contains("aOUhkV1R1uCqCVkKY5Dv") && !item->screenshotImages().isEmpty()) {
