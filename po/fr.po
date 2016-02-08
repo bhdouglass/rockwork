@@ -6,16 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: upebble\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-08 03:04+0100\n"
-"PO-Revision-Date: 2016-02-03 19:49+0000\n"
-"Last-Translator: Jean-Marc <Unknown>\n"
+"PO-Revision-Date: 2016-02-07 15:41+0000\n"
+"Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-07 05:57+0000\n"
+"X-Launchpad-Export-Date: 2016-02-08 05:41+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -63,9 +62,8 @@ msgid "See all"
 msgstr "Tout voir"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Développeur"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
@@ -108,6 +106,8 @@ msgstr "Mise à niveau du micrologiciel"
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smarwatch."
 msgstr ""
+"Une nouvelle version du logiciel est disponible pour votre montre connectée "
+"Pebble."
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
@@ -117,7 +117,7 @@ msgstr "Micrologiciel actuellement installé : %1"
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
-msgstr ""
+msgstr "Version candidate du logiciel : %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
@@ -133,11 +133,13 @@ msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
 msgstr ""
+"Cette mise à jour mettra également à niveau les données de récupération. "
+"Assurez-vous que votre montre Pebble est connectée à un adaptateur "
+"électrique."
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
-#, fuzzy
 msgid "Health settings"
-msgstr "Paramètres de l'application"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
@@ -176,9 +178,9 @@ msgid "OK"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
-#, fuzzy, qt-format
+#, qt-format
 msgid "Version %1"
-msgstr "Version"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
 msgid "Contributors"
@@ -232,9 +234,8 @@ msgid "Info"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
-#, fuzzy
 msgid "Developer tools"
-msgstr "Développeur"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
 msgid "Manage notifications"
@@ -250,9 +251,8 @@ msgstr "Gérer les thèmes de montre"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
-#, fuzzy
 msgid "Settings"
-msgstr "Paramètres de l'application"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
@@ -269,6 +269,9 @@ msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
+"Votre montre Pebble est déconnectée. Veuillez vous assurer qu'elle est "
+"allumée, à proximité et appairée correctement dans les Paramètres système / "
+"Bluetooth."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
@@ -276,8 +279,11 @@ msgid "Open System Settings"
 msgstr "Ouvrir les paramètres système"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
+"Votre montre connectée Pebble est en mode usine et a besoin d'être "
+"initialisée."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
 msgid "Initialize Pebble"
@@ -292,27 +298,25 @@ msgid "Notifications"
 msgstr "Notifications"
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
-#, fuzzy
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
-"Les entrées apparaîtront ici tant que les notifications continueront "
-"d'arriver. Les notifications sélectionnées seront affichées sur votre montre "
-"connectée Peeble."
+"Des entrées seront ajoutées ici lorsque des notifications apparaîtront sur "
+"le téléphone. Les notifications sélectionnées seront affichées sur votre "
+"montre connectée Pebble."
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
 msgstr "Gérer les montres Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
-#, fuzzy
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
 msgstr ""
-"Aucune montre connectée Pebble n'a encore été configurée. Veuillez connecter "
-"votre montre Pebble en utilisant les paramètres du système."
+"Aucune montre connectée Pebble encore configurée. Veuillez connecter votre "
+"montre Pebble en utilisant les Paramètres système."
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"

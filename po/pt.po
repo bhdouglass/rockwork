@@ -6,16 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: upebble\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-08 03:04+0100\n"
 "PO-Revision-Date: 2016-02-05 15:12+0000\n"
 "Last-Translator: Vitor Loureiro <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
-"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-07 05:57+0000\n"
+"X-Launchpad-Export-Date: 2016-02-08 05:41+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -63,9 +62,8 @@ msgid "See all"
 msgstr "Ver todos"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Programador"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
@@ -139,9 +137,8 @@ msgstr ""
 "o seu smartwarch Pebble está conectado a um adaptador de energia."
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
-#, fuzzy
 msgid "Health settings"
-msgstr "Definições"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
@@ -180,9 +177,9 @@ msgid "OK"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
-#, fuzzy, qt-format
+#, qt-format
 msgid "Version %1"
-msgstr "Versão"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
 msgid "Contributors"
@@ -236,9 +233,8 @@ msgid "Info"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
-#, fuzzy
 msgid "Developer tools"
-msgstr "Programador"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
 msgid "Manage notifications"
@@ -254,9 +250,8 @@ msgstr "Gerir watchfaces"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
-#, fuzzy
 msgid "Settings"
-msgstr "Definições"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
@@ -276,12 +271,12 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
-#, fuzzy
 msgid "Open System Settings"
-msgstr "Abrir definições"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "O seu smartwatch Pebble está no modo de fábrica e precisa ser inicializado."
 
