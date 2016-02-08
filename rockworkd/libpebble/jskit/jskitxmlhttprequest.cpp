@@ -241,7 +241,7 @@ void JSKitXMLHttpRequest::handleReplyFinished()
     }
 
     m_response = m_reply->readAll();
-    qCDebug(l) << "reply finished, reply text:" << QString::fromUtf8(m_response);
+    qCDebug(l) << "reply finished, reply text:" << QString::fromUtf8(m_response) << "status:" << status();
 
     emit readyStateChanged();
     emit statusChanged();
