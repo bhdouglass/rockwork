@@ -15,31 +15,29 @@ WatchLogEndpoint::WatchLogEndpoint(Pebble *pebble, WatchConnection *connection):
     m_connection->registerEndpointHandler(WatchConnection::EndpointLogDump, this, "logMessageReceived");
 }
 
-void WatchLogEndpoint::fetchLogs(const QString &targetArchive)
+void WatchLogEndpoint::fetchLogs(const QString &fileName)
 {
     if (m_currentEpoch != 0) {
         qWarning() << "Already dumping logs. Not starting a second time";
         return;
     }
-    m_targetArchive = targetArchive;
+
+    m_currentFile.setFileName(fileName);
+    if (!m_currentFile.open(QFile::WriteOnly | QFile::Truncate)) {
+        qWarning() << "Cannot open log file for writing" << m_currentFile.fileName();
+        emit logsFetched(false);
+        return;
+    }
+
     fetchForEpoch(m_currentEpoch);
 }
 
 void WatchLogEndpoint::fetchForEpoch(quint8 epoch)
 {
-    QDir dir(m_pebble->storagePath() + "/watchlogs/");
-    if (!dir.exists() && !dir.mkpath(dir.absolutePath())) {
-        qWarning() << "Error creating log dir";
-        emit logsFetched(false);
-        return;
-    }
-
-    m_currentFile.setFileName(dir.absolutePath() + "/logdump_epoch" + QString::number(epoch) + ".log");
-    if (!m_currentFile.open(QFile::WriteOnly)) {
-        qWarning() << "Cannot open log file for writing" << m_currentFile.fileName();
-        return;
-    }
     qDebug() << "Dumping logs for epoch" << epoch;
+    QString line("=== Generation: %1 ===\n");
+    line = line.arg(epoch);
+    m_currentFile.write(line.toUtf8());
     RequestLogPacket packet(WatchLogEndpoint::LogCommandRequestLogs, epoch, qrand());
     m_connection->writeToPebble(WatchConnection::EndpointLogDump, packet.serialize());
 }
@@ -58,12 +56,12 @@ void WatchLogEndpoint::logMessageReceived(const QByteArray &data)
     }
     case LogCommandLogMessageDone: {
         qDebug() << "Log for epoch" << m_currentEpoch << "fetched";
-        m_currentFile.close();
         m_currentEpoch++;
         if (m_currentEpoch == 0) {
-            // My watch doesn't ever seem to give me LogCommandNoLogMessages. Make sure we don't cycle endlessly
+            // Depending on the capabilities, there might not be a LogCommandNoLogMessages. Make sure we don't cycle endlessly
             qDebug() << "All 255 epocs fetched. Stopping";
-            packLogs();
+            m_currentFile.close();
+            emit logsFetched(true);
             return;
         }
         fetchForEpoch(m_currentEpoch);
@@ -72,25 +70,13 @@ void WatchLogEndpoint::logMessageReceived(const QByteArray &data)
     case LogCommandNoLogMessages:
         qDebug() << "Log dumping finished";
         m_currentEpoch = 0;
-        packLogs();
+        m_currentFile.close();
+        emit logsFetched(true);
         break;
     default:
         qWarning() << "LogEndpoint: Unhandled command" << command;
     }
 }
-
-void WatchLogEndpoint::packLogs()
-{
-    QString source = m_pebble->storagePath() + "/watchlogs/";
-    bool success = ZipHelper::packArchive(m_targetArchive, source);
-    if (success) {
-        qDebug() << "Logs packed to" << m_targetArchive;
-    } else {
-        qWarning() << "Error packing logs from" << source << "to" << m_targetArchive;
-    }
-    emit logsFetched(success);
-}
-
 
 RequestLogPacket::RequestLogPacket(WatchLogEndpoint::LogCommand command, quint8 generation, quint32 cookie):
     m_command(command),

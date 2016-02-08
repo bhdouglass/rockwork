@@ -45,7 +45,7 @@ public:
 
     explicit WatchLogEndpoint(Pebble *pebble, WatchConnection *connection);
 
-    void fetchLogs(const QString &targetArchive);
+    void fetchLogs(const QString &fileName);
 
 signals:
     void logsFetched(bool success);
@@ -53,7 +53,6 @@ signals:
 private slots:
     void fetchForEpoch(quint8 epoch);
     void logMessageReceived(const QByteArray &data);
-    void packLogs();
 
 private:
     Pebble *m_pebble;

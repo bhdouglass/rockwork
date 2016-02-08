@@ -116,8 +116,8 @@ Page {
                 target: root.pebble
                 onLogsDumped: {
                     if (success) {
-                        var filename = "/tmp/pebble.log.zip"
-                        pageStack.push(Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("rockworkd.log"),handler: ContentHandler.Share, contentType: ContentType.All, filename: filename })
+                        var filename = "/tmp/pebble.log"
+                        pageStack.push(Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("pebble.log"),handler: ContentHandler.Share, contentType: ContentType.All, filename: filename })
                     }
                     PopupUtils.close(sendLogsDialog)
                 }
@@ -139,7 +139,7 @@ Page {
                 visible: !busyIndicator.visible
                 onClicked: {
                     busyIndicator.visible = true
-                    root.pebble.dumpLogs("/tmp/pebble.log.zip")
+                    root.pebble.dumpLogs("/tmp/pebble.log")
                 }
             }
             Button {

@@ -59,7 +59,6 @@ private:
     static QByteArray buildNackMessage(quint8 transaction);
 
     void handleLauncherPushMessage(const QByteArray &data);
-    void handleAppLaunchMessage(const QByteArray &data);
     void handlePushMessage(const QByteArray &data);
     void handleAckMessage(const QByteArray &data, bool ack);
 
@@ -70,6 +69,7 @@ private slots:
     void handleWatchConnectedChanged();
     void handleTimeout();
 
+    void handleAppLaunchMessage(const QByteArray &data);
     void handleLauncherMessage(const QByteArray &data);
     void handleApplicationMessage(const QByteArray &data);
 

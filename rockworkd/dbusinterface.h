@@ -59,7 +59,7 @@ public slots:
     void RequestScreenshot();
     QStringList Screenshots() const;
     void RemoveScreenshot(const QString &filename);
-    void DumpLogs(const QString &archiveName) const;
+    void DumpLogs(const QString &fileName) const;
 
     QVariantMap HealthParams() const;
     void SetHealthParams(const QVariantMap &healthParams);

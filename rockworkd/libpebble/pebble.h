@@ -103,7 +103,7 @@ public slots:
     void setImperialUnits(bool imperial);
     bool imperialUnits() const;
 
-    void dumpLogs(const QString &archiveName) const;
+    void dumpLogs(const QString &fileName) const;
 
 private slots:
     void onPebbleConnected();

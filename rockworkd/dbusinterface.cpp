@@ -192,10 +192,10 @@ int DBusPebble::Model() const
     return m_pebble->model();
 }
 
-void DBusPebble::DumpLogs(const QString &archiveName) const
+void DBusPebble::DumpLogs(const QString &fileName) const
 {
-    qDebug() << "dumplogs" << archiveName;
-    m_pebble->dumpLogs(archiveName);
+    qDebug() << "dumplogs" << fileName;
+    m_pebble->dumpLogs(fileName);
 }
 
 QVariantMap DBusPebble::HealthParams() const

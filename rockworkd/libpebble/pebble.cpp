@@ -264,9 +264,9 @@ bool Pebble::imperialUnits() const
     return m_imperialUnits;
 }
 
-void Pebble::dumpLogs(const QString &archiveName) const
+void Pebble::dumpLogs(const QString &fileName) const
 {
-    m_logEndpoint->fetchLogs(archiveName);
+    m_logEndpoint->fetchLogs(fileName);
 }
 
 QString Pebble::storagePath() const
@@ -304,7 +304,7 @@ void Pebble::sendNotification(const Notification &notification)
     // In case it wasn't there before, make sure to write it to the config now so it will appear in the config app.
     setNotificationFilter(notification.sourceId(), true);
 
-    qDebug() << "Sending notification from:" << notification.sender() << "subject" << notification.subject() << "data" << notification.body();
+    qDebug() << "Sending notification from source" << notification.sourceId() << "to watch";
 
     if (m_softwareVersion < "v3.0") {
         m_notificationEndpoint->sendLegacyNotification(notification);
@@ -553,37 +553,24 @@ void Pebble::factorySettingsReceived(const QByteArray &data)
 void Pebble::phoneVersionAsked(const QByteArray &data)
 {
     qDebug() << "sending phone version" << data.toHex();
-    unsigned int sessionCap = 0x80000000;
-    unsigned int remoteCap = 16 | 32 | OSAndroid;
+    Capabilities sessionCap(CapabilityHealth
+                            | CapabilityAppRunState
+                            | CapabilityUpdatedMusicProtocol | CapabilityInfiniteLogDumping | Capability8kAppMessages);
+
+    unsigned int platformflags = 16 | 32 | OSAndroid;
 
     QByteArray res;
 
-    //Prefix
-    res.append(0x01);
-    res.append(0xff);
-    res.append(0xff);
-    res.append(0xff);
-    res.append(0xff);
-
-    //Session Capabilities
-    res.append((char)((sessionCap >> 24) & 0xff));
-    res.append((char)((sessionCap >> 16) & 0xff));
-    res.append((char)((sessionCap >> 8) & 0xff));
-    res.append((char)(sessionCap & 0xff));
-
-    //Remote Capabilities
-    res.append((char)((remoteCap >> 24) & 0xff));
-    res.append((char)((remoteCap >> 16) & 0xff));
-    res.append((char)((remoteCap >> 8) & 0xff));
-    res.append((char)(remoteCap & 0xff));
-
-    //Version Magic
-    res.append((char)0x02);
-
-    //Append Version
-    res.append((char)0x02); //Major
-    res.append((char)0x00); //Minor
-    res.append((char)0x00); //Bugfix
+    WatchDataWriter writer(&res);
+    writer.writeLE<quint8>(0x01); // ok
+    writer.writeLE<quint32>(0xFFFFFFFF);
+    writer.writeLE<quint32>(sessionCap);
+    writer.writeLE<quint32>(platformflags);
+    writer.write<quint8>(2); // response version
+    writer.write<quint8>(3); // major version
+    writer.write<quint8>(0); // minor version
+    writer.write<quint8>(0); // bugfix version
+    writer.writeLE<quint64>(sessionCap);
 
     m_connection->writeToPebble(WatchConnection::EndpointPhoneVersion, res);
 }
