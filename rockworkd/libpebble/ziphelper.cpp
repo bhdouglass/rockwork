@@ -26,6 +26,10 @@ bool ZipHelper::unpackArchive(const QString &archiveFilename, const QString &tar
             qWarning() << "could not extract file" << fi.name;
             return false;
         }
+        if (fi.name.endsWith("/")) {
+            qDebug() << "skipping" << fi.name;
+            continue;
+        }
         qDebug() << "Inflating:" << fi.name;
         QFileInfo dirInfo(targetDir + "/" + fi.name);
         if (!dirInfo.absoluteDir().exists() && !dirInfo.absoluteDir().mkpath(dirInfo.absolutePath())) {
