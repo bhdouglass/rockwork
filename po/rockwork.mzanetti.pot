@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 01:22+0100\n"
+"POT-Creation-Date: 2016-02-08 03:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -245,6 +245,7 @@ msgid "Manage Watchfaces"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
 msgid "Settings"
 msgstr ""
 
@@ -316,4 +317,24 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:19
+msgid "Distance Units"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:35
+msgid "Metric"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:48
+msgid "Imperial"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:55
+msgid "Calendar"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
+msgid "Sync calendar to timeline"
 msgstr ""

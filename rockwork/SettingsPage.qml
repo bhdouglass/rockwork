@@ -23,7 +23,7 @@ Page {
         RowLayout {
             Layout.fillWidth: true
             CheckBox {
-                id: metricalUnitsCheckbox
+                id: metricUnitsCheckbox
                 checked: !root.pebble.imperialUnits
                 onClicked: {
                     checked = true
@@ -32,7 +32,7 @@ Page {
                 }
             }
             Label {
-                text: i18n.tr("Metrical")
+                text: i18n.tr("Metric")
                 Layout.fillWidth: true
             }
             CheckBox {
@@ -41,7 +41,7 @@ Page {
                 onClicked: {
                     checked = true
                     root.pebble.imperialUnits = true;
-                    metricalUnitsCheckbox.checked = false;
+                    metricUnitsCheckbox.checked = false;
                 }
             }
             Label {

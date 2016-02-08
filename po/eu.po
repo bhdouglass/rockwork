@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 01:01+0100\n"
+"POT-Creation-Date: 2016-02-08 03:04+0100\n"
 "PO-Revision-Date: 2016-02-03 22:34+0000\n"
 "Last-Translator: Aitzol Berasategi <aitzol76@gmail.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
@@ -341,7 +341,7 @@ msgid "Distance Units"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:35
-msgid "Metrical"
+msgid "Metric"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:48
