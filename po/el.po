@@ -1,80 +1,79 @@
-# French translation for upebble
-# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
-# This file is distributed under the same license as the upebble package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+# Greek translation for rockwork
+# Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
+# This file is distributed under the same license as the rockwork package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: upebble\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: rockwork\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-09 00:05+0100\n"
-"PO-Revision-Date: 2016-02-08 18:15+0000\n"
-"Last-Translator: cm-t arudy <arudy@singularity.fr>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2016-02-08 16:59+0000\n"
+"Last-Translator: Aggelos Arnaoutis <angelosarn@hotmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-02-09 06:16+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
-"Language: fr\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
-msgstr "Paramètres de l'application"
+msgstr "Ρυθμίσεις εφαρμογής"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
-msgstr "Détails de l'application"
+msgstr "Λεπτομέρειες εφαρμογής"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Install"
-msgstr "Installer"
+msgstr "Εγκατάσταση"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
-msgstr "Installation..."
+msgstr "Εγκατάσταση..."
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
-msgstr "Installées"
+msgstr "Εγκατεστημένο"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:235
 msgid "Description"
-msgstr "Description"
+msgstr "Περιγραφή"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:258
 msgid "Developer"
-msgstr "Développeur"
+msgstr "Προγραμματιστής"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:266
 msgid "Version"
-msgstr "Version"
+msgstr "Έκδοση"
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
-msgstr "Ajouter une nouvelle application pour montre"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
-msgstr "Ajouter une nouveau cadran"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:125
 msgid "See all"
-msgstr "Tout voir"
+msgstr "Εμφάνιση όλων"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
 msgid "Developer Tools"
-msgstr "Outils pour développeurs"
+msgstr "Εργαλεία ανάπτυξης"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
-msgstr "Captures d'écran"
+msgstr "Στιγμιότυπα οθόνης"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:35
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:102
 msgid "Report problem"
-msgstr "Signaler un problème"
+msgstr "Αναφορά προβλήματος"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:42
 msgid "Install app or watchface from file"
@@ -90,100 +89,98 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:127
 msgid "Send rockworkd.log"
-msgstr "Envoi de rockworkd.log"
+msgstr "Αποστολή rockworkd.log"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:132
 msgid "rockworkd.log"
-msgstr "rockworkd.log"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:137
 msgid "Send watch logs"
-msgstr ""
+msgstr "Αποστολή αρχείων καταγραφής ρολογιού"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:146
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Aκύρωση"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:84
 msgid "Firmware upgrade"
-msgstr "Mise à niveau du micrologiciel"
+msgstr "Αναβάθμιση υλικολογισμικού"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smarwatch."
 msgstr ""
-"Une nouvelle version du logiciel est disponible pour votre montre connectée "
-"Pebble."
+"Μια νέα αναβάθμιση υλικολογισμικού είναι διαθέσιμη για το ρολόι Pebble σας."
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
-msgstr "Micrologiciel actuellement installé : %1"
+msgstr "Τρέχον εγκατεστημένο υλικολογισμικό: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
-msgstr "Version candidate du logiciel : %1"
+msgstr "Υποψήφια έκδοση υλικολογισμικού: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
-msgstr "Notes de version : %1"
+msgstr "Σημειώσεις έκδοσης: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
-msgstr "Important :"
+msgstr "Σημαντικό:"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
 msgstr ""
-"Cette mise à jour mettra également à niveau les données de récupération. "
-"Assurez-vous que votre montre Pebble est connectée à un adaptateur "
-"électrique."
+"Αυτή η ενημέρωση θα αναβαθμίση επίσης τα δεδομένα ανάκτησης. Βεβαιωθείτε πως "
+"το ρολόι Pebble σας είναι συνδεδεμένος σε φορτιστή."
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
-msgstr "Paramètre de Bien-Être"
+msgstr "Ρυθμίσεις υγείας"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
-msgstr "L'application Bien-Être est activé"
+msgstr "Η εφαρμογή υγείας είναι ενεργοποιημένη"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
 msgid "Female"
-msgstr "Femme"
+msgstr "Γυναίκα"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
 msgid "Male"
-msgstr "Homme"
+msgstr "Άνδρας"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:34
 msgid "Age"
-msgstr "Âge"
+msgstr "Ηλικία"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:47
 msgid "Height (cm)"
-msgstr "Taille (cm):"
+msgstr "Ύψος (cm)"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:60
 msgid "Weight"
-msgstr ""
+msgstr "Βάρος"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:73
 msgid "I want to be more active"
-msgstr ""
+msgstr "Θέλω να είμαι πιο ενεργός"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:84
 msgid "I want to sleep more"
-msgstr ""
+msgstr "Θέλω να κοιμηθώ περισσότερο"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:95
 msgid "OK"
-msgstr "Valider"
+msgstr "Εντάξει"
 
 #: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
@@ -192,15 +189,15 @@ msgstr ""
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
 #, qt-format
 msgid "Version %1"
-msgstr "Version %1"
+msgstr "Έκδοση %1"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
 msgid "Contributors"
-msgstr "Contributeurs"
+msgstr "Συντελεστές"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:52
 msgid "Legal"
-msgstr "Informations légales"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:74
 msgid ""
@@ -214,32 +211,32 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
-msgstr "Applications & Cadrans"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
-msgstr "Applications"
+msgstr "Εφαρμογές"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Watchfaces"
-msgstr "Cadrans"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:167
 msgid "Launch"
-msgstr "Lancer"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:176
 msgid "Configure"
-msgstr "Configurer"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:186
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
-msgstr "Supprimer"
+msgstr "Διαγραφή"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:196
 msgid "Close"
-msgstr "Fermer"
+msgstr "Κλείσιμο"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
@@ -247,125 +244,115 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
 msgid "Developer tools"
-msgstr "Outils de développement"
+msgstr "Εργαλεία για προγραμματιστές"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
 msgid "Manage notifications"
-msgstr "Gérer les notifications"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:59
 msgid "Manage Apps"
-msgstr "Gérer les applications"
+msgstr "Διαχείριση εφαρμογών"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:67
 msgid "Manage Watchfaces"
-msgstr "Gérer les cadrans"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
 msgid "Settings"
-msgstr "Paramètres"
+msgstr "Ρυθμίσεις"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Connected"
-msgstr "Connectée"
+msgstr "Συνδεδεμένο"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
-msgstr "Déconnectée"
+msgstr "Αποσυνδεδεμένο"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:203
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
-"Votre montre Pebble est déconnectée. Veuillez vous assurer qu'elle est "
-"allumée, à proximité et appairée correctement dans les Paramètres système / "
-"Bluetooth."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
-msgstr "Ouvrir les paramètres système"
+msgstr "Άνοιγμα ρυθμίσεων συστήματος"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
 msgid ""
 "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
-"Votre montre connectée Pebble est en mode usine et a besoin d'être "
-"initialisée."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
 msgid "Initialize Pebble"
-msgstr "Initialiser Pebble"
+msgstr "Αρχικοποίηση Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:262
 msgid "Upgrading..."
-msgstr "Mise à niveau..."
+msgstr "Αναβάθμιση..."
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "Ειδοποιήσεις"
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
-"Des entrées seront ajoutées ici lorsque des notifications apparaîtront sur "
-"le téléphone. Les notifications sélectionnées seront affichées sur votre "
-"montre connectée Pebble."
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
-msgstr "Gérer les montres Pebble"
+msgstr "Διαχείριση ρολογιών Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
 msgstr ""
-"Aucune montre connectée Pebble encore configurée. Veuillez connecter votre "
-"montre Pebble en utilisant les Paramètres système."
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
-msgstr "Options de capture d'écran"
+msgstr "Επιλογές στιγμιοτύπων οθόνης"
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
 msgid "Share"
-msgstr "Partager"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:77
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:85
 msgid "Pebble screenshot"
-msgstr "Capture d'écran de Pebble"
+msgstr "Στιγμιότυπο οθόνης Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
-msgstr "Enregistrer"
+msgstr "Αποθήκευση"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:19
 msgid "Distance Units"
-msgstr "Unités de Distance"
+msgstr "Μονάδες απόστασης"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:35
 msgid "Metric"
-msgstr "Métrique"
+msgstr "Μετρικό"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:48
 msgid "Imperial"
-msgstr "Impérial"
+msgstr "Αυτοκρατορικό"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:55
 msgid "Calendar"
-msgstr "Agenda"
+msgstr "Ημερολόγιο"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
-msgstr "Synchroniser l'agenda sur la Timeline."
+msgstr ""
 
 #~ msgid "Info"
-#~ msgstr "Informations"
+#~ msgstr "Πληροφορίες"

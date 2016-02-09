@@ -11,12 +11,12 @@ msgstr ""
 "PO-Revision-Date: 2016-02-03 22:34+0000\n"
 "Last-Translator: Aitzol Berasategi <aitzol76@gmail.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-08 05:41+0000\n"
+"X-Launchpad-Export-Date: 2016-02-09 06:16+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
+"Language: eu\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -63,9 +63,8 @@ msgid "See all"
 msgstr "Guztiak ikusi"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Garatzailea"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
@@ -145,9 +144,8 @@ msgstr ""
 "Pebble smartwatch-ea argindar egokitzaile bati konektaturik egotea."
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
-#, fuzzy
 msgid "Health settings"
-msgstr "Aplikazioaren ezarpenak"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
@@ -190,9 +188,9 @@ msgid "Import watchapp or watchface"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
-#, fuzzy, qt-format
+#, qt-format
 msgid "Version %1"
-msgstr "Bertsioa"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
 msgid "Contributors"
@@ -246,9 +244,8 @@ msgid "About"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
-#, fuzzy
 msgid "Developer tools"
-msgstr "Garatzailea"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
 msgid "Manage notifications"
@@ -264,9 +261,8 @@ msgstr "Watchface-ak kudeatu"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
-#, fuzzy
 msgid "Settings"
-msgstr "Aplikazioaren ezarpenak"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
@@ -293,7 +289,8 @@ msgid "Open System Settings"
 msgstr "Sistema Ezarpenak Ireki"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Zure Pebble smartwatch-ea fabrika moduan  aurkitzen da eta beharrezkoa du "
 "berrezartzea."

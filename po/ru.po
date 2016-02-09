@@ -11,12 +11,12 @@ msgstr ""
 "PO-Revision-Date: 2016-01-23 13:33+0000\n"
 "Last-Translator: Eugene Marshal <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-08 05:41+0000\n"
+"X-Launchpad-Export-Date: 2016-02-09 06:16+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
+"Language: ru\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -31,9 +31,8 @@ msgid "Install"
 msgstr "Установить"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
-#, fuzzy
 msgid "Installing..."
-msgstr "Установить"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
@@ -64,9 +63,8 @@ msgid "See all"
 msgstr "См. все"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Разработчик"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
@@ -143,9 +141,8 @@ msgid ""
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
-#, fuzzy
 msgid "Health settings"
-msgstr "Настройки"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
@@ -188,9 +185,9 @@ msgid "Import watchapp or watchface"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
-#, fuzzy, qt-format
+#, qt-format
 msgid "Version %1"
-msgstr "Версия"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
 msgid "Contributors"
@@ -244,9 +241,8 @@ msgid "About"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
-#, fuzzy
 msgid "Developer tools"
-msgstr "Разработчик"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
 msgid "Manage notifications"
@@ -262,9 +258,8 @@ msgstr "Управление циферблатами"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
-#, fuzzy
 msgid "Settings"
-msgstr "Настройки"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
@@ -284,12 +279,12 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
-#, fuzzy
 msgid "Open System Settings"
-msgstr "Открыть системные настройки"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
@@ -305,26 +300,20 @@ msgid "Notifications"
 msgstr "Уведомления"
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
-#, fuzzy
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
-"Эти записи будут появляться, по мере поступления уведомлений. Указанные "
-"уведомления будут отображаться на смарт-часах Pebble."
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
 msgstr "Управление часами Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
-#, fuzzy
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
 msgstr ""
-"Часы Pebble еще не настроены. Подсоедините часы Pebble используя системные "
-"настройки."
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
