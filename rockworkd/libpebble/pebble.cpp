@@ -582,25 +582,27 @@ void Pebble::factorySettingsReceived(const QByteArray &data)
 
 void Pebble::phoneVersionAsked(const QByteArray &data)
 {
-    qDebug() << "sending phone version" << data.toHex();
+
+    QByteArray res;
+
     Capabilities sessionCap(CapabilityHealth
                             | CapabilityAppRunState
                             | CapabilityUpdatedMusicProtocol | CapabilityInfiniteLogDumping | Capability8kAppMessages);
 
-    unsigned int platformflags = 16 | 32 | OSAndroid;
-
-    QByteArray res;
+    quint32 platformFlags = 16 | 32 | OSAndroid;
 
     WatchDataWriter writer(&res);
     writer.writeLE<quint8>(0x01); // ok
     writer.writeLE<quint32>(0xFFFFFFFF);
     writer.writeLE<quint32>(sessionCap);
-    writer.writeLE<quint32>(platformflags);
+    writer.write<quint32>(platformFlags);
     writer.write<quint8>(2); // response version
     writer.write<quint8>(3); // major version
     writer.write<quint8>(0); // minor version
     writer.write<quint8>(0); // bugfix version
     writer.writeLE<quint64>(sessionCap);
+
+    qDebug() << "sending phone version" << res.toHex();
 
     m_connection->writeToPebble(WatchConnection::EndpointPhoneVersion, res);
 }
