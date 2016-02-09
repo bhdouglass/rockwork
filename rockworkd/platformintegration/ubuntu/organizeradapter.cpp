@@ -53,6 +53,7 @@ void OrganizerAdapter::refresh()
 
         foreach (const QOrganizerItem &occurranceItem, m_manager->itemOccurrences(item, QDateTime::fromMSecsSinceEpoch(startTimestamp), QDateTime::currentDateTime().addDays(7))) {
             QOrganizerEventOccurrence organizerOccurrance(occurranceItem);
+            event.generateNewUuid();
             event.setId(organizerOccurrance.id().toString());
             event.setStartTime(organizerOccurrance.startDateTime());
             event.setEndTime(organizerOccurrance.endDateTime());

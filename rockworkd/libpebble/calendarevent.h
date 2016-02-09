@@ -17,6 +17,7 @@ public:
     void setId(const QString &id);
 
     QUuid uuid() const;
+    void generateNewUuid();
 
     QString title() const;
     void setTitle(const QString &title);

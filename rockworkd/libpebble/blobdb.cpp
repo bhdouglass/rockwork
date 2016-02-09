@@ -156,8 +156,10 @@ void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, c
     TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, title.toUtf8());
     item.appendAttribute(titleAttribute);
 
-    TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, desctiption.left(128).toUtf8());
-    item.appendAttribute(bodyAttribute);
+    if (!desctiption.isEmpty()) {
+        TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, desctiption.left(128).toUtf8());
+        item.appendAttribute(bodyAttribute);
+    }
 
 //    TimelineAttribute iconAttribute(TimelineAttribute::TypeTinyIcon, TimelineAttribute::IconIDTelegram);
 //    item.appendAttribute(iconAttribute);
@@ -171,7 +173,7 @@ void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, c
     }
 
     if (recurring) {
-        TimelineAttribute guess(TimelineAttribute::TypeRecurring, 1);
+        TimelineAttribute guess(TimelineAttribute::TypeRecurring, 0x01);
         item.appendAttribute(guess);
     }
 

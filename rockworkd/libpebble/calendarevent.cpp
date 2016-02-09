@@ -29,6 +29,11 @@ QUuid CalendarEvent::uuid() const
     return m_uuid;
 }
 
+void CalendarEvent::generateNewUuid()
+{
+    m_uuid = QUuid::createUuid();
+}
+
 QString CalendarEvent::title() const
 {
     return m_title;
