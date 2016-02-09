@@ -65,7 +65,8 @@ SOURCES += main.cpp \
     libpebble/bundle.cpp \
     libpebble/watchlogendpoint.cpp \
     libpebble/ziphelper.cpp \
-    libpebble/healthparams.cpp
+    libpebble/healthparams.cpp \
+    libpebble/dataloggingendpoint.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -115,7 +116,8 @@ HEADERS += \
     libpebble/bundle.h \
     libpebble/watchlogendpoint.h \
     libpebble/ziphelper.h \
-    libpebble/healthparams.h
+    libpebble/healthparams.h \
+    libpebble/dataloggingendpoint.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

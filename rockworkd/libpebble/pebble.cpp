@@ -16,6 +16,7 @@
 #include "core.h"
 #include "platforminterface.h"
 #include "ziphelper.h"
+#include "dataloggingendpoint.h"
 
 #include "QDir"
 #include <QDateTime>
@@ -35,8 +36,9 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
 
     m_connection->registerEndpointHandler(WatchConnection::EndpointVersion, this, "pebbleVersionReceived");
     m_connection->registerEndpointHandler(WatchConnection::EndpointPhoneVersion, this, "phoneVersionAsked");
-    m_connection->registerEndpointHandler(WatchConnection::EndpointDataLogging, this, "logData");
     m_connection->registerEndpointHandler(WatchConnection::EndpointFactorySettings, this, "factorySettingsReceived");
+
+    m_dataLogEndpoint = new DataLoggingEndpoint(this, m_connection);
 
     m_notificationEndpoint = new NotificationEndpoint(this, m_connection);
     QObject::connect(Core::instance()->platform(), &PlatformInterface::notificationReceived, this, &Pebble::sendNotification);
@@ -605,11 +607,6 @@ void Pebble::phoneVersionAsked(const QByteArray &data)
     qDebug() << "sending phone version" << res.toHex();
 
     m_connection->writeToPebble(WatchConnection::EndpointPhoneVersion, res);
-}
-
-void Pebble::logData(const QByteArray &/*data*/)
-{
-    //    qDebug() << "Data logged:" << data.toHex();
 }
 
 void Pebble::appDownloadFinished(const QString &id)

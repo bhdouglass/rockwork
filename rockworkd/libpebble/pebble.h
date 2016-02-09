@@ -25,6 +25,7 @@ class AppDownloader;
 class ScreenshotEndpoint;
 class FirmwareDownloader;
 class WatchLogEndpoint;
+class DataLoggingEndpoint;
 
 class Pebble : public QObject
 {
@@ -112,7 +113,6 @@ private slots:
     void pebbleVersionReceived(const QByteArray &data);
     void factorySettingsReceived(const QByteArray &data);
     void phoneVersionAsked(const QByteArray &data);
-    void logData(const QByteArray &data);
     void appDownloadFinished(const QString &id);
     void appInstalled(const QUuid &uuid);
     void muteNotificationSource(const QString &source);
@@ -170,6 +170,7 @@ private:
     ScreenshotEndpoint *m_screenshotEndpoint;
     FirmwareDownloader *m_firmwareDownloader;
     WatchLogEndpoint *m_logEndpoint;
+    DataLoggingEndpoint *m_dataLogEndpoint;
 
     QString m_storagePath;
     QList<QUuid> m_pendingInstallations;
