@@ -127,6 +127,16 @@ void JSKitXMLHttpRequest::setOnload(const QJSValue &value)
     m_onload = value;
 }
 
+QJSValue JSKitXMLHttpRequest::onreadystatechange() const
+{
+    return m_onreadystatechange;
+}
+
+void JSKitXMLHttpRequest::setOnreadystatechange(const QJSValue &value)
+{
+    m_onreadystatechange = value;
+}
+
 QJSValue JSKitXMLHttpRequest::ontimeout() const
 {
     return m_ontimeout;
@@ -258,6 +268,14 @@ void JSKitXMLHttpRequest::handleReplyFinished()
         }
     } else {
         qCDebug(l) << "No onload set";
+    }
+
+    if (m_onreadystatechange.isCallable()) {
+        qCDebug(l) << "going to call onreadystatechange handler:" << m_onreadystatechange.toString();
+        QJSValue result = m_onreadystatechange.callWithInstance(m_engine->newQObject(this));
+        if (result.isError()) {
+            qCWarning(l) << "JS error on onreadystatechange handler:" << JSKitManager::describeError(result);
+        }
     }
 }
 

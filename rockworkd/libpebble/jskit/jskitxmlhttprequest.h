@@ -12,6 +12,7 @@ class JSKitXMLHttpRequest : public QObject
     QLoggingCategory l;
 
     Q_PROPERTY(QJSValue onload READ onload WRITE setOnload)
+    Q_PROPERTY(QJSValue onreadystatechange READ onreadystatechange WRITE setOnreadystatechange)
     Q_PROPERTY(QJSValue ontimeout READ ontimeout WRITE setOntimeout)
     Q_PROPERTY(QJSValue onerror READ onerror WRITE setOnerror)
     Q_PROPERTY(uint readyState READ readyState NOTIFY readyStateChanged)
@@ -41,6 +42,8 @@ public:
 
     QJSValue onload() const;
     void setOnload(const QJSValue &value);
+    QJSValue onreadystatechange() const;
+    void setOnreadystatechange(const QJSValue &value);
     QJSValue ontimeout() const;
     void setOntimeout(const QJSValue &value);
     QJSValue onerror() const;
@@ -85,6 +88,7 @@ private:
     QString m_responseType;
     QByteArray m_response;
     QJSValue m_onload;
+    QJSValue m_onreadystatechange;
     QJSValue m_ontimeout;
     QJSValue m_onerror;
 };
