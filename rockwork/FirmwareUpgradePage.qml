@@ -13,7 +13,7 @@ Page {
         spacing: units.gu(2)
 
         Label {
-            text: i18n.tr("A new firmware upgrade is available for your Pebble smarwatch.")
+            text: i18n.tr("A new firmware upgrade is available for your Pebble smartwatch.")
             fontSize: "large"
             width: parent.width
             wrapMode: Text.WordWrap

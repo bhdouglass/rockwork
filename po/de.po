@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-09 21:44+0100\n"
+"POT-Creation-Date: 2016-02-09 23:31+0100\n"
 "PO-Revision-Date: 2016-01-12 09:52+0000\n"
 "Last-Translator: Michael Zanetti <michael.zanetti@canonical.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -112,7 +112,7 @@ msgid "Firmware upgrade"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
-msgid "A new firmware upgrade is available for your Pebble smarwatch."
+msgid "A new firmware upgrade is available for your Pebble smartwatch."
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
