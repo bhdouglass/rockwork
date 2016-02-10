@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-09 23:31+0100\n"
-"PO-Revision-Date: 2016-02-08 18:15+0000\n"
+"PO-Revision-Date: 2016-02-10 04:19+0000\n"
 "Last-Translator: cm-t arudy <arudy@singularity.fr>\n"
 "Language-Team: French <fr@li.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-09 06:16+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-10 05:49+0000\n"
+"X-Generator: Launchpad (build 17923)\n"
+"Language: fr\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -112,11 +112,8 @@ msgid "Firmware upgrade"
 msgstr "Mise à niveau du micrologiciel"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
-#, fuzzy
 msgid "A new firmware upgrade is available for your Pebble smartwatch."
 msgstr ""
-"Une nouvelle version du logiciel est disponible pour votre montre connectée "
-"Pebble."
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
@@ -172,15 +169,15 @@ msgstr "Taille (cm):"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:60
 msgid "Weight"
-msgstr ""
+msgstr "Masse"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:73
 msgid "I want to be more active"
-msgstr ""
+msgstr "Je veux être plus actif"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:84
 msgid "I want to sleep more"
-msgstr ""
+msgstr "Je veux dormir plus"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:95
 msgid "OK"
@@ -208,10 +205,12 @@ msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
 msgstr ""
+"Cette application n'est ni affiliée et ni approuvée par Pebble Technology "
+"Corp."
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:79
 msgid "Pebble is a trademark of Pebble Technology Corp."
-msgstr ""
+msgstr "Pebble est une marque déposée par Pebble Technology Corp."
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
@@ -292,7 +291,8 @@ msgid "Open System Settings"
 msgstr "Ouvrir les paramètres système"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Votre montre connectée Pebble est en mode usine et a besoin d'être "
 "initialisée."

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-09 23:31+0100\n"
-"PO-Revision-Date: 2016-02-08 13:28+0000\n"
+"PO-Revision-Date: 2016-02-10 04:19+0000\n"
 "Last-Translator: Emanuele Antonio Faraone <emanueleant03@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-09 06:16+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-10 05:49+0000\n"
+"X-Generator: Launchpad (build 17923)\n"
+"Language: it\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -78,7 +78,7 @@ msgstr "riporta un problema"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:42
 msgid "Install app or watchface from file"
-msgstr ""
+msgstr "Installa un app o una watchface dal file"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:109
 msgid "Preparing logs package..."
@@ -86,7 +86,7 @@ msgstr "preparando il log dei pacchetti..."
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:120
 msgid "pebble.log"
-msgstr ""
+msgstr "pebble.log"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:127
 msgid "Send rockworkd.log"
@@ -112,9 +112,8 @@ msgid "Firmware upgrade"
 msgstr "Aggiornamento Firmware"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
-#, fuzzy
 msgid "A new firmware upgrade is available for your Pebble smartwatch."
-msgstr "Un nuovo aggiornamento del firmware è disponibile per il tuo Pebble."
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
@@ -185,7 +184,7 @@ msgstr "OK"
 
 #: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
-msgstr ""
+msgstr "Importa una app o una watchface"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
 #, qt-format
@@ -241,7 +240,7 @@ msgstr "Chiudi"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
-msgstr ""
+msgstr "Informazioni su"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
 msgid "Developer tools"
@@ -289,8 +288,10 @@ msgid "Open System Settings"
 msgstr "Impostazioni aperte"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
-msgstr "Il tuo Pebble è in modalitá di fabbrica e sta per essere inizializzato"
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgstr ""
+"Il tuo Pebble è in modalitá di fabbrica e sta per essere inizializzato"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
 msgid "Initialize Pebble"
