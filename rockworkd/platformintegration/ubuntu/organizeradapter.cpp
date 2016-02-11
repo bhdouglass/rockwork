@@ -39,6 +39,15 @@ void OrganizerAdapter::refresh()
         event.setEndTime(organizerEvent.endDateTime());
         event.setLocation(organizerEvent.location());
         event.setComment(organizerEvent.comments().join(";"));
+        event.setIsAllDay(organizerEvent.isAllDay());
+        // on allDay events, the time portion of QDateTime is not valid. let's fix that
+        if (organizerEvent.isAllDay() && !organizerEvent.startDateTime().isValid() && organizerEvent.startDateTime().date().isValid()) {
+            QDateTime fixedStartTime;
+            fixedStartTime.setTime(QTime(12, 0));
+            fixedStartTime.setDate(organizerEvent.startDateTime().date());
+            event.setStartTime(fixedStartTime);
+        }
+
         QStringList attendees;
         foreach (const QOrganizerItemDetail &attendeeDetail, organizerEvent.details(QOrganizerItemDetail::TypeEventAttendee)) {
             attendees.append(attendeeDetail.value(QOrganizerItemDetail::TypeEventAttendee + 1).toString());

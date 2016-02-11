@@ -144,13 +144,14 @@ void BlobDB::insertNotification(const Notification &notification)
     m_notificationSources.insert(itemUuid, notification);
 }
 
-void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring)
+void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, bool isAllDay, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring)
 {
 //    TimelineItem item(TimelineItem::TypePin, TimelineItem::FlagSingleEvent, QDateTime::currentDateTime().addMSecs(1000 * 60 * 2), 60);
 
     qDebug() << "inserting timeline pin:" << title << startTime << endTime;
     int duration = (endTime.toMSecsSinceEpoch() - startTime.toMSecsSinceEpoch()) / 1000 / 60;
-    TimelineItem item(uuid, TimelineItem::TypePin, TimelineItem::FlagSingleEvent, startTime, duration);
+    TimelineItem::Flag flag = isAllDay ? TimelineItem::FlagAllDay : TimelineItem::FlagSingleEvent;
+    TimelineItem item(uuid, TimelineItem::TypePin, flag, startTime, duration);
     item.setLayout(layout);
 
     TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, title.toUtf8());
@@ -239,7 +240,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
 
     // Filter out invalid items
     foreach (const CalendarEvent &event, events) {
-        if (event.startTime().isValid() && event.endTime().isValid()
+        if (event.startTime().isValid() && (event.endTime().isValid() || event.isAllDay())
                 && event.startTime().addDays(2) > QDateTime::currentDateTime()
                 && QDateTime::currentDateTime().addDays(5) > event.startTime()) {
             itemsToSync.append(event);
@@ -286,7 +287,7 @@ void BlobDB::syncCalendar(const QList<CalendarEvent> &events)
         if (!event.calendar().isEmpty()) fields.insert("Calendar", event.calendar());
         if (!event.comment().isEmpty()) fields.insert("Comments", event.comment());
         if (!event.guests().isEmpty()) fields.insert("Guests", event.guests().join(", "));
-        insertTimelinePin(event.uuid(), TimelineItem::LayoutCalendar, event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
+        insertTimelinePin(event.uuid(), TimelineItem::LayoutCalendar, event.isAllDay(), event.startTime(), event.endTime(), event.title(), event.description(), fields, event.recurring());
         m_calendarEntries.append(event);
         event.saveToCache(m_blobDBStoragePath);
     }

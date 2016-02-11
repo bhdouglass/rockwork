@@ -124,6 +124,16 @@ void CalendarEvent::setRecurring(bool recurring)
     m_recurring = recurring;
 }
 
+bool CalendarEvent::isAllDay() const
+{
+    return m_isAllDay;
+}
+
+void CalendarEvent::setIsAllDay(bool isAllDay)
+{
+    m_isAllDay = isAllDay;
+}
+
 bool CalendarEvent::operator==(const CalendarEvent &other) const
 {
     // Storing a QDateTime to QSettings seems to lose time zone information. Lets ignore the time zone when
@@ -141,8 +151,8 @@ bool CalendarEvent::operator==(const CalendarEvent &other) const
             && m_calendar == other.calendar()
             && m_comment == other.comment()
             && m_guests == other.guests()
-            && m_recurring == other.recurring();
-
+            && m_recurring == other.recurring()
+            && m_isAllDay == other.isAllDay();
 }
 
 void CalendarEvent::saveToCache(const QString &cachePath) const
@@ -159,6 +169,7 @@ void CalendarEvent::saveToCache(const QString &cachePath) const
     s.setValue("comment", m_comment);
     s.setValue("guests", m_guests);
     s.setValue("recurring", m_recurring);
+    s.setValue("isAllDay", m_isAllDay);
 }
 
 void CalendarEvent::loadFromCache(const QString &cachePath, const QString &uuid)
@@ -175,6 +186,7 @@ void CalendarEvent::loadFromCache(const QString &cachePath, const QString &uuid)
     m_comment = s.value("comment").toString();
     m_guests = s.value("guests").toStringList();
     m_recurring = s.value("recurring").toBool();
+    m_isAllDay = s.value("isAllDay").toBool();
 }
 
 void CalendarEvent::removeFromCache(const QString &cachePath) const

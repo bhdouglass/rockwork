@@ -46,6 +46,9 @@ public:
     bool recurring() const;
     void setRecurring(bool recurring);
 
+    bool isAllDay() const;
+    void setIsAllDay(bool isAllDay);
+
     bool operator==(const CalendarEvent &other) const;
 
     void saveToCache(const QString &cachePath) const;
@@ -64,6 +67,7 @@ private:
     QString m_comment;
     QStringList m_guests;
     bool m_recurring = false;
+    bool m_isAllDay = false;
 };
 
 #endif // CALENDAREVENT_H
