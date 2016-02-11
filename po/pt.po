@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-09 23:31+0100\n"
-"PO-Revision-Date: 2016-02-08 15:44+0000\n"
+"PO-Revision-Date: 2016-02-10 16:13+0000\n"
 "Last-Translator: Vitor Loureiro <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-10 05:49+0000\n"
+"X-Launchpad-Export-Date: 2016-02-11 06:24+0000\n"
 "X-Generator: Launchpad (build 17923)\n"
 "Language: pt\n"
 
@@ -78,7 +78,7 @@ msgstr "Reportar problema"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:42
 msgid "Install app or watchface from file"
-msgstr ""
+msgstr "Instalar app ou watchface de arquivo"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:109
 msgid "Preparing logs package..."
@@ -86,7 +86,7 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:120
 msgid "pebble.log"
-msgstr ""
+msgstr "pebble.log"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:127
 msgid "Send rockworkd.log"
@@ -184,7 +184,7 @@ msgstr "OK"
 
 #: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
-msgstr ""
+msgstr "Importar watchapp ou watchface"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
 #, qt-format
@@ -240,7 +240,7 @@ msgstr "Fechar"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
-msgstr ""
+msgstr "Acerca"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
 msgid "Developer tools"
@@ -353,7 +353,7 @@ msgstr "Imperial"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:55
 msgid "Calendar"
-msgstr ""
+msgstr "Calendário"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"

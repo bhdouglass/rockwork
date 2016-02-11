@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-09 23:31+0100\n"
-"PO-Revision-Date: 2016-02-10 04:21+0000\n"
-"Last-Translator: Michael Zanetti <michael.zanetti@canonical.com>\n"
+"PO-Revision-Date: 2016-02-10 18:59+0000\n"
+"Last-Translator: Adrian Chiang <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-10 05:49+0000\n"
+"X-Launchpad-Export-Date: 2016-02-11 06:24+0000\n"
 "X-Generator: Launchpad (build 17923)\n"
 "Language: ms\n"
 
@@ -113,7 +113,7 @@ msgstr "Memperbarui perisian tetap"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smartwatch."
-msgstr ""
+msgstr "Perisian tetap yang baru tersedia untuk jam Pebble anda."
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
@@ -180,7 +180,7 @@ msgstr "Saya mahu lebih tidur"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:95
 msgid "OK"
-msgstr "Baik"
+msgstr "Setuju"
 
 #: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
@@ -245,7 +245,7 @@ msgstr "Perihal"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
 msgid "Developer tools"
-msgstr "Peralatan pemaju"
+msgstr "Alat pemaju"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
 msgid "Manage notifications"
@@ -267,7 +267,7 @@ msgstr "Tetapan"
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Connected"
-msgstr "Bersambung"
+msgstr "Sambung"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
@@ -279,8 +279,8 @@ msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
-"Jam Pebble anda terputus. Sila pastikan ia dihidupkan, berada dekat dengan "
-"dan dipasangkan dengan betul melalui tetapan sistem Bluetooth."
+"Jam Pebble anda terputus talianya. Sila pastikan ia dihidupkan, berada dekat "
+"dengan dan dipasangkan dengan betul melalui tetapan sistem Bluetooth."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
@@ -362,6 +362,3 @@ msgstr "Kalendar"
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
 msgstr "Segerakkan kalendar dengan Timeline"
-
-#~ msgid "Info"
-#~ msgstr "Maklumat"

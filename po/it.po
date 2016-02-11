@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-09 23:31+0100\n"
-"PO-Revision-Date: 2016-02-10 04:19+0000\n"
+"PO-Revision-Date: 2016-02-10 05:57+0000\n"
 "Last-Translator: Emanuele Antonio Faraone <emanueleant03@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-10 05:49+0000\n"
+"X-Launchpad-Export-Date: 2016-02-11 06:24+0000\n"
 "X-Generator: Launchpad (build 17923)\n"
 "Language: it\n"
 
@@ -114,6 +114,7 @@ msgstr "Aggiornamento Firmware"
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smartwatch."
 msgstr ""
+"Un nuovo aggiornamento firmware è disponibile per il tuo Smartwatch Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
@@ -361,6 +362,3 @@ msgstr "Calendario"
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
 msgstr "Sincronizza con la timeline del calendario"
-
-#~ msgid "Info"
-#~ msgstr "Informazioni"
