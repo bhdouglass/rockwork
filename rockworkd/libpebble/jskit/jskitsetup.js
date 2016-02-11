@@ -104,7 +104,12 @@ Object.defineProperty(window, "localStorage", new (function () {
     var storage = {};
     Object.defineProperty(storage, "getItem", {
         value: function (key) {
-            return (key && storage[key]) ? storage[key] : null;
+            var value = null;
+            if (key !== undefined && key !== null && storage[key] !== undefined) {
+                value = storage[key];
+            }
+
+            return value;
         },
         writable: false,
         configurable: false,
@@ -122,7 +127,7 @@ Object.defineProperty(window, "localStorage", new (function () {
 
     Object.defineProperty(storage, "setItem", {
         value: function (key, value) {
-            if (key) {
+            if (key !== undefined && key !== null) {
                 _jskit.localstorage.setItem(key, value);
                 storage[key] = (value && value.toString) ? value.toString() : value;
                 return true;
