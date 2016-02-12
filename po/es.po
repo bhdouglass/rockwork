@@ -1,171 +1,167 @@
-# Italian translation for upebble
-# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
-# This file is distributed under the same license as the upebble package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+# Spanish translation for rockwork
+# Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
+# This file is distributed under the same license as the rockwork package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: upebble\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: rockwork\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-12 01:11+0100\n"
-"PO-Revision-Date: 2016-02-11 18:01+0000\n"
-"Last-Translator: Marco Trevisan (Treviño) <mail@3v1n0.net>\n"
-"Language-Team: Italian <it@li.org>\n"
+"PO-Revision-Date: 2016-02-10 08:42+0000\n"
+"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
+"Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-02-12 05:46+0000\n"
 "X-Generator: Launchpad (build 17923)\n"
-"Language: it\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
-msgstr "Impostazioni dell' applicazione"
+msgstr "Configuración de aplicación"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
-msgstr "Dettagli sull'app"
+msgstr "Detalles de aplicación"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Install"
-msgstr "Installa"
+msgstr "Instalar"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
-msgstr "Installazione in corso..."
+msgstr "Instalando…"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
-msgstr "Installato"
+msgstr "Instalada"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:235
 msgid "Description"
-msgstr "Descrizione"
+msgstr "Descripción"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:258
 msgid "Developer"
-msgstr "Sviluppatore"
+msgstr "Desarrollador"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:266
 msgid "Version"
-msgstr "Versione"
+msgstr "Versión"
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
-msgstr "Aggiungi una nuova watchapp"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
-msgstr "Aggiungi una nuova watchapp"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:125
 msgid "See all"
-msgstr "Mostra tutto"
+msgstr "Ver todo"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
 msgid "Developer Tools"
-msgstr "Strumenti per lo sviluppo"
+msgstr "Herramientas de desarrollo"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
-msgstr "Screenshots"
+msgstr "Capturas de pantalla"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:35
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:102
 msgid "Report problem"
-msgstr "riporta un problema"
+msgstr "Informar de un problema"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:42
 msgid "Install app or watchface from file"
-msgstr "Installa un app o una watchface dal file"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:109
 msgid "Preparing logs package..."
-msgstr "preparando il log dei pacchetti..."
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:120
 msgid "pebble.log"
-msgstr "pebble.log"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:127
 msgid "Send rockworkd.log"
-msgstr "Invia rockworkd.log"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:132
 msgid "rockworkd.log"
-msgstr "rockworkd.log"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:137
 msgid "Send watch logs"
-msgstr "Invia Log del Pebble"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:146
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
-msgstr "Cancella"
+msgstr "Cancelar"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:84
 msgid "Firmware upgrade"
-msgstr "Aggiornamento Firmware"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smartwatch."
 msgstr ""
-"Un nuovo aggiornamento firmware è disponibile per il tuo Smartwatch Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
-msgstr "Versione del firmware installata prima: %1"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
-msgstr "Versione candidata all'installazione: %1"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
-msgstr "Note di release: %1"
+msgstr "Notas de publicación: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
-msgstr "Importanza:"
+msgstr "Importante:"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
 msgstr ""
-"Questo aggiornamento aggiornerá il sistema. Connetti il tuo Smartwhatch "
-"Pebble alla presa di corrente."
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
-msgstr "Impostazioni Salute"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
-msgstr "App Salute è attiva"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
 msgid "Female"
-msgstr "Femmina"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
 msgid "Male"
-msgstr "Maschio"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:34
 msgid "Age"
-msgstr "Età"
+msgstr "Edad"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:47
 msgid "Height (cm)"
-msgstr "Altezza (cm)"
+msgstr "Altura (cm)"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:60
 msgid "Weight"
@@ -173,193 +169,188 @@ msgstr "Peso"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:73
 msgid "I want to be more active"
-msgstr "Vorrei Essere più attivo"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:84
 msgid "I want to sleep more"
-msgstr "Vorrei dormire di più"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:95
 msgid "OK"
-msgstr "OK"
+msgstr "Aceptar"
 
 #: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
-msgstr "Importa una app o una watchface"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
 #, qt-format
 msgid "Version %1"
-msgstr "Versione %1"
+msgstr "Versión %1"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
 msgid "Contributors"
-msgstr "Collaboratori"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:52
 msgid "Legal"
-msgstr "Note legali"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:74
 msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
-msgstr "Quest' applicazione non è affiliata con Pebble Technology Corp."
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:79
 msgid "Pebble is a trademark of Pebble Technology Corp."
-msgstr "Pebble è un Marchio Registrato di Pebble Technology Corp."
+msgstr "Pebble es una marca registrada de Pebble Technology Corp."
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
-msgstr "Apps & Watchfaces"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
-msgstr "App"
+msgstr "Aplicaciones"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Watchfaces"
-msgstr "Watchfaces"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:167
 msgid "Launch"
-msgstr "Avvia"
+msgstr "Iniciar"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:176
 msgid "Configure"
-msgstr "Configura"
+msgstr "Configurar"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:186
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
-msgstr "Elimina"
+msgstr "Eliminar"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:196
 msgid "Close"
-msgstr "Chiudi"
+msgstr "Cerrar"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
-msgstr "Informazioni su"
+msgstr "Acerca de"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
 msgid "Developer tools"
-msgstr "Strumenti per sviluppatori"
+msgstr "Herramientas de desarrollo"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
 msgid "Manage notifications"
-msgstr "Gestisci le notifiche"
+msgstr "Gestionar notificaciones"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:59
 msgid "Manage Apps"
-msgstr "Gestisci le applicazioni"
+msgstr "Gestionar aplicaciones"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:67
 msgid "Manage Watchfaces"
-msgstr "Gestisci le Watchfaces"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr "Configuración"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Connected"
-msgstr "Connesso"
+msgstr "Conectado"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
-msgstr "Disconnesso"
+msgstr "Desconectado"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:203
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
-"Il tuo Pebble è disconnesso. Controlla che sia acceso,che non sia lontano e "
-"controlla se è accoppiato con questo smartphone nelle impostazioni del "
-"Bluetooth ."
+"El reloj inteligente Pebble está desconectado. Asegúrese de que esté "
+"encendido, cerca y emparejado correctamente en la sección «Bluetooth» de "
+"Configuración del sistema."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
-msgstr "Impostazioni aperte"
+msgstr "Abrir Configuración del sistema"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
 msgid ""
 "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
-"Il tuo Pebble è in modalitá di fabbrica e sta per essere inizializzato"
+"El reloj inteligente Pebble está en modo de fábrica y debe inicializarse."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
 msgid "Initialize Pebble"
-msgstr "Inizializza il Pebble"
+msgstr "Inicializar Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:262
 msgid "Upgrading..."
-msgstr "Aggiornamento in corso..."
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
-msgstr "Notifiche"
+msgstr "Notificaciones"
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
-"Le applicazioni verranno aggiunte a questa lista quando le relative "
-"notifiche appariranno sul telefono. Quelle selezionate verranno mostrate sul "
-"tuo Pebble."
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
-msgstr "Gestisci le Whatchfaces Pebble"
+msgstr "Gestionar relojes Pebble"
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
 msgstr ""
-"Nessuno Smartwhatch Pebble connesso. Connetti il tuo Pebble usando le "
-"impostazioni."
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
-msgstr "Opzioni sugli Screenshot"
+msgstr "Opciones de captura de pantalla"
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
 msgid "Share"
-msgstr "Condividi"
+msgstr "Compartir"
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:77
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:85
 msgid "Pebble screenshot"
-msgstr "Screenshot Pebble"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
-msgstr "Salva"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:19
 msgid "Distance Units"
-msgstr "Unità di distanza"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:35
 msgid "Metric"
-msgstr "Metrica"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:48
 msgid "Imperial"
-msgstr "Imperiale"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:55
 msgid "Calendar"
-msgstr "Calendario"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
-msgstr "Sincronizza con la timeline del calendario"
+msgstr ""
