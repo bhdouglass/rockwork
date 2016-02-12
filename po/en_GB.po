@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-09 23:31+0100\n"
+"POT-Creation-Date: 2016-02-12 01:11+0100\n"
 "PO-Revision-Date: 2016-02-10 19:39+0000\n"
 "Last-Translator: Adrian Chiang <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-02-12 00:08+0000\n"
 "X-Generator: Launchpad (build 17923)\n"
-"Language: \n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -289,10 +289,8 @@ msgid "Open System Settings"
 msgstr "Open System Settings"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid ""
-"Your Pebble smartwatch is in factory mode and needs to be initialized."
-msgstr ""
-"Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgstr "Your Pebble smartwatch is in factory mode and needs to be initialized."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
 msgid "Initialize Pebble"
