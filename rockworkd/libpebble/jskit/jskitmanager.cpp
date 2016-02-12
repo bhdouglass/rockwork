@@ -82,7 +82,7 @@ AppInfo JSKitManager::currentApp()
 void JSKitManager::handleAppStarted(const QUuid &uuid)
 {
     AppInfo info = m_apps->info(uuid);
-    if (!info.uuid().isNull() && info.isJSKit()) {
+    if (!info.uuid().isNull() && info.isJSKit() && info.uuid() != m_curApp.uuid()) {
         qCDebug(l) << "Preparing to start JSKit app" << info.uuid() << info.shortName();
 
         m_curApp = info;
