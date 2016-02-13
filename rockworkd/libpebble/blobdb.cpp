@@ -108,13 +108,13 @@ void BlobDB::insertNotification(const Notification &notification)
     TimelineItem timelineItem(itemUuid, TimelineItem::TypeNotification);
     timelineItem.setFlags(TimelineItem::FlagSingleEvent);
 
-    TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, notification.sender().left(64).toUtf8());
+    TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, notification.sender().remove(QRegExp("<[^>]*>")).left(64).toUtf8());
     timelineItem.appendAttribute(titleAttribute);
 
-    TimelineAttribute subjectAttribute(TimelineAttribute::TypeSubtitle, notification.subject().left(64).toUtf8());
+    TimelineAttribute subjectAttribute(TimelineAttribute::TypeSubtitle, notification.subject().remove(QRegExp("<[^>]*>")).left(64).toUtf8());
     timelineItem.appendAttribute(subjectAttribute);
 
-    TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, notification.body().toUtf8());
+    TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, notification.body().remove(QRegExp("<[^>]*>")).toUtf8());
     timelineItem.appendAttribute(bodyAttribute);
 
     TimelineAttribute iconAttribute(TimelineAttribute::TypeTinyIcon, iconId);
