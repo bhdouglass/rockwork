@@ -80,12 +80,6 @@ void TelepathyMonitor::accountReady(Tp::PendingOperation* operation)
 
 void TelepathyMonitor::onCallStarted(Tp::CallChannelPtr callChannel)
 {
-    // Haven't figured how to send outgoing calls to pebble yet... discard it
-    if (callChannel->initiatorContact()->id().isEmpty()) {
-        qWarning() << "ignoring phone call. looks like it's an outgoing one";
-        return;
-    }
-
     m_cookie++;
     m_currentCalls.insert(m_cookie, callChannel.data());
     m_currentCallStates.insert(m_cookie, Tp::CallStateInitialising);
@@ -95,7 +89,6 @@ void TelepathyMonitor::onCallStarted(Tp::CallChannelPtr callChannel)
     connect(callChannel.data(), &Tp::CallChannel::callStateChanged, this, &TelepathyMonitor::callStateChanged);
 
     QString number = callChannel->initiatorContact()->id();
-    qDebug() << "call started" << number;
 
     // try to match the contact info
     QContactFetchRequest *request = new QContactFetchRequest(this);

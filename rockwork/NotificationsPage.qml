@@ -78,7 +78,7 @@ Page {
                         checked: model.enabled
                         SlotsLayout.position: SlotsLayout.Trailing;
                         onClicked: {
-                            root.pebble.setNotificationFilter(model.name, checked)
+                            root.pebble.setNotificationFilter(model.id, checked)
                         }
                     }
                 }

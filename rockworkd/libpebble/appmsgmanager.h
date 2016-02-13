@@ -67,6 +67,7 @@ private:
 
 private slots:
     void handleWatchConnectedChanged();
+    void handlePebbleConnected();
     void handleTimeout();
 
     void handleAppLaunchMessage(const QByteArray &data);
@@ -79,6 +80,7 @@ private:
     WatchConnection *m_connection;
     QHash<QUuid, MessageHandlerFunc> _handlers;
     quint8 _lastTransactionId;
+    QUuid m_currentUuid;
 
     struct PendingTransaction {
         quint8 transactionId;

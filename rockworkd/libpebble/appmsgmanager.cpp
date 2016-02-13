@@ -11,10 +11,17 @@ AppMsgManager::AppMsgManager(Pebble *pebble, AppManager *apps, WatchConnection *
     : QObject(pebble),
       m_pebble(pebble),
       apps(apps),
-      m_connection(connection), _lastTransactionId(0), _timeout(new QTimer(this))
+      m_connection(connection),
+      _lastTransactionId(0),
+      m_currentUuid(QUuid()),
+      _timeout(new QTimer(this))
 {
     connect(m_connection, &WatchConnection::watchConnected,
             this, &AppMsgManager::handleWatchConnectedChanged);
+    connect(m_connection, &WatchConnection::watchDisconnected,
+            this, &AppMsgManager::handleWatchConnectedChanged);
+    connect(m_pebble, &Pebble::pebbleConnected,
+            this, &AppMsgManager::handlePebbleConnected);
 
     _timeout->setSingleShot(true);
     _timeout->setInterval(3000);
@@ -250,7 +257,9 @@ QByteArray AppMsgManager::buildLaunchMessage(quint8 messageType, const QUuid &uu
     QByteArray ba;
     WatchDataWriter writer(&ba);
     writer.write<quint8>(messageType);
-    writer.writeUuid(uuid);
+    if (!uuid.isNull()) {
+        writer.writeUuid(uuid);
+    }
 
     return ba;
 }
@@ -282,6 +291,7 @@ void AppMsgManager::handleAppLaunchMessage(const QByteArray &data)
     switch (data.at(0)) {
     case LauncherActionStart:
         qDebug() << "App starting in watch:" << uuid;
+        m_currentUuid = uuid;
         emit appStarted(uuid);
         break;
     case LauncherActionStop:
@@ -317,6 +327,7 @@ void AppMsgManager::handleLauncherPushMessage(const QByteArray &data)
     case LauncherActionStart:
         qDebug() << "App starting in watch:" << uuid;
         m_connection->writeToPebble(WatchConnection::EndpointLauncher, buildAckMessage(transaction));
+        m_currentUuid = uuid;
         emit appStarted(uuid);
         break;
     case LauncherActionStop:
@@ -412,11 +423,20 @@ void AppMsgManager::handleAckMessage(const QByteArray &data, bool ack)
 
 void AppMsgManager::handleWatchConnectedChanged()
 {
-    // If the watch is disconnected, everything breaks loose
-    // TODO In the future we may want to avoid doing the following.
     if (!m_connection->isConnected()) {
+        emit appStopped(m_currentUuid);
+
+        // If the watch is disconnected, everything breaks loose
+        // TODO In the future we may want to avoid doing the following.
+
         abortPendingTransactions();
     }
+}
+
+void AppMsgManager::handlePebbleConnected()
+{
+    //Now that we have all the info from the pebble "relaunch" the current app
+    emit appStarted(m_currentUuid);
 }
 
 void AppMsgManager::handleTimeout()

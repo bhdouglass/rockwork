@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-12 01:11+0100\n"
-"PO-Revision-Date: 2016-02-10 16:13+0000\n"
+"POT-Creation-Date: 2016-02-13 04:28+0100\n"
+"PO-Revision-Date: 2016-02-12 11:42+0000\n"
 "Last-Translator: Vitor Loureiro <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-12 05:46+0000\n"
-"X-Generator: Launchpad (build 17923)\n"
+"X-Launchpad-Export-Date: 2016-02-13 05:44+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 "Language: pt\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
@@ -82,7 +82,7 @@ msgstr "Instalar app ou watchface de arquivo"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:109
 msgid "Preparing logs package..."
-msgstr ""
+msgstr "A preparar pacote de logs..."
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:120
 msgid "pebble.log"
@@ -114,6 +114,7 @@ msgstr "Atualização do firmware"
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smartwatch."
 msgstr ""
+"Um novo upgrade de firmware está disponível para o seu Pebble smartwatch."
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
@@ -123,7 +124,7 @@ msgstr "Firmware instalado atualmente: %1"
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
-msgstr ""
+msgstr "Versão de firmaware candidata: %1"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
@@ -144,11 +145,11 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
-msgstr ""
+msgstr "Configurações do Health"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
-msgstr ""
+msgstr "Aplicação Health ativada"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
 msgid "Female"
@@ -204,6 +205,7 @@ msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
 msgstr ""
+"Esta aplicação não é afiliada nem endossada pela Pebble Technology Corp."
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:79
 msgid "Pebble is a trademark of Pebble Technology Corp."
@@ -278,11 +280,14 @@ msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
+"O seu smartwatch Pebble está desconectado. Por favor, verifique se ele está "
+"ligado, dentro do alcance e emparelhado corretamente nas configurações do "
+"Bluetooth."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
-msgstr ""
+msgstr "Abra as Definições de Sistema"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
 msgid ""
@@ -357,4 +362,4 @@ msgstr "Calendário"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
-msgstr ""
+msgstr "Sincronizar calendário para o timeline"

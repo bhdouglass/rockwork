@@ -18,7 +18,7 @@ class TelepathyCallMonitor : public QObject
 public:
     TelepathyCallMonitor(const Tp::AccountPtr& account):
         mAccount(account),
-        mCallObserver(Tp::SimpleCallObserver::create(mAccount)) {
+        mCallObserver(Tp::SimpleCallObserver::create(mAccount, Tp::SimpleCallObserver::CallDirectionIncoming)) {
         connect(mCallObserver.data(), SIGNAL(callStarted(Tp::CallChannelPtr)), SIGNAL(callStarted(Tp::CallChannelPtr)));
 //        connect(mCallObserver.data(), SIGNAL(callEnded(Tp::CallChannelPtr,QString,QString)), SIGNAL(callEnded()));
 //        connect(mCallObserver.data(), SIGNAL(streamedMediaCallStarted(Tp::StreamedMediaChannelPtr)), SIGNAL(offHook()));
