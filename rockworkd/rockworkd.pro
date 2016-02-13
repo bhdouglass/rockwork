@@ -1,4 +1,4 @@
-QT += core bluetooth dbus network contacts qml location organizer
+QT += core bluetooth dbus network contacts qml location organizer websockets
 QT -= gui
 
 include(../version.pri)
@@ -36,6 +36,7 @@ SOURCES += main.cpp \
     libpebble/jskit/jskitxmlhttprequest.cpp \
     libpebble/jskit/jskittimer.cpp \
     libpebble/jskit/jskitperformance.cpp \
+    libpebble/jskit/jskitwebsocket.cpp \
     libpebble/appinfo.cpp \
     libpebble/appmanager.cpp \
     libpebble/appmsgmanager.cpp \
@@ -86,6 +87,7 @@ HEADERS += \
     libpebble/jskit/jskitxmlhttprequest.h \
     libpebble/jskit/jskittimer.h \
     libpebble/jskit/jskitperformance.h \
+    libpebble/jskit/jskitwebsocket.h \
     libpebble/appinfo.h \
     libpebble/appmanager.h \
     libpebble/appmsgmanager.h \

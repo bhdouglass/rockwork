@@ -194,3 +194,85 @@ Object.defineProperty(window, "localStorage", new (function () {
         localStorage.setItem(keys[index], value);
     }
 })();
+
+function WebSocket(url, protocols) {
+    var ws = _jskit.pebble.createWebSocket(url, protocols);
+    _jskit.make_proxies(this, ws, ['close', 'send']);
+    _jskit.make_properties(this, ws,
+        ['readyState', 'bufferedAmount', 'onopen', 'onerror', 'onclose', 'onmessage',
+        'extensions', 'protocol', 'binaryType']);
+
+    this.CONNECTING = 0;
+    this.OPEN = 1;
+    this.CLOSING = 2;
+    this.CLOSED = 3;
+}
+
+//Borrowed from https://github.com/pebble/pypkjs/blob/master/pypkjs/javascript/events.py#L9
+Event = function(event_type, event_init_dict) {
+    var self = this;
+    this.stopPropagation = function() {};
+    this.stopImmediatePropagation = function() { self._aborted = true; }
+    this.preventDefault = function() { self.defaultPrevented = true; }
+    this.initEvent = function(event_type, bubbles, cancelable) {
+        self.type = event_type;
+        self.bubbles = bubbles;
+        self.cancelable = cancelable
+    };
+
+    if(!event_init_dict) event_init_dict = {};
+    this.type = event_type;
+    this.bubbles = event_init_dict.bubbles || false;
+    this.cancelable = event_init_dict.cancelable || false;
+    this.defaultPrevented = false;
+    this.target = null;
+    this.currentTarget = null;
+    this.eventPhase = 2;
+    this._aborted = false;
+};
+
+Event.NONE = 0;
+Event.CAPTURING_PHASE = 1;
+Event.AT_TARGET = 2;
+Event.BUBBLING_PHASE = 3;
+
+//Borrowed from https://github.com/pebble/pypkjs/blob/master/pypkjs/javascript/ws.py#L14
+CloseEvent = function(wasClean, code, reason, eventInitDict) {
+    Event.call(this, "close", eventInitDict);
+
+    Object.defineProperties(this, {
+        wasClean: {
+            get: function() { return wasClean; },
+            enumerable: true,
+        },
+        code: {
+            get: function() { return code; },
+            enumerable: true,
+        },
+        reason: {
+            get: function() { return reason; },
+            enumerable: true,
+        },
+    });
+};
+
+CloseEvent.prototype = Object.create(Event.prototype);
+CloseEvent.prototype.constructor = CloseEvent;
+
+MessageEvent = function(origin, data, eventInitDict) {
+    Event.call(this, "message", eventInitDict);
+
+    Object.defineProperties(this, {
+        origin: {
+            get: function() { return origin; },
+            enumerable: true,
+        },
+        data: {
+            get: function() { return data; },
+            enumerable: true,
+        }
+    });
+};
+
+MessageEvent.prototype = Object.create(Event.prototype);
+MessageEvent.prototype.constructor = MessageEvent;
