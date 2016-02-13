@@ -1,5 +1,8 @@
 #include "notificationsourcemodel.h"
 
+#include <QStandardPaths>
+#include <QFileInfo>
+#include <QDir>
 #include <QSettings>
 #include <QDebug>
 
@@ -21,6 +24,8 @@ QVariant NotificationSourceModel::data(const QModelIndex &index, int role) const
         return item.m_displayName;
     case RoleEnabled:
         return item.m_enabled;
+    case RoleId:
+        return item.m_id;
     case RoleIcon:
         return item.m_icon;
     }
@@ -33,6 +38,7 @@ QHash<int, QByteArray> NotificationSourceModel::roleNames() const
     roles.insert(RoleName, "name");
     roles.insert(RoleEnabled, "enabled");
     roles.insert(RoleIcon, "icon");
+    roles.insert(RoleId, "id");
     return roles;
 }
 
@@ -58,10 +64,6 @@ void NotificationSourceModel::insert(const QString &sourceId, bool enabled)
         endInsertRows();
     }
 }
-
-#include <QStandardPaths>
-#include <QFileInfo>
-#include <QDir>
 
 NotificationSourceItem NotificationSourceModel::fromDesktopFile(const QString &sourceId)
 {

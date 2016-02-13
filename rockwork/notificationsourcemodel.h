@@ -24,7 +24,8 @@ public:
     enum Roles {
         RoleName,
         RoleEnabled,
-        RoleIcon
+        RoleIcon,
+        RoleId
     };
 
     explicit NotificationSourceModel(QObject *parent = 0);
