@@ -53,6 +53,7 @@ private slots:
     void handleConnected();
     void handleDisconnected();
     void handleError(QAbstractSocket::SocketError error);
+    void handleSslErrors(const QList<QSslError> &errors);
     void handleTextMessageReceived(const QString &message);
     void handleBinaryMessageReceived(const QByteArray &message);
 

@@ -17,11 +17,14 @@ JSKitWebSocket::JSKitWebSocket(QJSEngine *engine, const QString &url, const QJSV
             this, &JSKitWebSocket::handleDisconnected);
     connect(m_webSocket, static_cast<void(QWebSocket::*)(QAbstractSocket::SocketError)>(&QWebSocket::error),
             this, &JSKitWebSocket::handleError);
+    connect(m_webSocket, &QWebSocket::sslErrors,
+            this, &JSKitWebSocket::handleSslErrors);
     connect(m_webSocket, &QWebSocket::textMessageReceived,
             this, &JSKitWebSocket::handleTextMessageReceived);
     connect(m_webSocket, &QWebSocket::binaryMessageReceived,
             this, &JSKitWebSocket::handleBinaryMessageReceived);
 
+    qCDebug(l) << "WebSocket opened for" << url;
     m_webSocket->open(QUrl(url));
 }
 
@@ -164,13 +167,14 @@ QString JSKitWebSocket::url()
 void JSKitWebSocket::handleConnected()
 {
     m_readyState = OPEN;
+    qCDebug(l) << "Connection opened";
 
     if (m_onopen.isCallable()) {
         qCDebug(l) << "Going to call onopen";
 
         QJSValueList eventArgs;
         eventArgs.append("open");
-        QJSValue event = m_engine->globalObject().property("Event").call(eventArgs);
+        QJSValue event = m_engine->globalObject().property("Event").property("_init").call(eventArgs);
 
         QJSValueList args;
         args.append(event);
@@ -184,6 +188,7 @@ void JSKitWebSocket::handleConnected()
 void JSKitWebSocket::handleDisconnected()
 {
     m_readyState = CLOSED;
+    qCDebug(l) << "Connection closed";
 
     if (m_onclose.isCallable()) {
         qCDebug(l) << "Going to call onclose";
@@ -193,10 +198,10 @@ void JSKitWebSocket::handleDisconnected()
         eventArgs.append(QJSValue(m_webSocket->closeCode()));
         eventArgs.append(QJSValue(m_webSocket->closeReason()));
 
-        QJSValue messageEvent = m_engine->globalObject().property("CloseEvent").call(eventArgs);
+        QJSValue event = m_engine->globalObject().property("CloseEvent").property("_init").call(eventArgs);
 
         QJSValueList args;
-        args.append(messageEvent);
+        args.append(event);
 
         QJSValue result = m_onclose.callWithInstance(m_engine->newQObject(this));
         if (result.isError()) {
@@ -207,14 +212,34 @@ void JSKitWebSocket::handleDisconnected()
 
 void JSKitWebSocket::handleError(QAbstractSocket::SocketError error)
 {
-    Q_UNUSED(error);
+    qCDebug(l) << "Error:" << error;
 
     if (m_onerror.isCallable()) {
         qCDebug(l) << "Going to call onerror";
 
         QJSValueList eventArgs;
         eventArgs.append(QJSValue("error"));
-        QJSValue event = m_engine->globalObject().property("Event").call(eventArgs);
+        QJSValue event = m_engine->globalObject().property("Event").property("_init").call(eventArgs);
+
+        QJSValueList args;
+        args.append(event);
+        QJSValue result = m_onerror.callWithInstance(m_engine->newQObject(this), args);
+        if (result.isError()) {
+            qCWarning(l) << "JS error in onclose handler:" << JSKitManager::describeError(result);
+        }
+    }
+}
+
+void JSKitWebSocket::handleSslErrors(const QList<QSslError> &errors)
+{
+    qCDebug(l) << "Ssl Errors:" << errors;
+
+    if (m_onerror.isCallable()) {
+        qCDebug(l) << "Going to call onerror";
+
+        QJSValueList eventArgs;
+        eventArgs.append(QJSValue("error"));
+        QJSValue event = m_engine->globalObject().property("Event").property("_init").call(eventArgs);
 
         QJSValueList args;
         args.append(event);
@@ -268,27 +293,18 @@ void JSKitWebSocket::callOnmessage(QJSValue data)
     if (m_onmessage.isCallable()) {
         qCDebug(l) << "Going to call onmessage";
 
-        QJSValue messageEventProto = m_engine->globalObject().property("MessageEvent").property("prototype");
-        QJSValue messageEvent = m_engine->newObject();
+        QJSValueList eventArgs;
+        eventArgs.append(QJSValue(m_webSocket->origin()));
+        eventArgs.append(data);
 
-        if (messageEventProto.isUndefined()) {
-            qCWarning(l) << "Cannot find proto of MessageEvent";
-        } else {
-            messageEvent.setPrototype(messageEventProto);
+        QJSValue messageEvent = m_engine->globalObject().property("MessageEvent").property("_init").call(eventArgs);
 
-            QJSValueList eventArgs;
-            eventArgs.append(QJSValue(m_webSocket->origin()));
-            eventArgs.append(data);
+        QJSValueList args;
+        args.append(messageEvent);
 
-            messageEvent = messageEvent.callAsConstructor(eventArgs);
-
-            QJSValueList args;
-            args.append(messageEvent);
-
-            QJSValue result = m_onmessage.callWithInstance(m_engine->newQObject(this), args);
-            if (result.isError()) {
-                qCWarning(l) << "JS error in onmessage handler:" << JSKitManager::describeError(result);
-            }
+        QJSValue result = m_onmessage.callWithInstance(m_engine->newQObject(this), args);
+        if (result.isError()) {
+            qCWarning(l) << "JS error in onmessage handler:" << JSKitManager::describeError(result);
         }
     }
 }

@@ -230,6 +230,10 @@ Event = function(event_type, event_init_dict) {
     this.eventPhase = 2;
     this._aborted = false;
 };
+Event._init = function(event_type, event_init_dict) {
+    //Convenience function to call from the engine
+    return new Event(event_type, event_init_dict)
+};
 
 Event.NONE = 0;
 Event.CAPTURING_PHASE = 1;
@@ -258,6 +262,10 @@ CloseEvent = function(wasClean, code, reason, eventInitDict) {
 
 CloseEvent.prototype = Object.create(Event.prototype);
 CloseEvent.prototype.constructor = CloseEvent;
+CloseEvent._init = function(wasClean, code, reason) {
+    //Convenience function to call from the engine
+    return new CloseEvent(wasClean, code, reason)
+};
 
 MessageEvent = function(origin, data, eventInitDict) {
     Event.call(this, "message", eventInitDict);
@@ -276,3 +284,7 @@ MessageEvent = function(origin, data, eventInitDict) {
 
 MessageEvent.prototype = Object.create(Event.prototype);
 MessageEvent.prototype.constructor = MessageEvent;
+MessageEvent._init = function(origin, data) {
+    //Convenience function to call from the engine
+    return new MessageEvent(origin, data)
+};
