@@ -12,8 +12,8 @@ class QDBusInterface;
 class Pebbles : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(bool connectedToService READ connectedToService NOTIFY connectedToServiceChanged)
     Q_PROPERTY(QString version READ version)
-
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 public:
     enum Roles {
@@ -29,6 +29,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
+    bool connectedToService();
     QString version() const;
 
     Q_INVOKABLE Pebble *get(int index) const;
@@ -36,6 +37,7 @@ public:
 
 
 signals:
+    void connectedToServiceChanged();
     void countChanged();
 
 private slots:
@@ -48,7 +50,7 @@ private:
     static bool sortPebbles(Pebble *a, Pebble *b);
 
 private:
-    QDBusInterface *m_iface;
+    bool m_connectedToService = false;
     QList<Pebble*> m_pebbles;
     QDBusServiceWatcher *m_watcher;
 };

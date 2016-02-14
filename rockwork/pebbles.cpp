@@ -16,11 +16,21 @@ Pebbles::Pebbles(QObject *parent):
     QAbstractListModel(parent)
 {
     refresh();
-    m_watcher = new QDBusServiceWatcher(ROCKWORK_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForRegistration, this);
+    m_watcher = new QDBusServiceWatcher(ROCKWORK_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForOwnerChange, this);
     QDBusConnection::sessionBus().connect(ROCKWORK_SERVICE, ROCKWORK_MANAGER_PATH, ROCKWORK_MANAGER_INTERFACE, "PebblesChanged", this, SLOT(refresh()));
     connect(m_watcher, &QDBusServiceWatcher::serviceRegistered, [this]() {
+        qDebug() << "service Registered!";
         refresh();
         QDBusConnection::sessionBus().connect(ROCKWORK_SERVICE, ROCKWORK_MANAGER_PATH, ROCKWORK_MANAGER_INTERFACE, "PebblesChanged", this, SLOT(refresh()));
+    });
+    connect(m_watcher, &QDBusServiceWatcher::serviceUnregistered, [this]() {
+        qDebug() << "service Unregistered!";
+        beginResetModel();
+        qDeleteAll(m_pebbles);
+        m_pebbles.clear();
+        endResetModel();
+        m_connectedToService = false;
+        emit connectedToServiceChanged();
     });
 }
 
@@ -54,6 +64,11 @@ QHash<int, QByteArray> Pebbles::roleNames() const
     roles.insert(RoleSerialNumber, "serialNumber");
     roles.insert(RoleConnected, "connected");
     return roles;
+}
+
+bool Pebbles::connectedToService()
+{
+    return m_connectedToService;
 }
 
 QString Pebbles::version() const
@@ -147,6 +162,11 @@ void Pebbles::refresh()
         m_pebbles.takeAt(idx)->deleteLater();
         endRemoveRows();
         emit countChanged();
+    }
+
+    if (!m_connectedToService) {
+        m_connectedToService = true;
+        emit connectedToServiceChanged();
     }
 }
 

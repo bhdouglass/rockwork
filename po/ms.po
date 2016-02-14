@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-13 04:28+0100\n"
+"POT-Creation-Date: 2016-02-14 21:28+0100\n"
 "PO-Revision-Date: 2016-02-10 18:59+0000\n"
 "Last-Translator: Adrian Chiang <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
@@ -238,6 +238,11 @@ msgstr "Padam"
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:196
 msgid "Close"
 msgstr "Tutup"
+
+#: /home/micha/Develop/upebble/rockwork/Main.qml:95
+#, fuzzy
+msgid "Loading..."
+msgstr "Dinaiktarafkan..."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"

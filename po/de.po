@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-13 04:28+0100\n"
+"POT-Creation-Date: 2016-02-14 21:28+0100\n"
 "PO-Revision-Date: 2016-02-09 23:09+0000\n"
 "Last-Translator: Michael Zanetti <michael.zanetti@canonical.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -240,6 +240,11 @@ msgstr "Löschen"
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:196
 msgid "Close"
 msgstr "Schließen"
+
+#: /home/micha/Develop/upebble/rockwork/Main.qml:95
+#, fuzzy
+msgid "Loading..."
+msgstr "Aktualisierung läuft …"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"

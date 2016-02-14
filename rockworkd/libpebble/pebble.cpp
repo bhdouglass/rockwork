@@ -60,7 +60,8 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
 
     m_appMsgManager = new AppMsgManager(this, m_appManager, m_connection);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
-    QObject::connect(m_jskitManager, SIGNAL(openURL(const QString&, const QString&)), this, SIGNAL(openURL(const QString&, const QString&)));
+    QObject::connect(m_jskitManager, &JSKitManager::openURL, this, &Pebble::openURL);
+    QObject::connect(m_appMsgManager, &AppMsgManager::appStarted, this, &Pebble::appStarted);
 
     m_blobDB = new BlobDB(this, m_connection);
     QObject::connect(m_blobDB, &BlobDB::muteSource, this, &Pebble::muteNotificationSource);
@@ -536,7 +537,7 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
     qDebug() << "Is Unfaithful" << m_isUnfaithful;
 
     // This is useful for debugging
-    //m_isUnfaithful = true;
+//    m_isUnfaithful = true;
 
     if (!m_recovery) {
         m_appManager->rescan();
@@ -624,6 +625,25 @@ void Pebble::appInstalled(const QUuid &uuid) {
     if (m_pendingInstallations.contains(uuid)) {
         m_appMsgManager->launchApp(uuid);
     }
+
+    if (uuid == m_lastSyncedAppUuid) {
+        m_lastSyncedAppUuid = QUuid();
+
+        m_appManager->setAppOrder(m_appManager->appUuids());
+        QSettings settings(m_storagePath + "/appsettings.conf", QSettings::IniFormat);
+        if (settings.contains("watchface")) {
+            m_appMsgManager->launchApp(settings.value("watchface").toUuid());
+        }
+    }
+}
+
+void Pebble::appStarted(const QUuid &uuid)
+{
+    AppInfo info = m_appManager->info(uuid);
+    if (info.isWatchface()) {
+        QSettings settings(m_storagePath + "/appsettings.conf", QSettings::IniFormat);
+        settings.setValue("watchface", uuid.toString());
+    }
 }
 
 void Pebble::muteNotificationSource(const QString &source)
@@ -642,14 +662,14 @@ void Pebble::resetPebble()
 
 void Pebble::syncApps()
 {
+    QUuid lastSyncedAppUuid;
     foreach (const QUuid &appUuid, m_appManager->appUuids()) {
         if (!m_appManager->info(appUuid).isSystemApp()) {
             qDebug() << "Inserting app" << m_appManager->info(appUuid).shortName() << "into BlobDB";
             m_blobDB->insertAppMetaData(m_appManager->info(appUuid));
+            m_lastSyncedAppUuid = appUuid;
         }
     }
-    // make sure the order is synced too
-    m_appManager->setAppOrder(m_appManager->appUuids());
 }
 
 void Pebble::syncTime()

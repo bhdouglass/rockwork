@@ -115,6 +115,7 @@ private slots:
     void phoneVersionAsked(const QByteArray &data);
     void appDownloadFinished(const QString &id);
     void appInstalled(const QUuid &uuid);
+    void appStarted(const QUuid &uuid);
     void muteNotificationSource(const QString &source);
 
     void resetPebble();
@@ -174,6 +175,7 @@ private:
 
     QString m_storagePath;
     QList<QUuid> m_pendingInstallations;
+    QUuid m_lastSyncedAppUuid;
 
     bool m_calendarSyncEnabled = true;
     HealthParams m_healthParams;

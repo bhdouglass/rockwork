@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-13 04:28+0100\n"
+"POT-Creation-Date: 2016-02-14 21:28+0100\n"
 "PO-Revision-Date: 2016-02-11 20:51+0000\n"
 "Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -242,6 +242,11 @@ msgstr "Supprimer"
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:196
 msgid "Close"
 msgstr "Fermer"
+
+#: /home/micha/Develop/upebble/rockwork/Main.qml:95
+#, fuzzy
+msgid "Loading..."
+msgstr "Mise à niveau..."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
