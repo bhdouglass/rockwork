@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-14 21:28+0100\n"
+"POT-Creation-Date: 2016-02-14 23:12+0100\n"
 "PO-Revision-Date: 2016-02-09 23:09+0000\n"
 "Last-Translator: Michael Zanetti <michael.zanetti@canonical.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -193,14 +193,10 @@ msgid "Version %1"
 msgstr "Version %1"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
-msgid "Contributors"
-msgstr "Mitwirkende"
-
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:52
 msgid "Legal"
 msgstr "Rechtliches"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:74
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:62
 msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
@@ -208,7 +204,7 @@ msgstr ""
 "Diese Anwendung ist weder mit Pebble Technology Corp verbunden, noch wird "
 "sie davon unterstützt."
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:79
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:67
 msgid "Pebble is a trademark of Pebble Technology Corp."
 msgstr "Pebble ist ein eingtragenes Warenzeichen der Pebble Technology Corp."
 
@@ -370,3 +366,6 @@ msgstr "Kalender"
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
 msgstr "Kalender in die Zeitleiste synchronisieren"
+
+#~ msgid "Contributors"
+#~ msgstr "Mitwirkende"

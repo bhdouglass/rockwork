@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-14 21:28+0100\n"
+"POT-Creation-Date: 2016-02-14 23:12+0100\n"
 "PO-Revision-Date: 2016-02-11 18:01+0000\n"
 "Last-Translator: Marco Trevisan (Treviño) <mail@3v1n0.net>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -193,20 +193,16 @@ msgid "Version %1"
 msgstr "Versione %1"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
-msgid "Contributors"
-msgstr "Collaboratori"
-
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:52
 msgid "Legal"
 msgstr "Note legali"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:74
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:62
 msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
 msgstr "Quest' applicazione non è affiliata con Pebble Technology Corp."
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:79
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:67
 msgid "Pebble is a trademark of Pebble Technology Corp."
 msgstr "Pebble è un Marchio Registrato di Pebble Technology Corp."
 
@@ -366,3 +362,6 @@ msgstr "Calendario"
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
 msgstr "Sincronizza con la timeline del calendario"
+
+#~ msgid "Contributors"
+#~ msgstr "Collaboratori"

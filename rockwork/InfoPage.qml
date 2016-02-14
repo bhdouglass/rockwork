@@ -37,18 +37,6 @@ Page {
             ThinDivider {}
 
             Label {
-                text: i18n.tr("Contributors")
-                Layout.fillWidth: true
-                font.bold: true
-            }
-            Label {
-                text: "Michael Zanetti<br>Brian Douglas<br>Katharine Berry"
-                Layout.fillWidth: true
-            }
-
-            ThinDivider {}
-
-            Label {
                 text: i18n.tr("Legal")
                 Layout.fillWidth: true
                 font.bold: true
