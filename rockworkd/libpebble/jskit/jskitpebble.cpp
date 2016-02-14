@@ -4,6 +4,7 @@
 
 #include "jskitpebble.h"
 #include "jskitxmlhttprequest.h"
+#include "jskitwebsocket.h"
 
 static const char *token_salt = "0feeb7416d3c4546a19b04bccd8419b1";
 
@@ -315,9 +316,15 @@ void JSKitPebble::openURL(const QUrl &url)
 QJSValue JSKitPebble::createXMLHttpRequest()
 {
     JSKitXMLHttpRequest *xhr = new JSKitXMLHttpRequest(m_mgr->engine());
-    // Should be deleted by JS engine.
     return m_mgr->engine()->newQObject(xhr);
 }
+
+QJSValue JSKitPebble::createWebSocket(const QString &url, const QJSValue &protocols)
+{
+    JSKitWebSocket *ws = new JSKitWebSocket(m_mgr->engine(), url, protocols);
+    return m_mgr->engine()->newQObject(ws);
+}
+
 
 QJSValue JSKitPebble::buildAckEventObject(uint transaction, const QString &message) const
 {
