@@ -25,6 +25,7 @@ JSKitWebSocket::JSKitWebSocket(QJSEngine *engine, const QString &url, const QJSV
             this, &JSKitWebSocket::handleBinaryMessageReceived);
 
     qCDebug(l) << "WebSocket opened for" << url;
+    //m_webSocket->ignoreSslErrors();
     m_webSocket->open(QUrl(url));
 }
 

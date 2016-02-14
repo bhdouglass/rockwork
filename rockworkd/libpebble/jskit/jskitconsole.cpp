@@ -4,170 +4,209 @@
 
 JSKitConsole::JSKitConsole(QObject *parent) :
     QObject(parent),
-    l(metaObject()->className())
+    l("JSKit Log"),
+    w("JSKit Warning"),
+    e("JSKit Error"),
+    i("JSKit Info")
 {
 }
 
-void JSKitConsole::log(const QJSValue &msg0, const QJSValue &msg1, const QJSValue &msg2, const QJSValue &msg3, const QJSValue &msg4, const QJSValue &msg5, const QJSValue &msg6, const QJSValue &msg7, const QJSValue &msg8, const QJSValue &msg9)
+void JSKitConsole::log(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7, const QString &msg8, const QString &msg9)
 {
-    qCDebug(l) << msg0.toString();
-
-    if (!msg1.isUndefined()) {
-        qCDebug(l) << msg1.toString();
-    }
-
-    if (!msg2.isUndefined()) {
-        qCDebug(l) << msg2.toString();
-    }
-
-    if (!msg3.isUndefined()) {
-        qCDebug(l) << msg3.toString();
-    }
-
-    if (!msg4.isUndefined()) {
-        qCDebug(l) << msg4.toString();
-    }
-
-    if (!msg5.isUndefined()) {
-        qCDebug(l) << msg5.toString();
-    }
-
-    if (!msg6.isUndefined()) {
-        qCDebug(l) << msg6.toString();
-    }
-
-    if (!msg7.isUndefined()) {
-        qCDebug(l) << msg7.toString();
-    }
-
-    if (!msg8.isUndefined()) {
-        qCDebug(l) << msg8.toString();
-    }
-
-    if (!msg9.isUndefined()) {
-        qCDebug(l) << msg9.toString();
-    }
+    qCDebug(l) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7 << msg8 << msg9;
 }
 
-void JSKitConsole::warn(const QJSValue &msg0, const QJSValue &msg1, const QJSValue &msg2, const QJSValue &msg3, const QJSValue &msg4, const QJSValue &msg5, const QJSValue &msg6, const QJSValue &msg7, const QJSValue &msg8, const QJSValue &msg9)
+void JSKitConsole::log(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7, const QString &msg8)
 {
-    qCWarning(l) << msg0.toString();
-
-    if (!msg1.isUndefined()) {
-        qCWarning(l) << msg1.toString();
-    }
-
-    if (!msg2.isUndefined()) {
-        qCWarning(l) << msg2.toString();
-    }
-
-    if (!msg3.isUndefined()) {
-        qCWarning(l) << msg3.toString();
-    }
-
-    if (!msg4.isUndefined()) {
-        qCWarning(l) << msg4.toString();
-    }
-
-    if (!msg5.isUndefined()) {
-        qCWarning(l) << msg5.toString();
-    }
-
-    if (!msg6.isUndefined()) {
-        qCWarning(l) << msg6.toString();
-    }
-
-    if (!msg7.isUndefined()) {
-        qCWarning(l) << msg7.toString();
-    }
-
-    if (!msg8.isUndefined()) {
-        qCWarning(l) << msg8.toString();
-    }
-
-    if (!msg9.isUndefined()) {
-        qCWarning(l) << msg9.toString();
-    }
+    qCDebug(l) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7 << msg8;
 }
 
-void JSKitConsole::error(const QJSValue &msg0, const QJSValue &msg1, const QJSValue &msg2, const QJSValue &msg3, const QJSValue &msg4, const QJSValue &msg5, const QJSValue &msg6, const QJSValue &msg7, const QJSValue &msg8, const QJSValue &msg9)
+void JSKitConsole::log(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7)
 {
-    qCCritical(l) << msg0.toString();
-
-    if (!msg1.isUndefined()) {
-        qCCritical(l) << msg1.toString();
-    }
-
-    if (!msg2.isUndefined()) {
-        qCCritical(l) << msg2.toString();
-    }
-
-    if (!msg3.isUndefined()) {
-        qCCritical(l) << msg3.toString();
-    }
-
-    if (!msg4.isUndefined()) {
-        qCCritical(l) << msg4.toString();
-    }
-
-    if (!msg5.isUndefined()) {
-        qCCritical(l) << msg5.toString();
-    }
-
-    if (!msg6.isUndefined()) {
-        qCCritical(l) << msg6.toString();
-    }
-
-    if (!msg7.isUndefined()) {
-        qCCritical(l) << msg7.toString();
-    }
-
-    if (!msg8.isUndefined()) {
-        qCCritical(l) << msg8.toString();
-    }
-
-    if (!msg9.isUndefined()) {
-        qCCritical(l) << msg9.toString();
-    }
+    qCDebug(l) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7;
 }
 
-void JSKitConsole::info(const QJSValue &msg0, const QJSValue &msg1, const QJSValue &msg2, const QJSValue &msg3, const QJSValue &msg4, const QJSValue &msg5, const QJSValue &msg6, const QJSValue &msg7, const QJSValue &msg8, const QJSValue &msg9)
+void JSKitConsole::log(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6)
 {
-    qCDebug(l) << msg0.toString();
+    qCDebug(l) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6;
+}
 
-    if (!msg1.isUndefined()) {
-        qCDebug(l) << msg1.toString();
-    }
+void JSKitConsole::log(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5)
+{
+    qCDebug(l) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5;
+}
 
-    if (!msg2.isUndefined()) {
-        qCDebug(l) << msg2.toString();
-    }
+void JSKitConsole::log(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4)
+{
+    qCDebug(l) << msg0 << msg1 << msg2 << msg3 << msg4;
+}
 
-    if (!msg3.isUndefined()) {
-        qCDebug(l) << msg3.toString();
-    }
+void JSKitConsole::log(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3)
+{
+    qCDebug(l) << msg0 << msg1 << msg2 << msg3;
+}
 
-    if (!msg4.isUndefined()) {
-        qCDebug(l) << msg4.toString();
-    }
+void JSKitConsole::log(const QString &msg0, const QString &msg1, const QString &msg2)
+{
+    qCDebug(l) << msg0 << msg1 << msg2;
+}
 
-    if (!msg5.isUndefined()) {
-        qCDebug(l) << msg5.toString();
-    }
+void JSKitConsole::log(const QString &msg0, const QString &msg1)
+{
+    qCDebug(l) << msg0 << msg1;
+}
 
-    if (!msg6.isUndefined()) {
-        qCDebug(l) << msg6.toString();
-    }
+void JSKitConsole::log(const QString &msg0)
+{
+    qCDebug(l) << msg0;
+}
 
-    if (!msg7.isUndefined()) {
-        qCDebug(l) << msg7.toString();
-    }
+void JSKitConsole::warn(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7, const QString &msg8, const QString &msg9)
+{
+    qCWarning(w) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7 << msg8 << msg9;
+}
 
-    if (!msg8.isUndefined()) {
-        qCDebug(l) << msg8.toString();
-    }
+void JSKitConsole::warn(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7, const QString &msg8)
+{
+    qCWarning(w) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7 << msg8;
+}
 
-    if (!msg9.isUndefined()) {
-        qCDebug(l) << msg9.toString();
-    }
+void JSKitConsole::warn(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7)
+{
+    qCWarning(w) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7;
+}
+
+void JSKitConsole::warn(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6)
+{
+    qCWarning(w) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6;
+}
+
+void JSKitConsole::warn(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5)
+{
+    qCWarning(w) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5;
+}
+
+void JSKitConsole::warn(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4)
+{
+    qCWarning(w) << msg0 << msg1 << msg2 << msg3 << msg4;
+}
+
+void JSKitConsole::warn(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3)
+{
+    qCWarning(w) << msg0 << msg1 << msg2 << msg3;
+}
+
+void JSKitConsole::warn(const QString &msg0, const QString &msg1, const QString &msg2)
+{
+    qCWarning(w) << msg0 << msg1 << msg2;
+}
+
+void JSKitConsole::warn(const QString &msg0, const QString &msg1)
+{
+    qCWarning(w) << msg0 << msg1;
+}
+
+void JSKitConsole::warn(const QString &msg0)
+{
+    qCWarning(w) << msg0;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7, const QString &msg8, const QString &msg9)
+{
+    qCCritical(e) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7 << msg8 << msg9;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7, const QString &msg8)
+{
+    qCCritical(e) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7 << msg8;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7)
+{
+    qCCritical(e) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6)
+{
+    qCCritical(e) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5)
+{
+    qCCritical(e) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4)
+{
+    qCCritical(e) << msg0 << msg1 << msg2 << msg3 << msg4;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3)
+{
+    qCCritical(e) << msg0 << msg1 << msg2 << msg3;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1, const QString &msg2)
+{
+    qCCritical(e) << msg0 << msg1 << msg2;
+}
+
+void JSKitConsole::error(const QString &msg0, const QString &msg1)
+{
+    qCCritical(e) << msg0 << msg1;
+}
+
+void JSKitConsole::error(const QString &msg0)
+{
+    qCCritical(e) << msg0;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7, const QString &msg8, const QString &msg9)
+{
+    qCDebug(i) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7 << msg8 << msg9;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7, const QString &msg8)
+{
+    qCDebug(i) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7 << msg8;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6, const QString &msg7)
+{
+    qCDebug(i) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6 << msg7;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5, const QString &msg6)
+{
+    qCDebug(i) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5 << msg6;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4, const QString &msg5)
+{
+    qCDebug(i) << msg0 << msg1 << msg2 << msg3 << msg4 << msg5;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3, const QString &msg4)
+{
+    qCDebug(i) << msg0 << msg1 << msg2 << msg3 << msg4;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1, const QString &msg2, const QString &msg3)
+{
+    qCDebug(i) << msg0 << msg1 << msg2 << msg3;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1, const QString &msg2)
+{
+    qCDebug(i) << msg0 << msg1 << msg2;
+}
+
+void JSKitConsole::info(const QString &msg0, const QString &msg1)
+{
+    qCDebug(i) << msg0 << msg1;
+}
+
+void JSKitConsole::info(const QString &msg0)
+{
+    qCDebug(i) << msg0;
 }

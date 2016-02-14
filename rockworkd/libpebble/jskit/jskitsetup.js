@@ -81,16 +81,6 @@ console = new (function() {
     );
 })();
 
-/*localStorage = new (function() {
-    _jskit.make_proxies(this, _jskit.localstorage,
-        ['clear', 'getItem', 'setItem', 'removeItem', 'key']
-    );
-
-    _jskit.make_properties(this, _jskit.localstorage,
-        ['length']
-    );
-})();*/
-
 //It appears that Proxy is not available since Qt is using Javascript v5
 /*(function() {
     var proxy = _jskit.make_proxies({}, _jskit.localstorage, ['set', 'has', 'deleteProperty', 'keys', 'enumerate']);
