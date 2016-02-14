@@ -3,6 +3,12 @@
 
 #include <QLoggingCategory>
 
+/*
+  We opted to do multiple overloaded functions rather than one with default
+  arguments as this method produces nicer log messages and wont omit (possibly)
+  important messages like empty string, undefined, or null.
+*/
+
 class JSKitConsole : public QObject
 {
     Q_OBJECT
