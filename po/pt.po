@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-14 23:39+0100\n"
-"PO-Revision-Date: 2016-02-12 11:42+0000\n"
+"PO-Revision-Date: 2016-02-16 15:41+0000\n"
 "Last-Translator: Vitor Loureiro <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
-"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-02-14 06:17+0000\n"
+"X-Launchpad-Export-Date: 2016-02-17 05:49+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
+"Language: pt\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -237,9 +237,8 @@ msgid "Close"
 msgstr "Fechar"
 
 #: /home/micha/Develop/upebble/rockwork/Main.qml:95
-#, fuzzy
 msgid "Loading..."
-msgstr "A actualizar..."
+msgstr "A carregar..."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
@@ -291,7 +290,8 @@ msgid "Open System Settings"
 msgstr "Abra as Definições de Sistema"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "O seu smartwatch Pebble está no modo de fábrica e precisa ser inicializado."
 
@@ -363,6 +363,3 @@ msgstr "Calendário"
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
 msgstr "Sincronizar calendário para o timeline"
-
-#~ msgid "Contributors"
-#~ msgstr "Contribuidores"
