@@ -92,7 +92,10 @@ QString Pebbles::version() const
 
 Pebble *Pebbles::get(int index) const
 {
-    return m_pebbles.at(index);
+    if (index >= 0 && index < m_pebbles.count()) {
+        return m_pebbles.at(index);
+    }
+    return nullptr;
 }
 
 int Pebbles::find(const QString &address) const
