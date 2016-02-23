@@ -42,6 +42,27 @@ Page {
             }
         }
 
+        contextualActions: ActionList {
+            Action {
+                text: i18n.tr("Cut")
+                enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.CutCapability)
+                onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+            }
+            Action {
+                text: i18n.tr("Copy")
+                enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.CopyCapability)
+                onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+            }
+            Action {
+                text: i18n.tr("Paste")
+                enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.PasteCapability)
+                onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+            }
+        }
+
         Component.onCompleted: {
             preferences.localStorageEnabled = true;
         }

@@ -146,7 +146,6 @@ void JSKitManager::handleAppMessage(const QUuid &uuid, const QVariantMap &msg)
 
                     array = m_engine->newArray(byteArray.size());
                     for (int i = 0; i < byteArray.size(); i++) {
-                        //TODO according to the docs this could contain string values, we should check for those (https://developer.pebble.com/guides/pebble-apps/pebblekit-js/js-app-comm/#appmessage-objects-in-javascript)
                         array.setProperty(i, m_engine->toScriptValue<int>(byteArray[i]));
                     }
 
