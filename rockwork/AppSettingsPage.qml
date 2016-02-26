@@ -15,6 +15,7 @@ Page {
     WebContext {
         id: webcontext
         userAgent: "Mozilla/5.0 (Linux; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.102 Mobile Safari/537.36 Ubuntu Touch (RockWork)"
+        allowedExtraUrlSchemes: ["pebblejs"]
     }
 
     WebView {
@@ -33,14 +34,32 @@ Page {
         preferences.javascriptCanAccessClipboard: true
 
         function navigationRequestedDelegate(request) {
-            //The pebblejs:// protocol is handeled by the urihandler, as it appears we can't intercept it
-
             var url = request.url.toString();
-            console.log(url, url.substring(0, 16));
             if (url.substring(0, 16) == 'pebblejs://close') {
                 pebble.configurationClosed(settings.uuid, url);
                 request.action = Oxide.NavigationRequest.ActionReject;
                 pageStack.pop();
+            }
+        }
+
+        contextualActions: ActionList {
+            Action {
+                text: i18n.tr("Cut")
+                enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.CutCapability)
+                onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+            }
+            Action {
+                text: i18n.tr("Copy")
+                enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.CopyCapability)
+                onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+            }
+            Action {
+                text: i18n.tr("Paste")
+                enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.PasteCapability)
+                onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
             }
         }
 
@@ -62,7 +81,7 @@ Page {
         visible: (webview.loading && !webview.lastLoadStopped)
     }
 
-    Connections {
+    /*Connections {
         target: UriHandler
         onOpened: {
             if (uris && uris[0] && uris[0].length) {
@@ -74,5 +93,5 @@ Page {
                 }
             }
         }
-    }
+    }*/
 }

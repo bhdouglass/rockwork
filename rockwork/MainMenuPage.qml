@@ -123,11 +123,11 @@ Page {
 
                         Item {
                             id: watchFace
-                            height: parent.height * (modelModel.get(root.pebble.model - 1).shape === "rectangle" ? .5 : .515)
-                            width: height * (modelModel.get(root.pebble.model - 1).shape === "rectangle" ? .85 : 1)
+                            height: parent.height * (modelModel.get(root.pebble.model).shape === "rectangle" ? .5 : .515)
+                            width: height * (modelModel.get(root.pebble.model).shape === "rectangle" ? .85 : 1)
                             anchors.centerIn: parent
                             anchors.horizontalCenterOffset: units.dp(1)
-                            anchors.verticalCenterOffset: units.dp(modelModel.get(root.pebble.model - 1).shape === "rectangle" ? 0 : 1)
+                            anchors.verticalCenterOffset: units.dp(modelModel.get(root.pebble.model).shape === "rectangle" ? 0 : 1)
 
                             Image {
                                 id: image
@@ -146,7 +146,7 @@ Page {
                                 id: textItem
                                 anchors.fill: parent
                                 layer.enabled: true
-                                radius: modelModel.get(root.pebble.model - 1).shape === "rectangle" ? units.gu(.5) : height / 2
+                                radius: modelModel.get(root.pebble.model).shape === "rectangle" ? units.gu(.5) : height / 2
                                 // This item should be used as the 'mask'
                                 layer.samplerName: "maskSource"
                                 layer.effect: ShaderEffect {
