@@ -21,6 +21,7 @@ public:
         NotificationTypeMissedCall,
         NotificationTypeAlarm,
         NotificationTypeReminder,
+        NotificationTypeFlag,
     };
 
     Notification(const QString &sourceId = QString());

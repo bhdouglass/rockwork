@@ -28,6 +28,7 @@ void TestingPlatform::sendNotification(int type, const QString &from, const QStr
 {
     qDebug() << "Injecting mock notification" << type;
     Notification n("test_app_" + QString::number(type));
+    n.setType((Notification::NotificationType)type);
     n.setSourceName("Test button " + QString::number(type));
     n.setSender(from);
     n.setSubject(subject);
