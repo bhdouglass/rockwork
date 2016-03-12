@@ -1,4 +1,4 @@
-# English (United Kingdom) translation for rockwork
+# Amharic translation for rockwork
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the rockwork package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
@@ -6,368 +6,356 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-14 23:39+0100\n"
-"PO-Revision-Date: 2016-02-15 08:54+0000\n"
-"Last-Translator: Adrian Chiang <Unknown>\n"
-"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
+"PO-Revision-Date: 2016-03-09 19:47+0000\n"
+"Last-Translator: samson <Unknown>\n"
+"Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-03-05 06:45+0000\n"
+"X-Launchpad-Export-Date: 2016-03-10 06:22+0000\n"
 "X-Generator: Launchpad (build 17936)\n"
-"Language: \n"
 
 msgid "Cut"
-msgstr ""
+msgstr "መቁረጫ"
 
 msgid "Copy"
-msgstr ""
+msgstr "ኮፒ"
 
 msgid "Paste"
-msgstr ""
+msgstr "መለጠፊያ"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
-msgstr "App Settings"
+msgstr "መተግበሪያ ማሰናጃ"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
-msgstr "App details"
+msgstr "የ መተግበሪያ ዝርዝር"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Install"
-msgstr "Install"
+msgstr "መግጠሚያ"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
-msgstr "Installing..."
+msgstr "በ መግጠም ላይ..."
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
-msgstr "Installed"
+msgstr "ተገጥሟል"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:235
 msgid "Description"
-msgstr "Description"
+msgstr "መግለጫ"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:258
 msgid "Developer"
-msgstr "Developer"
+msgstr "አበልጻጊ"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:266
 msgid "Version"
-msgstr "Version"
+msgstr "እትም"
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
-msgstr "Add new watchapp"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
-msgstr "Add new watchface"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:125
 msgid "See all"
-msgstr "See all"
+msgstr "ሁሉንም መመልከቻ"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
 msgid "Developer Tools"
-msgstr "Developer Tools"
+msgstr "የ አበልጻጊ መሳሪያዎች"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
-msgstr "Screenshots"
+msgstr "የ መመልከቻው ፎቶ"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:35
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:102
 msgid "Report problem"
-msgstr "Report problem"
+msgstr "ችግሩን ያሳውቁን"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:42
 msgid "Install app or watchface from file"
-msgstr "Install app or watchface from file"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:109
 msgid "Preparing logs package..."
-msgstr "Preparing logs package..."
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:120
 msgid "pebble.log"
-msgstr "pebble.log"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:127
 msgid "Send rockworkd.log"
-msgstr "Send rockworkd.log"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:132
 msgid "rockworkd.log"
-msgstr "rockworkd.log"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:137
 msgid "Send watch logs"
-msgstr "Send watch logs"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:146
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "መሰረዣ"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:84
 msgid "Firmware upgrade"
-msgstr "Firmware upgrade"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smartwatch."
-msgstr "A new firmware upgrade is available for your Pebble smartwatch."
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
-msgstr "Currently installed firmware: %1"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
-msgstr "Candidate firmware version: %1"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
-msgstr "Release Notes: %1"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
-msgstr "Important:"
+msgstr "አስፈላጊ:"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
 msgstr ""
-"This update will also upgrade recovery data. Make sure your Pebble "
-"smartwarch is connected to a power adapter."
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
-msgstr "Health settings"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
-msgstr "Health app enabled"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
 msgid "Female"
-msgstr "Female"
+msgstr "ሴት"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
 msgid "Male"
-msgstr "Male"
+msgstr "ወንድ"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:34
 msgid "Age"
-msgstr "Age"
+msgstr "እድሜ"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:47
 msgid "Height (cm)"
-msgstr "Height (cm)"
+msgstr "እርዝመት (ሴሚ)"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:60
 msgid "Weight"
-msgstr "Weight"
+msgstr "ክብደት"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:73
 msgid "I want to be more active"
-msgstr "I want to be more active"
+msgstr "እኔ ንቁ መሆን እፈልጋለሁ"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:84
 msgid "I want to sleep more"
-msgstr "I want to sleep more"
+msgstr "እኔ መተኛት እፈልጋለሁ"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:95
 msgid "OK"
-msgstr "OK"
+msgstr "እሺ"
 
 #: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
-msgstr "Import watchapp or watchface"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
 #, qt-format
 msgid "Version %1"
-msgstr "Version %1"
+msgstr "እትም %1"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
 msgid "Legal"
-msgstr "Legal"
+msgstr "ሕጋዊ"
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:62
 msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
 msgstr ""
-"This application is neither affiliated with nor endorsed by Pebble "
-"Technology Corp."
 
 #: /home/micha/Develop/upebble/rockwork/InfoPage.qml:67
 msgid "Pebble is a trademark of Pebble Technology Corp."
-msgstr "Pebble is a trademark of Pebble Technology Corp."
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
-msgstr "Apps & Watchfaces"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
-msgstr "Apps"
+msgstr "መተግበሪያዎች"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
 msgid "Watchfaces"
-msgstr "Watchfaces"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:167
 msgid "Launch"
-msgstr "Launch"
+msgstr "ማስጀመሪያ"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:176
 msgid "Configure"
-msgstr "Configure"
+msgstr "ማዋቀሪያ"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:186
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
-msgstr "Delete"
+msgstr "ማጥፊያ"
 
 #: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:196
 msgid "Close"
-msgstr "Close"
+msgstr "መዝጊያ"
 
 #: /home/micha/Develop/upebble/rockwork/Main.qml:95
 msgid "Loading..."
-msgstr "Loading..."
+msgstr "በ መጫን ላይ..."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
-msgstr "About"
+msgstr "ስለ"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
 msgid "Developer tools"
-msgstr "Developer tools"
+msgstr "የ አበልጻጊ መሳሪያዎች"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
 msgid "Manage notifications"
-msgstr "Manage notifications"
+msgstr "የ ማስታወቂያ አስተዳዳሪ"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:59
 msgid "Manage Apps"
-msgstr "Manage Apps"
+msgstr "የ መተግበሪያ አስተዳዳሪ"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:67
 msgid "Manage Watchfaces"
-msgstr "Manage Watchfaces"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
 msgid "Settings"
-msgstr "Settings"
+msgstr "ማሰናጃዎች"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Connected"
-msgstr "Connected"
+msgstr "ተገናኝቷል"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
-msgstr "Disconnected"
+msgstr "ተቋርጧል"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:203
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
 msgstr ""
-"Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
-"within range and it is paired properly in the Bluetooth System Settings."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
-msgstr "Open System Settings"
+msgstr "መክፈቻ የ ስርአት ማሰናጃዎች"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
 msgid ""
 "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
-"Your Pebble smartwatch is in factory mode and needs to be initialized."
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
 msgid "Initialize Pebble"
-msgstr "Initialize Pebble"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:262
 msgid "Upgrading..."
-msgstr "Upgrading..."
+msgstr "በ ማሻሻል ላይ..."
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "ማስታወቂያዎች"
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
 msgstr ""
-"Entries here will be added as notifications appear on the phone. Selected "
-"notifications will be shown on your Pebble smartwatch."
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
-msgstr "Manage Pebble Watches"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
 msgstr ""
-"No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
-"using System Settings."
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
-msgstr "Screenshot options"
+msgstr "የ መመልከቻ ፎቶ ምርጫ"
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
 msgid "Share"
-msgstr "Share"
+msgstr "ማካፈያ"
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:77
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:85
 msgid "Pebble screenshot"
-msgstr "Pebble screenshot"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
-msgstr "Save"
+msgstr "ማስቀመጫ"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:19
 msgid "Distance Units"
-msgstr "Distance Units"
+msgstr "የ ርቀት መለኪያ"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:35
 msgid "Metric"
-msgstr "Metric"
+msgstr "ሜትሪክ"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:48
 msgid "Imperial"
-msgstr "Imperial"
+msgstr "ኢምፔሪያል"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:55
 msgid "Calendar"
-msgstr "Calendar"
+msgstr "የ ቀን መቁጠሪያ"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
-msgstr "Sync calendar to Timeline"
+msgstr "የ ቀን መቁጠሪያ ከ ሰአት መስመር ጋር ማስማሚያ"
