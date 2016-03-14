@@ -141,7 +141,7 @@ void WatchConnection::pebbleConnected()
 void WatchConnection::pebbleDisconnected()
 {
     qDebug() << "Disconnected";
-    m_socket->close();
+    //m_socket->close();
     emit watchDisconnected();
     if (!m_reconnectTimer.isActive()) {
         scheduleReconnect();

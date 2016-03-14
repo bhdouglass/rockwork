@@ -59,7 +59,7 @@ void PebbleManager::loadPebbles()
 
     while (!pebblesToRemove.isEmpty()) {
         Pebble *pebble = pebblesToRemove.takeFirst();
-        qDebug() << "Removing pebble" << pebble->address();
+        qDebug() << "Removing pebble" << pebble->address().toString();
         m_pebbles.removeOne(pebble);
         emit pebbleRemoved(pebble);
         pebble->deleteLater();

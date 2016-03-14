@@ -31,6 +31,55 @@ BluezClient::BluezClient(QObject *parent):
                 addDevice(path, properties);
             }
         }
+
+        if (m_devices.isEmpty()) {
+            // Try with bluez 4
+            QDBusConnection system = QDBusConnection::systemBus();
+
+            QDBusReply<QList<QDBusObjectPath> > listAdaptersReply = system.call(
+                        QDBusMessage::createMethodCall("org.bluez", "/", "org.bluez.Manager",
+                                                       "ListAdapters"));
+            if (!listAdaptersReply.isValid()) {
+                qWarning() << listAdaptersReply.error().message();
+                return;
+            }
+
+            QList<QDBusObjectPath> adapters = listAdaptersReply.value();
+
+            if (adapters.isEmpty()) {
+                qWarning() << "No BT adapters found";
+                return;
+            }
+
+            QDBusReply<QVariantMap> adapterPropertiesReply = system.call(
+                        QDBusMessage::createMethodCall("org.bluez", adapters[0].path(), "org.bluez.Adapter",
+                                                       "GetProperties"));
+            if (!adapterPropertiesReply.isValid()) {
+                qWarning() << adapterPropertiesReply.error().message();
+                return;
+            }
+
+            QList<QDBusObjectPath> devices;
+            adapterPropertiesReply.value()["Devices"].value<QDBusArgument>() >> devices;
+
+            foreach (QDBusObjectPath path, devices) {
+                QDBusReply<QVariantMap> devicePropertiesReply = system.call(
+                            QDBusMessage::createMethodCall("org.bluez", path.path(), "org.bluez.Device",
+                                                           "GetProperties"));
+                if (!devicePropertiesReply.isValid()) {
+                    qCritical() << devicePropertiesReply.error().message();
+                    continue;
+                }
+
+                const QVariantMap &dict = devicePropertiesReply.value();
+
+                QString name = dict["Name"].toString();
+                if (name.startsWith("Pebble") && !name.startsWith("Pebble Time LE") && !name.startsWith("Pebble-LE")) {
+                    qDebug() << "Found Pebble:" << name;
+                    addDevice(path, dict);
+                }
+            }
+        }
     }
 }
 
