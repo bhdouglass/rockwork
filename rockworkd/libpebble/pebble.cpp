@@ -134,7 +134,7 @@ bool Pebble::connected() const
 
 void Pebble::connect()
 {
-    qDebug() << "Connecting to Pebble:" << m_name << m_address;
+    qDebug() << "Connecting to Pebble:" << m_name << m_address.toString();
     m_connection->connectPebble(m_address);
 }
 
