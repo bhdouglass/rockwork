@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-14 23:39+0100\n"
-"PO-Revision-Date: 2016-02-15 08:53+0000\n"
+"PO-Revision-Date: 2016-03-14 08:02+0000\n"
 "Last-Translator: Adrian Chiang <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
-"Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-03-13 06:02+0000\n"
+"X-Launchpad-Export-Date: 2016-03-15 06:18+0000\n"
 "X-Generator: Launchpad (build 17939)\n"
+"Language: ms\n"
 
 msgid "Cut"
-msgstr ""
+msgstr "Potong"
 
 msgid "Copy"
-msgstr ""
+msgstr "Salin"
 
 msgid "Paste"
-msgstr ""
+msgstr "Tampal"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -297,7 +297,8 @@ msgid "Open System Settings"
 msgstr "Buka Tetapan Sistem"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Jam Pebble anda berada dalam keadaan mod kilang dan perlu dimulakan semula."
 
