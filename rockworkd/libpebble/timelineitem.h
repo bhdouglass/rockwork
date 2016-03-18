@@ -246,6 +246,7 @@ public:
 
     QUuid itemId() const;
 
+    void setParentId(QUuid parentId);
     void setLayout(quint8 layout);
     void setFlags(Flags flags);
 

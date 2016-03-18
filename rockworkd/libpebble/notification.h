@@ -2,6 +2,7 @@
 #define NOTIFICATION_H
 
 #include <QString>
+#include <QUuid>
 
 class Notification
 {
@@ -26,6 +27,9 @@ public:
 
     Notification(const QString &sourceId = QString());
 
+    QUuid uuid() const;
+    void setUuid(const QUuid id);
+
     QString sourceId() const;
     void setSourceId(const QString &sourceId);
 
@@ -48,6 +52,7 @@ public:
     void setActToken(QString actToken);
 
 private:
+    QUuid   m_uuid;
     QString m_sourceId;
     QString m_sourceName;
     QString m_sender;
