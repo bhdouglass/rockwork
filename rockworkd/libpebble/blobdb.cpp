@@ -4,7 +4,6 @@
 #include "watchdatawriter.h"
 
 #include <QDebug>
-#include <QOrganizerRecurrenceRule>
 #include <QDir>
 #include <QSettings>
 
@@ -110,9 +109,11 @@ void BlobDB::insertNotification(const Notification &notification)
         iconId = TimelineAttribute::IconIDNotificationGeneric;
     }
 
-    QUuid itemUuid = QUuid::createUuid();
+    QUuid itemUuid = notification.uuid();
     TimelineItem timelineItem(itemUuid, TimelineItem::TypeNotification);
     timelineItem.setFlags(TimelineItem::FlagSingleEvent);
+
+    timelineItem.setParentId(QUuid("ed429c16-f674-4220-95da-454f303f15e2"));
 
     TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, notification.sender().remove(QRegExp("<[^>]*>")).left(64).toUtf8());
     timelineItem.appendAttribute(titleAttribute);
@@ -153,7 +154,7 @@ void BlobDB::insertNotification(const Notification &notification)
     m_notificationSources.insert(itemUuid, notification);
 }
 
-void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, bool isAllDay, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring)
+void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, bool isAllDay, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &description, const QMap<QString, QString> fields, bool recurring)
 {
 //    TimelineItem item(TimelineItem::TypePin, TimelineItem::FlagSingleEvent, QDateTime::currentDateTime().addMSecs(1000 * 60 * 2), 60);
 
@@ -166,8 +167,8 @@ void BlobDB::insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, b
     TimelineAttribute titleAttribute(TimelineAttribute::TypeTitle, title.toUtf8());
     item.appendAttribute(titleAttribute);
 
-    if (!desctiption.isEmpty()) {
-        TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, desctiption.left(128).toUtf8());
+    if (!description.isEmpty()) {
+        TimelineAttribute bodyAttribute(TimelineAttribute::TypeBody, description.left(128).toUtf8());
         item.appendAttribute(bodyAttribute);
     }
 

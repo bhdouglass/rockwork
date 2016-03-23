@@ -22,6 +22,10 @@ QUuid TimelineItem::itemId() const
     return m_itemId;
 }
 
+void TimelineItem::setParentId(QUuid parentId) {
+    m_parentId = parentId;
+}
+
 void TimelineItem::setLayout(quint8 layout)
 {
     m_layout = layout;

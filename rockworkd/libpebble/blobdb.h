@@ -9,10 +9,6 @@
 
 #include <QObject>
 #include <QDateTime>
-#include <QOrganizerEvent>
-
-QTORGANIZER_USE_NAMESPACE
-
 
 class BlobDB : public QObject
 {
@@ -42,7 +38,7 @@ public:
     explicit BlobDB(Pebble *pebble, WatchConnection *connection);
 
     void insertNotification(const Notification &notification);
-    void insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, bool isAllDay, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &desctiption, const QMap<QString, QString> fields, bool recurring);
+    void insertTimelinePin(const QUuid &uuid, TimelineItem::Layout layout, bool isAllDay, const QDateTime &startTime, const QDateTime &endTime, const QString &title, const QString &description, const QMap<QString, QString> fields, bool recurring);
     void removeTimelinePin(const QUuid &uuid);
     void insertReminder();
     void clearTimeline();
