@@ -189,10 +189,12 @@ void FirmwareDownloader::checkForNewFirmware()
         FirmwareVersion current(m_pebble->softwareVersion());
         FirmwareVersion candidate(resultMap.value("normal").toMap().value("friendlyVersion").toString());
 
+        qDebug() << "parsed firmware versions: current:" << current.major << current.minor << current.patch << "candidate:" << candidate.major << candidate.minor << candidate.patch;
+
         QVariantMap targetFirmware;
         if (resultMap.contains("3.x-migration") && baseline > current) {
             targetFirmware = resultMap.value("3.x-migration").toMap();
-        } else if (current > baseline && candidate > current){
+        } else if (current >= baseline && candidate > current){
             targetFirmware = resultMap.value("normal").toMap();
         }
 

@@ -44,5 +44,6 @@
         <file>HealthSettingsDialog.qml</file>
         <file>SettingsPage.qml</file>
         <file>ImportPackagePage.qml</file>
+        <file>SendLogsDialog.qml</file>
     </qresource>
 </RCC>

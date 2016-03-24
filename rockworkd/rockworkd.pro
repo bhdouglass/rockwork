@@ -17,7 +17,8 @@ INCLUDEPATH += /usr/lib/arm-linux-gnueabihf/glib-2.0/include /usr/lib/x86_64-lin
 LIBS += -lurl-dispatcher
 
 INCLUDEPATH += /usr/include/telepathy-qt5/ /usr/include/qmenumodel/
-LIBS += -lquazip5 -ltelepathy-qt5 -lqmenumodel
+#LIBS += -lquazip5 -ltelepathy-qt5 -lqmenumodel
+LIBS += -lquazip-qt5 -ltelepathy-qt5 -lqmenumodel
 
 SOURCES += main.cpp \
     libpebble/watchconnection.cpp \

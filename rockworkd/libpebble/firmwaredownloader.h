@@ -42,6 +42,14 @@ public:
         return false;
     }
 
+    bool operator==(const FirmwareVersion & other) {
+        return major == other.major && minor == other.minor && patch == other.patch;
+    }
+
+    bool operator>=(const FirmwareVersion & other) {
+        return this->operator >(other) || this->operator ==(other);
+    }
+
     bool isValid() const {
         return major > -1 && minor > -1 && patch > -1;
     }

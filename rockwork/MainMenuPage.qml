@@ -14,12 +14,13 @@ Page {
                 iconName: "info"
                 text: i18n.tr("About")
                 onTriggered: {
-                    pageStack.push(Qt.resolvedUrl("InfoPage.qml"))
+                    pageStack.push(Qt.resolvedUrl("InfoPage.qml"), {pebble: root.pebble})
                 }
             },
             Action {
                 iconName: "ubuntu-sdk-symbolic"
                 text: i18n.tr("Developer tools")
+                visible: root.pebble.connected
                 onTriggered: {
                     pageStack.push(Qt.resolvedUrl("DeveloperToolsPage.qml"), {pebble: root.pebble})
                 }

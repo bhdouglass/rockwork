@@ -7,29 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-14 23:39+0100\n"
+"POT-Creation-Date: 2016-03-24 17:05+0100\n"
 "PO-Revision-Date: 2016-02-15 06:05+0000\n"
 "Last-Translator: Michael Zanetti <michael.zanetti@canonical.com>\n"
 "Language-Team: German <de@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-03-15 06:18+0000\n"
 "X-Generator: Launchpad (build 17939)\n"
-"Language: de\n"
-
-msgid "Cut"
-msgstr ""
-
-msgid "Copy"
-msgstr ""
-
-msgid "Paste"
-msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
 msgstr "App-Einstellungen"
+
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:47
+msgid "Cut"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:53
+msgid "Copy"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:59
+msgid "Paste"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
@@ -71,52 +74,21 @@ msgstr "Neues Ziffernblatt hinzufügen"
 msgid "See all"
 msgstr "Alle anzeigen"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:8
 msgid "Developer Tools"
 msgstr "Entwicklertools"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:27
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr "Bildschirmfotos"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:35
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:102
-msgid "Report problem"
-msgstr "Fehler berichten"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:42
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:34
 msgid "Install app or watchface from file"
 msgstr "App oder Watchface aus datei installieren"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:109
-msgid "Preparing logs package..."
-msgstr "Bereite Logs vor..."
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:120
-msgid "pebble.log"
-msgstr "pebble.log"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:127
-msgid "Send rockworkd.log"
-msgstr "rockworkd.log senden"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:132
-msgid "rockworkd.log"
-msgstr "rockworkd.log"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:137
-msgid "Send watch logs"
-msgstr "Logs der Uhr schicken"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:146
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
-msgid "Cancel"
-msgstr "Abbrechen"
-
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:84
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:85
 msgid "Firmware upgrade"
 msgstr "Software updaten"
 
@@ -192,20 +164,31 @@ msgstr "Ich möchte mehr schlafen"
 msgid "OK"
 msgstr "OK"
 
+#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:55
+msgid "Cancel"
+msgstr "Abbrechen"
+
 #: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
 msgstr "Watchapp oder Watchface importieren"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:35
 #, qt-format
 msgid "Version %1"
 msgstr "Version %1"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:45
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:8
+msgid "Report problem"
+msgstr "Fehler berichten"
+
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:56
 msgid "Legal"
 msgstr "Rechtliches"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:62
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:78
 msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
@@ -213,7 +196,7 @@ msgstr ""
 "Diese Anwendung ist weder mit Pebble Technology Corp verbunden, noch wird "
 "sie davon unterstützt."
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:67
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:83
 msgid "Pebble is a trademark of Pebble Technology Corp."
 msgstr "Pebble ist ein eingtragenes Warenzeichen der Pebble Technology Corp."
 
@@ -258,34 +241,34 @@ msgstr "Über"
 msgid "Developer tools"
 msgstr "Entwicklerwerkzeuge"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
 msgid "Manage notifications"
 msgstr "Benachrichtigungen einrichten"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:59
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:60
 msgid "Manage Apps"
 msgstr "Apps verwalten"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:67
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:68
 msgid "Manage Watchfaces"
 msgstr "Ziffernblätter verwalten"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:76
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:191
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr "Verbunden"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:191
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr "Getrennt"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:203
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:204
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
@@ -294,23 +277,22 @@ msgstr ""
 "sie angeschaltet ist, sich in Reichweite befindet und in den Bluetooth "
 "Einstellungen ordnungsgemäß gekoppelt ist."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:214
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
 msgstr "Systemeinstellungen öffnen"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid ""
-"Your Pebble smartwatch is in factory mode and needs to be initialized."
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:222
+msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Ihre Pebble Smartwatch befindet sich im Werkszustand muss initialisiert "
 "werden."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:231
 msgid "Initialize Pebble"
 msgstr "Pebble initialisieren"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:262
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:263
 msgid "Upgrading..."
 msgstr "Aktualisierung läuft …"
 
@@ -355,6 +337,26 @@ msgstr "Pebble Bildschirmfoto"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
 msgstr "Speichern"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:18
+msgid "Preparing logs package..."
+msgstr "Bereite Logs vor..."
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:29
+msgid "pebble.log"
+msgstr "pebble.log"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:36
+msgid "Send rockworkd.log"
+msgstr "rockworkd.log senden"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:41
+msgid "rockworkd.log"
+msgstr "rockworkd.log"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:46
+msgid "Send watch logs"
+msgstr "Logs der Uhr schicken"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:19
 msgid "Distance Units"

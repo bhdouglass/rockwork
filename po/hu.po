@@ -7,29 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-14 23:39+0100\n"
+"POT-Creation-Date: 2016-03-24 17:05+0100\n"
 "PO-Revision-Date: 2016-02-26 08:10+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-03-15 06:18+0000\n"
 "X-Generator: Launchpad (build 17939)\n"
-"Language: hu\n"
-
-msgid "Cut"
-msgstr "Kivágás"
-
-msgid "Copy"
-msgstr "Másolás"
-
-msgid "Paste"
-msgstr "Beillesztés"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
 msgstr "Alkalmazás beállítások"
+
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:47
+msgid "Cut"
+msgstr "Kivágás"
+
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:53
+msgid "Copy"
+msgstr "Másolás"
+
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:59
+msgid "Paste"
+msgstr "Beillesztés"
 
 #: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
@@ -71,52 +74,21 @@ msgstr "Új számlap hozzáadása"
 msgid "See all"
 msgstr "Összes"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:8
 msgid "Developer Tools"
 msgstr "Fejlesztői eszközök"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:28
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:27
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr "Képernyőképek"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:35
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:102
-msgid "Report problem"
-msgstr "Hiba jelentése"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:42
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:34
 msgid "Install app or watchface from file"
 msgstr "Alkalmazás vagy számlap telepítése fájlból"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:109
-msgid "Preparing logs package..."
-msgstr "Napló fájlok előkészítése…"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:120
-msgid "pebble.log"
-msgstr "pebble.log"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:127
-msgid "Send rockworkd.log"
-msgstr "rockworkd.log küldése"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:132
-msgid "rockworkd.log"
-msgstr "rockworkd.log"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:137
-msgid "Send watch logs"
-msgstr "Óra naplóinak küldése"
-
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:146
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
-msgid "Cancel"
-msgstr "Mégse"
-
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:84
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:85
 msgid "Firmware upgrade"
 msgstr "Firmware frissítés"
 
@@ -191,20 +163,31 @@ msgstr "Többet szeretnék aludni"
 msgid "OK"
 msgstr "OK"
 
+#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:55
+msgid "Cancel"
+msgstr "Mégse"
+
 #: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
 msgstr "Alkalmazás vagy számlap importálása"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:31
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:35
 #, qt-format
 msgid "Version %1"
 msgstr "Verzió: %1"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:40
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:45
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:8
+msgid "Report problem"
+msgstr "Hiba jelentése"
+
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:56
 msgid "Legal"
 msgstr "Jogi nyilatkozat"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:62
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:78
 msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
@@ -212,7 +195,7 @@ msgstr ""
 "Ez az alkalmazás nem áll kapcsolatban és nem támogatott a Pebble Technology "
 "Corp. által."
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:67
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:83
 msgid "Pebble is a trademark of Pebble Technology Corp."
 msgstr "A Pebble a Pebble Technology Corp. védjegye."
 
@@ -257,34 +240,34 @@ msgstr "Névjegy"
 msgid "Developer tools"
 msgstr "Fejlesztői eszközök"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:52
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
 msgid "Manage notifications"
 msgstr "Értesítések kezelése"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:59
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:60
 msgid "Manage Apps"
 msgstr "Alkalmazások kezelése"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:67
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:68
 msgid "Manage Watchfaces"
 msgstr "Számlapok kezelése"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:75
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:76
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
 msgid "Settings"
 msgstr "Beállítások"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:191
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr "Kapcsolódva"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:190
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:191
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr "Leválasztva"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:203
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:204
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
@@ -293,21 +276,20 @@ msgstr ""
 "hatótávon belül van és megfelelően párosította a Rendszerbeállítások "
 "Bluetooth menüpontja alatt."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:213
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:214
 #: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
 msgstr "Rendszerbeállítások megnyitása"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:221
-msgid ""
-"Your Pebble smartwatch is in factory mode and needs to be initialized."
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:222
+msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr "Az Pebble okosórája gyári állapotban van és inicializálni kell."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:230
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:231
 msgid "Initialize Pebble"
 msgstr "Pebble inicializálása"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:262
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:263
 msgid "Upgrading..."
 msgstr "Frissítés…"
 
@@ -351,6 +333,26 @@ msgstr "Pebble képernyőkép"
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
 msgstr "Mentés"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:18
+msgid "Preparing logs package..."
+msgstr "Napló fájlok előkészítése…"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:29
+msgid "pebble.log"
+msgstr "pebble.log"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:36
+msgid "Send rockworkd.log"
+msgstr "rockworkd.log küldése"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:41
+msgid "rockworkd.log"
+msgstr "rockworkd.log"
+
+#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:46
+msgid "Send watch logs"
+msgstr "Óra naplóinak küldése"
 
 #: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:19
 msgid "Distance Units"

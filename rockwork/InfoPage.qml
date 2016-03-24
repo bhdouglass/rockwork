@@ -2,9 +2,13 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3
+import Ubuntu.Components.Popups 1.3
 
 Page {
+    id: root
     title: "About RockWork"
+
+    property var pebble: null
 
     Flickable {
         anchors.fill: parent
@@ -31,6 +35,18 @@ Page {
                     text: i18n.tr("Version %1").arg(version)
                     Layout.fillWidth: true
                     fontSize: "large"
+                }
+            }
+
+            ThinDivider {}
+
+            Button {
+                iconName: "dialog-warning-symbolic"
+                text: i18n.tr("Report problem")
+                color: UbuntuColors.red
+
+                onClicked: {
+                    PopupUtils.open(Qt.resolvedUrl("SendLogsDialog.qml"), root, {pebble: root.pebble})
                 }
             }
 
