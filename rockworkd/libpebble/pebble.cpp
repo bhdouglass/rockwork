@@ -704,7 +704,7 @@ QByteArray TimeMessage::serialize() const
     case TimeOperationSetUTC:
         writer.write<quint32>(QDateTime::currentDateTime().toMSecsSinceEpoch() / 1000);
         writer.write<qint16>(QDateTime::currentDateTime().offsetFromUtc() / 60);
-        writer.writePascalString(QDateTime::currentDateTime().timeZone().displayName(QTimeZone::StandardTime));
+        writer.writePascalString(QDateTime::currentDateTime().timeZone().id());
         break;
     default:
         ;
