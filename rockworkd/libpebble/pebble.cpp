@@ -61,6 +61,7 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
     m_appMsgManager = new AppMsgManager(this, m_appManager, m_connection);
     m_jskitManager = new JSKitManager(this, m_connection, m_appManager, m_appMsgManager, this);
     QObject::connect(m_jskitManager, &JSKitManager::openURL, this, &Pebble::openURL);
+    QObject::connect(m_jskitManager, &JSKitManager::appNotification, this, &Pebble::sendSimpleNotification);
     QObject::connect(m_appMsgManager, &AppMsgManager::appStarted, this, &Pebble::appStarted);
 
     m_blobDB = new BlobDB(this, m_connection);
@@ -298,6 +299,13 @@ void Pebble::setNotificationFilter(const QString &sourceId, bool enabled)
         s.setValue(sourceId, enabled);
         emit notificationFilterChanged(sourceId, enabled);
     }
+}
+
+void Pebble::sendSimpleNotification(const QUuid &uuid, const QString &title, const QString &body) {
+    Notification notif = Notification(appInfo(uuid).shortName());
+    notif.setSubject(title);
+    notif.setBody(body);
+    sendNotification(notif);
 }
 
 void Pebble::sendNotification(const Notification &notification)
