@@ -262,8 +262,11 @@ void JSKitManager::startJsApp()
         return true;
     });
 
+    QJSValue eventObj = m_engine->newObject();
+    eventObj.setProperty("ready",m_engine->toScriptValue(true));
+    eventObj.setProperty("type","ready");
     // We try to invoke the callbacks even if script parsing resulted in error...
-    m_jspebble->invokeCallbacks("ready");
+    m_jspebble->invokeCallbacks("ready",QJSValueList({eventObj}));
 
     loadJsFile(":/cacheLocalStorage.js");
 
