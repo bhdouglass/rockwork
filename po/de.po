@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-14 23:39+0100\n"
-"PO-Revision-Date: 2016-02-15 06:05+0000\n"
-"Last-Translator: Michael Zanetti <michael.zanetti@canonical.com>\n"
+"PO-Revision-Date: 2016-03-31 21:59+0000\n"
+"Last-Translator: Denis Graipel <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-03-24 15:13+0000\n"
-"X-Generator: Launchpad (build 17958)\n"
+"X-Launchpad-Export-Date: 2016-04-01 06:03+0000\n"
+"X-Generator: Launchpad (build 17972)\n"
 "Language: de\n"
 
 msgid "Cut"
-msgstr ""
+msgstr "Ausschneiden"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopieren"
 
 msgid "Paste"
-msgstr ""
+msgstr "Einfügen"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -248,7 +248,7 @@ msgstr "Schließen"
 
 #: /home/micha/Develop/upebble/rockwork/Main.qml:95
 msgid "Loading..."
-msgstr ""
+msgstr "Wird geladen …"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
