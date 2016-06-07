@@ -45,5 +45,10 @@
         <file>SettingsPage.qml</file>
         <file>ImportPackagePage.qml</file>
         <file>SendLogsDialog.qml</file>
+        <file>js-dialogs/BaseDialog.qml</file>
+        <file>js-dialogs/AlertDialog.qml</file>
+        <file>js-dialogs/BeforeUnloadDialog.qml</file>
+        <file>js-dialogs/ConfirmDialog.qml</file>
+        <file>js-dialogs/PromptDialog.qml</file>
     </qresource>
 </RCC>

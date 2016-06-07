@@ -2,6 +2,7 @@ import QtQuick 2.4
 import Ubuntu.Web 0.2
 import Ubuntu.Components 1.3
 import com.canonical.Oxide 1.0 as Oxide
+import "js-dialogs" as Dialogs
 
 Page {
     id: settings
@@ -32,6 +33,11 @@ Page {
         preferences.localStorageEnabled: true
         preferences.appCacheEnabled: true
         preferences.javascriptCanAccessClipboard: true
+
+        alertDialog: Dialogs.AlertDialog {}
+        confirmDialog: Dialogs.ConfirmDialog {}
+        promptDialog: Dialogs.PromptDialog {}
+        beforeUnloadDialog: Dialogs.BeforeUnloadDialog {}
 
         function navigationRequestedDelegate(request) {
             var url = request.url.toString();
