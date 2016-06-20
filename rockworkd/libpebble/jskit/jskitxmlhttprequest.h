@@ -5,6 +5,7 @@
 #include <QNetworkReply>
 #include <QJSEngine>
 #include <QLoggingCategory>
+#include <QTimer>
 
 class JSKitXMLHttpRequest : public QObject
 {
@@ -26,22 +27,28 @@ class JSKitXMLHttpRequest : public QObject
 public:
     explicit JSKitXMLHttpRequest(QJSEngine *engine);
 
-    enum ReadyStates {
+    enum ReadyState {
         UNSENT = 0,
         OPENED = 1,
         HEADERS_RECEIVED = 2,
         LOADING = 3,
         DONE = 4
     };
-    Q_ENUMS(ReadyStates)
+    Q_ENUMS(ReadyState)
 
     Q_INVOKABLE void open(const QString &method, const QString &url, bool async = true, const QString &username = QString(), const QString &password = QString());
-    Q_INVOKABLE void setRequestHeader(const QString &header, const QString &value);
     Q_INVOKABLE void send(const QJSValue &data = QJSValue(QJSValue::NullValue));
     Q_INVOKABLE void abort();
 
+    Q_INVOKABLE void setRequestHeader(const QString &header, const QString &value);
+    Q_INVOKABLE QJSValue getAllResponseHeaders() const;
+    Q_INVOKABLE QJSValue getResponseHeader(const QString &header) const;
+
+    Q_INVOKABLE void overrideMimeType(const QString &mimeType);
+
     Q_INVOKABLE void addEventListener(const QString &type, QJSValue function);
     Q_INVOKABLE void removeEventListener(const QString &type, QJSValue function);
+
     QJSValue onload() const;
     void setOnload(const QJSValue &value);
     QJSValue onreadystatechange() const;
@@ -76,9 +83,11 @@ private slots:
     void handleReplyFinished();
     void handleReplyError(QNetworkReply::NetworkError code);
     void handleAuthenticationRequired(QNetworkReply *reply, QAuthenticator *auth);
+    void handleTimeout();
 
 private:
     void invokeCallbacks(const QString &type, const QJSValueList &args = QJSValueList());
+    void setReadyState(ReadyState readyState);
 
 private:
     QJSEngine *m_engine;
@@ -97,6 +106,9 @@ private:
     QJSValue m_onreadystatechange;
     QJSValue m_ontimeout;
     QJSValue m_onerror;
+    QString m_overrideMimeType;
+    ReadyState m_readyState;
+    QTimer m_timeoutTimer;
 };
 
 #endif // JSKITXMLHTTPREQUEST_P_H

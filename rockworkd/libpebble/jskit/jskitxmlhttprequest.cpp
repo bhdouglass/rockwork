@@ -11,10 +11,16 @@ JSKitXMLHttpRequest::JSKitXMLHttpRequest(QJSEngine *engine) :
     m_engine(engine),
     m_net(new QNetworkAccessManager(this)),
     m_timeout(0),
-    m_reply(0)
+    m_reply(0),
+    m_timeoutTimer(0)
 {
     connect(m_net, &QNetworkAccessManager::authenticationRequired,
             this, &JSKitXMLHttpRequest::handleAuthenticationRequired);
+
+    setReadyState(UNSENT);
+
+    m_timeoutTimer.setSingleShot(true);
+    connect(&m_timeoutTimer, &QTimer::timeout, this, &JSKitXMLHttpRequest::handleTimeout);
 }
 
 void JSKitXMLHttpRequest::open(const QString &method, const QString &url, bool async, const QString &username, const QString &password)
@@ -31,12 +37,8 @@ void JSKitXMLHttpRequest::open(const QString &method, const QString &url, bool a
     m_async = async;
 
     qCDebug(l) << "opened to URL" << m_request.url().toString() << "Async:" << async;
-}
 
-void JSKitXMLHttpRequest::setRequestHeader(const QString &header, const QString &value)
-{
-    qCDebug(l) << "setRequestHeader" << header << value;
-    m_request.setRawHeader(header.toLatin1(), value.toLatin1());
+    setReadyState(OPENED);
 }
 
 void JSKitXMLHttpRequest::send(const QJSValue &data)
@@ -112,9 +114,58 @@ void JSKitXMLHttpRequest::send(const QJSValue &data)
 void JSKitXMLHttpRequest::abort()
 {
     if (m_reply) {
+        m_reply->abort();
         m_reply->deleteLater();
         m_reply = 0;
     }
+}
+
+void JSKitXMLHttpRequest::setRequestHeader(const QString &header, const QString &value)
+{
+    qCDebug(l) << "setRequestHeader" << header << value;
+    m_request.setRawHeader(header.toLatin1(), value.toLatin1());
+}
+
+QJSValue JSKitXMLHttpRequest::getAllResponseHeaders() const
+{
+    if (!m_reply || !m_reply->isFinished()) {
+        return QJSValue(QJSValue::NullValue);
+    } else {
+        QString headers;
+        foreach (QByteArray header, m_reply->rawHeaderList()) {
+            QString value(m_reply->rawHeader(header));
+            if (value == "Content-Type" && !m_overrideMimeType.isEmpty()) {
+                value = m_overrideMimeType;
+            }
+
+            headers.append(QString("%1: %2\n").arg(QString(header)).arg(value));
+        }
+
+        return QJSValue(headers);
+    }
+}
+
+QJSValue JSKitXMLHttpRequest::getResponseHeader(const QString &header) const
+{
+    if (!m_reply || !m_reply->isFinished()) {
+        return QJSValue(QJSValue::NullValue);
+    } else {
+        if (m_reply->hasRawHeader(header.toLatin1())) {
+            QString value(m_reply->rawHeader(header.toLatin1()));
+            if (value == "Content-Type" && !m_overrideMimeType.isEmpty()) {
+                value = m_overrideMimeType;
+            }
+
+            return QJSValue(value);
+        } else {
+            return QJSValue(QJSValue::NullValue);
+        }
+    }
+}
+
+void JSKitXMLHttpRequest::overrideMimeType(const QString &mimeType)
+{
+    m_overrideMimeType = mimeType;
 }
 
 QJSValue JSKitXMLHttpRequest::onload() const
@@ -159,13 +210,22 @@ void JSKitXMLHttpRequest::setOnerror(const QJSValue &value)
 
 uint JSKitXMLHttpRequest::readyState() const
 {
-    if (!m_reply) {
-        return UNSENT;
-    } else if (m_reply->isFinished()) {
-        return DONE;
-    } else {
-        return LOADING;
+    return m_readyState;
+}
+
+void JSKitXMLHttpRequest::setReadyState(ReadyState readyState) {
+    m_readyState = readyState;
+
+    emit readyStateChanged();
+
+    if (m_onreadystatechange.isCallable()) {
+        qCDebug(l) << "going to call onreadystatechange handler:" << m_onreadystatechange.toString();
+        QJSValue result = m_onreadystatechange.callWithInstance(m_engine->newQObject(this));
+        if (result.isError()) {
+            qCWarning(l) << "JS error on onreadystatechange handler:" << JSKitManager::describeError(result);
+        }
     }
+    invokeCallbacks("readystatechange", QJSValueList({m_engine->newQObject(this)}));
 }
 
 uint JSKitXMLHttpRequest::timeout() const
@@ -176,7 +236,9 @@ uint JSKitXMLHttpRequest::timeout() const
 void JSKitXMLHttpRequest::setTimeout(uint value)
 {
     m_timeout = value;
-    // TODO Handle fetch in-progress.
+
+    m_timeoutTimer.stop();
+    m_timeoutTimer.start(m_timeout);
 }
 
 uint JSKitXMLHttpRequest::status() const
@@ -292,7 +354,10 @@ void JSKitXMLHttpRequest::handleReplyFinished()
     m_response = m_reply->readAll();
     qCDebug(l) << "reply finished, reply text:" << QString::fromUtf8(m_response) << "status:" << status();
 
-    emit readyStateChanged();
+    setReadyState(HEADERS_RECEIVED);
+    setReadyState(LOADING);
+    setReadyState(DONE);
+
     emit statusChanged();
     emit statusTextChanged();
     emit responseChanged();
@@ -305,19 +370,8 @@ void JSKitXMLHttpRequest::handleReplyFinished()
         if (result.isError()) {
             qCWarning(l) << "JS error on onload handler:" << JSKitManager::describeError(result);
         }
-    } else {
-        qCDebug(l) << "No onload set";
     }
     invokeCallbacks("load", QJSValueList({m_engine->newQObject(this)}));
-
-    if (m_onreadystatechange.isCallable()) {
-        qCDebug(l) << "going to call onreadystatechange handler:" << m_onreadystatechange.toString();
-        QJSValue result = m_onreadystatechange.callWithInstance(m_engine->newQObject(this));
-        if (result.isError()) {
-            qCWarning(l) << "JS error on onreadystatechange handler:" << JSKitManager::describeError(result);
-        }
-    }
-    invokeCallbacks("readystatechange", QJSValueList({m_engine->newQObject(this)}));
 }
 
 void JSKitXMLHttpRequest::handleReplyError(QNetworkReply::NetworkError code)
@@ -357,4 +411,18 @@ void JSKitXMLHttpRequest::handleAuthenticationRequired(QNetworkReply *reply, QAu
             qCDebug(l) << "no username or password provided";
         }
     }
+}
+
+void JSKitXMLHttpRequest::handleTimeout()
+{
+    abort();
+
+    if (m_ontimeout.isCallable()) {
+        qCDebug(l) << "going to call ontimeout handler:" << m_onload.toString();
+        QJSValue result = m_ontimeout.callWithInstance(m_engine->newQObject(this));
+        if (result.isError()) {
+            qCWarning(l) << "JS error on ontimeout handler:" << JSKitManager::describeError(result);
+        }
+    }
+    invokeCallbacks("timeout", QJSValueList({m_engine->newQObject(this)}));
 }

@@ -26,25 +26,28 @@ _jskit.make_properties = function(proxy, origin, names) {
 
 Pebble = new (function() {
     _jskit.make_proxies(this, _jskit.pebble,
-        ['sendAppMessage', 'showSimpleNotificationOnPebble', 'getAccountToken', 'getWatchToken',
-        'addEventListener', 'removeEventListener', 'openURL', 'getTimelineToken', 'timelineSubscribe',
-        'timelineUnsubscribe', 'timelineSubscriptions', 'getActiveWatchInfo']
+        ["sendAppMessage", "showSimpleNotificationOnPebble", "getAccountToken", "getWatchToken",
+        "addEventListener", "removeEventListener", "openURL", "getTimelineToken", "timelineSubscribe",
+        "timelineUnsubscribe", "timelineSubscriptions", "getActiveWatchInfo"]
     );
 })();
 
 performance = new (function() {
-    _jskit.make_proxies(this, _jskit.performance, ['now']);
+    _jskit.make_proxies(this, _jskit.performance, ["now"]);
 })();
 
 function XMLHttpRequest() {
     var xhr = _jskit.pebble.createXMLHttpRequest();
     _jskit.make_proxies(this, xhr,
-        ['open', 'setRequestHeader', 'overrideMimeType', 'send', 'getResponseHeader',
-        'getAllResponseHeaders', 'abort', 'addEventListener', 'removeEventListener']);
+        ["open", "setRequestHeader", "overrideMimeType", "send", "getResponseHeader",
+        "getAllResponseHeaders", "abort", "addEventListener", "removeEventListener"]);
     _jskit.make_properties(this, xhr,
-        ['readyState', 'response', 'responseText', 'responseType', 'status',
-        'statusText', 'timeout', 'onreadystatechange', 'ontimeout', 'onload',
-        'onloadstart', 'onloadend', 'onprogress', 'onerror', 'onabort']);
+        ["readyState", "response", "responseText", "responseType", "status",
+        "statusText", "timeout", "onreadystatechange", "ontimeout", "onload",
+        "onloadstart", "onloadend", "onprogress", "onerror", "onabort"]);
+
+    //TODO responseXML, upload, withCredentials
+
     this.UNSENT = 0;
     this.OPENED = 1;
     this.HEADERS_RECEIVED = 2;
@@ -70,20 +73,20 @@ function clearTimeout(id) {
 
 navigator.geolocation = new (function() {
     _jskit.make_proxies(this, _jskit.geolocation,
-        ['getCurrentPosition', 'watchPosition', 'clearWatch']
+        ["getCurrentPosition", "watchPosition", "clearWatch"]
     );
 })();
 
 console = new (function() {
     _jskit.make_proxies(this, _jskit.console,
-        ['log', 'warn', 'error', 'info']
+        ["log", "warn", "error", "info"]
     );
 })();
 
 //It appears that Proxy is not available since Qt is using Javascript v5
 /*(function() {
-    var proxy = _jskit.make_proxies({}, _jskit.localstorage, ['set', 'has', 'deleteProperty', 'keys', 'enumerate']);
-    var methods = _jskit.make_proxies({}, _jskit.localstorage, ['clear', 'getItem', 'setItem', 'removeItem', 'key']);
+    var proxy = _jskit.make_proxies({}, _jskit.localstorage, ["set", "has", "deleteProperty", "keys", "enumerate"]);
+    var methods = _jskit.make_proxies({}, _jskit.localstorage, ["clear", "getItem", "setItem", "removeItem", "key"]);
     proxy.get = function get(p, name) { return methods[name] || _jskit.localstorage.get(p, name); }
     this.localStorage = Proxy.create(proxy);
 })();*/
@@ -91,6 +94,8 @@ console = new (function() {
 //inspired by https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage
 Object.defineProperty(window, "localStorage", new (function () {
     var storage = {};
+    var properties = ["getItem", "key", "setItem", "length", "removeItem", "clear"];
+
     Object.defineProperty(storage, "getItem", {
         value: function (key) {
             var value = null;
@@ -107,7 +112,7 @@ Object.defineProperty(window, "localStorage", new (function () {
 
     Object.defineProperty(storage, "key", {
         value: function (index) {
-            return Object.keys(storage)[index];
+            return Object.keys(storage)[index] ? Object.keys(storage)[index] : null;
         },
         writable: false,
         configurable: false,
@@ -155,11 +160,25 @@ Object.defineProperty(window, "localStorage", new (function () {
         enumerable: false
     });
 
+    var self = this;
     Object.defineProperty(storage, "clear", {
         value: function (key) {
             for (var key in storage) {
                 storage.removeItem(key);
             }
+
+            //TODO get this to remove object properties, for some reason localStorage.xzy does not get cleared
+            /*var keys = Object.keys(self);
+            for (var index in keys) {
+                var key = keys[index];
+
+                if (properties.indexOf(key) == -1) {
+                    storage.removeItem(key);
+                    delete self[key];
+                }
+            }*/
+
+            _jskit.localstorage.clear();
 
             return true;
         },
@@ -186,10 +205,10 @@ Object.defineProperty(window, "localStorage", new (function () {
 
 function WebSocket(url, protocols) {
     var ws = _jskit.pebble.createWebSocket(url, protocols);
-    _jskit.make_proxies(this, ws, ['close', 'send']);
+    _jskit.make_proxies(this, ws, ["close", "send"]);
     _jskit.make_properties(this, ws,
-        ['readyState', 'bufferedAmount', 'onopen', 'onerror', 'onclose', 'onmessage',
-        'extensions', 'protocol', 'binaryType']);
+        ["readyState", "bufferedAmount", "onopen", "onerror", "onclose", "onmessage",
+        "extensions", "protocol", "binaryType"]);
 
     this.CONNECTING = 0;
     this.OPEN = 1;
