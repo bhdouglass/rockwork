@@ -26,6 +26,7 @@ class ScreenshotEndpoint;
 class FirmwareDownloader;
 class WatchLogEndpoint;
 class DataLoggingEndpoint;
+class HealthData;
 
 class Pebble : public QObject
 {
@@ -106,6 +107,14 @@ public slots:
     void setImperialUnits(bool imperial);
     bool imperialUnits() const;
 
+    int steps(const QDateTime &startDateTime, const QDateTime &endDateTime) const;
+    int averageSteps(const QDateTime &startDateTime, const QDateTime &endDateTime) const;
+
+    QVariantList sleepDataForDay(const QDate &day) const;
+    int sleepAverage(const QDate &startDate, const QDate &endDate) const;
+    qreal deepSleepAverage(const QDate &startDate, const QDate &endDate) const;
+    QVariantMap averagSleepTimes(const QDate &day) const;
+
     void dumpLogs(const QString &fileName) const;
 
 private slots:
@@ -173,6 +182,7 @@ private:
     FirmwareDownloader *m_firmwareDownloader;
     WatchLogEndpoint *m_logEndpoint;
     DataLoggingEndpoint *m_dataLogEndpoint;
+    HealthData *m_healthData;
 
     QString m_storagePath;
     QList<QUuid> m_pendingInstallations;

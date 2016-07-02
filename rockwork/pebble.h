@@ -62,6 +62,13 @@ public:
     bool calendarSyncEnabled() const;
     void setCalendarSyncEnabled(bool enabled);
 
+    Q_INVOKABLE int steps(const QDateTime &startTime, const QDateTime &endTime) const;
+    Q_INVOKABLE int averageSteps(const QDateTime &startTime, const QDateTime &endTime) const;
+    Q_INVOKABLE QVariantList sleepDataForDay(const QDateTime &day) const;
+    Q_INVOKABLE QVariantMap averageSleepTimes(const QDateTime &day) const;
+    Q_INVOKABLE int sleepAverage(const QDateTime &startDate, const QDateTime &endDate) const;
+    Q_INVOKABLE int deepSleepAverage(const QDateTime &startDate, const QDateTime &endDate) const;
+
 public slots:
     void setNotificationFilter(const QString &sourceId, bool enabled);
     void removeApp(const QString &uuid);

@@ -6,12 +6,15 @@ import Ubuntu.Components.Popups 1.3
 
 Page {
     id: root
-    title: "About RockWork"
+    header: PageHeader {
+        title: "About RockWork"
+    }
 
     property var pebble: null
 
     Flickable {
         anchors.fill: parent
+        anchors.topMargin: root.header.height
         contentHeight: contentColumn.height + units.gu(4)
 
         ColumnLayout {
@@ -44,6 +47,7 @@ Page {
                 iconName: "dialog-warning-symbolic"
                 text: i18n.tr("Report problem")
                 color: UbuntuColors.red
+                Layout.fillWidth: true
 
                 onClicked: {
                     PopupUtils.open(Qt.resolvedUrl("SendLogsDialog.qml"), root, {pebble: root.pebble})

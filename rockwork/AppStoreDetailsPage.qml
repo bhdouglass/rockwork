@@ -6,13 +6,16 @@ import QtGraphicalEffects 1.0
 
 Page {
     id: root
-    title: i18n.tr("App details")
+    header: PageHeader {
+        title: i18n.tr("App details")
+    }
 
     property var pebble: null
     property var app: null
 
     ColumnLayout {
         anchors.fill: parent
+        anchors.topMargin: root.header.height
         spacing: units.gu(1)
 
         Item {

@@ -6,20 +6,21 @@ import RockWork 1.0
 
 Page {
     id: root
-    title: showWatchApps ? (showWatchFaces ? i18n.tr("Apps & Watchfaces") : i18n.tr("Apps")) : i18n.tr("Watchfaces")
+    header: PageHeader {
+        title: showWatchApps ? (showWatchFaces ? i18n.tr("Apps & Watchfaces") : i18n.tr("Apps")) : i18n.tr("Watchfaces")
+
+        trailingActionBar.actions: [
+            Action {
+                iconName: "add"
+                onTriggered: pageStack.addPageToCurrentColumn(root, Qt.resolvedUrl("AppStorePage.qml"), {pebble: root.pebble, showWatchApps: root.showWatchApps, showWatchFaces: root.showWatchFaces})
+            }
+        ]
+    }
 
     property var pebble: null
     property bool showWatchApps: false
     property bool showWatchFaces: false
 
-    head {
-        actions: [
-            Action {
-                iconName: "add"
-                onTriggered: pageStack.push(Qt.resolvedUrl("AppStorePage.qml"), {pebble: root.pebble, showWatchApps: root.showWatchApps, showWatchFaces: root.showWatchFaces})
-            }
-        ]
-    }
 
     function configureApp(uuid) {
         // The health app is special :/
@@ -33,93 +34,91 @@ Page {
         }
     }
 
-    Item {
+    ListView {
+        id: listView
         anchors.fill: parent
-        ListView {
-            id: listView
-            anchors.fill: parent
-            model: root.showWatchApps ? root.pebble.installedApps : root.pebble.installedWatchfaces
-            clip: true
-            property real realContentY: contentY + originY
+        anchors.topMargin: root.header.height
+        model: root.showWatchApps ? root.pebble.installedApps : root.pebble.installedWatchfaces
+        clip: true
+        property real realContentY: contentY + originY
 
-            delegate: InstalledAppDelegate {
-                id: delegate
-                uuid: model.uuid
-                name: model.name
-                iconSource: model.icon
-                vendor: model.vendor
-                visible: dndArea.draggedIndex !== index
-                hasGrip: index > 0
-                isSystemApp: model.isSystemApp
-                hasSettings: model.hasSettings
+        delegate: InstalledAppDelegate {
+            id: delegate
+            uuid: model.uuid
+            name: model.name
+            iconSource: model.icon
+            vendor: model.vendor
+            visible: dndArea.draggedIndex !== index
+            hasGrip: index > 0
+            isSystemApp: model.isSystemApp
+            hasSettings: model.hasSettings
 
-                onDeleteApp: {
-                    pebble.removeApp(model.uuid)
-                }
-                onConfigureApp: {
-                    root.configureApp(model.uuid)
-                }
-                onClicked: {
-                    PopupUtils.open(dialogComponent, root, {app: listView.model.get(index)})
-                }
+            onDeleteApp: {
+                pebble.removeApp(model.uuid)
+            }
+            onConfigureApp: {
+                root.configureApp(model.uuid)
+            }
+            onClicked: {
+                PopupUtils.open(dialogComponent, root, {app: listView.model.get(index)})
             }
         }
-        MouseArea {
-            id: dndArea
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-                right: parent.right
-            }
-            drag.axis: Drag.YAxis
-            propagateComposedEvents: true
-            width: units.gu(5)
+    }
+    MouseArea {
+        id: dndArea
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            right: parent.right
+        }
+        drag.axis: Drag.YAxis
+        propagateComposedEvents: true
+        width: units.gu(5)
 
-            property int startY: 0
-            property int draggedIndex: -1
+        property int startY: 0
+        property int draggedIndex: -1
 
 
-            onPressAndHold: {
-                startY = mouseY;
-                draggedIndex = Math.floor((listView.realContentY + mouseY) / fakeDragItem.height)
-                if (draggedIndex == 0) {
-                    print("cannot drag settings app");
-                    return;
-                }
-
-                var draggedItem = listView.model.get(draggedIndex);
-                fakeDragItem.uuid = draggedItem.uuid;
-                fakeDragItem.name = draggedItem.name;
-                fakeDragItem.vendor = draggedItem.vendor;
-                fakeDragItem.iconSource = draggedItem.icon;
-                fakeDragItem.isSystemApp = draggedItem.isSystemApp;
-                fakeDragItem.y = (fakeDragItem.height * draggedIndex) - listView.realContentY
-                drag.target = fakeDragItem;
+        onPressAndHold: {
+            startY = mouseY;
+            draggedIndex = Math.floor((listView.realContentY + mouseY) / fakeDragItem.height)
+            if (draggedIndex == 0) {
+                print("cannot drag settings app");
+                return;
             }
 
-            onMouseYChanged: {
-                var newIndex = Math.floor((listView.realContentY + mouseY) / fakeDragItem.height)
+            var draggedItem = listView.model.get(draggedIndex);
+            fakeDragItem.uuid = draggedItem.uuid;
+            fakeDragItem.name = draggedItem.name;
+            fakeDragItem.vendor = draggedItem.vendor;
+            fakeDragItem.iconSource = draggedItem.icon;
+            fakeDragItem.isSystemApp = draggedItem.isSystemApp;
+            fakeDragItem.y = (fakeDragItem.height * draggedIndex) - listView.realContentY
+            drag.target = fakeDragItem;
+        }
 
-                if (newIndex > draggedIndex) {
-                    newIndex = draggedIndex + 1;
-                } else if (newIndex < draggedIndex) {
-                    newIndex = draggedIndex - 1;
-                } else {
-                    return;
-                }
+        onMouseYChanged: {
+            var newIndex = Math.floor((listView.realContentY + mouseY) / fakeDragItem.height)
 
-                if (newIndex >= 1 && newIndex < listView.count) {
-                    listView.model.move(draggedIndex, newIndex);
-                    draggedIndex = newIndex;
-                }
+            if (newIndex > draggedIndex) {
+                newIndex = draggedIndex + 1;
+            } else if (newIndex < draggedIndex) {
+                newIndex = draggedIndex - 1;
+            } else {
+                return;
             }
 
-            onReleased: {
-                if (draggedIndex > -1) {
-                    listView.model.commitMove();
-                    draggedIndex = -1;
-                    drag.target = null;
-                }
+            if (newIndex >= 1 && newIndex < listView.count) {
+                listView.model.move(draggedIndex, newIndex);
+                draggedIndex = newIndex;
+            }
+        }
+
+        onReleased: {
+            if (draggedIndex > -1) {
+                listView.model.commitMove();
+                draggedIndex = -1;
+                drag.target = null;
             }
         }
     }

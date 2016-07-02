@@ -26,7 +26,7 @@ Dialog {
         onLogsDumped: {
             if (success) {
                 var filename = "/tmp/pebble.log"
-                pageStack.push(Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("pebble.log"),handler: ContentHandler.Share, contentType: ContentType.All, filename: filename })
+                pageStack.addPageToCurrentColumn(root, Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("pebble.log"),handler: ContentHandler.Share, contentType: ContentType.All, filename: filename })
             }
             PopupUtils.close(sendLogsDialog)
         }
@@ -38,7 +38,7 @@ Dialog {
         visible: !busyIndicator.visible
         onClicked: {
             var filename = homePath + "/.cache/upstart/rockworkd.log"
-            pageStack.push(Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("rockworkd.log"),handler: ContentHandler.Share, contentType: ContentType.All, filename: filename })
+            pageStack.addPageToCurrentColumn(root, Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("rockworkd.log"),handler: ContentHandler.Share, contentType: ContentType.All, filename: filename })
             PopupUtils.close(sendLogsDialog)
         }
     }

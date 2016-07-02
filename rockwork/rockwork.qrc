@@ -50,5 +50,14 @@
         <file>js-dialogs/BeforeUnloadDialog.qml</file>
         <file>js-dialogs/ConfirmDialog.qml</file>
         <file>js-dialogs/PromptDialog.qml</file>
+        <file>HealthPage.qml</file>
+        <file>LoadingPage.qml</file>
+        <file>HealthInfoItem.qml</file>
+        <file>HealthGraph.qml</file>
+        <file>DailySleepGraph.qml</file>
+        <file>DailyStepsGraph.qml</file>
+        <file>WeeklyStepsGraph.qml</file>
+        <file>MonthlyStepsGraph.qml</file>
+        <file>WeeklySleepGraph.qml</file>
     </qresource>
 </RCC>

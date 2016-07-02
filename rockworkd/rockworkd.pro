@@ -1,4 +1,4 @@
-QT += core bluetooth dbus network contacts qml location organizer websockets
+QT += core bluetooth dbus network contacts qml location organizer websockets sql
 QT -= gui
 
 include(../version.pri)
@@ -68,7 +68,8 @@ SOURCES += main.cpp \
     libpebble/watchlogendpoint.cpp \
     libpebble/ziphelper.cpp \
     libpebble/healthparams.cpp \
-    libpebble/dataloggingendpoint.cpp
+    libpebble/dataloggingendpoint.cpp \
+    libpebble/healthdata.cpp
 
 HEADERS += \
     libpebble/watchconnection.h \
@@ -120,7 +121,8 @@ HEADERS += \
     libpebble/watchlogendpoint.h \
     libpebble/ziphelper.h \
     libpebble/healthparams.h \
-    libpebble/dataloggingendpoint.h
+    libpebble/dataloggingendpoint.h \
+    libpebble/healthdata.h
 
 testing: {
     SOURCES += platformintegration/testing/testingplatform.cpp

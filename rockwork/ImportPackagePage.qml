@@ -4,12 +4,15 @@ import Ubuntu.Content 1.3
 
 Page {
     id: root
-    title: i18n.tr("Import watchapp or watchface")
+    header: PageHeader {
+        title: i18n.tr("Import watchapp or watchface")
+    }
 
     property var pebble: null
 
     ContentPeerPicker {
         anchors.fill: parent
+        anchors.topMargin: root.header.height
         handler: ContentHandler.Source
         contentType: ContentType.All
         showTitle: false

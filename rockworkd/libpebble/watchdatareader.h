@@ -8,6 +8,7 @@
 #include <QString>
 #include <QUuid>
 #include <QMap>
+#include <QDateTime>
 
 class WatchDataReader {
 public:
@@ -134,7 +135,12 @@ public:
 
         return d;
     }
+    QDateTime readTimestamp() {
+        quint64 ts = readLE<quint32>();
+        return QDateTime::fromMSecsSinceEpoch(ts * 1000);
+    }
     bool bad() const;
+    int offset() const { return m_offset; }
 
 
 private:

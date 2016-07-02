@@ -7,13 +7,9 @@ import RockWork 1.0
 
 Page {
     id: root
-
-    title: i18n.tr("Screenshots")
-
-    property var pebble: null
-
-    head {
-        actions: [
+    header: PageHeader {
+        title: i18n.tr("Screenshots")
+        trailingActionBar.actions: [
             Action {
                 iconName: "camera-app-symbolic"
                 onTriggered: root.pebble.requestScreenshot()
@@ -21,9 +17,12 @@ Page {
         ]
     }
 
+    property var pebble: null
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: units.gu(1)
+        anchors.topMargin: root.header.height + units.gu(1)
         spacing: units.gu(1)
 
         GridView {
@@ -74,7 +73,7 @@ Page {
                 text: i18n.tr("Share")
                 color: UbuntuColors.blue
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("Pebble screenshot"), handler: ContentHandler.Share, contentType: ContentType.Pictures, filename: filename })
+                    pageStack.addPageToNextColumn(root, Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("Pebble screenshot"), handler: ContentHandler.Share, contentType: ContentType.Pictures, filename: filename })
                     PopupUtils.close(dialog)
                 }
             }
@@ -82,7 +81,7 @@ Page {
                 text: i18n.tr("Save")
                 color: UbuntuColors.green
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("Pebble screenshot"),handler: ContentHandler.Destination, contentType: ContentType.Pictures, filename: filename })
+                    pageStack.addPageToNextColumn(root, Qt.resolvedUrl("ContentPeerPickerPage.qml"), {itemName: i18n.tr("Pebble screenshot"),handler: ContentHandler.Destination, contentType: ContentType.Pictures, filename: filename })
                     PopupUtils.close(dialog)
                 }
             }

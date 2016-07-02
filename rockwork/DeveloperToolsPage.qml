@@ -5,7 +5,9 @@ import Ubuntu.Components.Popups 1.3
 
 Page {
     id: root
-    title: i18n.tr("Developer Tools")
+    header: PageHeader {
+        title: i18n.tr("Developer Tools")
+    }
 
     property var pebble: null
 
@@ -41,6 +43,7 @@ Page {
 
     ColumnLayout {
         anchors.fill: parent
+        anchors.topMargin: root.header.height
 
         Repeater {
             id: menuRepeater
@@ -72,7 +75,7 @@ Page {
 
                 onClicked: {
                     if (model.page) {
-                        pageStack.push(Qt.resolvedUrl(model.page), {pebble: root.pebble})
+                        pageStack.addPageToNextColumn(root, Qt.resolvedUrl(model.page), {pebble: root.pebble})
                     }
                     if (model.dialog) {
                         PopupUtils.open(model.dialog)

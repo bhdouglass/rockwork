@@ -4,17 +4,17 @@ import Ubuntu.Components 1.3
 
 Page {
     id: root
-    title: pebble.name
 
     property var pebble: null
 
-    head {
-        actions: [
+    header: PageHeader {
+        title: pebble.name
+        trailingActionBar.actions: [
             Action {
                 iconName: "info"
                 text: i18n.tr("About")
                 onTriggered: {
-                    pageStack.push(Qt.resolvedUrl("InfoPage.qml"), {pebble: root.pebble})
+                    pageStack.addPageToNextColumn(root, Qt.resolvedUrl("InfoPage.qml"), {pebble: root.pebble})
                 }
             },
             Action {
@@ -22,7 +22,7 @@ Page {
                 text: i18n.tr("Developer tools")
                 visible: root.pebble.connected
                 onTriggered: {
-                    pageStack.push(Qt.resolvedUrl("DeveloperToolsPage.qml"), {pebble: root.pebble})
+                    pageStack.addPageToNextColumn(root, Qt.resolvedUrl("DeveloperToolsPage.qml"), {pebble: root.pebble})
                 }
             }
         ]
@@ -47,6 +47,14 @@ Page {
 
     function populateMainMenu() {
         mainMenuModel.clear();
+
+        mainMenuModel.append({
+            icon: "like",
+            text: i18n.tr("Health info"),
+            page: "HealthPage.qml",
+            showWatchFaces: true,
+            color: "red"
+        });
 
         mainMenuModel.append({
             icon: "stock_notification",
@@ -96,6 +104,7 @@ Page {
 
     GridLayout {
         anchors.fill: parent
+        anchors.topMargin: root.header.height
         columns: parent.width > parent.height ? 2 : 1
 
         Item {
@@ -195,115 +204,167 @@ Page {
             }
         }
 
-
-        Column {
+        Loader {
             Layout.fillWidth: true
-            Layout.preferredHeight: childrenRect.height
-            spacing: menuRepeater.count > 0 ? 0 : units.gu(2)
-            Label {
-                text: i18n.tr("Your Pebble smartwatch is disconnected. Please make sure it is powered on, within range and it is paired properly in the Bluetooth System Settings.")
-                width: parent.width - units.gu(4)
-                anchors.horizontalCenter: parent.horizontalCenter
-                wrapMode: Text.WordWrap
-                visible: !root.pebble.connected
-                fontSize: "large"
-                horizontalAlignment: Text.AlignHCenter
-            }
-
-            Button {
-                text: i18n.tr("Open System Settings")
-                visible: !root.pebble.connected
-                onClicked: Qt.openUrlExternally("settings://system/bluetooth")
-                color: UbuntuColors.orange
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Label {
-                text: i18n.tr("Your Pebble smartwatch is in factory mode and needs to be initialized.")
-                width: parent.width - units.gu(4)
-                anchors.horizontalCenter: parent.horizontalCenter
-                wrapMode: Text.WordWrap
-                visible: root.pebble.connected && root.pebble.recovery && !root.pebble.upgradingFirmware
-                fontSize: "large"
-                horizontalAlignment: Text.AlignHCenter
-            }
-            Button {
-                text: i18n.tr("Initialize Pebble")
-                onClicked: root.pebble.performFirmwareUpgrade();
-                visible: root.pebble.connected && root.pebble.recovery && !root.pebble.upgradingFirmware
-                color: UbuntuColors.orange
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Rectangle {
-                id: upgradeIcon
-                height: units.gu(10)
-                width: height
-                radius: width / 2
-                color: UbuntuColors.orange
-                anchors.horizontalCenter: parent.horizontalCenter
-                Icon {
-                    anchors.fill: parent
-                    anchors.margins: units.gu(1)
-                    name: "preferences-system-updates-symbolic"
-                    color: "white"
+            Layout.fillHeight: true
+            Layout.preferredWidth: parent.width / parent.columns
+            sourceComponent: {
+                if (!root.pebble.connected) {
+                    return disconnectedComponent;
+                } else if (root.pebble.recovery) {
+                    return factoryModeComponent;
+                } else if (root.pebble.upgradingFirmware) {
+                    return firmwareUpgradeComponent;
                 }
-
-                RotationAnimation on rotation {
-                    duration: 2000
-                    loops: Animation.Infinite
-                    from: 0
-                    to: 360
-                    running: upgradeIcon.visible
-                }
-                visible: root.pebble.connected && root.pebble.upgradingFirmware
+                return menuComponent;
             }
 
-            Label {
-                text: i18n.tr("Upgrading...")
-                fontSize: "large"
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: root.pebble.connected && root.pebble.upgradingFirmware
-            }
-
-            Repeater {
-                id: menuRepeater
-                model: root.pebble.connected && !root.pebble.recovery && !root.pebble.upgradingFirmware ? mainMenuModel : null
-                delegate: ListItem {
-
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.margins: units.gu(1)
-
-                        UbuntuShape {
-                            Layout.fillHeight: true
-                            Layout.preferredWidth: height
-                            backgroundColor: model.color
-                            Icon {
-                                anchors.fill: parent
-                                anchors.margins: units.gu(.5)
-                                name: model.icon
-                                color: "white"
-                            }
-                        }
-
+            Component {
+                id: disconnectedComponent
+                Item {
+                    Column {
+                        anchors.centerIn: parent
+                        width: parent.width
+                        spacing: units.gu(2)
 
                         Label {
-                            text: model.text
-                            Layout.fillWidth: true
+                            text: i18n.tr("Your Pebble smartwatch is disconnected. Please make sure it is powered on, within range and it is paired properly in the Bluetooth System Settings.")
+                            width: parent.width - units.gu(4)
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            wrapMode: Text.WordWrap
+                            fontSize: "large"
+                            horizontalAlignment: Text.AlignHCenter
                         }
-                    }
-
-                    onClicked: {
-                        var options = {};
-                        options["pebble"] = root.pebble
-                        var modelItem = mainMenuModel.get(index)
-                        options["showWatchApps"] = modelItem.showWatchApps
-                        options["showWatchFaces"] = modelItem.showWatchFaces
-                        pageStack.push(Qt.resolvedUrl(model.page), options)
+                        Button {
+                            text: i18n.tr("Open System Settings")
+                            onClicked: Qt.openUrlExternally("settings://system/bluetooth")
+                            color: UbuntuColors.orange
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
                     }
                 }
             }
+
+            Component {
+                id: factoryModeComponent
+                Column {
+                    anchors.centerIn: parent
+                    width: parent.width
+                    spacing: units.gu(2)
+
+                    Label {
+                        text: i18n.tr("Your Pebble smartwatch is in factory mode and needs to be initialized.")
+                        width: parent.width - units.gu(4)
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        wrapMode: Text.WordWrap
+                        visible: root.pebble.connected && root.pebble.recovery && !root.pebble.upgradingFirmware
+                        fontSize: "large"
+                        horizontalAlignment: Text.AlignHCenter
+                    }
+                    Button {
+                        text: i18n.tr("Initialize Pebble")
+                        onClicked: root.pebble.performFirmwareUpgrade();
+                        visible: root.pebble.connected && root.pebble.recovery && !root.pebble.upgradingFirmware
+                        color: UbuntuColors.orange
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+            }
+
+            Component {
+                id: firmwareUpgradeComponent
+
+                Column {
+                    width: parent.width
+                    anchors.centerIn: parent
+                    spacing: units.gu(2)
+
+                    Rectangle {
+                        id: upgradeIcon
+                        height: units.gu(10)
+                        width: height
+                        radius: width / 2
+                        color: UbuntuColors.orange
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Icon {
+                            anchors.fill: parent
+                            anchors.margins: units.gu(1)
+                            name: "preferences-system-updates-symbolic"
+                            color: "white"
+                        }
+
+                        RotationAnimation on rotation {
+                            duration: 2000
+                            loops: Animation.Infinite
+                            from: 0
+                            to: 360
+                            running: upgradeIcon.visible
+                        }
+                        visible: root.pebble.connected && root.pebble.upgradingFirmware
+                    }
+                    Label {
+                        text: i18n.tr("Upgrading...")
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: root.pebble.connected && root.pebble.upgradingFirmware
+                    }
+
+                }
+            }
+
+            Component {
+                id: menuComponent
+                Flickable {
+                    contentHeight: menuColumn.childrenRect.height
+                    clip: true
+                    Column {
+                        id: menuColumn
+                        width: parent.width
+                        spacing: menuRepeater.count > 0 ? 0 : units.gu(2)
+
+                        Repeater {
+                            id: menuRepeater
+                            model: root.pebble.connected && !root.pebble.recovery && !root.pebble.upgradingFirmware ? mainMenuModel : null
+                            delegate: ListItem {
+
+                                RowLayout {
+                                    anchors.fill: parent
+                                    anchors.margins: units.gu(1)
+
+                                    UbuntuShape {
+                                        Layout.fillHeight: true
+                                        Layout.preferredWidth: height
+                                        backgroundColor: model.color
+                                        Icon {
+                                            anchors.fill: parent
+                                            anchors.margins: units.gu(.5)
+                                            name: model.icon
+                                            color: "white"
+                                        }
+                                    }
+
+
+                                    Label {
+                                        text: model.text
+                                        Layout.fillWidth: true
+                                    }
+                                }
+
+                                onClicked: {
+                                    var options = {};
+                                    options["pebble"] = root.pebble
+                                    var modelItem = mainMenuModel.get(index)
+                                    options["showWatchApps"] = modelItem.showWatchApps
+                                    options["showWatchFaces"] = modelItem.showWatchFaces
+                                    pageStack.addPageToNextColumn(root, Qt.resolvedUrl(model.page), options)
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
         }
     }
 
@@ -311,7 +372,7 @@ Page {
         target: pebble
         onOpenURL: {
             if (url) {
-                pageStack.push(Qt.resolvedUrl("AppSettingsPage.qml"), {uuid: uuid, url: url, pebble: pebble})
+                pageStack.addPageToNextColumn(root, Qt.resolvedUrl("AppSettingsPage.qml"), {uuid: uuid, url: url, pebble: pebble})
             }
         }
     }

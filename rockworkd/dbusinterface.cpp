@@ -240,6 +240,46 @@ void DBusPebble::SetImperialUnits(bool imperialUnits)
     m_pebble->setImperialUnits(imperialUnits);
 }
 
+int DBusPebble::Steps(int startTimestamp, int endTimestamp)
+{
+    qlonglong tmp1 = startTimestamp;
+    qlonglong tmp2 = endTimestamp;
+    return m_pebble->steps(QDateTime::fromMSecsSinceEpoch(tmp1 * 1000), QDateTime::fromMSecsSinceEpoch(tmp2 * 1000));
+}
+
+int DBusPebble::AverageSteps(int startTimestamp, int endTimestamp)
+{
+    qlonglong tmp1 = startTimestamp;
+    qlonglong tmp2 = endTimestamp;
+    return m_pebble->averageSteps(QDateTime::fromMSecsSinceEpoch(tmp1 * 1000), QDateTime::fromMSecsSinceEpoch(tmp2 * 1000));
+}
+
+QVariantList DBusPebble::SleepDataForDay(int dayTimestamp)
+{
+    qlonglong tmp = dayTimestamp;
+    return m_pebble->sleepDataForDay(QDateTime::fromMSecsSinceEpoch(tmp * 1000).date());
+}
+
+QVariantMap DBusPebble::AverageSleepTimes(int dayTimestamp)
+{
+    qlonglong tmp = dayTimestamp;
+    return m_pebble->averagSleepTimes(QDateTime::fromMSecsSinceEpoch(tmp * 1000).date());
+}
+
+int DBusPebble::SleepAverage(int startDate, int endDate)
+{
+    qlonglong tmp1 = startDate;
+    qlonglong tmp2 = endDate;
+    return m_pebble->sleepAverage(QDateTime::fromMSecsSinceEpoch(tmp1 * 1000).date(), QDateTime::fromMSecsSinceEpoch(tmp2 * 1000).date());
+}
+
+int DBusPebble::DeepSleepAverage(int startDate, int endDate)
+{
+    qlonglong tmp1 = startDate;
+    qlonglong tmp2 = endDate;
+    return m_pebble->deepSleepAverage(QDateTime::fromMSecsSinceEpoch(tmp1 * 1000).date(), QDateTime::fromMSecsSinceEpoch(tmp2 * 1000).date());
+}
+
 bool DBusPebble::CalendarSyncEnabled() const
 {
     return m_pebble->calendarSyncEnabled();

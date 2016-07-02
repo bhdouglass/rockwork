@@ -17,6 +17,7 @@
 #include "platforminterface.h"
 #include "ziphelper.h"
 #include "dataloggingendpoint.h"
+#include "healthdata.h"
 
 #include "QDir"
 #include <QDateTime>
@@ -83,6 +84,10 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
 
     m_logEndpoint = new WatchLogEndpoint(this, m_connection);
     QObject::connect(m_logEndpoint, &WatchLogEndpoint::logsFetched, this, &Pebble::logsDumped);
+
+    m_healthData = new HealthData(this);
+    QObject::connect(m_dataLogEndpoint, &DataLoggingEndpoint::healthDataLogged, m_healthData, &HealthData::addHealthData);
+    QObject::connect(m_dataLogEndpoint, &DataLoggingEndpoint::sleepDataLogged, m_healthData, &HealthData::addSleepData);
 
     QSettings watchInfo(m_storagePath + "/watchinfo.conf", QSettings::IniFormat);
     m_model = (Model)watchInfo.value("watchModel", (int)ModelUnknown).toInt();
@@ -268,6 +273,36 @@ void Pebble::setImperialUnits(bool imperial)
 bool Pebble::imperialUnits() const
 {
     return m_imperialUnits;
+}
+
+int Pebble::steps(const QDateTime &startDateTime, const QDateTime &endDateTime) const
+{
+    return m_healthData->steps(startDateTime, endDateTime);
+}
+
+int Pebble::averageSteps(const QDateTime &startDateTime, const QDateTime &endDateTime) const
+{
+    return m_healthData->averageSteps(startDateTime, endDateTime);
+}
+
+QVariantList Pebble::sleepDataForDay(const QDate &day) const
+{
+    return m_healthData->sleepDataForDay(day);
+}
+
+qreal Pebble::deepSleepAverage(const QDate &startDate, const QDate &endDate) const
+{
+    return m_healthData->sleepAverage(startDate, endDate, HealthData::SleepTypeDeepSleep);
+}
+
+QVariantMap Pebble::averagSleepTimes(const QDate &day) const
+{
+    return m_healthData->averageSleepTimes(day);
+}
+
+int Pebble::sleepAverage(const QDate &startDate, const QDate &endDate) const
+{
+    return m_healthData->sleepAverage(startDate, endDate, HealthData::SleepTypeNormal);
 }
 
 void Pebble::dumpLogs(const QString &fileName) const

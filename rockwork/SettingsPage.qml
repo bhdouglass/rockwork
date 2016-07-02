@@ -5,13 +5,16 @@ import Ubuntu.Components.ListItems 1.3
 
 Page {
     id: root
-    title: i18n.tr("Settings")
+    header: PageHeader {
+        title: i18n.tr("Settings")
+    }
 
     property var pebble: null
 
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: units.gu(1)
+        anchors.topMargin: root.header.height + units.gu(1)
         spacing: units.gu(1)
 
         Label {

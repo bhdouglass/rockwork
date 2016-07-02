@@ -24,9 +24,21 @@ public:
         DataLoggingSetSendEnable = 0x8B
     };
 
+    enum LoggingTag {
+        LoggingTagUnknown1 = 0x0000004E,
+        LoggingTagUnknown2 = 0x0000004F,
+        LoggingTagSleep    = 0x00000050,
+        LoggingTagHealth   = 0x00000051,
+        LoggingTagUnknown3 = 0x00000052,
+        LoggingTagUnknown4 = 0x00000053,
+        LoggingTagUnknown5 = 0x00000054,
+    };
+
     explicit DataLoggingEndpoint(Pebble *pebble, WatchConnection *connection);
 
 signals:
+    void healthDataLogged(const QByteArray &data);
+    void sleepDataLogged(const QByteArray &data);
 
 private slots:
     void handleMessage(const QByteArray &data);

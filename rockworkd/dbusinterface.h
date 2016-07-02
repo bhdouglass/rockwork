@@ -68,6 +68,14 @@ public slots:
     bool ImperialUnits() const;
     void SetImperialUnits(bool imperialUnits);
 
+    int Steps(int startTimestamp, int endTimestamp);
+    int AverageSteps(int startTimestamp, int endTimestamp);
+
+    QVariantList SleepDataForDay(int dayTimestamp);
+    QVariantMap AverageSleepTimes(int dayTimestamp);
+    int SleepAverage(int startDate, int endDate);
+    int DeepSleepAverage(int startDate, int endDate);
+
     bool CalendarSyncEnabled() const;
     void SetCalendarSyncEnabled(bool enabled);
 

@@ -5,6 +5,8 @@
 
 #include <QDBusArgument>
 #include <QDebug>
+#include <QDate>
+#include <QTimeZone>
 
 Pebble::Pebble(const QDBusObjectPath &path, QObject *parent):
     QObject(parent),
@@ -165,6 +167,108 @@ bool Pebble::calendarSyncEnabled() const
 void Pebble::setCalendarSyncEnabled(bool enabled)
 {
     m_iface->call("SetCalendarSyncEnabled", enabled);
+}
+
+int Pebble::steps(const QDateTime &startTime, const QDateTime &endTime) const
+{
+    int startTimestamp = startTime.toUTC().toMSecsSinceEpoch() / 1000;
+    int endTimestamp = endTime.toUTC().toMSecsSinceEpoch() / 1000;
+    QDBusMessage m = m_iface->call("Steps", startTimestamp, endTimestamp);
+    if (m.type() != QDBusMessage::ErrorMessage && m.arguments().count() == 1) {
+        return m.arguments().first().toInt();
+
+    }
+    qDebug() << "error getting steps:" << startTime << endTime << m.errorMessage();
+    return 0;
+}
+
+int Pebble::averageSteps(const QDateTime &startTime, const QDateTime &endTime) const
+{
+    int startTimestamp = startTime.toUTC().toMSecsSinceEpoch() / 1000;
+    int endTimestamp = endTime.toUTC().toMSecsSinceEpoch() / 1000;
+    QDBusMessage m = m_iface->call("AverageSteps", startTimestamp, endTimestamp);
+    if (m.type() != QDBusMessage::ErrorMessage && m.arguments().count() == 1) {
+        return m.arguments().first().toInt();
+
+    }
+    qDebug() << "error getting steps average:" << startTime << endTime << m.errorMessage();
+    return 0;
+}
+
+QVariantMap Pebble::averageSleepTimes(const QDateTime &day) const
+{
+    int dayTimestamp = day.toMSecsSinceEpoch() / 1000;
+    QDBusMessage m = m_iface->call("AverageSleepTimes", dayTimestamp);
+    if (m.type() == QDBusMessage::ErrorMessage || m.arguments().count() == 0) {
+        qWarning() << "Could not fetch avg sleep times" << m.errorMessage();
+        return QVariantMap();
+    }
+
+    const QDBusArgument &arg = m.arguments().first().value<QDBusArgument>();
+
+    QVariantMap mapEntryVariant;
+    arg >> mapEntryVariant;
+
+    qDebug() << "have avg sleep times" << mapEntryVariant;
+    return mapEntryVariant;
+}
+
+int Pebble::sleepAverage(const QDateTime &startDate, const QDateTime &endDate) const
+{
+    int tmp1 = startDate.toMSecsSinceEpoch() / 1000;
+    int tmp2 = endDate.toMSecsSinceEpoch() / 1000;
+    QDBusMessage m = m_iface->call("SleepAverage", tmp1, tmp2);
+    if (m.type() != QDBusMessage::ErrorMessage && m.arguments().count() == 1) {
+        return m.arguments().first().toInt();
+
+    }
+    qDebug() << "error getting sleep average:" << m.errorMessage();
+    return -1;
+}
+
+int Pebble::deepSleepAverage(const QDateTime &startDate, const QDateTime &endDate) const
+{
+    int tmp1 = startDate.toMSecsSinceEpoch() / 1000;
+    int tmp2 = endDate.toMSecsSinceEpoch() / 1000;
+    QDBusMessage m = m_iface->call("DeepSleepAverage", tmp1, tmp2);
+    if (m.type() != QDBusMessage::ErrorMessage && m.arguments().count() == 1) {
+        return m.arguments().first().toInt();
+
+    }
+    qDebug() << "error getting deep sleep average:" << m.errorMessage();
+    return -1;
+}
+
+QVariantList Pebble::sleepDataForDay(const QDateTime &day) const
+{
+    qDebug() << "fetching for" << day;
+    int dayTimestamp = day.toMSecsSinceEpoch() / 1000;
+    QDBusMessage m = m_iface->call("SleepDataForDay", dayTimestamp);
+    if (m.type() == QDBusMessage::ErrorMessage || m.arguments().count() == 0) {
+        qWarning() << "Could not fetch installed apps" << m.errorMessage();
+        return QVariantList();
+    }
+
+    const QDBusArgument &arg = m.arguments().first().value<QDBusArgument>();
+
+    QVariantList sleepData;
+
+    arg.beginArray();
+    while (!arg.atEnd()) {
+        QVariant mapEntryVariant;
+        arg >> mapEntryVariant;
+
+        QDBusArgument mapEntry = mapEntryVariant.value<QDBusArgument>();
+        QVariantMap appMap;
+        mapEntry >> appMap;
+        sleepData.append(appMap);
+
+    }
+    arg.endArray();
+
+    qDebug() << "have sleep data" << sleepData.count();
+
+    return sleepData;
 }
 
 void Pebble::configurationClosed(const QString &uuid, const QString &url)

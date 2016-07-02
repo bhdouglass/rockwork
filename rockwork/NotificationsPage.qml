@@ -5,13 +5,16 @@ import RockWork 1.0
 
 Page {
     id: root
-    title: i18n.tr("Notifications")
+    header: PageHeader {
+        title: i18n.tr("Notifications")
+    }
+
 
     property var pebble: null
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.topMargin: units.gu(1)
+        anchors.topMargin: root.header.height + units.gu(1)
 
         Item {
             Layout.fillWidth: true

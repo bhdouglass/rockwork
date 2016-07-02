@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-10 22:16+0200\n"
+"POT-Creation-Date: 2016-06-04 12:49+0000\n"
 "PO-Revision-Date: 2016-03-07 06:38+0000\n"
 "Last-Translator: Hamel <hameloid@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-05-11 06:10+0000\n"
-"X-Generator: Launchpad (build 18025)\n"
-"Language: ru\n"
+"X-Launchpad-Export-Date: 2016-05-03 05:47+0000\n"
+"X-Generator: Launchpad (build 17995)\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
 msgid "App Settings"
@@ -34,61 +34,81 @@ msgstr "Копировать"
 msgid "Paste"
 msgstr "Вставить"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:10
 msgid "App details"
 msgstr "Сведения"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:60
 msgid "Install"
 msgstr "Установить"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:60
 msgid "Installing..."
 msgstr "Установка..."
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:60
 msgid "Installed"
 msgstr "Установлено"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:235
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:238
 msgid "Description"
 msgstr "Описание"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:258
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:261
 msgid "Developer"
 msgstr "Разработчик"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:266
+#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:269
 msgid "Version"
 msgstr "Версия"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:9
 msgid "Add new watchapp"
 msgstr "Добавить приложение"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:9
 msgid "Add new watchface"
 msgstr "Добавить циферблат"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:125
+#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:124
 msgid "See all"
 msgstr "См. все"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/DailySleepGraph.qml:127
+msgid "Oops! No sleep data."
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:118
+msgid "TODAY'S STEPS"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:120
+msgid "YESTERDAY'S STEPS"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:122
+msgid "STEPS"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:125
+msgid "TYPICAL"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
 msgid "Developer Tools"
 msgstr "Средства разработчика"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:27
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:29
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr "Снимки экрана"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:34
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:36
 msgid "Install app or watchface from file"
 msgstr "Установить приложение или циферблат из файла"
 
 #: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:85
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:93
 msgid "Firmware upgrade"
 msgstr "Обновление прошивки"
 
@@ -122,6 +142,19 @@ msgid ""
 msgstr ""
 "Это обновление также может обновить данные для восстановления. Убедитесь, "
 "что к вашим смарт-часам Pebble подключено зарядное устройство."
+
+#: /home/micha/Develop/upebble/rockwork/HealthInfoItem.qml:224
+msgid "KM"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/HealthInfoItem.qml:263
+msgid "M"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/HealthPage.qml:7
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
+msgid "Health info"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
@@ -164,70 +197,70 @@ msgid "OK"
 msgstr "OK"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:98
 #: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:55
 msgid "Cancel"
 msgstr "Отмена"
 
-#: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
+#: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:8
 msgid "Import watchapp or watchface"
 msgstr "Импорт приложения или циферблата"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:35
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:38
 #, qt-format
 msgid "Version %1"
 msgstr "Версия %1"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:45
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:48
 #: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:8
 msgid "Report problem"
 msgstr "Сообщить о проблеме"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:56
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:60
 msgid "Legal"
 msgstr "Условия распространения"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:78
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:82
 msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
 msgstr ""
 "Это приложение не является официальным и не одобренно Pebble Technology Corp."
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:83
+#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:87
 msgid "Pebble is a trademark of Pebble Technology Corp."
 msgstr "Pebble является торговой маркой Pebble Technology Corp."
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:10
 msgid "Apps & Watchfaces"
 msgstr "Приложения и циферблаты"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:10
 msgid "Apps"
 msgstr "Приложения"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:10
 msgid "Watchfaces"
 msgstr "Циферблаты"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:167
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:166
 msgid "Launch"
 msgstr "Запустить"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:176
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:175
 msgid "Configure"
 msgstr "Настроить"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:186
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:185
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:90
 msgid "Delete"
 msgstr "Удалить"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:196
+#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:195
 msgid "Close"
 msgstr "Закрыть"
 
-#: /home/micha/Develop/upebble/rockwork/Main.qml:95
+#: /home/micha/Develop/upebble/rockwork/LoadingPage.qml:42
 msgid "Loading..."
 msgstr "Загрузка…"
 
@@ -239,34 +272,34 @@ msgstr "О приложении"
 msgid "Developer tools"
 msgstr "Инструменты разработчика"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:61
 msgid "Manage notifications"
 msgstr "Управление уведомлениями"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:60
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:68
 msgid "Manage Apps"
 msgstr "Управление приложениями"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:68
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:76
 msgid "Manage Watchfaces"
 msgstr "Управление циферблатами"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:76
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:84
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:9
 msgid "Settings"
 msgstr "Настройки"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:191
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:200
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:37
 msgid "Connected"
 msgstr "Подключено"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:191
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:200
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:37
 msgid "Disconnected"
 msgstr "Отключено"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:204
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:231
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
@@ -275,31 +308,41 @@ msgstr ""
 "находятся в пределах видимости и правильно спарены в системных настройках "
 "Bluetooth."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:214
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:239
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:65
 msgid "Open System Settings"
 msgstr "Открытые системные настройки"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:222
-msgid ""
-"Your Pebble smartwatch is in factory mode and needs to be initialized."
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:256
+msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Ваши смарт-часы Pebble находятся в заводском режиме и их необходимо "
 "инициализировать."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:231
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:265
 msgid "Initialize Pebble"
 msgstr "Инициализировать Pebble"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:263
+#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:306
 msgid "Upgrading..."
 msgstr "Обновление..."
 
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
+#: /home/micha/Develop/upebble/rockwork/MonthlyStepsGraph.qml:120
+#: /home/micha/Develop/upebble/rockwork/WeeklyStepsGraph.qml:108
+msgid "AVERAGE STEPS"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/MonthlyStepsGraph.qml:120
+#: /home/micha/Develop/upebble/rockwork/WeeklyStepsGraph.qml:108
+#, qt-format
+msgid "TYPICAL %1"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:9
 msgid "Notifications"
 msgstr "Уведомления"
 
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
+#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:32
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
@@ -307,11 +350,11 @@ msgstr ""
 "Записи будут добавлены после появления уведомлений на телефоне. Выбранные "
 "уведомления будут отображаться на ваших смарт-часах Pebble."
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:8
 msgid "Manage Pebble Watches"
 msgstr "Управление часами Pebble"
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
+#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:58
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
@@ -319,20 +362,20 @@ msgstr ""
 "Пока нет настроенных смарт-часов Pebble. Пожалуйста, подключите смарт-часы "
 "Pebble с помощью системных настроек."
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:68
 msgid "Screenshot options"
 msgstr "Параметры снимка экрана"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:73
 msgid "Share"
 msgstr "Поделиться"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:77
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:85
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:76
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:84
 msgid "Pebble screenshot"
 msgstr "Снимок экрана Pebble"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
+#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:81
 msgid "Save"
 msgstr "Сохранить"
 
@@ -356,22 +399,31 @@ msgstr "rockworkd.log"
 msgid "Send watch logs"
 msgstr "Послать логи часов"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:19
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:22
 msgid "Distance Units"
 msgstr "Единицы измерения"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:35
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:38
 msgid "Metric"
 msgstr "Метрическая"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:48
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:51
 msgid "Imperial"
 msgstr "Английская"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:55
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:58
 msgid "Calendar"
 msgstr "Календарь"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
+#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:65
 msgid "Sync calendar to timeline"
 msgstr "Синхронизировать события календаря с временной шкалой"
+
+#: /home/micha/Develop/upebble/rockwork/WeeklySleepGraph.qml:154
+msgid "AVERAGE SLEEP"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/WeeklySleepGraph.qml:154
+#, qt-format
+msgid "TYPICAL %1H %2M"
+msgstr ""

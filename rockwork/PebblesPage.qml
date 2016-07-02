@@ -3,10 +3,10 @@ import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 
 Page {
-    title: i18n.tr("Manage Pebble Watches")
-
-    head {
-        actions: [
+    id: root
+    header: PageHeader {
+        title: i18n.tr("Manage Pebble Watches")
+        trailingActionBar.actions: [
             Action {
                 iconName: "settings"
                 onTriggered: {
@@ -18,6 +18,7 @@ Page {
 
     ListView {
         anchors.fill: parent
+        anchors.topMargin: root.header.height
         model: pebbles
         delegate: ListItem {
             RowLayout {
@@ -42,7 +43,7 @@ Page {
             onClicked: {
                 var p = pebbles.get(index);
                 print("opening pebble:", p.name, p.hardwarePlatform)
-                pageStack.push(Qt.resolvedUrl("MainMenuPage.qml"), {pebble: pebbles.get(index)})
+                pageStack.addPageToCurrentColumn(root, Qt.resolvedUrl("MainMenuPage.qml"), {pebble: pebbles.get(index)})
             }
         }
     }

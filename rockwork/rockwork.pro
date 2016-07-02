@@ -69,4 +69,6 @@ DISTFILES += \
     AppStorePage.qml \
     AppStoreDetailsPage.qml \
     PebbleModels.qml \
-    InfoPage.qml
+    InfoPage.qml \
+    LoadingPage.qml \
+    HealthGraph.qml
