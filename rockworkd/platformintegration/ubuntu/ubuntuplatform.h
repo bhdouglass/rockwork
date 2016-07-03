@@ -26,8 +26,9 @@ public:
     UbuntuPlatform(QObject *parent = 0);
     QDBusInterface* interface() const;
 
-    void sendMusicControlCommand(MusicControlButton controlButton) override;
+    void sendMusicControlCommand(MusicControlCommand controlCommand) override;
     MusicMetaData musicMetaData() const override;
+    MusicPlayState musicPlayState() const override;
 
     void hangupCall(uint cookie) override;
 
@@ -41,15 +42,17 @@ public slots:
 
 private slots:
     void setupMusicService();
-    void fetchMusicMetadata();
-    void fetchMusicMetadataFinished(QDBusPendingCallWatcher *watcher);
-    void mediaPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps);
+    void mprisPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps);
+
+    void fetchPropertyAsync(const QString &propertyName);
+    void propertyChanged(const QString &propertyName, const QVariant &value);
 
 private:
     QDBusInterface *m_iface;
 
     QString m_mprisService;
     MusicMetaData m_musicMetaData;
+    MusicPlayState m_musicPlayState;
     QDBusActionGroup m_volumeActionGroup;
     QStateAction *m_volumeAction = nullptr;
 

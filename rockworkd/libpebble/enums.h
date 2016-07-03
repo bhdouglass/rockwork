@@ -65,12 +65,18 @@ enum Model {
     ModelSpalding14RoseGold = 21
 };
 
-enum MusicControlButton {
-    MusicControlPlayPause,
-    MusicControlSkipBack,
-    MusicControlSkipNext,
-    MusicControlVolumeUp,
-    MusicControlVolumeDown
+enum MusicControlCommand {
+    MusicControlPlayPause = 0x01,
+    MusicControlPause = 0x02,
+    MusicControlPlay = 0x03,
+    MusicControlNextTrack = 0x04,
+    MusicControlPreviousTrack = 0x05,
+    MusicControlVolumeUp = 0x06,
+    MusicControlVolumeDown = 0x07,
+    MusicControlGetCurrentTrack = 0x08,
+
+    MusicControlUpdateCurrentTrack = 0x10,
+    MusicControlUpdatePlayStateInfo = 0x11
 };
 
 enum CallStatus {

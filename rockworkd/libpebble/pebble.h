@@ -130,7 +130,7 @@ signals:
     void pebbleConnected();
     void pebbleDisconnected();
     void notificationFilterChanged(const QString &sourceId, bool enabled);
-    void musicControlPressed(MusicControlButton control);
+    void musicControlPressed(MusicControlCommand control);
     void installedAppsChanged();
     void openURL(const QString &uuid, const QString &url);
     void screenshotAdded(const QString &filename);
