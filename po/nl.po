@@ -11,12 +11,12 @@ msgstr ""
 "PO-Revision-Date: 2016-05-08 12:22+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-05-11 06:10+0000\n"
-"X-Generator: Launchpad (build 18025)\n"
+"X-Launchpad-Export-Date: 2016-07-03 05:45+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
+"Language: nl\n"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/AppSettingsPage.qml:14
 msgid "App Settings"
@@ -288,7 +288,8 @@ msgid "Open System Settings"
 msgstr "Systeeminstellingen openen"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/MainMenuPage.qml:222
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Uw Pebble-smartwatch is in fabrieksmodus en moet worden geïnitialiseerd."
 
@@ -383,9 +384,8 @@ msgid "Sync calendar to timeline"
 msgstr "Agenda synchroniseren met tijdlijn"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/AlertDialog.qml:5
-#, fuzzy
 msgid "App Settings Alert"
-msgstr "App-instellingen"
+msgstr ""
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
 msgid "App Settings Confirm Navigation"
@@ -400,11 +400,9 @@ msgid "Stay"
 msgstr ""
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/ConfirmDialog.qml:5
-#, fuzzy
 msgid "App Settings Confirmation"
-msgstr "App-instellingen"
+msgstr ""
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/PromptDialog.qml:5
-#, fuzzy
 msgid "App Settings Prompt"
-msgstr "App-instellingen"
+msgstr ""
