@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-07 20:57+0000\n"
-"PO-Revision-Date: 2016-02-28 17:26+0000\n"
+"PO-Revision-Date: 2016-07-09 12:11+0000\n"
 "Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-07-04 06:17+0000\n"
+"X-Launchpad-Export-Date: 2016-07-10 05:42+0000\n"
 "X-Generator: Launchpad (build 18115)\n"
 "Language: fr\n"
 
@@ -388,24 +388,24 @@ msgstr "Synchroniser l'agenda sur la Timeline."
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/AlertDialog.qml:5
 msgid "App Settings Alert"
-msgstr ""
+msgstr "Alerte des paramètres de l'application"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
 msgid "App Settings Confirm Navigation"
-msgstr ""
+msgstr "Confirmation de navigation dans les paramètres de l'application"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/BeforeUnloadDialog.qml:8
 msgid "Leave"
-msgstr ""
+msgstr "Quitter"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/BeforeUnloadDialog.qml:13
 msgid "Stay"
-msgstr ""
+msgstr "Rester"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/ConfirmDialog.qml:5
 msgid "App Settings Confirmation"
-msgstr ""
+msgstr "Confirmation des paramètres de l'application"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/PromptDialog.qml:5
 msgid "App Settings Prompt"
-msgstr ""
+msgstr "Message des paramètres de l'application"
