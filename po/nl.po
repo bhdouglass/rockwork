@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-07 20:57+0000\n"
-"PO-Revision-Date: 2016-05-08 12:22+0000\n"
+"PO-Revision-Date: 2016-07-10 08:53+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-07-04 06:17+0000\n"
+"X-Launchpad-Export-Date: 2016-07-11 05:41+0000\n"
 "X-Generator: Launchpad (build 18115)\n"
 "Language: nl\n"
 
@@ -385,24 +385,24 @@ msgstr "Agenda synchroniseren met tijdlijn"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/AlertDialog.qml:5
 msgid "App Settings Alert"
-msgstr ""
+msgstr "App-instellingen - waarschuwing"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
 msgid "App Settings Confirm Navigation"
-msgstr ""
+msgstr "App-instellingen - navigatie bevestigen"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/BeforeUnloadDialog.qml:8
 msgid "Leave"
-msgstr ""
+msgstr "Verlaten"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/BeforeUnloadDialog.qml:13
 msgid "Stay"
-msgstr ""
+msgstr "Blijven"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/ConfirmDialog.qml:5
 msgid "App Settings Confirmation"
-msgstr ""
+msgstr "App-instellingen - bevestiging"
 
 #: /home/micha/Develop/reviews/js-dialogs/rockwork/js-dialogs/PromptDialog.qml:5
 msgid "App Settings Prompt"
-msgstr ""
+msgstr "App-instellingen - attenderen"
