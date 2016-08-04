@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-04 15:00+0000\n"
+"POT-Creation-Date: 2016-08-04 15:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,12 +97,12 @@ msgstr ""
 msgid "Developer Tools"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:29
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:31
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr ""
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:36
+#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:38
 msgid "Install app or watchface from file"
 msgstr ""
 

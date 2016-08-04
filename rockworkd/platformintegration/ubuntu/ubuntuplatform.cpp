@@ -121,28 +121,32 @@ void UbuntuPlatform::setupMusicService()
         if (service.startsWith("org.mpris.MediaPlayer2.")) {
             qDebug() << "have mpris service" << service;
             m_mprisService = service;
-            fetchMusicMetadata();
-            QDBusConnection::sessionBus().connect(m_mprisService, "/org/mpris/MediaPlayer2", "", "PropertiesChanged", this, SLOT(mediaPropertiesChanged(QString,QVariantMap,QStringList)));
+
+            fetchPropertyAsync("Metadata");
+            fetchPropertyAsync("PlaybackStatus");
+            fetchPropertyAsync("Position");
+
+            QDBusConnection::sessionBus().connect(m_mprisService, "/org/mpris/MediaPlayer2", "", "PropertiesChanged", this, SLOT(mprisPropertiesChanged(QString,QVariantMap,QStringList)));
             break;
         }
     }
 }
 
-void UbuntuPlatform::sendMusicControlCommand(MusicControlButton controlButton)
+void UbuntuPlatform::sendMusicControlCommand(MusicControlCommand controlCommand)
 {
     if (m_mprisService.isEmpty()) {
         setupMusicService();
     }
 
     QString method;
-    switch (controlButton) {
+    switch (controlCommand) {
     case MusicControlPlayPause:
         method = "PlayPause";
         break;
-    case MusicControlSkipBack:
+    case MusicControlPreviousTrack:
         method = "Previous";
         break;
-    case MusicControlSkipNext:
+    case MusicControlNextTrack:
         method = "Next";
         break;
     default:
@@ -160,7 +164,7 @@ void UbuntuPlatform::sendMusicControlCommand(MusicControlButton controlButton)
     }
 
     int volumeDiff = 0;
-    switch (controlButton) {
+    switch (controlCommand) {
     case MusicControlVolumeUp:
         volumeDiff = 1;
         break;
@@ -182,6 +186,11 @@ MusicMetaData UbuntuPlatform::musicMetaData() const
     return m_musicMetaData;
 }
 
+MusicPlayState UbuntuPlatform::musicPlayState() const
+{
+    return m_musicPlayState;
+}
+
 void UbuntuPlatform::hangupCall(uint cookie)
 {
     m_telepathyMonitor->hangupCall(cookie);
@@ -197,36 +206,63 @@ void UbuntuPlatform::actionTriggered(const QString &actToken)
     url_dispatch_send(actToken.toStdString().c_str(), [] (const gchar *, gboolean, gpointer) {}, nullptr);
 }
 
-void UbuntuPlatform::fetchMusicMetadata()
+void UbuntuPlatform::mprisPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps)
+{
+    Q_UNUSED(interface)
+    Q_UNUSED(invalidatedProps)
+
+    qDebug() << "****************+ changed media props" << changedProps;
+    if (changedProps.contains("PlaybackStatus")) {
+        propertyChanged("PlaybackStatus", changedProps.value("PlaybackStatus"));
+    }
+    if (changedProps.contains("Position")) {
+        propertyChanged("Position", changedProps.value("Position"));
+    }
+    if (changedProps.contains("Metadata")) {
+        propertyChanged("Metadata", changedProps.value("Metadata"));
+    }
+}
+
+void UbuntuPlatform::fetchPropertyAsync(const QString &propertyName)
 {
     if (!m_mprisService.isEmpty()) {
         QDBusMessage call = QDBusMessage::createMethodCall(m_mprisService, "/org/mpris/MediaPlayer2", "org.freedesktop.DBus.Properties", "Get");
-        call << "org.mpris.MediaPlayer2.Player" << "Metadata";
+        call << "org.mpris.MediaPlayer2.Player" << propertyName;
         QDBusPendingCall pcall = QDBusConnection::sessionBus().asyncCall(call);
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pcall, this);
-        connect(watcher, &QDBusPendingCallWatcher::finished, this, &UbuntuPlatform::fetchMusicMetadataFinished);
+        connect(watcher, &QDBusPendingCallWatcher::finished, [this, propertyName](QDBusPendingCallWatcher *watcher) {
+            watcher->deleteLater();
+            QDBusReply<QDBusVariant> reply = watcher->reply();
+            if (reply.isValid()) {
+                propertyChanged(propertyName, reply.value().variant());
+            } else {
+                qWarning() << reply.error().message();
+            }
+        });
     }
 }
 
-void UbuntuPlatform::fetchMusicMetadataFinished(QDBusPendingCallWatcher *watcher)
+void UbuntuPlatform::propertyChanged(const QString &propertyName, const QVariant &value)
 {
-    watcher->deleteLater();
-    QDBusReply<QDBusVariant> reply = watcher->reply();
-    if (reply.isValid()) {
-        QVariantMap curMetadata = qdbus_cast<QVariantMap>(reply.value().variant().value<QDBusArgument>());
+    if (propertyName == "Metadata") {
+        QVariantMap curMetadata = qdbus_cast<QVariantMap>(value.value<QDBusArgument>());
         m_musicMetaData.artist = curMetadata.value("xesam:artist").toString();
         m_musicMetaData.album = curMetadata.value("xesam:album").toString();
         m_musicMetaData.title = curMetadata.value("xesam:title").toString();
+        m_musicMetaData.currentTrack = curMetadata.value("xesam:trackNumber").toInt();
+        m_musicMetaData.trackCount = curMetadata.value("track-count").toInt();
+        m_musicMetaData.length = curMetadata.value("mpris:length").toLongLong() / 1000;
+        qDebug() << "Have metadata" << curMetadata;
         emit musicMetadataChanged(m_musicMetaData);
-    } else {
-        qWarning() << reply.error().message();
     }
-}
-
-void UbuntuPlatform::mediaPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps)
-{
-    Q_UNUSED(interface)
-    Q_UNUSED(changedProps)
-    Q_UNUSED(invalidatedProps)
-    fetchMusicMetadata();
+    if (propertyName == "PlaybackStatus") {
+        m_musicPlayState.state = value.toString() == "Playing" ? MusicPlayState::StatePlaying : MusicPlayState::StatePaused;
+        qDebug() << "Play status now" << m_musicPlayState.state;
+        emit musicPlayStateChanged(m_musicPlayState);
+    }
+    if (propertyName == "Position") {
+        m_musicPlayState.trackPosition = value.toLongLong() / 1000 / 1000;
+        qDebug() << "Position now" << m_musicPlayState.trackPosition;
+        emit musicPlayStateChanged(m_musicPlayState);
+    }
 }

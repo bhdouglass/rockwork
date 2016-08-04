@@ -21,10 +21,12 @@ signals:
 
 // Music
 public:
-    virtual void sendMusicControlCommand(MusicControlButton controlButton) = 0;
+    virtual void sendMusicControlCommand(MusicControlCommand controlButton) = 0;
     virtual MusicMetaData musicMetaData() const = 0;
+    virtual MusicPlayState musicPlayState() const = 0;
 signals:
-    void musicMetadataChanged(MusicMetaData metaData);
+    void musicMetadataChanged(const MusicMetaData &metaData);
+    void musicPlayStateChanged(const MusicPlayState &musicPlayState);
 
 // Phone calls
 signals:

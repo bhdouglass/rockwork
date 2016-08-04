@@ -46,8 +46,10 @@ Pebble::Pebble(const QBluetoothAddress &address, QObject *parent):
 
     m_musicEndpoint = new MusicEndpoint(this, m_connection);
     m_musicEndpoint->setMusicMetadata(Core::instance()->platform()->musicMetaData());
+    m_musicEndpoint->setPlayState(Core::instance()->platform()->musicPlayState());
     QObject::connect(m_musicEndpoint, &MusicEndpoint::musicControlPressed, Core::instance()->platform(), &PlatformInterface::sendMusicControlCommand);
     QObject::connect(Core::instance()->platform(), &PlatformInterface::musicMetadataChanged, m_musicEndpoint, &MusicEndpoint::setMusicMetadata);
+    QObject::connect(Core::instance()->platform(), &PlatformInterface::musicPlayStateChanged, m_musicEndpoint, &MusicEndpoint::setPlayState);
 
     m_phoneCallEndpoint = new PhoneCallEndpoint(this, m_connection);
     QObject::connect(m_phoneCallEndpoint, &PhoneCallEndpoint::hangupCall, Core::instance()->platform(), &PlatformInterface::hangupCall);
@@ -602,6 +604,10 @@ void Pebble::pebbleVersionReceived(const QByteArray &data)
         version.setValue("syncedWithVersion", QStringLiteral(VERSION));
 
         syncTime();
+
+        qDebug() << "Syncing music details" << Core::instance()->platform()->musicMetaData().artist;
+        m_musicEndpoint->setMusicMetadata(Core::instance()->platform()->musicMetaData());
+        m_musicEndpoint->setPlayState(Core::instance()->platform()->musicPlayState());
     }
 
     m_firmwareDownloader->checkForNewFirmware();
