@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-04 12:49+0000\n"
+"POT-Creation-Date: 2016-08-04 15:00+0000\n"
 "PO-Revision-Date: 2016-02-26 08:10+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "X-Launchpad-Export-Date: 2016-05-03 05:47+0000\n"
 "X-Generator: Launchpad (build 17995)\n"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:14
 msgid "App Settings"
 msgstr "Alkalmazás beállítások"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:47
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:53
 msgid "Cut"
 msgstr "Kivágás"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:53
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:59
 msgid "Copy"
 msgstr "Másolás"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:59
+#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:65
 msgid "Paste"
 msgstr "Beillesztés"
 
@@ -194,12 +194,17 @@ msgid "I want to sleep more"
 msgstr "Többet szeretnék aludni"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:95
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/AlertDialog.qml:8
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/ConfirmDialog.qml:8
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/PromptDialog.qml:14
 msgid "OK"
 msgstr "OK"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
 #: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:98
 #: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:55
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/ConfirmDialog.qml:13
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/PromptDialog.qml:20
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -427,3 +432,30 @@ msgstr ""
 #, qt-format
 msgid "TYPICAL %1H %2M"
 msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/AlertDialog.qml:5
+#, fuzzy
+msgid "App Settings Alert"
+msgstr "Alkalmazás beállítások"
+
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
+msgid "App Settings Confirm Navigation"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:8
+msgid "Leave"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:13
+msgid "Stay"
+msgstr ""
+
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/ConfirmDialog.qml:5
+#, fuzzy
+msgid "App Settings Confirmation"
+msgstr "Alkalmazás beállítások"
+
+#: /home/micha/Develop/upebble/rockwork/js-dialogs/PromptDialog.qml:5
+#, fuzzy
+msgid "App Settings Prompt"
+msgstr "Alkalmazás beállítások"

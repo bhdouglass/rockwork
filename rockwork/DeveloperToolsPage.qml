@@ -22,13 +22,15 @@ Page {
     }
 
     function populateDevMenu() {
+        menuRepeater.model = null;
+
         devMenuModel.clear();
 
         devMenuModel.append({
             icon: "camera-app-symbolic",
             text: i18n.tr("Screenshots"),
             page: "ScreenshotsPage.qml",
-            dialog: "",
+            dialog: null,
             color: "gold"
         });
         devMenuModel.append({
@@ -39,9 +41,10 @@ Page {
             color: UbuntuColors.blue
         });
 
+        menuRepeater.model = devMenuModel;
     }
 
-    ColumnLayout {
+    Column {
         anchors.fill: parent
         anchors.topMargin: root.header.height
 
@@ -49,6 +52,8 @@ Page {
             id: menuRepeater
             model: devMenuModel
             delegate: ListItem {
+                height: units.gu(6)
+                width: parent.width
 
                 RowLayout {
                     anchors.fill: parent
@@ -82,11 +87,6 @@ Page {
                     }
                 }
             }
-        }
-
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
         }
     }
 }
