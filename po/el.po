@@ -11,12 +11,12 @@ msgstr ""
 "PO-Revision-Date: 2016-02-15 06:05+0000\n"
 "Last-Translator: Aggelos Arnaoutis <angelosarn@hotmail.com>\n"
 "Language-Team: Greek <el@li.org>\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-07-04 06:17+0000\n"
-"X-Generator: Launchpad (build 18115)\n"
+"X-Launchpad-Export-Date: 2016-08-05 05:49+0000\n"
+"X-Generator: Launchpad (build 18169)\n"
+"Language: el\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:14
 msgid "App Settings"
@@ -153,9 +153,8 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthPage.qml:7
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
-#, fuzzy
 msgid "Health info"
-msgstr "Ρυθμίσεις υγείας"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
@@ -266,9 +265,8 @@ msgid "Close"
 msgstr "Κλείσιμο"
 
 #: /home/micha/Develop/upebble/rockwork/LoadingPage.qml:42
-#, fuzzy
 msgid "Loading..."
-msgstr "Αναβάθμιση..."
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
 msgid "About"
@@ -317,7 +315,8 @@ msgid "Open System Settings"
 msgstr "Άνοιγμα ρυθμίσεων συστήματος"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:256
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:265
@@ -426,9 +425,8 @@ msgid "TYPICAL %1H %2M"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/AlertDialog.qml:5
-#, fuzzy
 msgid "App Settings Alert"
-msgstr "Ρυθμίσεις εφαρμογής"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
 msgid "App Settings Confirm Navigation"
@@ -443,11 +441,9 @@ msgid "Stay"
 msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/ConfirmDialog.qml:5
-#, fuzzy
 msgid "App Settings Confirmation"
-msgstr "Ρυθμίσεις εφαρμογής"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/PromptDialog.qml:5
-#, fuzzy
 msgid "App Settings Prompt"
-msgstr "Ρυθμίσεις εφαρμογής"
+msgstr ""

@@ -11,12 +11,12 @@ msgstr ""
 "PO-Revision-Date: 2016-07-09 12:11+0000\n"
 "Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-07-10 05:42+0000\n"
-"X-Generator: Launchpad (build 18115)\n"
+"X-Launchpad-Export-Date: 2016-08-05 05:49+0000\n"
+"X-Generator: Launchpad (build 18169)\n"
+"Language: fr\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:14
 msgid "App Settings"
@@ -156,9 +156,8 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthPage.qml:7
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
-#, fuzzy
 msgid "Health info"
-msgstr "Paramètre de Bien-Être"
+msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
@@ -324,7 +323,8 @@ msgid "Open System Settings"
 msgstr "Ouvrir les paramètres système"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:256
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Votre montre connectée Pebble est en mode usine et a besoin d'être "
 "initialisée."

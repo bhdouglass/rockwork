@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-04 15:07+0000\n"
-"PO-Revision-Date: 2016-03-25 13:45+0000\n"
+"PO-Revision-Date: 2016-08-04 21:13+0000\n"
 "Last-Translator: Aitzol Berasategi <aitzol76@gmail.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-07-04 06:17+0000\n"
-"X-Generator: Launchpad (build 18115)\n"
+"X-Launchpad-Export-Date: 2016-08-05 05:49+0000\n"
+"X-Generator: Launchpad (build 18169)\n"
+"Language: eu\n"
 
 #: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:14
 msgid "App Settings"
@@ -76,23 +76,23 @@ msgstr "Guztiak ikusi"
 
 #: /home/micha/Develop/upebble/rockwork/DailySleepGraph.qml:127
 msgid "Oops! No sleep data."
-msgstr ""
+msgstr "Oops! Lo daturik ez."
 
 #: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:118
 msgid "TODAY'S STEPS"
-msgstr ""
+msgstr "GAURKO PAUSOAK"
 
 #: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:120
 msgid "YESTERDAY'S STEPS"
-msgstr ""
+msgstr "ATZOKO PAUSOAK"
 
 #: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:122
 msgid "STEPS"
-msgstr ""
+msgstr "PAUSOAK"
 
 #: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:125
 msgid "TYPICAL"
-msgstr ""
+msgstr "OHIKOA"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
 msgid "Developer Tools"
@@ -147,17 +147,16 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthInfoItem.qml:224
 msgid "KM"
-msgstr ""
+msgstr "KM"
 
 #: /home/micha/Develop/upebble/rockwork/HealthInfoItem.qml:263
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: /home/micha/Develop/upebble/rockwork/HealthPage.qml:7
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
-#, fuzzy
 msgid "Health info"
-msgstr "Osasun ezarpenak"
+msgstr "Osasun informazioa"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
@@ -323,7 +322,8 @@ msgid "Open System Settings"
 msgstr "Sistema Ezarpenak Ireki"
 
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:256
-msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
+msgid ""
+"Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Zure Pebble smartwatch-ea fabrika moduan  aurkitzen da eta beharrezkoa du "
 "berrezartzea."
@@ -339,13 +339,13 @@ msgstr "Eguneratzen..."
 #: /home/micha/Develop/upebble/rockwork/MonthlyStepsGraph.qml:120
 #: /home/micha/Develop/upebble/rockwork/WeeklyStepsGraph.qml:108
 msgid "AVERAGE STEPS"
-msgstr ""
+msgstr "PAUSOEN BATAZ-BESTEKOA"
 
 #: /home/micha/Develop/upebble/rockwork/MonthlyStepsGraph.qml:120
 #: /home/micha/Develop/upebble/rockwork/WeeklyStepsGraph.qml:108
 #, qt-format
 msgid "TYPICAL %1"
-msgstr ""
+msgstr "OHIKOA %1"
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:9
 msgid "Notifications"
@@ -430,36 +430,33 @@ msgstr "Bateratu egunkaria denbora lerroan"
 
 #: /home/micha/Develop/upebble/rockwork/WeeklySleepGraph.qml:154
 msgid "AVERAGE SLEEP"
-msgstr ""
+msgstr "LOAREN BATAZ-BESTEKOA"
 
 #: /home/micha/Develop/upebble/rockwork/WeeklySleepGraph.qml:154
 #, qt-format
 msgid "TYPICAL %1H %2M"
-msgstr ""
+msgstr "OHIOAN %1H %2M"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/AlertDialog.qml:5
-#, fuzzy
 msgid "App Settings Alert"
-msgstr "Aplikazioaren ezarpenak"
+msgstr "Aplikazio Ezarpenen Alerta"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
 msgid "App Settings Confirm Navigation"
-msgstr ""
+msgstr "Aplikazio Ezarpenen Baieztapen Nabigazioa"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:8
 msgid "Leave"
-msgstr ""
+msgstr "Irten"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:13
 msgid "Stay"
-msgstr ""
+msgstr "Geratu"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/ConfirmDialog.qml:5
-#, fuzzy
 msgid "App Settings Confirmation"
-msgstr "Aplikazioaren ezarpenak"
+msgstr "Aplikazio Ezarpenen Baieztapena"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/PromptDialog.qml:5
-#, fuzzy
 msgid "App Settings Prompt"
-msgstr "Aplikazioaren ezarpenak"
+msgstr "Aplikazio Ezarpenen Galdera"
