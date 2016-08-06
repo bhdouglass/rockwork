@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-04 15:07+0000\n"
-"PO-Revision-Date: 2016-03-14 08:03+0000\n"
-"Last-Translator: Adrian Chiang <Unknown>\n"
+"PO-Revision-Date: 2016-08-05 12:39+0000\n"
+"Last-Translator: Andi Chandler <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-08-05 05:49+0000\n"
+"X-Launchpad-Export-Date: 2016-08-06 05:51+0000\n"
 "X-Generator: Launchpad (build 18169)\n"
 "Language: \n"
 
@@ -76,23 +76,23 @@ msgstr "See all"
 
 #: /home/micha/Develop/upebble/rockwork/DailySleepGraph.qml:127
 msgid "Oops! No sleep data."
-msgstr ""
+msgstr "Oops! No sleep data."
 
 #: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:118
 msgid "TODAY'S STEPS"
-msgstr ""
+msgstr "TODAY'S STEPS"
 
 #: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:120
 msgid "YESTERDAY'S STEPS"
-msgstr ""
+msgstr "YESTERDAY'S STEPS"
 
 #: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:122
 msgid "STEPS"
-msgstr ""
+msgstr "STEPS"
 
 #: /home/micha/Develop/upebble/rockwork/DailyStepsGraph.qml:125
 msgid "TYPICAL"
-msgstr ""
+msgstr "TYPICAL"
 
 #: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:9
 msgid "Developer Tools"
@@ -145,16 +145,16 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthInfoItem.qml:224
 msgid "KM"
-msgstr ""
+msgstr "KM"
 
 #: /home/micha/Develop/upebble/rockwork/HealthInfoItem.qml:263
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: /home/micha/Develop/upebble/rockwork/HealthPage.qml:7
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
 msgid "Health info"
-msgstr ""
+msgstr "Health info"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
@@ -335,13 +335,13 @@ msgstr "Upgrading..."
 #: /home/micha/Develop/upebble/rockwork/MonthlyStepsGraph.qml:120
 #: /home/micha/Develop/upebble/rockwork/WeeklyStepsGraph.qml:108
 msgid "AVERAGE STEPS"
-msgstr ""
+msgstr "AVERAGE STEPS"
 
 #: /home/micha/Develop/upebble/rockwork/MonthlyStepsGraph.qml:120
 #: /home/micha/Develop/upebble/rockwork/WeeklyStepsGraph.qml:108
 #, qt-format
 msgid "TYPICAL %1"
-msgstr ""
+msgstr "TYPICAL %1"
 
 #: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:9
 msgid "Notifications"
@@ -426,33 +426,33 @@ msgstr "Sync calendar to Timeline"
 
 #: /home/micha/Develop/upebble/rockwork/WeeklySleepGraph.qml:154
 msgid "AVERAGE SLEEP"
-msgstr ""
+msgstr "AVERAGE SLEEP"
 
 #: /home/micha/Develop/upebble/rockwork/WeeklySleepGraph.qml:154
 #, qt-format
 msgid "TYPICAL %1H %2M"
-msgstr ""
+msgstr "TYPICAL %1H %2M"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/AlertDialog.qml:5
 msgid "App Settings Alert"
-msgstr ""
+msgstr "App Settings Alert"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
 msgid "App Settings Confirm Navigation"
-msgstr ""
+msgstr "App Settings Confirm Navigation"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:8
 msgid "Leave"
-msgstr ""
+msgstr "Leave"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:13
 msgid "Stay"
-msgstr ""
+msgstr "Stay"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/ConfirmDialog.qml:5
 msgid "App Settings Confirmation"
-msgstr ""
+msgstr "App Settings Confirmation"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/PromptDialog.qml:5
 msgid "App Settings Prompt"
-msgstr ""
+msgstr "App Settings Prompt"
