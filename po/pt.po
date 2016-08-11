@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: upebble\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-04 15:07+0000\n"
-"PO-Revision-Date: 2016-02-26 15:02+0000\n"
+"PO-Revision-Date: 2016-08-10 08:57+0000\n"
 "Last-Translator: Vitor Loureiro <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-08-05 05:49+0000\n"
+"X-Launchpad-Export-Date: 2016-08-11 06:12+0000\n"
 "X-Generator: Launchpad (build 18169)\n"
 "Language: pt\n"
 
@@ -146,16 +146,16 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/HealthInfoItem.qml:224
 msgid "KM"
-msgstr ""
+msgstr "KM"
 
 #: /home/micha/Develop/upebble/rockwork/HealthInfoItem.qml:263
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: /home/micha/Develop/upebble/rockwork/HealthPage.qml:7
 #: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
 msgid "Health info"
-msgstr ""
+msgstr "Informação de saúde"
 
 #: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
@@ -444,11 +444,11 @@ msgstr ""
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:8
 msgid "Leave"
-msgstr ""
+msgstr "Sair"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/BeforeUnloadDialog.qml:13
 msgid "Stay"
-msgstr ""
+msgstr "Ficar"
 
 #: /home/micha/Develop/upebble/rockwork/js-dialogs/ConfirmDialog.qml:5
 msgid "App Settings Confirmation"
