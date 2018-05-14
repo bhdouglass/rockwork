@@ -1,0 +1,11 @@
+{
+  "template": "qmake",
+  "dependencies": [
+    "qtconnectivity5-dev",
+    "libqt5bluetooth5",
+    "libtelepathy-qt5-dev",
+    "libqmenumodel-dev",
+    "libquazip-qt5-dev",
+    "liburl-dispatcher1-dev"
+  ]
+}
