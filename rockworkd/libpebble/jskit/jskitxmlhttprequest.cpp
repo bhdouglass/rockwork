@@ -238,7 +238,10 @@ void JSKitXMLHttpRequest::setTimeout(uint value)
     m_timeout = value;
 
     m_timeoutTimer.stop();
-    m_timeoutTimer.start(m_timeout);
+
+    if (m_timeout > 0) {
+        m_timeoutTimer.start(m_timeout);
+    }
 }
 
 uint JSKitXMLHttpRequest::status() const
