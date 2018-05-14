@@ -25,48 +25,58 @@ OrganizerAdapter::OrganizerAdapter(QObject *parent) : QObject(parent)
 
 void OrganizerAdapter::refresh()
 {
+    QList<QOrganizerCollectionId> selectedCollections;
+    foreach (const QOrganizerCollection &collection, m_manager->collections()) {
+        bool selected = collection.metaData(QtOrganizer::QOrganizerCollection::MetaDataKey::KeyExtended).toMap().value("collection-selected").toBool();
+        if (selected) {
+            selectedCollections << collection.id();
+        }
+    }
+
     QList<CalendarEvent> items;
     foreach (const QOrganizerItem &item, m_manager->items()) {
-        QOrganizerEvent organizerEvent(item);
-        if (organizerEvent.displayLabel().isEmpty()) {
-            continue;
-        }
-        CalendarEvent event;
-        event.setId(organizerEvent.id().toString());
-        event.setTitle(organizerEvent.displayLabel());
-        event.setDescription(organizerEvent.description());
-        event.setStartTime(organizerEvent.startDateTime());
-        event.setEndTime(organizerEvent.endDateTime());
-        event.setLocation(organizerEvent.location());
-        event.setComment(organizerEvent.comments().join(";"));
-        event.setIsAllDay(organizerEvent.isAllDay());
-        // on allDay events, the time portion of QDateTime is not valid. let's fix that
-        if (organizerEvent.isAllDay() && !organizerEvent.startDateTime().isValid() && organizerEvent.startDateTime().date().isValid()) {
-            QDateTime fixedStartTime;
-            fixedStartTime.setTime(QTime(12, 0));
-            fixedStartTime.setDate(organizerEvent.startDateTime().date());
-            event.setStartTime(fixedStartTime);
-        }
+        if (selectedCollections.contains(item.collectionId())) {
+            QOrganizerEvent organizerEvent(item);
+            if (organizerEvent.displayLabel().isEmpty()) {
+                continue;
+            }
+            CalendarEvent event;
+            event.setId(organizerEvent.id().toString());
+            event.setTitle(organizerEvent.displayLabel());
+            event.setDescription(organizerEvent.description());
+            event.setStartTime(organizerEvent.startDateTime());
+            event.setEndTime(organizerEvent.endDateTime());
+            event.setLocation(organizerEvent.location());
+            event.setComment(organizerEvent.comments().join(";"));
+            event.setIsAllDay(organizerEvent.isAllDay());
+            // on allDay events, the time portion of QDateTime is not valid. let's fix that
+            if (organizerEvent.isAllDay() && !organizerEvent.startDateTime().isValid() && organizerEvent.startDateTime().date().isValid()) {
+                QDateTime fixedStartTime;
+                fixedStartTime.setTime(QTime(12, 0));
+                fixedStartTime.setDate(organizerEvent.startDateTime().date());
+                event.setStartTime(fixedStartTime);
+            }
 
-        QStringList attendees;
-        foreach (const QOrganizerItemDetail &attendeeDetail, organizerEvent.details(QOrganizerItemDetail::TypeEventAttendee)) {
-            attendees.append(attendeeDetail.value(QOrganizerItemDetail::TypeEventAttendee + 1).toString());
-        }
-        event.setGuests(attendees);
-        event.setRecurring(organizerEvent.recurrenceRules().count() > 0);
+            QStringList attendees;
+            foreach (const QOrganizerItemDetail &attendeeDetail, organizerEvent.details(QOrganizerItemDetail::TypeEventAttendee)) {
+                attendees.append(attendeeDetail.value(QOrganizerItemDetail::TypeEventAttendee + 1).toString());
+            }
+            event.setGuests(attendees);
+            event.setRecurring(organizerEvent.recurrenceRules().count() > 0);
 
-        items.append(event);
-
-        quint64 startTimestamp = QDateTime::currentMSecsSinceEpoch();
-        startTimestamp -= (1000 * 60 * 60 * 24 * 7);
-
-        foreach (const QOrganizerItem &occurranceItem, m_manager->itemOccurrences(item, QDateTime::fromMSecsSinceEpoch(startTimestamp), QDateTime::currentDateTime().addDays(7))) {
-            QOrganizerEventOccurrence organizerOccurrance(occurranceItem);
-            event.generateNewUuid();
-            event.setId(organizerOccurrance.id().toString());
-            event.setStartTime(organizerOccurrance.startDateTime());
-            event.setEndTime(organizerOccurrance.endDateTime());
             items.append(event);
+
+            quint64 startTimestamp = QDateTime::currentMSecsSinceEpoch();
+            startTimestamp -= (1000 * 60 * 60 * 24 * 7);
+
+            foreach (const QOrganizerItem &occurranceItem, m_manager->itemOccurrences(item, QDateTime::fromMSecsSinceEpoch(startTimestamp), QDateTime::currentDateTime().addDays(7))) {
+                QOrganizerEventOccurrence organizerOccurrance(occurranceItem);
+                event.generateNewUuid();
+                event.setId(organizerOccurrance.id().toString());
+                event.setStartTime(organizerOccurrance.startDateTime());
+                event.setEndTime(organizerOccurrance.endDateTime());
+                items.append(event);
+            }
         }
     }
 
