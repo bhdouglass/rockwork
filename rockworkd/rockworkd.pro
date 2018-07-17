@@ -1,4 +1,4 @@
-QT += core bluetooth dbus network contacts qml location organizer websockets
+QT += core bluetooth dbus network contacts qml location organizer websockets positioning
 QT -= gui
 
 include(../version.pri)
@@ -17,8 +17,7 @@ INCLUDEPATH += /usr/lib/arm-linux-gnueabihf/glib-2.0/include /usr/lib/x86_64-lin
 LIBS += -lurl-dispatcher
 
 INCLUDEPATH += /usr/include/telepathy-qt5/ /usr/include/qmenumodel/
-#LIBS += -lquazip5 -ltelepathy-qt5 -lqmenumodel
-LIBS += -lquazip-qt5 -ltelepathy-qt5 -lqmenumodel
+LIBS += -lquazip5 -ltelepathy-qt5 -lqmenumodel
 
 SOURCES += main.cpp \
     libpebble/watchconnection.cpp \
@@ -132,8 +131,8 @@ testing: {
 
 libs.files = /usr/lib/arm-linux-gnueabihf/libQt5Bluetooth.so.5.4.1 \
              /usr/lib/arm-linux-gnueabihf/libQt5Bluetooth.so.5 \
-             /usr/lib/arm-linux-gnueabihf/libquazip-qt5.so.1.0.0 \
-             /usr/lib/arm-linux-gnueabihf/libquazip-qt5.so.1
+             /usr/lib/arm-linux-gnueabihf/libquazip5.so.1.0.0 \
+             /usr/lib/arm-linux-gnueabihf/libquazip5.so.1
 libs.path = $${UBUNTU_CLICK_BINARY_PATH}/..
 INSTALLS += libs
 

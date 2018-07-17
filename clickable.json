@@ -5,7 +5,8 @@
     "libqt5bluetooth5",
     "libtelepathy-qt5-dev",
     "libqmenumodel-dev",
-    "libquazip-qt5-dev",
-    "liburl-dispatcher1-dev"
+    "libquazip5-dev",
+    "liburl-dispatcher1-dev",
+    "qtpositioning5-dev"
   ]
 }

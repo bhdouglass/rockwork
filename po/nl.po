@@ -7,116 +7,167 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rockwork\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-10 22:16+0200\n"
+"POT-Creation-Date: 2018-07-17 17:02+0000\n"
 "PO-Revision-Date: 2016-05-08 12:22+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-06-14 06:29+0000\n"
 "X-Generator: Launchpad (build 18097)\n"
-"Language: nl\n"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:13
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppSettingsPage.qml:14
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppSettingsPage.qml:14
 msgid "App Settings"
 msgstr "App-instellingen"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:47
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppSettingsPage.qml:53
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppSettingsPage.qml:53
 msgid "Cut"
 msgstr "Knippen"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:53
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppSettingsPage.qml:59
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppSettingsPage.qml:59
 msgid "Copy"
 msgstr "Kopiëren"
 
-#: /home/micha/Develop/upebble/rockwork/AppSettingsPage.qml:59
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppSettingsPage.qml:65
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppSettingsPage.qml:65
 msgid "Paste"
 msgstr "Plakken"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStoreDetailsPage.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStoreDetailsPage.qml:9
 msgid "App details"
 msgstr "App-details"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStoreDetailsPage.qml:57
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStoreDetailsPage.qml:57
 msgid "Install"
 msgstr "Installeren"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStoreDetailsPage.qml:57
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installing..."
 msgstr "Bezig met installeren..."
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:57
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStoreDetailsPage.qml:57
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStoreDetailsPage.qml:57
 msgid "Installed"
 msgstr "Geïnstalleerd"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:235
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStoreDetailsPage.qml:235
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStoreDetailsPage.qml:235
 msgid "Description"
 msgstr "Omschrijving"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:258
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStoreDetailsPage.qml:258
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStoreDetailsPage.qml:258
 msgid "Developer"
 msgstr "Ontwikkelaar"
 
-#: /home/micha/Develop/upebble/rockwork/AppStoreDetailsPage.qml:266
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStoreDetailsPage.qml:266
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStoreDetailsPage.qml:266
 msgid "Version"
 msgstr "Versie"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStorePage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStorePage.qml:8
 msgid "Add new watchapp"
 msgstr "Nieuwe watchapp toevoegen"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStorePage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStorePage.qml:8
 msgid "Add new watchface"
 msgstr "Nieuwe watchgezicht toevoegen"
 
-#: /home/micha/Develop/upebble/rockwork/AppStorePage.qml:125
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/AppStorePage.qml:125
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/AppStorePage.qml:125
 msgid "See all"
 msgstr "Alles weergeven"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/DailySleepGraph.qml:127
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/DailySleepGraph.qml:127
+msgid "Oops! No sleep data."
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/DailyStepsGraph.qml:118
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/DailyStepsGraph.qml:118
+msgid "TODAY'S STEPS"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/DailyStepsGraph.qml:120
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/DailyStepsGraph.qml:120
+msgid "YESTERDAY'S STEPS"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/DailyStepsGraph.qml:122
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/DailyStepsGraph.qml:122
+msgid "STEPS"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/DailyStepsGraph.qml:125
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/DailyStepsGraph.qml:125
+msgid "TYPICAL"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/DeveloperToolsPage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/DeveloperToolsPage.qml:8
 msgid "Developer Tools"
 msgstr "Hulpmiddelen voor ontwikkelaars"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:27
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:11
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/DeveloperToolsPage.qml:27
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ScreenshotsPage.qml:11
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/DeveloperToolsPage.qml:27
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ScreenshotsPage.qml:11
 msgid "Screenshots"
 msgstr "Schermafbeeldingen"
 
-#: /home/micha/Develop/upebble/rockwork/DeveloperToolsPage.qml:34
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/DeveloperToolsPage.qml:34
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/DeveloperToolsPage.qml:34
 msgid "Install app or watchface from file"
 msgstr "App of watchgezicht installeren uit bestand"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:6
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:85
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/FirmwareUpgradePage.qml:6
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:85
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/FirmwareUpgradePage.qml:6
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:85
 msgid "Firmware upgrade"
 msgstr "Firmware-upgrade"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:16
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/FirmwareUpgradePage.qml:16
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/FirmwareUpgradePage.qml:16
 msgid "A new firmware upgrade is available for your Pebble smartwatch."
 msgstr ""
 "Er is een nieuwe firmware-upgrade beschikbaar voor uw Pebble-smartwatch."
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:23
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/FirmwareUpgradePage.qml:23
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/FirmwareUpgradePage.qml:23
 #, qt-format
 msgid "Currently installed firmware: %1"
 msgstr "Huidige geïnstalleerde firmware: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:29
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/FirmwareUpgradePage.qml:29
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/FirmwareUpgradePage.qml:29
 #, qt-format
 msgid "Candidate firmware version: %1"
 msgstr "Beschikbare firmware-versie: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:35
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/FirmwareUpgradePage.qml:35
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/FirmwareUpgradePage.qml:35
 #, qt-format
 msgid "Release Notes: %1"
 msgstr "Wijzigingslog: %1"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/FirmwareUpgradePage.qml:41
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/FirmwareUpgradePage.qml:41
 msgid "Important:"
 msgstr "Belangrijk:"
 
-#: /home/micha/Develop/upebble/rockwork/FirmwareUpgradePage.qml:41
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/FirmwareUpgradePage.qml:41
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/FirmwareUpgradePage.qml:41
 msgid ""
 "This update will also upgrade recovery data. Make sure your Pebble "
 "smartwarch is connected to a power adapter."
@@ -124,71 +175,116 @@ msgstr ""
 "Deze update zal ook de herstelgegevens upgraden. Zorg ervoor dat uw Pebble-"
 "smartwatch verbonden is met een lichtnetsnoer."
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthInfoItem.qml:224
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthInfoItem.qml:224
+msgid "KM"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthInfoItem.qml:263
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthInfoItem.qml:263
+msgid "M"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthPage.qml:7
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthPage.qml:7
+#, fuzzy
+msgid "Health info"
+msgstr "Gezondheid-instellingen"
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:9
 msgid "Health settings"
 msgstr "Gezondheid-instellingen"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:17
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:17
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:17
 msgid "Health app enabled"
 msgstr "De Gezondheid-app is ingeschakeld"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:28
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:28
 msgid "Female"
 msgstr "Vrouw"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:28
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:28
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:28
 msgid "Male"
 msgstr "Man"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:34
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:34
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:34
 msgid "Age"
 msgstr "Leeftijd"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:47
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:47
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:47
 msgid "Height (cm)"
 msgstr "Lengte (cm)"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:60
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:60
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:60
 msgid "Weight"
 msgstr "Gewicht"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:73
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:73
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:73
 msgid "I want to be more active"
 msgstr "Ik wil actiever zijn"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:84
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:84
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:84
 msgid "I want to sleep more"
 msgstr "Ik wil meer slaap"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:95
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:95
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/AlertDialog.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/ConfirmDialog.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/PromptDialog.qml:14
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:95
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/AlertDialog.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/ConfirmDialog.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/PromptDialog.qml:14
 msgid "OK"
 msgstr "Oké"
 
-#: /home/micha/Develop/upebble/rockwork/HealthSettingsDialog.qml:110
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:99
-#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:55
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/HealthSettingsDialog.qml:110
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ScreenshotsPage.qml:99
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SendLogsDialog.qml:55
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/ConfirmDialog.qml:13
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/PromptDialog.qml:20
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/HealthSettingsDialog.qml:110
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ScreenshotsPage.qml:99
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SendLogsDialog.qml:55
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/ConfirmDialog.qml:13
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/PromptDialog.qml:20
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: /home/micha/Develop/upebble/rockwork/ImportPackagePage.qml:7
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ImportPackagePage.qml:7
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ImportPackagePage.qml:7
 msgid "Import watchapp or watchface"
 msgstr "Watchapp of watchgezicht importeren"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:35
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InfoPage.qml:35
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InfoPage.qml:35
 #, qt-format
 msgid "Version %1"
 msgstr "Versie %1"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:45
-#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InfoPage.qml:45
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SendLogsDialog.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InfoPage.qml:45
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SendLogsDialog.qml:8
 msgid "Report problem"
 msgstr "Probleem rapporteren"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:56
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InfoPage.qml:56
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InfoPage.qml:56
 msgid "Legal"
 msgstr "Juridisch"
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:78
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InfoPage.qml:78
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InfoPage.qml:78
 msgid ""
 "This application is neither affiliated with nor endorsed by Pebble "
 "Technology Corp."
@@ -196,79 +292,103 @@ msgstr ""
 "Deze applicatie is niet aangesloten bij noch goedgekeurd door Pebble "
 "Technology Corp."
 
-#: /home/micha/Develop/upebble/rockwork/InfoPage.qml:83
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InfoPage.qml:83
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InfoPage.qml:83
 msgid "Pebble is a trademark of Pebble Technology Corp."
 msgstr "Pebble is een handelsmerk van Pebble Technology Corp."
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InstalledAppsPage.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InstalledAppsPage.qml:9
 msgid "Apps & Watchfaces"
 msgstr "Apps & Watchgezichten"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InstalledAppsPage.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InstalledAppsPage.qml:9
 msgid "Apps"
 msgstr "Apps"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InstalledAppsPage.qml:9
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InstalledAppsPage.qml:9
 msgid "Watchfaces"
 msgstr "Watchgezichten"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:167
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InstalledAppsPage.qml:167
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InstalledAppsPage.qml:167
 msgid "Launch"
 msgstr "Starten"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:176
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InstalledAppsPage.qml:176
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InstalledAppsPage.qml:176
 msgid "Configure"
 msgstr "Instellen"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:186
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:91
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InstalledAppsPage.qml:186
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ScreenshotsPage.qml:91
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InstalledAppsPage.qml:186
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ScreenshotsPage.qml:91
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: /home/micha/Develop/upebble/rockwork/InstalledAppsPage.qml:196
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/InstalledAppsPage.qml:196
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/InstalledAppsPage.qml:196
 msgid "Close"
 msgstr "Sluiten"
 
-#: /home/micha/Develop/upebble/rockwork/Main.qml:95
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/LoadingPage.qml:42
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/Main.qml:95
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/LoadingPage.qml:42
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/Main.qml:95
 msgid "Loading..."
 msgstr "Bezig met laden…"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:15
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:15
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:15
 msgid "About"
 msgstr "Over"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:22
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:22
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:22
 msgid "Developer tools"
 msgstr "Hulpmiddelen voor ontwikkelaars"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:53
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:53
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:53
 msgid "Manage notifications"
 msgstr "Meldingen beheren"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:60
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:60
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:60
 msgid "Manage Apps"
 msgstr "Apps beheren"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:68
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:68
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:68
 msgid "Manage Watchfaces"
 msgstr "Watchgezichten beheren"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:76
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:76
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SettingsPage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:76
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SettingsPage.qml:8
 msgid "Settings"
 msgstr "Instellingen"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:191
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:191
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/PebblesPage.qml:36
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:191
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/PebblesPage.qml:36
 msgid "Connected"
 msgstr "Verbonden"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:191
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:36
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:191
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/PebblesPage.qml:36
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:191
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/PebblesPage.qml:36
 msgid "Disconnected"
 msgstr "Niet verbonden"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:204
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:204
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:204
 msgid ""
 "Your Pebble smartwatch is disconnected. Please make sure it is powered on, "
 "within range and it is paired properly in the Bluetooth System Settings."
@@ -277,30 +397,51 @@ msgstr ""
 "het bereik valt en correct is gekoppeld middels de Bluetooth-"
 "systeeminstellingen."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:214
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:64
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:214
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/PebblesPage.qml:64
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:214
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/PebblesPage.qml:64
 msgid "Open System Settings"
 msgstr "Systeeminstellingen openen"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:222
-msgid ""
-"Your Pebble smartwatch is in factory mode and needs to be initialized."
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:222
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:222
+msgid "Your Pebble smartwatch is in factory mode and needs to be initialized."
 msgstr ""
 "Uw Pebble-smartwatch is in fabrieksmodus en moet worden geïnitialiseerd."
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:231
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:231
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:231
 msgid "Initialize Pebble"
 msgstr "Pebble initialiseren"
 
-#: /home/micha/Develop/upebble/rockwork/MainMenuPage.qml:263
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MainMenuPage.qml:263
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MainMenuPage.qml:263
 msgid "Upgrading..."
 msgstr "Bezig met upgraden..."
 
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MonthlyStepsGraph.qml:120
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/WeeklyStepsGraph.qml:108
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MonthlyStepsGraph.qml:120
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/WeeklyStepsGraph.qml:108
+msgid "AVERAGE STEPS"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/MonthlyStepsGraph.qml:120
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/WeeklyStepsGraph.qml:108
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/MonthlyStepsGraph.qml:120
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/WeeklyStepsGraph.qml:108
+#, qt-format
+msgid "TYPICAL %1"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/NotificationsPage.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/NotificationsPage.qml:8
 msgid "Notifications"
 msgstr "Meldingen"
 
-#: /home/micha/Develop/upebble/rockwork/NotificationsPage.qml:29
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/NotificationsPage.qml:29
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/NotificationsPage.qml:29
 msgid ""
 "Entries here will be added as notifications appear on the phone. Selected "
 "notifications will be shown on your Pebble smartwatch."
@@ -309,11 +450,13 @@ msgstr ""
 "zullen verschijnen. Geselecteerde meldingen zullen worden weergegeven op uw "
 "Pebble-smartwatch."
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:6
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/PebblesPage.qml:6
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/PebblesPage.qml:6
 msgid "Manage Pebble Watches"
 msgstr "Pebble-watches beheren"
 
-#: /home/micha/Develop/upebble/rockwork/PebblesPage.qml:57
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/PebblesPage.qml:57
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/PebblesPage.qml:57
 msgid ""
 "No Pebble smartwatches configured yet. Please connect your Pebble smartwatch "
 "using System Settings."
@@ -321,59 +464,118 @@ msgstr ""
 "Er zijn nog geen Pebble-smartwatches ingesteld; verbind uw Pebble-smartwatch "
 "via Systeeminstellingen."
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:69
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ScreenshotsPage.qml:69
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ScreenshotsPage.qml:69
 msgid "Screenshot options"
 msgstr "Schermafbeeldingsopties"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:74
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ScreenshotsPage.qml:74
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ScreenshotsPage.qml:74
 msgid "Share"
 msgstr "Delen"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:77
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:85
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ScreenshotsPage.qml:77
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ScreenshotsPage.qml:85
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ScreenshotsPage.qml:77
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ScreenshotsPage.qml:85
 msgid "Pebble screenshot"
 msgstr "Pebble-schermafbeelding"
 
-#: /home/micha/Develop/upebble/rockwork/ScreenshotsPage.qml:82
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/ScreenshotsPage.qml:82
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/ScreenshotsPage.qml:82
 msgid "Save"
 msgstr "Opslaan"
 
-#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:18
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SendLogsDialog.qml:18
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SendLogsDialog.qml:18
 msgid "Preparing logs package..."
 msgstr "Bezig met voorbereiden van logbestandpakket..."
 
-#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:29
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SendLogsDialog.qml:29
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SendLogsDialog.qml:29
 msgid "pebble.log"
 msgstr "pebble.log"
 
-#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:36
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SendLogsDialog.qml:36
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SendLogsDialog.qml:36
 msgid "Send rockworkd.log"
 msgstr "Rockworkd.log vesturen"
 
-#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:41
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SendLogsDialog.qml:41
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SendLogsDialog.qml:41
 msgid "rockworkd.log"
 msgstr "rockworkd.log"
 
-#: /home/micha/Develop/upebble/rockwork/SendLogsDialog.qml:46
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SendLogsDialog.qml:46
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SendLogsDialog.qml:46
 msgid "Send watch logs"
 msgstr "Watch-logbestanden versturen"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:19
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SettingsPage.qml:19
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SettingsPage.qml:19
 msgid "Distance Units"
 msgstr "Afstandsmaten"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:35
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SettingsPage.qml:35
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SettingsPage.qml:35
 msgid "Metric"
 msgstr "Metrisch"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:48
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SettingsPage.qml:48
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SettingsPage.qml:48
 msgid "Imperial"
 msgstr "Imperiaal"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:55
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SettingsPage.qml:55
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SettingsPage.qml:55
 msgid "Calendar"
 msgstr "Agenda"
 
-#: /home/micha/Develop/upebble/rockwork/SettingsPage.qml:62
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/SettingsPage.qml:62
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/SettingsPage.qml:62
 msgid "Sync calendar to timeline"
 msgstr "Agenda synchroniseren met tijdlijn"
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/WeeklySleepGraph.qml:154
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/WeeklySleepGraph.qml:154
+msgid "AVERAGE SLEEP"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/WeeklySleepGraph.qml:154
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/WeeklySleepGraph.qml:154
+#, qt-format
+msgid "TYPICAL %1H %2M"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/AlertDialog.qml:5
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/AlertDialog.qml:5
+#, fuzzy
+msgid "App Settings Alert"
+msgstr "App-instellingen"
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/BeforeUnloadDialog.qml:5
+msgid "App Settings Confirm Navigation"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/BeforeUnloadDialog.qml:8
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/BeforeUnloadDialog.qml:8
+msgid "Leave"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/BeforeUnloadDialog.qml:13
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/BeforeUnloadDialog.qml:13
+msgid "Stay"
+msgstr ""
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/ConfirmDialog.qml:5
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/ConfirmDialog.qml:5
+#, fuzzy
+msgid "App Settings Confirmation"
+msgstr "App-instellingen"
+
+#: /home/brian/dev/ubuntu/apps/rockwork/rockwork/js-dialogs/PromptDialog.qml:5
+#: /home/brian/dev/ubuntu/apps/rockwork/archive/trunk/rockwork/js-dialogs/PromptDialog.qml:5
+#, fuzzy
+msgid "App Settings Prompt"
+msgstr "App-instellingen"
