@@ -362,4 +362,3 @@ QString AppItem::headerImage() const
 {
     return m_headerImage;
 }
-
